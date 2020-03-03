@@ -35,6 +35,15 @@ public class Person extends BaseEntity {
 	@NotEmpty
 	protected String lastName;
 
+	@Column(name = "dni")
+	@Pattern("/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i")
+	@NotEmpty
+	protected String dni;
+	
+	@NotEmpty
+	@Pattern("/d{9}/")
+	protected String phone;
+	
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -50,5 +59,20 @@ public class Person extends BaseEntity {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
+	
+	public String getDni() {
+		return this.dni;
+	}
+	
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	
+	public String getPhoneNumber() {
+		return this.phone;
+	}
+	
+	public void setPhoneNumber(String phone) {
+		this.phone = phone;
+	}
 }
