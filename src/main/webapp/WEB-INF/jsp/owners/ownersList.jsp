@@ -36,11 +36,6 @@
                 <td>
                     <c:out value="${owner.telephone}"/>
                 </td>
-                <td>
-                    <c:forEach var="pet" items="${owner.pets}">
-                        <c:out value="${pet.name} "/>
-                    </c:forEach>
-                </td>
                 
       
 <!--
