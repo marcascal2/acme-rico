@@ -20,6 +20,8 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import lombok.Data;
+
 /**
  * Simple JavaBean domain object representing an person.
  *

@@ -5,6 +5,8 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import org.springframework.samples.petclinic.utilities.EmployeeType;
 
+import lombok.Data;
+
 @Data
 @MappedSuperclass
 public class Employee extends User{
