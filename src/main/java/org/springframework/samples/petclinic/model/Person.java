@@ -25,8 +25,6 @@ import javax.validation.constraints.Pattern;
  *
  * @author Ken Krebs
  */
-
-@Data
 @MappedSuperclass
 public class Person extends BaseEntity {
 
@@ -47,4 +45,35 @@ public class Person extends BaseEntity {
 	@Pattern(regexp = "/d{9}/")
 	protected String phone;
 	
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public String getDni() {
+		return this.dni;
+	}
+	
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	
+	public String getPhoneNumber() {
+		return this.phone;
+	}
+	
+	public void setPhoneNumber(String phone) {
+		this.phone = phone;
+	}
 }
