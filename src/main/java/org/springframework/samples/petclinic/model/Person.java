@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 /**
  * Simple JavaBean domain object representing an person.
@@ -36,12 +37,12 @@ public class Person extends BaseEntity {
 	protected String lastName;
 
 	@Column(name = "dni")
-	@Pattern("/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i")
+	@Pattern(regexp = "/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i")
 	@NotEmpty
 	protected String dni;
 	
 	@NotEmpty
-	@Pattern("/d{9}/")
+	@Pattern(regexp = "/d{9}/")
 	protected String phone;
 	
 	public String getFirstName() {
