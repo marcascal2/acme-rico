@@ -1,4 +1,4 @@
-# Spring PetClinic Sample Application 
+# Acme-Rico Application 
 
 [REPARTO DE TAREAS](https://github.com/marcascal2/acme-rico/blob/master/tasks.md)
 
@@ -6,7 +6,7 @@ This is a fork of https://github.com/spring-projects/spring-petclinic to be used
 - Trimming several parts of the application to keep the example low
 - Reorganize some parts of the code according to best practices introduced in the course
 
-## Understanding the Spring Petclinic application with a few diagrams
+## Understanding the Acme-Rico application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
 ## Running petclinic locally
@@ -30,7 +30,7 @@ Or you can run it from Maven directly using the Spring Boot Maven plugin. If you
 ./mvnw spring-boot:run
 ```
 
-## In case you find a bug/suggested improvement for Spring Petclinic
+## In case you find a bug/suggested improvement for Acme-Rico
 Our issue tracker is available here: https://github.com/gii-is-DP2/spring-petclinic/issues
 
 
@@ -98,9 +98,9 @@ Visit [http://localhost:8080](http://localhost:8080) in your browser.
 |Properties Files | [application.properties](https://github.com/gii-is-DP2/spring-petclinic/blob/master/src/main/resources) |
 |Caching | [CacheConfiguration](https://github.com/gii-is-DP2/spring-petclinic/blob/master/src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java) |
 
-## Interesting Spring Petclinic branches and forks
+## Interesting Acme-Rico branches and forks
 
-The Spring Petclinic master branch in the main [spring-projects](https://github.com/spring-projects/spring-petclinic)
+The Acme Rico master branch in the main [spring-projects](https://github.com/spring-projects/spring-petclinic)
 GitHub org is the "canonical" implementation, currently based on Spring Boot and Thymeleaf. There are
 [quite a few forks](https://spring-petclinic.github.io/docs/forks.html) in a special GitHub org
 [spring-petclinic](https://github.com/spring-petclinic). If you have a special interest in a different technology stack
