@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 
-import lombok.Data;
-
 @Data
 @MappedSuperclass
 public class Client extends User {
