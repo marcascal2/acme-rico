@@ -2,7 +2,7 @@
 
 [REPARTO DE TAREAS](https://github.com/marcascal2/acme-rico/blob/master/tasks.md)
 
-[HISTORIAS DE USUARIO](https://github.com/marcascal2/acme-rico/blob/master/tasks.md)
+[HISTORIAS DE USUARIO](https://drive.google.com/open?id=1aRuunAi2xsZ3byhwTv1dXPHnwUEEDQyc)
 
 This is a fork of https://github.com/spring-projects/spring-petclinic to be used for the DP2 course. The main changes that have been performed were:
 - Trimming several parts of the application to keep the example low
