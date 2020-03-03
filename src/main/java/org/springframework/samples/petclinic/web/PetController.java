@@ -34,7 +34,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;

@@ -1,7 +1,6 @@
 DROP TABLE vet_specialties IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
-DROP TABLE visits IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
@@ -54,15 +53,6 @@ CREATE TABLE pets (
 ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
 ALTER TABLE pets ADD CONSTRAINT fk_pets_types FOREIGN KEY (type_id) REFERENCES types (id);
 CREATE INDEX pets_name ON pets (name);
-
-CREATE TABLE visits (
-  id          INTEGER IDENTITY PRIMARY KEY,
-  pet_id      INTEGER NOT NULL,
-  visit_date  DATE,
-  description VARCHAR(255)
-);
-ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
-CREATE INDEX visits_pet_id ON visits (pet_id);
 
 CREATE TABLE users(
 	username varchar_ignorecase(255) NOT NULL PRIMARY KEY,
