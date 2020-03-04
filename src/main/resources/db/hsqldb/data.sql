@@ -23,3 +23,7 @@ INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (1,'5541147884694773','0
 INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (2,'5496675056390627','02/2021','223');
 INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (3,'5159262819350277','03/2021','124');
 INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (4,'5535869122542955','04/2021','523');
+
+INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
+INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
+INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');

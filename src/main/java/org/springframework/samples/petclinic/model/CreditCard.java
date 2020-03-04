@@ -1,10 +1,8 @@
 package org.springframework.samples.petclinic.model;
 
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -24,7 +22,7 @@ public class CreditCard extends BaseEntity {
 	@CreditCardNumber
 	private String number;
 
-	@Pattern(regexp = "[0-9]{2}/[0-9]{4}")
+	@Pattern(regexp = "[0-9]{2}/[0-9]{4}", message = "Incorrect deadline")
 	@NotNull
 	private String	deadline;
 

@@ -22,3 +22,9 @@ CREATE TABLE IF NOT EXISTS credit_cards (
   cvv    VARCHAR(20),
     INDEX(account_number_origin)
 )engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS cc_applications (
+  id         INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  status	 VARCHAR(20),
+    INDEX(account_number_origin)
+)engine=InnoDB;
