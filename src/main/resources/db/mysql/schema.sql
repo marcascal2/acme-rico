@@ -14,3 +14,11 @@ CREATE TABLE IF NOT EXISTS instant_transfers (
   destination    VARCHAR(20),
     INDEX(account_number_origin)
 )engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS credit_cards (
+  id         INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  number VARCHAR(20),
+  deadline  	 VARCHAR(20),
+  cvv    VARCHAR(20),
+    INDEX(account_number_origin)
+)engine=InnoDB;
