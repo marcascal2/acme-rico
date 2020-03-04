@@ -14,11 +14,11 @@ import lombok.Data;
 @Table(name = "transfer_applications")
 public class TransferApplication extends BaseEntity {
 
-	@NotNull
-	private Double amount;
-	
 	@NotEmpty
 	private TransferApplicationStatus status;
+	
+	@NotNull
+	private Double amount;
 
 	@NotEmpty
 	@Pattern(regexp = "^[A-Z]{2}(?:[]?[0-9]){18-20}$", message = "Invalid account number")
