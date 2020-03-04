@@ -1,17 +1,17 @@
 DROP TABLE owners IF EXISTS;
 DROP TABLE clients IF EXISTS;
+DROP TABLE bank_accounts IF EXISTS;
 DROP TABLE users IF EXISTS;
 DROP TABLE authorities IF EXISTS;
 
-CREATE TABLE owners (
+CREATE TABLE bank_accounts (
   id         INTEGER IDENTITY PRIMARY KEY,
-  first_name VARCHAR(30),
-  last_name  VARCHAR_IGNORECASE(30),
-  address    VARCHAR(255),
-  city       VARCHAR(80),
-  telephone  VARCHAR(20)
+  account_number VARCHAR(20),
+  amount  	DOUBLE,
+  created_at    DATE,
+  alias       VARCHAR(30),
 );
-CREATE INDEX owners_last_name ON owners (last_name);
+CREATE INDEX bank_accounts_account_number ON bank_accounts (account_number);
 
 CREATE TABLE clients (
   id         INTEGER IDENTITY PRIMARY KEY,
