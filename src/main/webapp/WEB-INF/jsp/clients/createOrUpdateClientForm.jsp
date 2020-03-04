@@ -17,6 +17,11 @@
             <petclinic:inputField label="Address" name="address"/>
             <petclinic:inputField label="Birth Date" name="birthDate"/>
             <petclinic:inputField label="City" name="city"/>
+            <petclinic:inputField label="Marital Status" name="maritalStatus"/>
+            <petclinic:inputField label="Salary Per Year" name="salaryPerYear"/>
+            <petclinic:inputField label="Age" name="age"/>
+            <petclinic:inputField label="Job" name="job"/>
+            <petclinic:inputField label="Last Employ Date" name="lastEmployDate"/>
             <petclinic:inputField label="Username" name="user.username"/>
             <petclinic:inputField label="Password" name="user.password"/>
         </div>

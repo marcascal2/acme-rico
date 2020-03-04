@@ -34,7 +34,7 @@
 
     <br/> 
     <sec:authorize access="hasAuthority('admin')">
-		<a class="btn btn-default" href='<spring:url value="/owners/new" htmlEscape="true"/>'>Add Client</a>
+		<a class="btn btn-default" href='<spring:url value="/clients/new" htmlEscape="true"/>'>Add Client</a>
 	</sec:authorize>
 	
 </petclinic:layout>

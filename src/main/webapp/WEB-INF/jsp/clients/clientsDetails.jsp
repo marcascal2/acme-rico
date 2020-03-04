@@ -26,6 +26,26 @@
             <th>City</th>
             <td><c:out value="${client.city}"/></td>
         </tr>
+        <tr>
+            <th>Marital Status</th>
+            <td><c:out value="${client.maritalStatus}"/></td>
+        </tr>
+        <tr>
+            <th>Salary Per Year</th>
+            <td><c:out value="${client.salaryPerYear}"/></td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td><c:out value="${client.age}"/></td>
+        </tr>
+        <tr>
+            <th>Job</th>
+            <td><c:out value="${client.job}"/></td>
+        </tr>
+        <tr>
+            <th>Last Employ Date</th>
+            <td><c:out value="${client.lastEmployDate}"/></td>
+        </tr>
     </table>
 
     <spring:url value="{clientId}/edit" var="editUrl">

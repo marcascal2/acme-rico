@@ -1,4 +1,3 @@
-DROP TABLE owners IF EXISTS;
 DROP TABLE clients IF EXISTS;
 DROP TABLE bank_accounts IF EXISTS;
 DROP TABLE users IF EXISTS;
@@ -19,7 +18,12 @@ CREATE TABLE clients (
   last_name  VARCHAR_IGNORECASE(30),
   address VARCHAR(30),
   birth_date    DATE,
-  city       VARCHAR(80),
+  city       VARCHAR(30),
+  marital_status VARCHAR(30),
+  salaty_per_year DOUBLE,
+  age 		INTEGER,
+  job VARCHAR(80),
+  last_employ_date DATE,
   username VARCHAR(80)
 );
 CREATE INDEX clients_last_name ON clients (last_name);

@@ -15,6 +15,11 @@
             <th style="width: 200px;">Address</th>
             <th>Birth Date</th>
             <th style="width: 120px">City</th>
+            <th style="width: 120px">Marital Status</th>
+            <th style="width: 120px">Salary Per Year</th>
+            <th style="width: 120px">Age</th>
+            <th style="width: 120px">Job</th>
+            <th style="width: 120px">Last Employ Date</th>
         </tr>
         </thead>
         <tbody>
@@ -35,8 +40,22 @@
                 <td>
                     <c:out value="${client.city}"/>
                 </td>
+                <td>
+                    <c:out value="${client.maritalStatus}"/>
+                </td>
+                <td>
+                    <c:out value="${client.salaryPerYear}"/>
+                </td>
+                <td>
+                    <c:out value="${client.age}"/>
+                </td>
+                <td>
+                    <c:out value="${client.job}"/>
+                </td>
+                <td>
+                    <c:out value="${client.lastEmployDate}"/>
+                </td>
                 
-      
 <!--
                 <td> 
                     <c:out value="${owner.user.username}"/> 
