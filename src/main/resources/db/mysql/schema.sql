@@ -25,6 +25,6 @@ CREATE TABLE IF NOT EXISTS credit_cards (
 
 CREATE TABLE IF NOT EXISTS cc_applications (
   id         INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  status	 VARCHAR(20),
+  status	 VARCHAR(20) CHECK (status in ('ACCEPTED','REJECTED','PENDING'),
     INDEX(account_number_origin)
 )engine=InnoDB;

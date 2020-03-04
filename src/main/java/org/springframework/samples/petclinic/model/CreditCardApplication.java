@@ -22,9 +22,9 @@ public class CreditCardApplication extends BaseEntity{
 
 }
 
-enum StatusCreditCardApplication{
-	ACCEPTED,
-	REJECTED,
-	PENDING
-	
-}
+//enum StatusCreditCardApplication{
+//	ACCEPTED,
+//	REJECTED,
+//	PENDING
+//	
+//}
