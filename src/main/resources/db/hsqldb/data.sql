@@ -18,3 +18,16 @@ INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUE
 INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (2, 'ES7921000813610123456789', 45.54, 'ES9121000418450200051332');
 INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (3, 'ES5304871584883649447311', 3.43, 'ES5304871584883649447311');
 INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (4, 'ES6920383217998112214616', 36.87, 'ES6920383217998112214616');
+
+-- TRANSFERS
+INSERT INTO transfers VALUES (1,'ES123456789012345678','200.30','ES09876543225852246');
+INSERT INTO transfers VALUES (2,'ES123456789009876543','150.00','ES09876544642686232');
+INSERT INTO transfers VALUES (3,'ES123456789056789012','2000.80','ES09847634576735432');
+INSERT INTO transfers VALUES (4,'ES123436742694567890','304.90','ES09876543346356342');
+
+--TRANSFER APPLICATIONS
+INSERT INTO transfer_applications VALUES (1,1);
+INSERT INTO transfer_applications VALUES (2,2);
+INSERT INTO transfer_applications VALUES (3,2);
+INSERT INTO transfer_applications VALUES (4,1);
+
