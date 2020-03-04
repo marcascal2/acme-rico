@@ -53,12 +53,6 @@
 
 		> D - Como director, listado de préstamos concedidos - Historia 19
 
-6. Todo lo relacionado con el pago de impuestos: 
-
-		> A - Como director del banco, poder registrar un nuevo tipo de impuesto público -  Historia 22
-
-		> B - Como cliente, poder realizar pagos de impuestos públicos - Historia 11
-
 7. Todo lo relacionado con estadísticas:
 
 		> A - Como director, acceder a las estadísticas globales del banco - Historia 1
