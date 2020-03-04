@@ -42,7 +42,7 @@ public class ClientService {
 		//creating user
 		userService.saveUser(client.getUser());
 		//creating authorities
-		authoritiesService.saveAuthorities(client.getUser().getUsername(), "owner");
+		authoritiesService.saveAuthorities(client.getUser().getUsername(), "client");
 	}		
 
 }

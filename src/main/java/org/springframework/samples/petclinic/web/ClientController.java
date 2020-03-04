@@ -91,7 +91,7 @@ public class ClientController {
 	}
 
 	@GetMapping(value = "/clients/{clientId}/edit")
-	public String initUpdateClientForm(@PathVariable("ownerId") int clientId, Model model) {
+	public String initUpdateClientForm(@PathVariable("clientId") int clientId, Model model) {
 		Client client = this.clientService.findClientById(clientId);
 		model.addAttribute(client);
 		return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
@@ -115,8 +115,8 @@ public class ClientController {
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
-	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showClient(@PathVariable("ownerId") int clientId) {
+	@GetMapping("/clients/{clientId}")
+	public ModelAndView showClient(@PathVariable("clientId") int clientId) {
 		ModelAndView mav = new ModelAndView("clients/clientsDetails");
 		mav.addObject(this.clientService.findClientById(clientId));
 		return mav;

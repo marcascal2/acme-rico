@@ -1,4 +1,5 @@
 DROP TABLE owners IF EXISTS;
+DROP TABLE clients IF EXISTS;
 DROP TABLE users IF EXISTS;
 DROP TABLE authorities IF EXISTS;
 
@@ -11,6 +12,17 @@ CREATE TABLE owners (
   telephone  VARCHAR(20)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
+
+CREATE TABLE clients (
+  id         INTEGER IDENTITY PRIMARY KEY,
+  first_name VARCHAR(30),
+  last_name  VARCHAR_IGNORECASE(30),
+  address VARCHAR(30),
+  birth_date    DATE,
+  city       VARCHAR(80),
+  username VARCHAR(80)
+);
+CREATE INDEX clients_last_name ON clients (last_name);
 
 CREATE TABLE users(
 	username varchar_ignorecase(255) NOT NULL PRIMARY KEY,

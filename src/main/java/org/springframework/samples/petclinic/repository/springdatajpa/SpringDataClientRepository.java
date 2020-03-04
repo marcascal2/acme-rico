@@ -15,7 +15,7 @@ public interface SpringDataClientRepository extends ClientRepository, Repository
 	public Collection<Client> findByLastName(@Param("lastName") String lastName);
 
 	@Override
-	@Query("SELECT client FROM Client client WHERE owner.id =:id")
+	@Query("SELECT client FROM Client client WHERE client.id =:id")
 	public Client findById(@Param("id") int id);
 	
 }
