@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -10,12 +10,10 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 
 import com.sun.istack.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "credit_cards")
 public class CreditCard extends BaseEntity {
 
@@ -24,7 +22,7 @@ public class CreditCard extends BaseEntity {
 
 	@Pattern(regexp = "[0-9]{2}/[0-9]{4}", message = "Incorrect deadline")
 	@NotNull
-	private String	deadline;
+	private String deadline;
 
 	@NotBlank
 	@Pattern(regexp = "[0-9]{3}", message = "Incorrect CVV")
