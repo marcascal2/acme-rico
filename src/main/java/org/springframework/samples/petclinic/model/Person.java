@@ -18,7 +18,6 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 /**
  * Simple JavaBean domain object representing an person.

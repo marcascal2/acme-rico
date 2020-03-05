@@ -1,3 +1,4 @@
+DROP TABLE employees IF EXISTS;
 DROP TABLE clients IF EXISTS;
 DROP TABLE bank_accounts IF EXISTS;
 DROP TABLE users IF EXISTS;
@@ -11,6 +12,15 @@ CREATE TABLE bank_accounts (
   alias       VARCHAR(30),
 );
 CREATE INDEX bank_accounts_account_number ON bank_accounts (account_number);
+
+CREATE TABLE employees (
+  id         INTEGER IDENTITY PRIMARY KEY,
+  first_name VARCHAR(30),
+  last_name  VARCHAR_IGNORECASE(30),
+  salary DOUBLE,
+  username VARCHAR(80)
+);
+CREATE INDEX employees_last_name ON employees (last_name);
 
 CREATE TABLE clients (
   id         INTEGER IDENTITY PRIMARY KEY,
