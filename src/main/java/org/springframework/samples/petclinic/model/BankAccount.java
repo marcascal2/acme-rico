@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "bank_accounts")
+@Valid
 public class BankAccount extends BaseEntity {
 	
 	@Pattern(regexp = "^[A-Z]{2}(?:[ ]?[0-9]){18,20}$", message="Invalid account number")

@@ -14,7 +14,7 @@ INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (3, 
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (4, 'ES6920383217998112214616', 5436.87, '2018-06-17', 'Coche nuevo');
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (5, 'ES5001827947584138683181', 123, '2015-11-08', 'Regalos');
 
-INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (1, 'ES9121000418450200051332', 167.34, 'ES7921000813610123456789');
-INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (2, 'ES7921000813610123456789', 45.54, 'ES9121000418450200051332');
-INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (3, 'ES5304871584883649447311', 3.43, 'ES5304871584883649447311');
-INSERT INTO instant_transfers(id,account_number_origin,amount,destination) VALUES (4, 'ES6920383217998112214616', 36.87, 'ES6920383217998112214616');
+INSERT INTO instant_transfers(id,amount,destination) VALUES (1, 167.34, 'ES7921000813610123456789');
+INSERT INTO instant_transfers(id,amount,destination) VALUES (2, 45.54, 'ES9121000418450200051332');
+INSERT INTO instant_transfers(id,amount,destination) VALUES (3, 3.43, 'ES5304871584883649447311');
+INSERT INTO instant_transfers(id,amount,destination) VALUES (4, 36.87, 'ES6920383217998112214616');
