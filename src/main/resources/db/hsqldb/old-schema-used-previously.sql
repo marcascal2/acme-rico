@@ -13,11 +13,10 @@ CREATE INDEX bank_accounts_account_number ON bank_accounts (account_number);
 
 CREATE TABLE instant_transfers (
   id         INTEGER IDENTITY PRIMARY KEY,
-  account_number_origin VARCHAR(20),
   amount  	DOUBLE,
   destination    VARCHAR(20),
 );
-CREATE INDEX instant_transfers_account_number_origin ON instant_transfers (account_number_origin);
+CREATE INDEX instant_transfers_id ON instant_transfers (id);
 
 
 CREATE TABLE users(

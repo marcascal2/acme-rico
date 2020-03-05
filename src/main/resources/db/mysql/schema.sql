@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS bank_accounts (
 
 CREATE TABLE IF NOT EXISTS instant_transfers (
   id         INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  account_number_origin VARCHAR(20),
   amount  	DOUBLE,
   destination    VARCHAR(20),
-    INDEX(account_number_origin)
+    INDEX(id)
 )engine=InnoDB;
