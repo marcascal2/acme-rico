@@ -3,9 +3,9 @@ INSERT INTO users(username,password,enabled) VALUES ('director1','director1',TRU
 INSERT INTO authorities VALUES ('director1','director');
 -- Employees
 INSERT INTO users(username,password,enabled) VALUES ('employee1','employee1',TRUE);
-INSERT INTO authorities VALUES ('employee1','employee');
+INSERT INTO authorities VALUES ('employee1','worker');
 INSERT INTO users(username,password,enabled) VALUES ('employee2','employee2',TRUE);
-INSERT INTO authorities VALUES ('employee2','employee');
+INSERT INTO authorities VALUES ('employee2','worker');
 -- Clients
 INSERT INTO users(username,password,enabled) VALUES ('client1','client1',TRUE);
 INSERT INTO authorities VALUES ('client1','client');
