@@ -20,8 +20,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
-import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.model.Client;
+import org.springframework.samples.petclinic.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,11 +36,37 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
 
-	private static final String VIEWS_OWNER_CREATE_FORM = "users/createOwnerForm";
+	private static final String VIEWS_CLIENT_CREATE_FORM = "users/createClientForm";
+
+	private final ClientService clientService;
+
+	@Autowired
+	public UserController(ClientService clinicService) {
+		this.clientService = clinicService;
+	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+
+	@GetMapping(value = "/users/new")
+	public String initCreationForm(Map<String, Object> model) {
+		Client client = new Client();
+		model.put("client", client);
+		return VIEWS_CLIENT_CREATE_FORM;
+	}
+
+	@PostMapping(value = "/users/new")
+	public String processCreationForm(@Valid Client client, BindingResult result) {
+		if (result.hasErrors()) {
+			return VIEWS_CLIENT_CREATE_FORM;
+		}
+		else {
+			//creating owner, user, and authority
+			this.clientService.saveClient(client);
+			return "redirect:/";
+		}
 	}
 
 }

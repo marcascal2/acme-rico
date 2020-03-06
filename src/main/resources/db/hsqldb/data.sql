@@ -1,12 +1,22 @@
--- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
-INSERT INTO authorities VALUES ('admin1','admin');
--- One owner user, named owner1 with passwor 0wn3r
-INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
-INSERT INTO authorities VALUES ('owner1','owner');
--- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities VALUES ('vet1','veterinarian');
+-- Director
+INSERT INTO users(username,password,enabled) VALUES ('director1','director1',TRUE);
+INSERT INTO authorities VALUES ('director1','director');
+-- Employees
+INSERT INTO users(username,password,enabled) VALUES ('employee1','employee1',TRUE);
+INSERT INTO authorities VALUES ('employee1','worker');
+INSERT INTO users(username,password,enabled) VALUES ('employee2','employee2',TRUE);
+INSERT INTO authorities VALUES ('employee2','worker');
+-- Clients
+INSERT INTO users(username,password,enabled) VALUES ('client1','client1',TRUE);
+INSERT INTO authorities VALUES ('client1','client');
+INSERT INTO users(username,password,enabled) VALUES ('client2','client2',TRUE);
+INSERT INTO authorities VALUES ('client2','client');
+INSERT INTO users(username,password,enabled) VALUES ('client3','client3',TRUE);
+INSERT INTO authorities VALUES ('client3','client');
+INSERT INTO users(username,password,enabled) VALUES ('client4','client4',TRUE);
+INSERT INTO authorities VALUES ('client4','client');
+INSERT INTO users(username,password,enabled) VALUES ('client5','client5',TRUE);
+INSERT INTO authorities VALUES ('client5','client');
 
 -- BANK ACCOUNTS
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (1, 'ES9121000418450200051332', 2567.34, '2019-01-03', 'Viajes');
@@ -43,4 +53,16 @@ INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (4,'5535869122542955','0
 INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
 INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
 INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
+
+-- EMPLOYEES
+INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
+INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0', 'employee1');
+INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'employee2');
+
+-- CLIENTS
+INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client1');
+INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client2');
+INSERT INTO clients VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', '23', '1998-04-04', 'McFarland', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client3');
+INSERT INTO clients VALUES (4, 'Harold', 'Davis', '563 Friendly St.', '23', '1998-04-04', 'Windsor', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client4');
+INSERT INTO clients VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client5');
 
