@@ -5,25 +5,25 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 
-<petclinic:layout pageName="transfers">
+<petclinic:layout pageName="transfersApp">
 	<h2>Events</h2>
 
-	<table id="transferTable" class="table table-striped">
+	<table id="transfersAppTable" class="table table-striped">
 		<thead>
 			<tr>
 				<th style="width: 150px;">Id</th>
-				<th style="width: 150px;">Account Number</th>
+				<th style="width: 150px;">Status</th>
 				<th style="width: 150px;">Amount</th>
-				<th style="width: 200px;">Destination</th>
+				<th style="width: 200px;">Account Number</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${transfers}" var="transfer">
+			<c:forEach items="${transfers_app}" var="transfer_app">
 				<tr>
-					<td><c:out value="${transfer.id}" /></td>
-					<td><c:out value="${transfer.accountNumber}" /></td>
-					<td><c:out value="${transfer.amount}" /></td>
-					<td><c:out value="${transfer.destination}" /></td>
+					<td><c:out value="${transfer_app.id}" /></td>
+					<td><c:out value="${transfer_app.status}" /></td>
+					<td><c:out value="${transfer_app.amount}" /></td>
+					<td><c:out value="${transfer_app.account_number}" /></td>
 
 				</tr>
 			</c:forEach>
