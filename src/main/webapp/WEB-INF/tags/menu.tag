@@ -77,6 +77,9 @@
 											<p class="text-left">
                     							<a href="/personalData/<sec:authentication property="name" />" class="btn btn-primary btn-block btn-sm"><c:out value="Personal Information"/></a>
 											</p>
+											<p class="text-left">
+                    							<a href="/personalDataEmployee/<sec:authentication property="name" />" class="btn btn-primary btn-block btn-sm"><c:out value="Employee Information"/></a>
+											</p>
 										</div>
 									</div>
 								</div>

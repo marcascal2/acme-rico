@@ -133,7 +133,7 @@ public class ClientController {
 		Client client = this.clientService.findClientById(clientId);
 		model.addAttribute(client);
 //		Queda deletear el antiguo usuario: Problema, si se deletea el user antes que el cliente se viola una clave primaria en cliente
-		this.clientService.deleteUser(client);
+	//	this.clientService.deleteUser(client);
 		return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
 	}
 	
