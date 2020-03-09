@@ -21,10 +21,6 @@ public class Employee extends Person {
 	@NotNull
 	private Double salary;
 	
-	@NotBlank
-	@Pattern(regexp = "DIRECTOR|WORKER")
-	private String type;
-	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;

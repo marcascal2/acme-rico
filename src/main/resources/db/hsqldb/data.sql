@@ -55,9 +55,9 @@ INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
 INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
 
 -- EMPLOYEES
-INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'DIRECTOR','director1');
-INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0', 'WORKER','worker1');
-INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'WORKER','worker2');
+INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
+INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0','worker1');
+INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'worker2');
 
 -- CLIENTS
 INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client1');
