@@ -6,38 +6,31 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="clients">
+<petclinic:layout pageName="employees">
     <h2>
-        <c:if test="${client['new']}">New </c:if> Client
+        <c:if test="${employee['new']}">New </c:if> Employee
     </h2>
-    <form:form modelAttribute="client" class="form-horizontal" id="add-client-form">
+    <form:form modelAttribute="employee" class="form-horizontal" id="add-client-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="First Name" name="firstName"/>
             <petclinic:inputField label="Last Name" name="lastName"/>
-            <petclinic:inputField label="Address" name="address"/>
-            <petclinic:inputField label="Birth Date" name="birthDate"/>
-            <petclinic:inputField label="City" name="city"/>
-            <petclinic:inputField label="Marital Status" name="maritalStatus"/>
-            <petclinic:inputField label="Salary Per Year" name="salaryPerYear"/>
-            <petclinic:inputField label="Age" name="age"/>
-            <petclinic:inputField label="Job" name="job"/>
-            <petclinic:inputField label="Last Employ Date" name="lastEmployDate"/>
+            <petclinic:inputField label="Salary" name="salary"/>
             <div class="form-group ">
 	           <label class="col-sm-2 control-label">Username</label>
 	           <div class="col-sm-10">
 	           		<form:input class="form-control" label="Username" name="user.username" path="user.username" readonly="true"/>
 	           </div>
 	       	</div>
-			<petclinic:inputField label="Password" name="user.password"/>
-          </div>
+            <petclinic:inputField label="Password" name="user.password"/>
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${client['new']}">
-                        <button class="btn btn-default" type="submit">Add Client</button>
+                    <c:when test="${employee['new']}">
+                        <button class="btn btn-default" type="submit">Add Employee</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Client</button>
+                        <button class="btn btn-default" type="submit">Update Employee</button>
                     </c:otherwise>
                 </c:choose>
             </div>

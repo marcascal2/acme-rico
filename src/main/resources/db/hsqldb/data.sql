@@ -2,10 +2,10 @@
 INSERT INTO users(username,password,enabled) VALUES ('director1','director1',TRUE);
 INSERT INTO authorities VALUES ('director1','director');
 -- Employees
-INSERT INTO users(username,password,enabled) VALUES ('employee1','employee1',TRUE);
-INSERT INTO authorities VALUES ('employee1','worker');
-INSERT INTO users(username,password,enabled) VALUES ('employee2','employee2',TRUE);
-INSERT INTO authorities VALUES ('employee2','worker');
+INSERT INTO users(username,password,enabled) VALUES ('worker1','worker1',TRUE);
+INSERT INTO authorities VALUES ('worker1','worker');
+INSERT INTO users(username,password,enabled) VALUES ('worker2','worker2',TRUE);
+INSERT INTO authorities VALUES ('worker2','worker');
 -- Clients
 INSERT INTO users(username,password,enabled) VALUES ('client1','client1',TRUE);
 INSERT INTO authorities VALUES ('client1','client');
@@ -56,8 +56,8 @@ INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
 
 -- EMPLOYEES
 INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
-INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0', 'employee1');
-INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'employee2');
+INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0','worker1');
+INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'worker2');
 
 -- CLIENTS
 INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client1');

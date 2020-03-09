@@ -3,10 +3,14 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Client;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.ClientRepository;
 
 public interface SpringDataClientRepository extends ClientRepository, Repository<Client, Integer> {
@@ -20,7 +24,13 @@ public interface SpringDataClientRepository extends ClientRepository, Repository
 	public Client findById(@Param("id") int id);
 	
 	@Override
-	@Query("SELECT client FROM Client client WHERE client.user.username = :username")
-	public Client findClientByUsername(@Param( "username") String username) throws DataAccessException;
+
+	@Query("SELECT client FROM Client client WHERE client.user.username =:name")
+	public Client findByUserName(@Param("name") String name);
 	
+	@Transactional
+	@Modifying
+	@Override
+	@Query("DELETE FROM User user WHERE user =:user")
+	void delete(@Param("user") User user);
 }

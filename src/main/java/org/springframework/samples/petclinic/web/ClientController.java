@@ -2,14 +2,13 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Client;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ClientService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -120,6 +119,35 @@ public class ClientController {
 		ModelAndView mav = new ModelAndView("clients/clientsDetails");
 		mav.addObject(this.clientService.findClientById(clientId));
 		return mav;
+	}
+	
+	@GetMapping(value = "/personalData/{name}")
+	public ModelAndView processInitPersonalDataForm(@PathVariable("name") String name, Model model) {
+		ModelAndView mav = new ModelAndView("clients/clientsDetails");
+		mav.addObject(this.clientService.findClientByUserName(name));
+		return mav;
+	}
+	
+	@GetMapping(value = "/personalData/{clientId}/edit")
+	public String initUpdatepersonalDataForm(@PathVariable("clientId") int clientId, Model model) {
+		Client client = this.clientService.findClientById(clientId);
+		model.addAttribute(client);
+//		Queda deletear el antiguo usuario: Problema, si se deletea el user antes que el cliente se viola una clave primaria en cliente
+	//	this.clientService.deleteUser(client);
+		return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
+	}
+	
+	@PostMapping(value = "/personalData/{clientId}/edit")
+	public String processUpdatePersonalDataForm(@Valid Client client, BindingResult result, @PathVariable("clientId") int clientId) {
+		if (result.hasErrors()) {
+			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
+		}
+		else {
+			client.setId(clientId);
+			this.clientService.saveClient(client);
+			SecurityContextHolder.clearContext();
+			return "redirect:/";
+		}
 	}
 
 }
