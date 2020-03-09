@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 
 import java.util.Collection;
 
+import org.springframework.dao.DataAccessException;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,6 +24,7 @@ public interface SpringDataClientRepository extends ClientRepository, Repository
 	public Client findById(@Param("id") int id);
 	
 	@Override
+
 	@Query("SELECT client FROM Client client WHERE client.user.username =:name")
 	public Client findByUserName(@Param("name") String name);
 	
