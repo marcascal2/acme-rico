@@ -3,7 +3,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
@@ -29,11 +29,19 @@
 					<span>Home</span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'clients'}" url="/clients/find"
-					title="find clients">
+				<petclinic:menuItem active="${name eq 'clients'}"
+					url="/clients/find" title="find clients">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Find clients</span>
 				</petclinic:menuItem>
+				
+				<sec:authorize access="hasAuthority('director')">
+					<petclinic:menuItem active="${name eq 'director'}"
+						url="/employees/find" title="find employees">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						<span>Find employees</span>
+					</petclinic:menuItem>
+				</sec:authorize>
 
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
@@ -69,15 +77,22 @@
 										</div>
 										<div id="info-funct">
 											<sec:authorize access="hasAuthority('client')">
-											<p class="text-left">
-                    							<a href="/personalData/<sec:authentication property="name" />" class="btn btn-primary btn-block btn-sm"><c:out value="Personal Information"/></a>
-											</p>
+												<p class="text-left">
+													<a
+														href="/personalData/<sec:authentication property="name" />"
+														class="btn btn-primary btn-block btn-sm"><c:out
+															value="Personal Information" /></a>
+												</p>
 											</sec:authorize>
 											<sec:authorize access="!hasAuthority('client')">
-											<p class="text-left">
-                    							<a href="/personalDataEmployee/<sec:authentication property="name" />" class="btn btn-primary btn-block btn-sm"><c:out value="Employee Information"/></a>
-											</p>
+												<p class="text-left">
+													<a
+														href="/personalDataEmployee/<sec:authentication property="name" />"
+														class="btn btn-primary btn-block btn-sm"><c:out
+															value="Employee Information" /></a>
+												</p>
 											</sec:authorize>
+
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
 													class="btn btn-primary btn-block btn-sm">Logout</a>
@@ -87,7 +102,7 @@
 								</div>
 							</li>
 							<li class="divider"></li>
-<!-- 							
+							<!-- 							
                             <li> 
 								<div class="navbar-login navbar-login-session">
 									<div class="row">
