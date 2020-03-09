@@ -29,11 +29,13 @@
 					<span>Home</span>
 				</petclinic:menuItem>
 
+				<sec:authorize access="!hasAuthority('client')">
 				<petclinic:menuItem active="${name eq 'clients'}"
 					url="/clients/find" title="find clients">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Find clients</span>
 				</petclinic:menuItem>
+				</sec:authorize>
 				
 				<sec:authorize access="hasAuthority('director')">
 					<petclinic:menuItem active="${name eq 'director'}"
