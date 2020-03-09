@@ -3,6 +3,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
@@ -41,10 +42,6 @@
 				</petclinic:menuItem>
 
 			</ul>
-
-
-
-
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>
@@ -59,16 +56,28 @@
 						<ul class="dropdown-menu">
 							<li>
 								<div class="navbar-login">
-									<div class="row">
-										<div class="col-lg-4">
+									<div class="row" id="info-content">
+										<div class="col-lg-4" id="info-icon">
 											<p class="text-center">
 												<span class="glyphicon glyphicon-user icon-size"></span>
 											</p>
 										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-8" id="info-name">
 											<p class="text-left">
 												<strong><sec:authentication property="name" /></strong>
 											</p>
+										</div>
+										<div id="info-funct">
+											<sec:authorize access="hasAuthority('client')">
+											<p class="text-left">
+                    							<a href="/personalData/<sec:authentication property="name" />" class="btn btn-primary btn-block btn-sm"><c:out value="Personal Information"/></a>
+											</p>
+											</sec:authorize>
+											<sec:authorize access="!hasAuthority('client')">
+											<p class="text-left">
+                    							<a href="/personalDataEmployee/<sec:authentication property="name" />" class="btn btn-primary btn-block btn-sm"><c:out value="Employee Information"/></a>
+											</p>
+											</sec:authorize>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
 													class="btn btn-primary btn-block btn-sm">Logout</a>
