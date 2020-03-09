@@ -22,9 +22,14 @@
             <petclinic:inputField label="Age" name="age"/>
             <petclinic:inputField label="Job" name="job"/>
             <petclinic:inputField label="Last Employ Date" name="lastEmployDate"/>
-            <petclinic:inputField label="Username" name="user.username"/>
-            <petclinic:inputField label="Password" name="user.password"/>
-        </div>
+            <div class="form-group ">
+	           <label class="col-sm-2 control-label">Username</label>
+	           <div class="col-sm-10">
+	           		<form:input class="form-control" label="Username" name="user.username" path="user.username" readonly="true"/>
+	           </div>
+	       	</div>
+			<petclinic:inputField label="Password" name="user.password"/>
+          </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>

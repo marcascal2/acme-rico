@@ -15,7 +15,12 @@
             <petclinic:inputField label="First Name" name="firstName"/>
             <petclinic:inputField label="Last Name" name="lastName"/>
             <petclinic:inputField label="Salary" name="salary"/>
-            <petclinic:inputField label="Username" name="user.username"/>
+            <div class="form-group ">
+	           <label class="col-sm-2 control-label">Username</label>
+	           <div class="col-sm-10">
+	           		<form:input class="form-control" label="Username" name="user.username" path="user.username" readonly="true"/>
+	           </div>
+	       	</div>
             <petclinic:inputField label="Password" name="user.password"/>
         </div>
         <div class="form-group">
