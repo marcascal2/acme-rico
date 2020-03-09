@@ -18,6 +18,7 @@ CREATE TABLE employees (
   first_name VARCHAR(30),
   last_name  VARCHAR_IGNORECASE(30),
   salary DOUBLE,
+  type VARCHAR(20),
   username VARCHAR(80)
 );
 CREATE INDEX employees_last_name ON employees (last_name);
