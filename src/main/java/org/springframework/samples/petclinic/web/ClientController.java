@@ -132,8 +132,6 @@ public class ClientController {
 	public String initUpdatepersonalDataForm(@PathVariable("clientId") int clientId, Model model) {
 		Client client = this.clientService.findClientById(clientId);
 		model.addAttribute(client);
-//		Queda deletear el antiguo usuario: Problema, si se deletea el user antes que el cliente se viola una clave primaria en cliente
-	//	this.clientService.deleteUser(client);
 		return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
 	}
 	
@@ -149,5 +147,4 @@ public class ClientController {
 			return "redirect:/";
 		}
 	}
-
 }

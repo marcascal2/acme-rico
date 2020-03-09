@@ -39,7 +39,7 @@
 				</sec:authorize>
         
         <!-- MENU DIRECTOR COMPARTIDO CON WORKER -->
-				<sec:authorize access="hasAuthority('director') && hasAuthority('worker')">
+				<sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
           <petclinic:menuItem active="${name eq 'clients'}" url="/clients/find" title="find clients">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span>Find clients</span>

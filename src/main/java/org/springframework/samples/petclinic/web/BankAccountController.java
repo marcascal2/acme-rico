@@ -41,7 +41,7 @@ public class BankAccountController {
 	  @RequestMapping(value="/accounts", method = RequestMethod.GET)
 	  public String showClientAccounts(Principal principal, Model model) {
 	      String username = principal.getName();
-	      Client client = this.clientService.findClientByUsername(username);
+	      Client client = this.clientService.findClientByUserName(username);
 	      Collection<BankAccount> result  = clientService.findBankAccountsByUsername(username);
 	      model.addAttribute("accounts", result);
 	      model.addAttribute("clientId", client.getId());

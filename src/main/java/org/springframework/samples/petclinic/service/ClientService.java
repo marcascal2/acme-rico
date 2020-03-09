@@ -54,14 +54,10 @@ public class ClientService {
 	@Transactional
 	public void deleteUser(Client client) throws DataAccessException {
 		clientRepository.delete(client.getUser());
-	}		
-	
-	public Client findClientByUsername(String username) throws DataAccessException {
-		return clientRepository.findClientByUsername(username);
 	}
 	
 	public Collection<BankAccount> findBankAccountsByUsername(String username) {
-		Client client = findClientByUsername(username);
+		Client client = findClientByUserName(username);
 		return client.getBankAccounts();
 	}
 }
