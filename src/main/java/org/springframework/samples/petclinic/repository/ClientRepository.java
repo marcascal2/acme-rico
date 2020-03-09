@@ -12,5 +12,7 @@ public interface ClientRepository {
 	Client findById(int id) throws DataAccessException;
 
 	void save(Client client) throws DataAccessException;
+	
+	Client findClientByUsername(String username) throws DataAccessException;
 
 }

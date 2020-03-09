@@ -27,7 +27,16 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Home</span>
 				</petclinic:menuItem>
-
+				
+				<!-- MENU CLIENTES -->
+				<sec:authorize access="hasAuthority('client')">
+					<petclinic:menuItem active="${name eq 'clients'}" url="/accounts"
+						title="my accounts">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						<span>My accounts</span>
+					</petclinic:menuItem>
+				</sec:authorize>
+				
 				<petclinic:menuItem active="${name eq 'clients'}" url="/clients/find"
 					title="find clients">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -42,9 +51,6 @@
 
 			</ul>
 
-
-
-
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>
@@ -52,7 +58,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>�
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
