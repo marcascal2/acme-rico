@@ -24,6 +24,7 @@ public class Client extends Person {
 	
 	@Column(name = "birth_date")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@NotNull
 	private LocalDate birthDate;
 	
 	@Column(name = "city")
@@ -31,7 +32,7 @@ public class Client extends Person {
 	private String city;
 	
 	@Column(name = "marital_status")
-	@NotNull
+	@NotEmpty
 	private String maritalStatus;
 	
 	@Column(name = "salary_per_year")
