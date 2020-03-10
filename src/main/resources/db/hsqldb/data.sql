@@ -19,30 +19,30 @@ INSERT INTO users(username,password,enabled) VALUES ('client5','client5',TRUE);
 INSERT INTO authorities VALUES ('client5','client');
 
 -- BANK ACCOUNTS
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (1, 'ES23 2323 2323 2323 2323', 2567.34, '2019-01-03', 'Viajes');
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (2, 'ES24 2323 2323 2323 2323', 345.54, '2017-04-24', 'Ahorro');
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (3, 'ES25 2323 2323 2323 2323', 543.43, '2016-10-30', '');
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (4, 'ES26 2323 2323 2323 2323', 5436.87, '2018-06-17', 'Coche nuevo');
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (5, 'ES27 2323 2323 2323 2323', 123, '2015-11-08', 'Regalos');
+--INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (1, 'ES23 2323 2323 2323 2323', 2567.34, '2019-01-03', 'Viajes');
+--INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (2, 'ES24 2323 2323 2323 2323', 345.54, '2017-04-24', 'Ahorro');
+--INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (3, 'ES25 2323 2323 2323 2323', 543.43, '2016-10-30', '');
+--INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (4, 'ES26 2323 2323 2323 2323', 5436.87, '2018-06-17', 'Coche nuevo');
+--INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (5, 'ES27 2323 2323 2323 2323', 123, '2015-11-08', 'Regalos');
 
 -- TRANSFERS
-INSERT INTO transfers VALUES (1,'ES23 2323 2323 2322 2323','200.30','ES23 2323 2323 3323 2323');
-INSERT INTO transfers VALUES (2,'ES23 2323 2323 2324 2323','150.00','ES23 2323 2323 5323 2323');
-INSERT INTO transfers VALUES (3,'ES23 2323 2323 2325 2323','2000.80','ES23 2323 2323 3323 2323');
-INSERT INTO transfers VALUES (4,'ES23 2323 2323 2326 2323','304.90','ES23 2325 2323 2323 2323');
+--INSERT INTO transfers VALUES (1,'ES23 2323 2323 2322 2323','200.30','ES23 2323 2323 3323 2323');
+--INSERT INTO transfers VALUES (2,'ES23 2323 2323 2324 2323','150.00','ES23 2323 2323 5323 2323');
+--INSERT INTO transfers VALUES (3,'ES23 2323 2323 2325 2323','2000.80','ES23 2323 2323 3323 2323');
+--INSERT INTO transfers VALUES (4,'ES23 2323 2323 2326 2323','304.90','ES23 2325 2323 2323 2323');
 
 -- TRANSFER APPLICATIONS
-INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (1,'ACCEPTED','202.12','ES23 2323 2323 2324 2323');
-INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (2,'PENDING','202.15','ES23 2323 2323 2323 2393');
-INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (3,'REJECTED','202.13','ES23 2323 2323 2323 7323');
-INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (4,'ACCEPTED','202.62','ES23 2323 2323 2323 2323');
+--INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (1,'ACCEPTED','202.12','ES23 2323 2323 2324 2323');
+--INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (2,'PENDING','202.15','ES23 2323 2323 2323 2393');
+--INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (3,'REJECTED','202.13','ES23 2323 2323 2323 7323');
+--INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (4,'ACCEPTED','202.62','ES23 2323 2323 2323 2323');
 
 
 --INSTANT TRANSFER
-INSERT INTO instant_transfers(id,amount,destination) VALUES (1, 167.34, 'ES73 2325 2323 2323 2323');
-INSERT INTO instant_transfers(id,amount,destination) VALUES (2, 45.54, 'ES34 2325 2323 2323 2323');
-INSERT INTO instant_transfers(id,amount,destination) VALUES (3, 3.43, 'ES56 2325 2323 2323 2323');
-INSERT INTO instant_transfers(id,amount,destination) VALUES (4, 36.87, 'ES12 2325 2323 2323 2323');
+--INSERT INTO instant_transfers(id,amount,destination) VALUES (1, 167.34, 'ES73 2325 2323 2323 2323');
+--INSERT INTO instant_transfers(id,amount,destination) VALUES (2, 45.54, 'ES34 2325 2323 2323 2323');
+--INSERT INTO instant_transfers(id,amount,destination) VALUES (3, 3.43, 'ES56 2325 2323 2323 2323');
+--INSERT INTO instant_transfers(id,amount,destination) VALUES (4, 36.87, 'ES12 2325 2323 2323 2323');
 
 -- CREDIT CARDS
 INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (1,'5541147884694773','01/2021','123');
