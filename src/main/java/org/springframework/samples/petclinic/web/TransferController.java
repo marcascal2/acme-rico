@@ -5,28 +5,33 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.BankAccount;
 import org.springframework.samples.petclinic.model.Transfer;
 import org.springframework.samples.petclinic.model.TransferApplication;
+import org.springframework.samples.petclinic.repository.BankAccountRepository;
 import org.springframework.samples.petclinic.service.TransferAppService;
 import org.springframework.samples.petclinic.service.TransferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/transfers")
 public class TransferController {
 
 	@Autowired
 	private TransferService transferService;
+
+	@Autowired
+	private BankAccountRepository	accountRepository;
 	
 	@Autowired
 	private TransferAppService transferAppService;
 
-	@GetMapping()
+	@GetMapping("/transfers")
 	public String listTransfers(ModelMap modelMap) {
 		String view = "transfers/transfersList";
 		Collection<Transfer> transfers = this.transferService.findAllTransfers();
@@ -34,14 +39,18 @@ public class TransferController {
 		return view;
 	}
 
-	@GetMapping(path = "/new")
-	public String createTransfers(ModelMap modelMap) {
+	@GetMapping(value = "/transfers/{bank_account_id}/new")
+	public String createTransfers(@PathVariable("bank_account_id") Integer accountId, ModelMap modelMap) {
 		String view = "transfers/editTransfers";
-		modelMap.addAttribute("transfer", new Transfer());
+		Transfer transfer = new Transfer();
+		BankAccount account = this.accountRepository.findById(accountId);
+		String bankAccountNumber = account.getAccountNumber();
+		transfer.setAccountNumber(bankAccountNumber);
+		modelMap.addAttribute("transfer", transfer);
 		return view;
 	}
 
-	@PostMapping(path = "/save")
+	@PostMapping(value = "/transfers/save")
 	public String saveTransfers(@Valid Transfer transfer, BindingResult result, ModelMap modelMap) {
 		String view = "transfers/transfersList";
 		if (result.hasErrors()) {

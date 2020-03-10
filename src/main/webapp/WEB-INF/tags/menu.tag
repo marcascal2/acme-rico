@@ -44,6 +44,10 @@
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span>Find clients</span>
           </petclinic:menuItem>
+          <petclinic:menuItem active="${name eq 'transferapps'}" url="/transferapps/" title="transferAppsList">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <span>Transfer Applications List</span>
+          </petclinic:menuItem>
 				</sec:authorize>
 				
         <!-- MENU DIRECTOR -->

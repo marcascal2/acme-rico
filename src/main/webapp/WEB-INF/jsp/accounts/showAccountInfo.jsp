@@ -17,4 +17,7 @@
             <petclinic:inputField label="Alias" name="alias" readonly="true"/>
 		</div>
     </form:form>
+    <form method="get" action="/transfers/${bankAccount.id}/new">
+     	<button class="btn btn-default">Add new transfer</button>
+	</form>
 </petclinic:layout>

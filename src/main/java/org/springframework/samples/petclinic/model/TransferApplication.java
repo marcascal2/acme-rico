@@ -2,6 +2,8 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
@@ -18,7 +20,7 @@ public class TransferApplication extends BaseEntity {
 	@Pattern(regexp = "ACCEPTED|REJECTED|PENDING") //pending, accepted, rejected
 	private String status;
 	
-	@NotNull
+	@DecimalMin(value = "0.0")
 	private Double amount;
 
 	@NotEmpty

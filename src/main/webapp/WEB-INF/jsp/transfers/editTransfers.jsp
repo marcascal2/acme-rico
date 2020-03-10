@@ -8,12 +8,11 @@
 <petclinic:layout pageName="transfers">
 	<jsp:body>
         <h2>Transfer</h2>
-		<!-- Por el model attribute le pasamos el objeto de la vista -->
         <form:form modelAttribute="transfer" class="form-horizontal" action="/transfers/save">
             <div class="form-group has-feedback">
             <!-- Este account number hay que traerselo a la hora de crear la transferencia por el cliente -->
              <petclinic:inputField label="Account Number:"
-					name="accountNumber" />
+					name="accountNumber" readonly="true"/>
                 <petclinic:inputField label="Amount:"
 					name="amount" />
                 <petclinic:inputField label="Destination Account:"
