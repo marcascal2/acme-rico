@@ -26,5 +26,10 @@ public class BankAccountService {
 	public void saveBankAccount(BankAccount BankAccount) throws DataAccessException {
 		//creating BankAccount
 		bankAccountRepository.save(BankAccount);		
+	}
+
+	@Transactional
+	public BankAccount findBankAccountByNumber(String account_number_destination) {
+		return bankAccountRepository.findByAccountNumber(account_number_destination);
 	}		
 }

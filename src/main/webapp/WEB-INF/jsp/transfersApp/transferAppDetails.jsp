@@ -1,5 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+<%@ page session="false" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="transferapps">
 
@@ -25,6 +28,15 @@
 		</tr>
 
 	</table>
-
-
+	<c:choose>
+	<c:when test="${transfer_application.status == 'PENDING'}">
+	<form method="get" action="/transferapps/${transfer_application.id}/accept">
+     	<button class="btn btn-default">Accept Transfer</button>
+	</form>
+	
+	<form method="get" action="/transferapps/${transfer_application.id}/refuse">
+     	<button class="btn btn-default">Refuse Transfer</button>
+	</form>
+	 </c:when>
+	 </c:choose>
 </petclinic:layout>

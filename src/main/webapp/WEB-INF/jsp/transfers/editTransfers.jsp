@@ -10,7 +10,6 @@
         <h2>Transfer</h2>
         <form:form modelAttribute="transfer" class="form-horizontal" action="/transfers/save">
             <div class="form-group has-feedback">
-            <!-- Este account number hay que traerselo a la hora de crear la transferencia por el cliente -->
              <petclinic:inputField label="Account Number:"
 					name="accountNumber" readonly="true"/>
                 <petclinic:inputField label="Amount:"

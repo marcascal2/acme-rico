@@ -35,7 +35,7 @@ INSERT INTO authorities VALUES ('client5','client');
 --INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (1,'ACCEPTED','202.12','ES23 2323 2323 2324 2323');
 --INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (2,'PENDING','202.15','ES23 2323 2323 2323 2393');
 --INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (3,'REJECTED','202.13','ES23 2323 2323 2323 7323');
---INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (4,'ACCEPTED','202.62','ES23 2323 2323 2323 2323');
+INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (4,'PENDING','202.62','ES23 2323 2323 2323 2323');
 
 
 --INSTANT TRANSFER

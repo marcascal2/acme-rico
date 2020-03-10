@@ -63,7 +63,6 @@ public class TransferController {
 			tranfers_application.setAccount_number_destination(transfer.getDestination());
 			transferAppService.save(tranfers_application);
 			transferService.save(transfer);
-			modelMap.addAttribute("message", "Everything work well!!");
 			view = listTransfers(modelMap);
 		}
 
