@@ -48,7 +48,7 @@ public class Client extends Person {
 	private Integer age;
 	
 	@Column(name = "job")
-	@NotNull
+	@NotEmpty
 	private String job;
 	
 	@Column(name = "last_employ_date")        
