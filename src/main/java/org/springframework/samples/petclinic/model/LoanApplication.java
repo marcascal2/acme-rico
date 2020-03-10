@@ -32,6 +32,7 @@ public class LoanApplication extends BaseEntity {
 	
 	@Valid
 	@ManyToOne()
+	@NotNull
 	private BankAccount destination;
 	
 	@Valid
