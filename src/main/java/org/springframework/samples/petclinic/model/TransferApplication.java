@@ -22,6 +22,6 @@ public class TransferApplication extends BaseEntity {
 	private Double amount;
 
 	@NotEmpty
-	@Pattern(regexp = "[A-Z]{2}\\\\d{2} ?\\\\d{4} ?\\\\d{4} ?\\\\d{4} ?\\\\d{4} ?[\\\\d]{0,2}", message = "Invalid account number")
-	private String account_number;
+	@Pattern(regexp = "[A-Z]{2}\\d{2} ?\\d{4} ?\\d{4} ?\\d{4} ?\\d{4} ?[\\d]{0,2}", message = "Invalid account number")
+	private String account_number_destination;
 }

@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<th>Account Number</th>
-			<td><c:out value="${transfer_application.account_number}" /></td>
+			<td><c:out value="${transfer_application.account_number_destination}" /></td>
 		</tr>
 
 	</table>

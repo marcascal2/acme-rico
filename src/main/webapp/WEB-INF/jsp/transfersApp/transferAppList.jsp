@@ -12,9 +12,9 @@
 		<thead>
 			<tr>
 				<th style="width: 150px;">Id</th>
-				<th style="width: 150px;">Account Number</th>
+				<th style="width: 150px;">Status</th>
 				<th style="width: 150px;">Amount</th>
-				<th style="width: 200px;">Status</th>
+				<th style="width: 200px;">Account Number</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,7 +28,7 @@
 					</td>
 					<td><c:out value="${transfer_app.status}" /></td>
 					<td><c:out value="${transfer_app.amount}" /></td>
-					<td><c:out value="${transfer_app.account_number}" /></td>
+					<td><c:out value="${transfer_app.account_number_destination}" /></td>
 
 				</tr>
 			</c:forEach>

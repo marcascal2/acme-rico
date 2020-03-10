@@ -13,11 +13,10 @@
 	<form:form modelAttribute="transfer_app" class="form-horizontal"
 		id="add-transferapp-form">
 		<div class="form-group has-feedback">
-			<petclinic:inputField label="Id" name="id" readonly="true" />
+			<petclinic:inputField label="Id" name="id"/>
 			<petclinic:inputField label="Status" name="status" />
-			<petclinic:inputField label="Amount" name="amount" readonly="true" />
-			<petclinic:inputField label="Account Number" name="account_number"
-				readonly="true" />
+			<petclinic:inputField label="Amount" name="amount"/>
+			<petclinic:inputField label="Account Number" name="account_number_destination" />
 
 		</div>
 		<div class="form-group">

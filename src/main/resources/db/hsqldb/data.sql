@@ -32,10 +32,10 @@ INSERT INTO transfers VALUES (3,'ES23 2323 2323 2325 2323','2000.80','ES23 2323 
 INSERT INTO transfers VALUES (4,'ES23 2323 2323 2326 2323','304.90','ES23 2325 2323 2323 2323');
 
 -- TRANSFER APPLICATIONS
-INSERT INTO transfer_applications VALUES (1,'ACCEPTED','202.12','ES23 2323 2323 2324 2323');
-INSERT INTO transfer_applications VALUES (2,'PENDING','202.15','ES23 2323 2323 2323 2393');
-INSERT INTO transfer_applications VALUES (3,'REJECTED','202.13','ES23 2323 2323 2323 7323');
-INSERT INTO transfer_applications VALUES (4,'ACCEPTED','202.62','ES23 2323 2323 2323 2323');
+INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (1,'ACCEPTED','202.12','ES23 2323 2323 2324 2323');
+INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (2,'PENDING','202.15','ES23 2323 2323 2323 2393');
+INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (3,'REJECTED','202.13','ES23 2323 2323 2323 7323');
+INSERT INTO transfer_applications(id,status,amount,account_number_destination) VALUES (4,'ACCEPTED','202.62','ES23 2323 2323 2323 2323');
 
 
 --INSTANT TRANSFER
