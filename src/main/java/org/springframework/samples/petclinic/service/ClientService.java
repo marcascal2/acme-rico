@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.BankAccount;
 import org.springframework.samples.petclinic.model.Client;
 import org.springframework.samples.petclinic.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class ClientService {
 	public Client findClientById(int id) throws DataAccessException {
 		return clientRepository.findById(id);
 	}
+	
+	@Transactional(readOnly = true)
+	public Client findClientByUserName(String name) throws DataAccessException {
+		return clientRepository.findByUserName(name);
+	}
 
 	@Transactional(readOnly = true)
 	public Collection<Client> findClientByLastName(String lastName) throws DataAccessException {
@@ -43,6 +49,15 @@ public class ClientService {
 		userService.saveUser(client.getUser());
 		//creating authorities
 		authoritiesService.saveAuthorities(client.getUser().getUsername(), "client");
-	}		
+	}
 
+	@Transactional
+	public void deleteUser(Client client) throws DataAccessException {
+		clientRepository.delete(client.getUser());
+	}
+	
+	public Collection<BankAccount> findBankAccountsByUsername(String username) {
+		Client client = findClientByUserName(username);
+		return client.getBankAccounts();
+	}
 }
