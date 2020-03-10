@@ -79,11 +79,6 @@ public class EmployeeController {
 			result.rejectValue("lastName", "notFound", "not found");
 			return "employees/findEmployees";
 		}
-		else if (results.size() == 1) {
-			// 1 client found
-			employee = results.iterator().next();
-			return "redirect:/employees/" + employee.getId();
-		}
 		else {
 			// multiple clients found
 			model.put("selections", results);
@@ -148,5 +143,11 @@ public class EmployeeController {
 			SecurityContextHolder.clearContext();
 			return "redirect:/";
 		}
+	}
+	
+	@GetMapping(value = "/employees/{employeeId}/delete")
+	public String deleteEmployee(@PathVariable("employeeId") int employeeId, Model model) {
+		this.employeeService.deleteEmployeeById(employeeId);
+		return "redirect:/employees";
 	}
 }

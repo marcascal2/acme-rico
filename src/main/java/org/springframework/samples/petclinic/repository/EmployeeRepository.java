@@ -15,4 +15,6 @@ public interface EmployeeRepository {
 
 	void save(Employee employee) throws DataAccessException;
 
+	void deleteEmployee(int employeeId) throws DataAccessException;
+
 }
