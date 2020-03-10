@@ -50,5 +50,10 @@ public class EmployeeService {
 		//creating authorities
 		authoritiesService.saveAuthorities(employee.getUser().getUsername(), "employee");
 	}
+
+	@Transactional
+	public void deleteEmployeeById(int employeeId) throws DataAccessException{
+		employeeRepository.deleteEmployee(employeeId);
+	}
 	
 }
