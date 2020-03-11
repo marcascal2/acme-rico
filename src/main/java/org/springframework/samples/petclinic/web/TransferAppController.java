@@ -59,31 +59,31 @@ public class TransferAppController {
 	public String acceptTransferApplication(@PathVariable("transferappsId") int transferappsId, ModelMap modelMap) {
 		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
 		transferApplication.setStatus("ACCEPTED");
+		Double transferAmount = transferApplication.getAmount();
 		transferAppService.save(transferApplication);
-		
+
 		String accountOrigin = transferApplication.getAccount().getAccountNumber();
-		BankAccount originAccount = this.bankAccountService
-				.findBankAccountByNumber(accountOrigin);
+		BankAccount originAccount = this.bankAccountService.findBankAccountByNumber(accountOrigin);
 
 		BankAccount destinationAccount = this.bankAccountService
 				.findBankAccountByNumber(transferApplication.getAccount_number_destination());
+
 		if (destinationAccount != null) {
 			// Descontamos el dinero a la cuenta origen y se lo añadimos al destino
-			
-			Double amount = destinationAccount.getAmount();
-			destinationAccount.setAmount(amount + transferApplication.getAmount());
-			bankAccountService.saveBankAccount(destinationAccount);
-			
-			Double amountOrigin = originAccount.getAmount();
-			originAccount.setAmount(amountOrigin-transferApplication.getAmount());
-			bankAccountService.saveBankAccount(originAccount);
 
-			
+			this.bankAccountService.sumAmount(transferAmount, destinationAccount);
+
+			this.bankAccountService.SubstractAmount(transferAmount, originAccount);
+
+			this.bankAccountService.saveBankAccount(originAccount);
+			this.bankAccountService.saveBankAccount(destinationAccount);
+
 		} else {
 			// Solo le quitamos el dinero a la cuenta origen
-			Double amountOrigin = originAccount.getAmount();
-			originAccount.setAmount(amountOrigin-transferApplication.getAmount());
-			bankAccountService.saveBankAccount(originAccount);
+			this.bankAccountService.SubstractAmount(transferAmount, originAccount);
+
+			this.bankAccountService.saveBankAccount(originAccount);
+
 		}
 
 		modelMap.addAttribute("transfer_application", transferApplication);
@@ -99,7 +99,5 @@ public class TransferAppController {
 		modelMap.addAttribute("transfer_application", transferApplication);
 		return listTransfersApp(modelMap);
 	}
-
-
 
 }

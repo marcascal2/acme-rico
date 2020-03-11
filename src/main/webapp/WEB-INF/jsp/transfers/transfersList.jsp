@@ -6,7 +6,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 
 <petclinic:layout pageName="transfers">
-	<h2>Events</h2>
+	<h2>All tranfers</h2>
 
 	<table id="transferTable" class="table table-striped">
 		<thead>

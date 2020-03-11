@@ -8,16 +8,18 @@
 <petclinic:layout pageName="transfers">
 	<jsp:body>
         <h2>Transfer</h2>
-        <form:form modelAttribute="transfer" class="form-horizontal" action="/transfers/save">
+        <form:form modelAttribute="transfer" class="form-horizontal"
+			action="/transfers/save">
             <div class="form-group has-feedback">
              <petclinic:inputField label="Account Number:"
-					name="accountNumber" readonly="true"/>
-                <petclinic:inputField label="Amount:"
-					name="amount" />
+					name="accountNumber" readonly="true" />
+                <petclinic:inputField label="Amount:" name="amount" />
                 <petclinic:inputField label="Destination Account:"
-					name="destination" />
+					name="destination" />					
             </div>
-			
+            <form:errors path="*" cssClass="errorblock" element="div" />
+    
+            
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="id"

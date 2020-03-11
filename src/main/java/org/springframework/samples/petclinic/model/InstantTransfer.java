@@ -19,10 +19,11 @@ import lombok.Setter;
 public class InstantTransfer extends BaseEntity {
 
 	@DecimalMin(value = "0.01")
-	@DecimalMax(value = "200.00")
+	@DecimalMax(value = "100.00")
 	private Double amount;
-	
+
 	@NotEmpty
-	@Pattern(regexp = "^[A-Z]{2}(?:[ ]?[0-9]){18,20}$")
+	@Pattern(regexp = "[A-Z]{2}\\d{2} ?\\d{4} ?\\d{4} ?\\d{4} ?\\d{4} ?[\\d]{0,2}",
+		message = "Invalid account number")
 	private String destination;
 }
