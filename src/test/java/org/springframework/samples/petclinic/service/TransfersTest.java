@@ -30,8 +30,8 @@ public class TransfersTest {
 		transfer.setAmount(200.00);
 		transfer.setDestination("ES24 2323 2323 2323 2323");
 		this.transferService.save(transfer);
-		Collection<Transfer> accounts = this.transferService.findAllTransfers();
-		assertThat(accounts.size()).isEqualTo(1);
+		Collection<Transfer> transfers = this.transferService.findAllTransfers();
+		assertThat(transfers.size()).isEqualTo(1);
 	}
 	
 }
