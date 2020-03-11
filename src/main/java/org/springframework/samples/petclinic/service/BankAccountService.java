@@ -45,5 +45,10 @@ public class BankAccountService {
 	public Collection<BankAccount> findBankAccounts() {
 		return (Collection<BankAccount>) bankAccountRepository.findAll();
 	}
+
+	@Transactional
+	public void deleteAccount(BankAccount bankAccount) {
+		bankAccountRepository.delete(bankAccount);
+	}
 	
 }
