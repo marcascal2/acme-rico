@@ -2,7 +2,6 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 
 import java.util.Collection;
 
-import org.springframework.dao.DataAccessException;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;

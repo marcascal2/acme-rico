@@ -8,8 +8,10 @@ import javax.validation.constraints.Pattern;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=true)
 @Entity
 @Table(name = "transfer_applications")
 public class TransferApplication extends BaseEntity {

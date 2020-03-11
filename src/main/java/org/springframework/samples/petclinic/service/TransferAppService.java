@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Transfer;
 import org.springframework.samples.petclinic.model.TransferApplication;
 import org.springframework.samples.petclinic.repository.TransferAppRepository;
 import org.springframework.stereotype.Service;
