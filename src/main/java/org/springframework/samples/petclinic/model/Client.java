@@ -61,5 +61,7 @@ public class Client extends Person {
 	
 	@OneToMany(mappedBy = "client")
 	private Collection<BankAccount> bankAccounts;
-
+	
+	@OneToMany(mappedBy = "client")
+	public Collection<CreditCard> creditCards;
 }
