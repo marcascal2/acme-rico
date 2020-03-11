@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.Getter;
@@ -20,9 +21,10 @@ public class InstantTransfer extends BaseEntity {
 
 	@DecimalMin(value = "0.01")
 	@DecimalMax(value = "200.00")
+	@NotNull
 	private Double amount;
 	
 	@NotEmpty
-	@Pattern(regexp = "^[A-Z]{2}(?:[ ]?[0-9]){18,20}$")
+	@Pattern(regexp = "^[A-Z]{2}(?:[ ]?[0-9]){18,20}$", message = "Invalid account number")
 	private String destination;
 }
