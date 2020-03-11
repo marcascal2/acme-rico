@@ -60,14 +60,31 @@ public class TransferAppController {
 		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
 		transferApplication.setStatus("ACCEPTED");
 		transferAppService.save(transferApplication);
-
-		// Descontamos el dinero si existe la cuenta destino
-//		BankAccount destinationAccount = this.bankAccountService
-//				.findBankAccountByNumber(transferApplication.getAccount_number_destination());
-//		Double ammount = destinationAccount.getAmount();
-//		destinationAccount.setAmount(ammount+transferApplication.getAmount());
-//		bankAccountService.saveBankAccount(destinationAccount);
 		
+		String accountOrigin = transferApplication.getAccount().getAccountNumber();
+		BankAccount originAccount = this.bankAccountService
+				.findBankAccountByNumber(accountOrigin);
+
+		BankAccount destinationAccount = this.bankAccountService
+				.findBankAccountByNumber(transferApplication.getAccount_number_destination());
+		if (destinationAccount != null) {
+			// Descontamos el dinero a la cuenta origen y se lo añadimos al destino
+			
+			Double amount = destinationAccount.getAmount();
+			destinationAccount.setAmount(amount + transferApplication.getAmount());
+			bankAccountService.saveBankAccount(destinationAccount);
+			
+			Double amountOrigin = originAccount.getAmount();
+			originAccount.setAmount(amountOrigin-transferApplication.getAmount());
+			bankAccountService.saveBankAccount(originAccount);
+
+			
+		} else {
+			// Solo le quitamos el dinero a la cuenta origen
+			Double amountOrigin = originAccount.getAmount();
+			originAccount.setAmount(amountOrigin-transferApplication.getAmount());
+			bankAccountService.saveBankAccount(originAccount);
+		}
 
 		modelMap.addAttribute("transfer_application", transferApplication);
 		return listTransfersApp(modelMap);
@@ -83,27 +100,6 @@ public class TransferAppController {
 		return listTransfersApp(modelMap);
 	}
 
-	// Update
-//	@GetMapping(value = "/transferapps/{transferappsId}/edit")
-//	public String initUpdateClientForm(@PathVariable("transferappsId") int transferAppId, Model model) {
-//		String view = "transfersApp/transfersAppEdit";
-//		TransferApplication transferApp = this.service.findTransferAppById(transferAppId);
-//		model.addAttribute(transferApp);
-//		return view;
-//	}
-//
-//	@PostMapping(value = "/transferapps/{transferappsId}/edit")
-//	public String processUpdateClientForm(@Valid TransferApplication transferApp, BindingResult result,
-//			@PathVariable("transferappsId") int transferAppId) {
-//		String view = "transfersApp/transfersAppEdit";
-//		if (result.hasErrors()) {
-//
-//			return view;
-//		} else {
-//			transferApp.setId(transferAppId);
-//			this.service.save(transferApp);
-//			return "redirect:/transfersApp/{transferappsId}";
-//		}
-//	}
+
 
 }

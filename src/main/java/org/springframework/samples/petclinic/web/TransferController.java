@@ -14,7 +14,9 @@ import org.springframework.samples.petclinic.service.TransferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,8 @@ public class TransferController {
 	private TransferService transferService;
 
 	@Autowired
-	private BankAccountRepository	accountRepository;
-	
+	private BankAccountRepository accountRepository;
+
 	@Autowired
 	private TransferAppService transferAppService;
 
@@ -53,14 +55,23 @@ public class TransferController {
 	@PostMapping(value = "/transfers/save")
 	public String saveTransfers(@Valid Transfer transfer, BindingResult result, ModelMap modelMap) {
 		String view = "transfers/transfersList";
+//		if (transfer.getAmount() <= 100.00 || transfer.getAmount().equals(null)) {
+//			ObjectError obj = new ObjectError("amount", "El amount debe ser mayor que 100.00");
+//			result.addError(obj);
+//		}
 		if (result.hasErrors()) {
 			modelMap.addAttribute("transfer", transfer);
 			return "transfers/editTransfers";
 		} else {
+
+			String account_number_origin = transfer.getAccountNumber();
+			BankAccount originAccount = this.accountRepository.findByAccountNumber(account_number_origin);
+
 			TransferApplication tranfers_application = new TransferApplication();
 			tranfers_application.setStatus("PENDING");
 			tranfers_application.setAmount(transfer.getAmount());
 			tranfers_application.setAccount_number_destination(transfer.getDestination());
+			tranfers_application.setAccount(originAccount);
 			transferAppService.save(tranfers_application);
 			transferService.save(transfer);
 			view = listTransfers(modelMap);

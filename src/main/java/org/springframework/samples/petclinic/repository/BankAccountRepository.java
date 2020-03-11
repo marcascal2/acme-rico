@@ -10,9 +10,10 @@ public interface BankAccountRepository extends CrudRepository<BankAccount, Strin
 	
 	BankAccount findById(int id) throws DataAccessException;
 
-//	@Query("SELECT account FROM BankAccount WHERE account.accountNumber =:account_number_destination")
-//	BankAccount findByAccountNumber(@Param("account_number_destination") String account_number_destination)
-//			throws DataAccessException;
+	
+	@Query("SELECT account FROM BankAccount account WHERE account.accountNumber =:account_number_destination")
+	BankAccount findByAccountNumber(@Param("account_number_destination") String account_number_destination)
+			throws DataAccessException;
 	
 	
 	
