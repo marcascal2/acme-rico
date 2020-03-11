@@ -1,18 +1,18 @@
 package org.springframework.samples.petclinic.model;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+
+@Data
+@EqualsAndHashCode(callSuper=true)
 @Entity
-@Getter
-@Setter
 @Table(name = "credit_cards")
 public class CreditCard extends BaseEntity {
 
