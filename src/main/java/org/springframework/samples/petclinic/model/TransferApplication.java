@@ -5,7 +5,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
-import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,10 +17,11 @@ import lombok.EqualsAndHashCode;
 public class TransferApplication extends BaseEntity {
 
 	@NotEmpty
-	@Pattern(regexp = "ACCEPTED|REJECTED|PENDING") //pending, accepted, rejected
+	@Pattern(regexp = "ACCEPTED|REJECTED|PENDING", message="Transfer application status only can be ACCEPTED, REJECTED or PENDING") //pending, accepted, rejected
 	private String status;
 	
-	@NotNull
+	@Range(min = 100,message = "The amount must be greater than € 100,"
+			+ " please if you need a smaller amount make an instant transfer")
 	private Double amount;
 
 	@NotEmpty
