@@ -17,4 +17,10 @@
             <petclinic:inputField label="Alias" name="alias" readonly="true"/>
 		</div>
     </form:form>
+    <c:if test="${noMoney}">
+	    <spring:url value="{accountId}/delete" var="deleteUrl">
+	        <spring:param name="accountId" value="${bankAccount.id}"/>
+	    </spring:url>
+	    <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete Account</a>
+    </c:if>
 </petclinic:layout>

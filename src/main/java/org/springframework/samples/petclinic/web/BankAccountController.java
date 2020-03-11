@@ -72,7 +72,23 @@ public class BankAccountController {
 		@GetMapping(value = "/accounts/accountInfo/{accountId}")
 		public String showAccountInfo(@PathVariable("accountId") int accountId, Map<String, Object> model) {
 			BankAccount bankAccount = bankAccountService.findBankAccountById(accountId);
+			Double money = bankAccount.getAmount();
+			Boolean noMoney = money == 0. ? true : false;
+			model.put("noMoney", noMoney);
 			model.put("bankAccount", bankAccount);
 			return VIEWS_ACCOUNT_DETAILS;
 		}
+		
+		@GetMapping(value = "/accounts/accountInfo/{accountId}/delete")
+		public String deleteAccount(@PathVariable("accountId") int accountId, Model model) {
+			BankAccount bankAccount = bankAccountService.findBankAccountById(accountId);
+			try {
+				this.bankAccountService.deleteAccount(bankAccount);
+				return "redirect:/accounts/";
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return VIEWS_ACCOUNT_DETAILS;
+			}
+		}
+		
 }
