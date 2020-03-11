@@ -2,7 +2,9 @@ package org.springframework.samples.petclinic.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -29,5 +31,10 @@ public class CreditCard extends BaseEntity {
 	@NotBlank
 	@Pattern(regexp = "[0-9]{3}", message = "Incorrect CVV")
 	private String cvv;
+	
+	@Valid
+	@ManyToOne()
+	@NotNull
+	private Client client;
 
 }

@@ -6,12 +6,10 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -61,5 +59,7 @@ public class Client extends Person {
 	
 	@OneToMany(mappedBy = "client")
 	private Collection<BankAccount> bankAccounts;
-
+	
+	@OneToMany(mappedBy = "client")
+	public Collection<CreditCard> creditCards;
 }
