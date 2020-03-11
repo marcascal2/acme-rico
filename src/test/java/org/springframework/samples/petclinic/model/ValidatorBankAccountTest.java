@@ -60,6 +60,22 @@ public class ValidatorBankAccountTest {
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("amount");
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
+	
+	@Test
+	void shouldNotValidateWhenAccountNumberEmpty() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		bankAccount.setAccountNumber(null);
+		bankAccount.setAmount(200.00);
+		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
+		bankAccount.setAlias("menos de 30 caracteres");
+		bankAccount.setClient(client);
+		Validator validator = createValidator();
+		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
+		assertThat(constraintViolations.size()).isEqualTo(1);
+		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
+		assertThat(violation.getPropertyPath().toString()).isEqualTo("accountNumber");
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
+	}
 
 	@Test
 	void shouldNotValidateWhenAccountNumberPattern() {
@@ -123,6 +139,22 @@ public class ValidatorBankAccountTest {
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("createdAt");
 		assertThat(violation.getMessage()).isEqualTo("must be a past date");
+	}
+	
+	@Test
+	void shouldNotValidateWhenCreatedAtEmpty() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
+		bankAccount.setAmount(200.00);
+		bankAccount.setCreatedAt(null);
+		bankAccount.setAlias("menos de 30 caracteres");
+		bankAccount.setClient(client);
+		Validator validator = createValidator();
+		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
+		assertThat(constraintViolations.size()).isEqualTo(1);
+		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
+		assertThat(violation.getPropertyPath().toString()).isEqualTo("createdAt");
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 	
 }
