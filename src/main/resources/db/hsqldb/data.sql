@@ -1,3 +1,5 @@
+
+-- USERS
 -- Director
 INSERT INTO users(username,password,enabled) VALUES ('director1','director1',TRUE);
 INSERT INTO authorities VALUES ('director1','director');
@@ -45,15 +47,15 @@ INSERT INTO authorities VALUES ('client5','client');
 --INSERT INTO instant_transfers(id,amount,destination) VALUES (4, 36.87, 'ES12 2325 2323 2323 2323');
 
 -- CREDIT CARDS
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (1,'5541147884694773','01/2021','123');
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (2,'5496675056390627','02/2021','223');
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (3,'5159262819350277','03/2021','124');
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (4,'5535869122542955','04/2021','523');
+--INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (1,'5541147884694773','01/2021','123');
+--INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (2,'5496675056390627','02/2021','223');
+--INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (3,'5159262819350277','03/2021','124');
+--INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (4,'5535869122542955','04/2021','523');
 
 -- CREDIT CARD APPLICATIONS
-INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
-INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
-INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
+--INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
+--INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
+--INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
 
 -- EMPLOYEES
 INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
