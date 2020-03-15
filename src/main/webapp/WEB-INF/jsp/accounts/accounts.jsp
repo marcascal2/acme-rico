@@ -19,7 +19,7 @@
         <c:forEach items="${accounts}" var="account">
             <tr>
                 <td>
-                    <spring:url value="/accounts/accountInfo/{accountId}" var="accountUrl">
+                    <spring:url value="/accounts/{accountId}" var="accountUrl">
                         <spring:param name="accountId" value="${account.id}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(accountUrl)}"><c:out value="${account.accountNumber}"/></a>
