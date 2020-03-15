@@ -7,29 +7,22 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 
 <petclinic:layout pageName="accounts">
-	<h2>
-		<c:if test="${bankAccount['new']}">New </c:if>
-		Bank Account
-	</h2>
+	<h2>Money income</h2>
 	<form:form modelAttribute="bankAccount" class="form-horizontal"
 		id="add-client-form">
 		<div class="form-group has-feedback">
 			<petclinic:inputField label="Account Number" name="accountNumber"
 				readonly="true" />
-			<petclinic:inputField label="Amount" name="amount" readonly="true" />
-			<petclinic:inputField label="Alias" name="alias" readonly="true" />
+			<div class="form-group ">
+				<label class="col-sm-2 control-label">Amount to enter</label>
+				<div class="col-sm-10">
+					<form:input class="form-control" label="Amount to enter"
+						name="amount" path="amount" value="0.0" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-default" type="submit">Make deposit</button>
 		</div>
 	</form:form>
-	<spring:url value="{accountId}/depositMoney" var="depositUrl">
-		<spring:param name="accountId" value="${bankAccount.id}" />
-	</spring:url>
-	<a href="${fn:escapeXml(depositUrl)}" class="btn btn-default"
-		type="submit">Deposit money</a>
-	<c:if test="${noMoney}">
-		<spring:url value="{accountId}/delete" var="deleteUrl">
-			<spring:param name="accountId" value="${bankAccount.id}" />
-		</spring:url>
-		<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
-			Account</a>
-	</c:if>
 </petclinic:layout>
