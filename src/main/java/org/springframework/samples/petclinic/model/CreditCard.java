@@ -1,17 +1,16 @@
 package org.springframework.samples.petclinic.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import org.hibernate.validator.constraints.CreditCardNumber;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -29,8 +28,13 @@ public class CreditCard extends BaseEntity {
 	private String cvv;
 	
 	@Valid
-	@ManyToOne()
+	@ManyToOne
 	@NotNull
 	private Client client;
+	
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL)
+	@NotNull
+	private CreditCardApplication creditCardApp;
 
 }

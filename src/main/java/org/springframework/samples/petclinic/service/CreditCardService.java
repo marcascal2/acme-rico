@@ -17,11 +17,6 @@ public class CreditCardService {
 		this.creditCardRepository = creditCardRepository;
 	}
 
-	@Transactional
-	public void saveCreditCard(CreditCard creditCard) throws DataAccessException {
-		this.creditCardRepository.save(creditCard);
-	}
-
 	@Transactional(readOnly = true)
 	public CreditCard findCreditCardById(int id) throws DataAccessException {
 		CreditCard cc = this.creditCardRepository.findCardById(id);
