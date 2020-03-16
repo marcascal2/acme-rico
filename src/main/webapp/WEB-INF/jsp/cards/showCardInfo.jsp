@@ -10,7 +10,7 @@
     <h2>
         Credit Card
     </h2>
-    <form:form modelAttribute="creditCard" class="form-horizontal" id="add-client-form">
+    <form:form modelAttribute="creditCard" class="form-horizontal" id="show-card-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Card Number" name="number" readonly="true"/>
             <petclinic:inputField label="Deadline" name="deadline" readonly="true"/>

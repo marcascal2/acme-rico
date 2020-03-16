@@ -39,10 +39,18 @@
 		</sec:authorize>
         
         <sec:authorize access="hasAuthority('client')">
+			<petclinic:menuItem active="${name eq 'clients'}" url="/cardApps"
+				title="my cardApps">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				<span>My Cards applications</span>
+			</petclinic:menuItem>
+		</sec:authorize>
+		
+		<sec:authorize access="hasAuthority('client')">
 			<petclinic:menuItem active="${name eq 'clients'}" url="/cards"
 				title="my cards">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				<span>My credit cards</span>
+				<span>My cards</span>
 			</petclinic:menuItem>
 		</sec:authorize>
         
