@@ -1,3 +1,5 @@
+
+-- USERS
 -- Director
 INSERT INTO users(username,password,enabled) VALUES ('director1','director1',TRUE);
 INSERT INTO authorities VALUES ('director1','director');
@@ -17,6 +19,18 @@ INSERT INTO users(username,password,enabled) VALUES ('client4','client4',TRUE);
 INSERT INTO authorities VALUES ('client4','client');
 INSERT INTO users(username,password,enabled) VALUES ('client5','client5',TRUE);
 INSERT INTO authorities VALUES ('client5','client');
+
+-- CLIENTS
+INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client1');
+INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client2');
+INSERT INTO clients VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', '23', '1998-04-04', 'McFarland', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client3');
+INSERT INTO clients VALUES (4, 'Harold', 'Davis', '563 Friendly St.', '23', '1998-04-04', 'Windsor', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client4');
+INSERT INTO clients VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client5');
+
+-- EMPLOYEES
+INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
+INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0','worker1');
+INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'worker2');
 
 -- BANK ACCOUNTS
 --INSERT INTO bank_accounts(id,account_number,amount,created_at,alias) VALUES (1, 'ES23 2323 2323 2323 2323', 2567.34, '2019-01-03', 'Viajes');
@@ -44,26 +58,13 @@ INSERT INTO authorities VALUES ('client5','client');
 --INSERT INTO instant_transfers(id,amount,destination) VALUES (3, 3.43, 'ES56 2325 2323 2323 2323');
 --INSERT INTO instant_transfers(id,amount,destination) VALUES (4, 36.87, 'ES12 2325 2323 2323 2323');
 
--- CREDIT CARDS
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (1,'5541147884694773','01/2021','123');
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (2,'5496675056390627','02/2021','223');
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (3,'5159262819350277','03/2021','124');
-INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (4,'5535869122542955','04/2021','523');
-
 -- CREDIT CARD APPLICATIONS
---INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
---INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
---INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
 
--- EMPLOYEES
-INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
-INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0','worker1');
-INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'worker2');
+INSERT INTO cc_applications VALUES (1,'ACCEPTED',1);
+INSERT INTO cc_applications VALUES (2,'PENDING',2);
+INSERT INTO cc_applications VALUES (3,'REJECTED',3);
 
--- CLIENTS
-INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client1');
-INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client2');
-INSERT INTO clients VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', '23', '1998-04-04', 'McFarland', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client3');
-INSERT INTO clients VALUES (4, 'Harold', 'Davis', '563 Friendly St.', '23', '1998-04-04', 'Windsor', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client4');
-INSERT INTO clients VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client5');
-
+-- CREDIT CARDS
+INSERT INTO credit_cards VALUES (1,'123','01/2021','5541147884694773',1,1);
+INSERT INTO credit_cards VALUES (2,'223','02/2021','5496675056390627',2,2);
+INSERT INTO credit_cards VALUES (3,'376','03/2021','5159262819350277',3,3);

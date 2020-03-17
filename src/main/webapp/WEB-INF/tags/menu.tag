@@ -29,14 +29,31 @@
 					<span>Home</span>
 				</petclinic:menuItem>
 				
-				<!-- MENU CLIENTES -->
-				<sec:authorize access="hasAuthority('client')">
-					<petclinic:menuItem active="${name eq 'clients'}" url="/accounts"
-						title="my accounts">
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						<span>My accounts</span>
-					</petclinic:menuItem>
-				</sec:authorize>
+		<!-- MENU CLIENTES -->
+		<sec:authorize access="hasAuthority('client')">
+			<petclinic:menuItem active="${name eq 'clients'}" url="/accounts"
+				title="my accounts">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				<span>My accounts</span>
+			</petclinic:menuItem>
+		</sec:authorize>
+        
+        <sec:authorize access="hasAuthority('client')">
+			<petclinic:menuItem active="${name eq 'clients'}" url="/cardApps"
+				title="my cardApps">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				<span>My Cards applications</span>
+			</petclinic:menuItem>
+		</sec:authorize>
+		
+		<sec:authorize access="hasAuthority('client')">
+			<petclinic:menuItem active="${name eq 'clients'}" url="/cards"
+				title="my cards">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				<span>My cards</span>
+			</petclinic:menuItem>
+		</sec:authorize>
+        
         
         <!-- MENU DIRECTOR COMPARTIDO CON WORKER -->
 				<sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
@@ -63,6 +80,7 @@
 
 			</ul>
 
+		<!-- MENÚ DERECHO -->
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>

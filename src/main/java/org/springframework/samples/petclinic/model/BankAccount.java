@@ -25,11 +25,14 @@ public class BankAccount extends BaseEntity {
 	
 	@Column(unique = true)
 	@Pattern(regexp = "^[A-Z]{2}(?:[ ]?[0-9]){18,22}$", message="Invalid account number")
+	@NotNull
 	private String accountNumber;
 	
 	@NotNull
 	private Double amount;
 	
+	
+	@NotNull
 	@Past
 	private LocalDateTime createdAt;
 	
