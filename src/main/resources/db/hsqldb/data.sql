@@ -51,9 +51,9 @@ INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (3,'5159262819350277','0
 INSERT INTO credit_cards(id,number,deadline,cvv) VALUES (4,'5535869122542955','04/2021','523');
 
 -- CREDIT CARD APPLICATIONS
-INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
-INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
-INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
+--INSERT INTO cc_applications(id,status) VALUES (1,'ACCEPTED');
+--INSERT INTO cc_applications(id,status) VALUES (2,'PENDING');
+--INSERT INTO cc_applications(id,status) VALUES (3,'REJECTED');
 
 -- EMPLOYEES
 INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');

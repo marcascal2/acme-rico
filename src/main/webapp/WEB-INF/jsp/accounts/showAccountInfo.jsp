@@ -17,4 +17,7 @@
             <petclinic:inputField label="Alias" name="alias" readonly="true"/>
 		</div>
     </form:form>
+    <form action="/creditcardapps/${bankAccount.id}/new">
+             <button class="btn btn-default" type="submit">Request credit card</button>
+    </form>
 </petclinic:layout>
