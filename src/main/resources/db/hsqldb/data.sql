@@ -59,6 +59,7 @@ INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'worker2');
 --INSERT INTO instant_transfers(id,amount,destination) VALUES (4, 36.87, 'ES12 2325 2323 2323 2323');
 
 -- CREDIT CARD APPLICATIONS
+
 INSERT INTO cc_applications VALUES (1,'ACCEPTED',1);
 INSERT INTO cc_applications VALUES (2,'PENDING',2);
 INSERT INTO cc_applications VALUES (3,'REJECTED',3);

@@ -250,6 +250,38 @@ hr {
     flex-direction: column;
 }
 
+// CUSTOM
+.credit-card-app-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.credit-card-app-img {
+	max-width: 500px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+
+
+@media(max-width: 760px) {
+	.credit-card-app-container {
+		flex-direction: column;
+		justify-content: center;
+	}
+	
+	.credit-card-app-img {
+	    order: 2;
+	    margin-top: 25px;
+	}
+	
+	.credit-card-app-text {
+		order: 1;
+	}
+}
+
 @import "typography.less";
 @import "header.less";
 @import "responsive.less";

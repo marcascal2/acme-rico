@@ -2,7 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "cc_applications")
 public class CreditCardApplication extends BaseEntity{
@@ -21,8 +21,13 @@ public class CreditCardApplication extends BaseEntity{
 	private String status;
 	
 	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(optional = false)
 	@NotNull
 	private Client client;
+	
+	@Valid
+	@ManyToOne(optional = false)
+	@NotNull
+	private BankAccount bankAccount;
 
 }
