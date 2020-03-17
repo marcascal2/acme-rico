@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -28,13 +27,13 @@ public class CreditCard extends BaseEntity {
 	private String cvv;
 	
 	@Valid
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
 	private Client client;
 	
 	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
-	private CreditCardApplication creditCardApp;
+	private BankAccount bankAccount;
 
 }
