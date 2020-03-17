@@ -10,7 +10,6 @@ import org.springframework.samples.petclinic.model.InstantTransfer;
 import org.springframework.samples.petclinic.model.Transfer;
 import org.springframework.samples.petclinic.model.TransferApplication;
 import org.springframework.samples.petclinic.repository.BankAccountRepository;
-import org.springframework.samples.petclinic.service.BankAccountService;
 import org.springframework.samples.petclinic.service.InstantTransferService;
 import org.springframework.samples.petclinic.service.TransferAppService;
 import org.springframework.samples.petclinic.service.TransferService;
@@ -36,9 +35,6 @@ public class TransferController {
 
 	@Autowired
 	private InstantTransferService insTransferService;
-
-	@Autowired
-	private BankAccountService bankAccountService;
 
 	@GetMapping("/transfers")
 	public String listTransfers(ModelMap modelMap) {
@@ -90,33 +86,13 @@ public class TransferController {
 			modelMap.addAttribute("transfer", transfer);
 			return "transfers/editTransfers";
 		} else {
-
 			if (transferAmount < minAmount) {
-				// Instant transfers
 				InstantTransfer insTransfer = this.insTransferService.createInstantTrans(transferAmount,
 						account_number_destination);
-
 				this.insTransferService.save(insTransfer);
-
-				if (destinationAccount != null) {
-					// Descontamos el dinero a la cuenta origen y se lo añadimos al destino
-
-					this.bankAccountService.sumAmount(transferAmount, destinationAccount);
-
-					this.bankAccountService.SubstractAmount(transferAmount, originAccount);
-
-					this.bankAccountService.saveBankAccount(originAccount);
-					this.bankAccountService.saveBankAccount(destinationAccount);
-
-				} else {
-					// Solo le quitamos el dinero a la cuenta origen
-					this.bankAccountService.SubstractAmount(transferAmount, originAccount);
-					this.bankAccountService.saveBankAccount(originAccount);
-
-				}
+				this.transferService.setMoney(transferAmount, destinationAccount, originAccount);
 
 			} else {
-
 				TransferApplication application = this.transferAppService.createTransferApp("PENDING", transferAmount,
 						account_number_destination, originAccount);
 
@@ -124,11 +100,8 @@ public class TransferController {
 				this.transferService.save(transfer);
 
 			}
-
 			view = listTransfers(modelMap);
-
 		}
-
 		return view;
 
 	}
