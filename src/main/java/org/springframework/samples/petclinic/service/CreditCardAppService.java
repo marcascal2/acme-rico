@@ -19,6 +19,16 @@ private CreditCardAppRepository creditCardAppRepository;
 		this.creditCardAppRepository = creditCardAppRepository;
 	}
 
+	@Transactional
+	public Collection<CreditCardApplication> findCreditCardApps() {
+		return (Collection<CreditCardApplication>) this.creditCardAppRepository.findAll();
+	}
+	
+	@Transactional
+	public CreditCardApplication findCreditCardAppById(int creditCardAppId) {
+		return this.creditCardAppRepository.findById(creditCardAppId).get();
+	}
+	
 	@Transactional()
 	public Collection<CreditCardApplication> findCreditCardAppByClientId(int id) throws DataAccessException {
 		Collection<CreditCardApplication> cc_app = this.creditCardAppRepository.findAppByClientId(id);
@@ -28,6 +38,16 @@ private CreditCardAppRepository creditCardAppRepository;
   	@Transactional
 	public void save(@Valid CreditCardApplication creditCardApp) throws DataAccessException {
 		this.creditCardAppRepository.save(creditCardApp);
+	}
+  	
+  	public void acceptApp(CreditCardApplication creditCardApp) {
+  		creditCardApp.setStatus("ACCEPTED");
+		this.save(creditCardApp);
+	}
+
+	public void refuseApp(CreditCardApplication creditCardApp) {
+		creditCardApp.setStatus("REJECTED");
+		this.save(creditCardApp);
 	}
 
 }
