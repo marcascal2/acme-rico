@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -33,20 +34,19 @@ public class LoanApplication extends BaseEntity {
 	private Double amount_paid;
 	
 	@Valid
-	@ManyToOne()
+	@ManyToOne
 	@NotNull
 	private BankAccount destination;
 	
 	@Valid
-	@ManyToOne()
+	@ManyToOne
 	@NotNull
 	private Loan loan;
 	
-//	TODO: ADD CLIENT RELATION
-//	@Valid
-//	@NotNull
-//	@ManyToOne(optional = false)
-//	private Client client;
+	@Valid
+	@ManyToOne(cascade = CascadeType.ALL)
+	@NotNull
+	private Client client;
 	
 	//PROPIEDADES DERIVADAS
 	

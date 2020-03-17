@@ -36,4 +36,9 @@ public class TransferApplication extends BaseEntity {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
 	private BankAccount bankAccount;
+	
+	@Valid
+	@ManyToOne(cascade = CascadeType.ALL)
+	@NotNull
+	private Client client;
 }
