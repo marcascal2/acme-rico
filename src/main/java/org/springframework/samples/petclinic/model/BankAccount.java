@@ -1,26 +1,25 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDateTime;
-
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
-
 import org.hibernate.validator.constraints.Length;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import lombok.Getter;
-import lombok.Setter;
-
+@Data
+@EqualsAndHashCode(callSuper=true)
 @Entity
-@Getter
-@Setter
 @Table(name = "bank_accounts")
-@Valid
 public class BankAccount extends BaseEntity {
 	
 	@Column(unique = true)
@@ -40,8 +39,23 @@ public class BankAccount extends BaseEntity {
 	private String alias;
 	
 	@Valid
-	@ManyToOne()
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
 	private Client client;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private Collection<CreditCardApplication> creditCardApps;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private Collection<CreditCard> creditCards;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private Collection<InstantTransfer> instantTransfers;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private Collection<Transfer> transfers;
+	
+	@OneToMany(mappedBy = "bankAccount")
+	private Collection<TransferApplication> transfersApps;
 	
 }
