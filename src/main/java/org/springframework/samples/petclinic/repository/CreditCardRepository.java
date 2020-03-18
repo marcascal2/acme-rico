@@ -5,6 +5,6 @@ import org.springframework.samples.petclinic.model.CreditCard;
 
 public interface CreditCardRepository {
 
-	CreditCard findCardById(int id) throws DataAccessException;
+	CreditCard findById(int id) throws DataAccessException;
 
 }

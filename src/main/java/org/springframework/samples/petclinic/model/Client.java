@@ -72,9 +72,6 @@ public class Client extends Person {
 	public Collection<InstantTransfer> instantTransfers;
 	
 	@OneToMany(mappedBy = "client")
-	public Collection<Transfer> transfers;
-	
-	@OneToMany(mappedBy = "client")
 	public Collection<TransferApplication> transferApps;
 	
 	@OneToMany(mappedBy = "client")

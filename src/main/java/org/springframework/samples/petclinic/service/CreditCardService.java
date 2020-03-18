@@ -19,7 +19,7 @@ public class CreditCardService {
 
 	@Transactional(readOnly = true)
 	public CreditCard findCreditCardById(int id) throws DataAccessException {
-		CreditCard cc = this.creditCardRepository.findCardById(id);
+		CreditCard cc = this.creditCardRepository.findById(id);
 		return cc;
 	}	
 }
