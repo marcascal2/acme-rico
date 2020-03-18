@@ -1,9 +1,0 @@
-package org.springframework.samples.petclinic.repository;
-
-
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.samples.petclinic.model.Transfer;
-
-public interface TransferRepository extends CrudRepository<Transfer, Integer> {
-
-}

@@ -53,9 +53,6 @@ public class BankAccount extends BaseEntity {
 	private Collection<InstantTransfer> instantTransfers;
 	
 	@OneToMany(mappedBy = "bankAccount")
-	private Collection<Transfer> transfers;
-	
-	@OneToMany(mappedBy = "bankAccount")
 	private Collection<TransferApplication> transfersApps;
 	
 }
