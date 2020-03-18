@@ -12,9 +12,9 @@
 		<thead>
 			<tr>
 				<th style="width: 150px;">Id</th>
-				<th style="width: 150px;">Status</th>
+				<th style="width: 150px;">Account Number Destination</th>
 				<th style="width: 150px;">Amount</th>
-				<th style="width: 200px;">Account Number</th>
+				<th style="width: 200px;">Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,9 +26,9 @@
 						</spring:url> 
 						<a href="${fn:escapeXml(transferAppUrl)}"><c:out value="${transfer_app.id}"/></a>
 					</td>
-					<td><c:out value="${transfer_app.status}" /></td>
+					<td><c:out value="${transfer_app.account_number_destination}"/></td>
 					<td><c:out value="${transfer_app.amount}" /></td>
-					<td><c:out value="${transfer_app.account_number_destination}" /></td>
+					<td><c:out value="${transfer_app.status}" /></td>
 
 				</tr>
 			</c:forEach>

@@ -24,8 +24,9 @@ public class TransferApplication extends BaseEntity {
 	@Pattern(regexp = "ACCEPTED|REJECTED|PENDING", message="Transfer application status only can be ACCEPTED, REJECTED or PENDING") //pending, accepted, rejected
 	private String status;
 	
-	@Range(min = 100,message = "The amount must be greater than € 100,"
-			+ " please if you need a smaller amount make an instant transfer")
+//	@Range(min = 100,message = "The amount must be greater than € 100,"
+//			+ " please if you need a smaller amount make an instant transfer")
+	@NotNull
 	private Double amount;
 
 	@NotEmpty

@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BankAccountService {
-	
+
 	private BankAccountRepository bankAccountRepository;
-	
+
 	@Autowired
 	public BankAccountService(BankAccountRepository bankAccountRepository) {
 		this.bankAccountRepository = bankAccountRepository;
-	}	
-	
+	}
+
 	@Transactional(readOnly = true)
 	public BankAccount findBankAccountById(int id) throws DataAccessException {
 		return bankAccountRepository.findById(id);
@@ -29,11 +29,11 @@ public class BankAccountService {
 	public Collection<BankAccount> findBankAccountByClient(Client client) throws DataAccessException {
 		return bankAccountRepository.findByClient(client);
 	}
-	
+
 	@Transactional
 	public void saveBankAccount(BankAccount BankAccount) throws DataAccessException {
-		//creating BankAccount
-		bankAccountRepository.save(BankAccount);		
+		// creating BankAccount
+		bankAccountRepository.save(BankAccount);
 	}
 
 	@Transactional
@@ -50,5 +50,18 @@ public class BankAccountService {
 	public void deleteAccount(BankAccount bankAccount) {
 		bankAccountRepository.delete(bankAccount);
 	}
-	
+
+	@Transactional
+	public BankAccount findBankAccountByNumber(String account_number_destination) {
+		return bankAccountRepository.findByAccounNumber(account_number_destination);
+	}
+
+	public void sumAmount(Double transferAmount, BankAccount destinationAccount) {
+		destinationAccount.setAmount(destinationAccount.getAmount() + transferAmount);
+	}
+
+	public void SubstractAmount(Double transferAmount, BankAccount originAccount) {
+		originAccount.setAmount(originAccount.getAmount() - transferAmount);
+	}
+
 }

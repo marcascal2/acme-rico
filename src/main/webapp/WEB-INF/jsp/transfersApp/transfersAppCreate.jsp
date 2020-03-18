@@ -7,23 +7,28 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 
 <petclinic:layout pageName="transferApps">
-	<h2>
-		Transfer Application
-	</h2>
-	<form:form modelAttribute="transfer_app" class="form-horizontal"
-		id="add-transferapp-form">
-		<div class="form-group has-feedback">
-			<petclinic:inputField label="Id" name="id"/>
-			<petclinic:inputField label="Status" name="status" />
-			<petclinic:inputField label="Amount" name="amount"/>
-			<petclinic:inputField label="Account Number" name="account_number_destination" />
+<jsp:body>
+	<h2>Transfer Application</h2>
 
+	<form:form modelAttribute="transfer_app" class="form-horizontal"
+		id="add-client-form" >
+		<div class="form-group has-feedback">
+			<petclinic:inputField label="Amount" name="amount" />
+			<petclinic:inputField label="Destination Account" name="account_number_destination" />
+			<petclinic:inputField label="Status" name="status" readonly = "true"/>
+			
 		</div>
+		
+		<form:errors path="*" cssClass="errorblock" element="div" />
+		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-default" type="submit">Update
-					Transfer Application</button>
+						<button class="btn btn-default" type="submit">Add Transfer</button>
 			</div>
 		</div>
+		
 	</form:form>
+	
+	
+  </jsp:body>
 </petclinic:layout>
