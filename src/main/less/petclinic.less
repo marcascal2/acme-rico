@@ -13,9 +13,9 @@
  */
 @icon-font-path:    "../../webjars/bootstrap/fonts/";
 
-@spring-green:      #6db33f;
-@spring-dark-green: #5fa134;
-@spring-brown:      #34302D;
+@spring-green:      #23395b;
+@spring-dark-green: #406e8e;
+@spring-brown:      #8ea8c3;
 @spring-grey:       #838789;
 @spring-light-grey: #f1f1f1;
 
@@ -280,6 +280,65 @@ hr {
 	.credit-card-app-text {
 		order: 1;
 	}
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    height: 500px;
+    width: 100%;
+    filter: saturate(0.5);
+}
+
+.carousel-caption {
+	background: rgba(35,57,91,0.9);
+	left: 30%;
+    right: 30%;
+    border-radius: 16px;
+}
+
+.carousel-caption h3 {
+	color: #fff;
+	font-size: 28px;
+	margin-bottom: 10px;
+} 
+
+.carousel-caption p {
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.row-thumbnails {
+	margin-top: 5%;
+}
+
+.caption h3 {
+	color: #406e8e;
+}
+
+.jumbotron {
+	margin-top: 5%;
+}
+
+.jumbotron p {
+	font-size: 16px;
+}
+
+#info-funct .btn {
+	margin: 5px 0px;
+}
+
+.btn {
+    background: #8ea8c3;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn:hover {
+	color: #F7EC96;
+	background: #23395b;
+}
+
+.btn-primary {
+	background: #8ea8c3;
 }
 
 @import "typography.less";
