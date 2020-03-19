@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +15,6 @@ public class ExceptionHandlerConfiguration
 	// @Autowired
 	// private BasicErrorController errorController;
     // add any exceptions/validations/binding problems
-	@Autowired
-	private BasicErrorController errorController;
-
 
     @ExceptionHandler(Exception.class)
     public String defaultErrorHandler(HttpServletRequest request,  Exception ex)  {

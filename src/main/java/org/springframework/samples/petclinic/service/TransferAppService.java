@@ -10,7 +10,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.BankAccount;
 import org.springframework.samples.petclinic.model.InstantTransfer;
 import org.springframework.samples.petclinic.model.TransferApplication;
-import org.springframework.samples.petclinic.repository.InstantTransferRepository;
 import org.springframework.samples.petclinic.repository.TransferAppRepository;
 import org.springframework.stereotype.Service;
 
