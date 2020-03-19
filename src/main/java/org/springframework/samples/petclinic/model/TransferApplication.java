@@ -9,8 +9,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Range;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -35,11 +33,9 @@ public class TransferApplication extends BaseEntity {
 	
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
-	@NotNull
 	private BankAccount bankAccount;
 	
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
-	@NotNull
 	private Client client;
 }

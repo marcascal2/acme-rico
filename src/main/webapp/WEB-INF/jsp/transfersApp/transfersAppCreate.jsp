@@ -16,7 +16,6 @@
 			<petclinic:inputField label="Amount" name="amount" />
 			<petclinic:inputField label="Destination Account" name="account_number_destination" />
 			<petclinic:inputField label="Status" name="status" readonly = "true"/>
-			
 		</div>
 		
 		<form:errors path="*" cssClass="errorblock" element="div" />
