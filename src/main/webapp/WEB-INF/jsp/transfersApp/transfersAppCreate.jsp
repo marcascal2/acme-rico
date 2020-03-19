@@ -11,7 +11,7 @@
 	<h2>Transfer Application</h2>
 
 	<form:form modelAttribute="transfer_app" class="form-horizontal"
-		id="add-client-form" >
+		id="add-transferApp-form" >
 		<div class="form-group has-feedback">
 			<petclinic:inputField label="Amount" name="amount" />
 			<petclinic:inputField label="Destination Account" name="account_number_destination" />
