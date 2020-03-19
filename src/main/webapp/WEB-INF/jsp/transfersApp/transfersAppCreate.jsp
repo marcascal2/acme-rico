@@ -10,19 +10,16 @@
 <jsp:body>
 	<h2>Transfer Application</h2>
 
-	<form:form modelAttribute="transfer_app" class="form-horizontal"
-		id="add-transferApp-form" >
+	<form:form modelAttribute="transfer_app" class="form-horizontal" >
 		<div class="form-group has-feedback">
 			<petclinic:inputField label="Amount" name="amount" />
 			<petclinic:inputField label="Destination Account" name="account_number_destination" />
 			<petclinic:inputField label="Status" name="status" readonly = "true"/>
 		</div>
 		
-		<form:errors path="*" cssClass="errorblock" element="div" />
-		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-						<button class="btn btn-default" type="submit">Add Transfer</button>
+				<button class="btn btn-default" type="submit">Add Transfer</button>
 			</div>
 		</div>
 		

@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.Map;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.BankAccount;
@@ -14,21 +16,26 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TransferAppController {
 
-	private static final String CREATE_APPLICATIONS_VIEW = "transfersApp/transfersAppCreate";
+//	private static final String CREATE_APPLICATIONS_VIEW = "transfersApp/transfersAppCreate";
 	private static final String EDIT_APPLICATIONS_VIEW = "transfersApp/transferAppDetails";
 	private static final String LIST_APPLICATIONS_VIEW = "transfersApp/transferAppList";
 
-	@Autowired
 	private TransferAppService transferAppService;
 
-	@Autowired
 	private BankAccountService accountService;
+	
+	@Autowired
+	public TransferAppController(TransferAppService transferAppService, BankAccountService accountService) {
+		this.transferAppService = transferAppService;
+		this.accountService = accountService;
+	}
 	
 	@InitBinder("transfer_app")
 	public void initTransferAppBinder(WebDataBinder dataBinder) {
@@ -53,19 +60,8 @@ public class TransferAppController {
 
 	// Create
 	@GetMapping(value = "/transferapps/{bank_account_id}/new")
-	public String createTransfers(@PathVariable("bank_account_id") Integer accountId, ModelMap modelMap) {
+	public String createTransfers(@PathVariable("bank_account_id") Integer accountId, Map<String, Object> model) {
 		TransferApplication transfer_app = new TransferApplication();
-		
-		transfer_app.setStatus("PENDING");
-
-		modelMap.addAttribute("transfer_app", transfer_app);
-
-		return CREATE_APPLICATIONS_VIEW;
-	}
-
-	@PostMapping(value = "/transferapps/{bank_account_id}/new")
-	public String saveTransferApplication(@PathVariable("bank_account_id") Integer accountId,
-			@Valid TransferApplication transfer_app, BindingResult result, ModelMap modelMap) {
 		
 		BankAccount account = this.accountService.findBankAccountById(accountId);
 		Collection<TransferApplication> transferApps = account.getTransfersApps();
@@ -76,18 +72,23 @@ public class TransferAppController {
 		account.getClient().setTransferApps(transferAppsC);
 		
 		transfer_app.setBankAccount(account);
-		transfer_app.setClient(account.getClient());
+		transfer_app.setClient(account.getClient());		
 		transfer_app.setStatus("PENDING");
 
+		model.put("transfer_app", transfer_app);
+
+		return "transfersApp/transfersAppCreate";
+	}
+
+	@PostMapping(value = "/transferapps/{bank_account_id}/new")
+	public String saveTransferApplication(@ModelAttribute("transfer_app") @Valid TransferApplication transfer_app, BindingResult result, Map<String, Object> model) {
 		if (result.hasErrors()) {
-			modelMap.addAttribute("transfer_app", transfer_app);
-//			modelMap.put("errors", result.getAllErrors());
-			return CREATE_APPLICATIONS_VIEW;
+			model.put("transfer_app", transfer_app);
+			return "transfersApp/transfersAppCreate";
 		} else {
 			this.transferAppService.checkInstant(transfer_app);
+			return "redirect:/transferapps";
 		}
-
-		return listTransfersApp(modelMap);
 	}
 
 	// Accept application
