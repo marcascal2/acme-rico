@@ -49,6 +49,10 @@
 @pagination-active-border:                @spring-green;
 @table-border-color:                      @spring-brown;
 
+p, h1, h2, h3, h4, h5 {
+	font-family: "montserratregular", sans-serif;
+}
+
 .table > thead > tr > th {
   background-color: lighten(@spring-brown, 3%);
   color: @spring-light-grey;
@@ -302,7 +306,7 @@ hr {
 } 
 
 .carousel-caption p {
-	color: #fff;
+	color:  rgb(235,190,0);
 	margin-bottom: 10px;
 }
 
@@ -333,12 +337,37 @@ hr {
 }
 
 .btn:hover {
-	color: #F7EC96;
+	color:  rgb(235,190,0);
 	background: #23395b;
 }
 
 .btn-primary {
 	background: #8ea8c3;
+}
+
+.footer-logo {
+	height: 200px;
+    width: auto;
+}
+
+.footer-navbar {
+    font-family: "montserratregular", sans-serif;
+    text-shadow: none;
+    font-size: 15px;
+	background-color: rgb(235,190,0);
+	color: #23395b;
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-fluid {
+    min-height: 83.5vh;
+}
+
+.xd-container {
+margin-bottom: 40px;
 }
 
 @import "typography.less";
