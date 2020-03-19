@@ -93,5 +93,18 @@ public class TransferAppService {
 		}
 
 	}
+	
+
+	public void acceptApp(TransferApplication transferApplication) {
+		transferApplication.setStatus("ACCEPTED");
+		this.save(transferApplication);
+
+		this.setMoney(transferApplication);
+	}
+
+	public void refuseApp(TransferApplication transferApplication) {
+		transferApplication.setStatus("REJECTED");
+		this.save(transferApplication);
+	}
 
 }
