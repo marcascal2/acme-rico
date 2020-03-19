@@ -52,7 +52,9 @@ public class TransferAppController {
 
 		TransferApplication transfer_app = new TransferApplication();
 		BankAccount account = this.accountService.findBankAccountById(accountId);
-
+		transfer_app.setBankAccount(account);
+		transfer_app.setClient(account.getClient());
+		
 		transfer_app.setStatus("PENDING");
 
 		modelMap.addAttribute("transfer_app", transfer_app);
