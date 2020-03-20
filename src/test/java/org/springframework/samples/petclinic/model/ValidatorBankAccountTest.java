@@ -14,6 +14,8 @@ import javax.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.samples.acmerico.model.BankAccount;
+import org.springframework.samples.acmerico.model.Client;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorBankAccountTest {

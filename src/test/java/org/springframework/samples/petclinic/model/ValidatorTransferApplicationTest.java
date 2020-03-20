@@ -12,6 +12,10 @@ import javax.validation.Validator;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.samples.acmerico.model.BankAccount;
+import org.springframework.samples.acmerico.model.Client;
+import org.springframework.samples.acmerico.model.TransferApplication;
+import org.springframework.samples.acmerico.model.User;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorTransferApplicationTest {

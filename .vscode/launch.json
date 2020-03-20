@@ -6,13 +6,13 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)-PetClinicApplication<spring-petclinic>",
+            "name": "Debug (Launch)-AcmeRicoApplication<spring-acmerico>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "org.springframework.samples.petclinic.PetClinicApplication",
-            "projectName": "spring-petclinic",
+            "mainClass": "org.springframework.samples.acmerico.AcmeRicoApplication",
+            "projectName": "spring-acmerico",
             "args": ""
         },
         {

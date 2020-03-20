@@ -8,8 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.model.Employee;
-import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.acmerico.model.Employee;
+import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))

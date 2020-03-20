@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.acmerico.model.BankAccount;
+import org.springframework.samples.acmerico.model.Client;
+import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.service.BankAccountService;
+import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.stereotype.Service;
-import org.springframework.samples.petclinic.model.BankAccount;
-import org.springframework.samples.petclinic.model.Client;
-import org.springframework.samples.petclinic.model.User;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class BankAccountsTest {

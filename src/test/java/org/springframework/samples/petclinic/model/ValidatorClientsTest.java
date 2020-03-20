@@ -9,6 +9,9 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.samples.acmerico.model.Client;
+import org.springframework.samples.acmerico.model.Person;
+import org.springframework.samples.acmerico.model.User;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorClientsTest {
