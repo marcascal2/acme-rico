@@ -57,11 +57,13 @@ public class BankAccountService {
 	}
 
 	public void sumAmount(Double transferAmount, BankAccount destinationAccount) {
-		destinationAccount.setAmount(destinationAccount.getAmount() + transferAmount);
+		Double amount = destinationAccount.getAmount() + transferAmount;
+		destinationAccount.setAmount(amount);
 	}
 
 	public void SubstractAmount(Double transferAmount, BankAccount originAccount) {
-		originAccount.setAmount(originAccount.getAmount() - transferAmount);
+		Double amount = originAccount.getAmount() - transferAmount;
+		originAccount.setAmount(amount);
 	}
 
 }

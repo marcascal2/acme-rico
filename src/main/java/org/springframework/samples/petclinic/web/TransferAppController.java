@@ -27,8 +27,10 @@ public class TransferAppController {
 	private static final String EDIT_APPLICATIONS_VIEW = "transfersApp/transferAppDetails";
 	private static final String LIST_APPLICATIONS_VIEW = "transfersApp/transferAppList";
 
+	@Autowired
 	private TransferAppService transferAppService;
 
+	@Autowired
 	private BankAccountService accountService;
 	
 	@Autowired
@@ -70,10 +72,9 @@ public class TransferAppController {
 		Collection<TransferApplication> transferAppsC = account.getClient().getTransferApps();
 		transferAppsC.add(transfer_app);
 		account.getClient().setTransferApps(transferAppsC);
-		
-		transfer_app.setBankAccount(account);
-		transfer_app.setClient(account.getClient());		
+
 		transfer_app.setStatus("PENDING");
+		this.accountService.saveBankAccount(account);
 
 		model.put("transfer_app", transfer_app);
 
@@ -81,7 +82,12 @@ public class TransferAppController {
 	}
 
 	@PostMapping(value = "/transferapps/{bank_account_id}/new")
-	public String saveTransferApplication(@ModelAttribute("transfer_app") @Valid TransferApplication transfer_app, BindingResult result, Map<String, Object> model) {
+	public String saveTransferApplication(@PathVariable("bank_account_id") Integer accountId, @ModelAttribute("transfer_app") @Valid TransferApplication transfer_app, BindingResult result, Map<String, Object> model) {
+
+		BankAccount account = this.accountService.findBankAccountById(accountId);
+		transfer_app.setBankAccount(account);
+		transfer_app.setClient(account.getClient());
+
 		if (result.hasErrors()) {
 			model.put("transfer_app", transfer_app);
 			return "transfersApp/transfersAppCreate";
@@ -95,16 +101,12 @@ public class TransferAppController {
 	@GetMapping(value = "transferapps/{transferappsId}/accept/{bankAccountId}")
 	public String acceptTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
+				
 		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
-		BankAccount account = accountService.findBankAccountById(bankAccountId);
-
-		transferApplication.setBankAccount(account);
-		transferApplication.setClient(account.getClient());
-
 		this.transferAppService.acceptApp(transferApplication);
 		modelMap.addAttribute("transfer_application", transferApplication);
 
-		return listTransfersApp(modelMap);
+		return "redirect:/transferapps";
 	}
 
 	// Refuse application
@@ -112,14 +114,10 @@ public class TransferAppController {
 	public String refuseTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
 		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
-		BankAccount account = accountService.findBankAccountById(bankAccountId);
-
-		transferApplication.setBankAccount(account);
-		transferApplication.setClient(account.getClient());
-
+		
 		this.transferAppService.refuseApp(transferApplication);
 		modelMap.addAttribute("transfer_application", transferApplication);
-		return listTransfersApp(modelMap);
+		return "redirect:/transferapps";
 	}
 
 }

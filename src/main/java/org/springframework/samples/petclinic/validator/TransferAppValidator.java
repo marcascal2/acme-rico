@@ -28,6 +28,11 @@ public class TransferAppValidator implements Validator {
 		if(amount == null) {
 			errors.rejectValue("amount", "Amount can not be blank", "Amount can not be blank");
 		}
+
+		if(!destination.matches("[A-Z]{2}\\d{2} ?\\d{4} ?\\d{4} ?\\d{4} ?\\d{4} ?[\\d]{0,2}")){
+			errors.rejectValue("account_number_destination", "Incorrect account pattern, e.g:ES32 2323 2323 2323 2323",
+			"Incorrect account pattern, e.g:ES32 2323 2323 2323 2323");
+		}
 		
 	}
 	

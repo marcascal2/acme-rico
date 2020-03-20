@@ -45,7 +45,6 @@ public class TransferAppService {
 		Double transferAmount = transfer_app.getAmount();
 		String destination = transfer_app.getAccount_number_destination();
 		BankAccount destinationAccount = this.bankAccountService.findBankAccountByNumber(destination);
-		
 		BankAccount originAccount = transfer_app.getBankAccount();
 		
 		if (destination != null) {
@@ -79,15 +78,14 @@ public class TransferAppService {
 			inst.setDestination(account_number_destination);
 			inst.setClient(transfer_app.getClient());
 			inst.setBankAccount(account_origin);
-
 			instantService.save(inst);
 			
 			this.setMoney(transfer_app);
-			
+
 
 		} else {
 
-			this.transferAppRepository.save(transfer_app);
+			this.save(transfer_app);
 
 		}
 
