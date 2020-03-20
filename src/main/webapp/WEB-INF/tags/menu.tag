@@ -66,6 +66,11 @@
 		          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 		          <span>Credit Card Applications List</span>
 	          </petclinic:menuItem>
+			  
+			  <petclinic:menuItem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
+		          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		          <span>Transfers Applications List</span>
+	          </petclinic:menuItem>
 		  </sec:authorize>
 				
         <!-- MENU DIRECTOR -->
@@ -83,9 +88,11 @@
 					<span>Error</span>
 				</petclinic:menuItem>
 
+				
+
 			</ul>
 
-		<!-- MENÚ DERECHO -->
+		<!-- MENï¿½ DERECHO -->
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>
