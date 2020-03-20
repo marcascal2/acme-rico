@@ -120,7 +120,7 @@ public class TransferAppController {
 			return "transfersApp/transfersAppCreate";
 		} else {
 			this.transferAppService.checkInstant(transfer_app);
-			return "redirect:/transferapps";
+			return "redirect:/accounts";
 		}
 	}
 
