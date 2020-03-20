@@ -6,8 +6,10 @@ import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.BankAccount;
+import org.springframework.samples.petclinic.model.Client;
 import org.springframework.samples.petclinic.model.TransferApplication;
 import org.springframework.samples.petclinic.service.BankAccountService;
+import org.springframework.samples.petclinic.service.ClientService;
 import org.springframework.samples.petclinic.service.TransferAppService;
 import org.springframework.samples.petclinic.validator.TransferAppValidator;
 import org.springframework.stereotype.Controller;
@@ -34,9 +36,13 @@ public class TransferAppController {
 	private BankAccountService accountService;
 	
 	@Autowired
-	public TransferAppController(TransferAppService transferAppService, BankAccountService accountService) {
+	private ClientService clientService;
+	
+	@Autowired
+	public TransferAppController(TransferAppService transferAppService, BankAccountService accountService, ClientService clientService) {
 		this.transferAppService = transferAppService;
 		this.accountService = accountService;
+		this.clientService = clientService;
 	}
 	
 	@InitBinder("transfer_app")
@@ -55,8 +61,9 @@ public class TransferAppController {
 	// Listar transferAplications propias
 	@GetMapping(value = "/transferapps_mine/{clientId}")
 	public String listMineTransfersApp(@PathVariable("clientId") int clientId,ModelMap modelMap) {
+		Client client = this.clientService.findClientById(clientId);
 		Collection<TransferApplication> transfers_app = 
-			this.transferAppService.findAllTransfersApplicationsByClientId(clientId);
+			this.transferAppService.findAllTransfersApplicationsByClientId(client);
 		modelMap.addAttribute("transfers_app", transfers_app);
 		return LIST_APPLICATIONS_VIEW;
 	}

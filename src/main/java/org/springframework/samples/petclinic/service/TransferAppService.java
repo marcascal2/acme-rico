@@ -1,13 +1,12 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.BankAccount;
+import org.springframework.samples.petclinic.model.Client;
 import org.springframework.samples.petclinic.model.InstantTransfer;
 import org.springframework.samples.petclinic.model.TransferApplication;
 import org.springframework.samples.petclinic.repository.TransferAppRepository;
@@ -104,8 +103,9 @@ public class TransferAppService {
 		this.save(transferApplication);
 	}
 
-	public Collection<TransferApplication> findAllTransfersApplicationsByClientId(int clientId) {
-		return this.transferAppRepository.findAllByClientId(clientId);
+	@Transactional(readOnly = true)
+	public Collection<TransferApplication> findAllTransfersApplicationsByClientId(Client client) {
+		return this.transferAppRepository.findAllByClient(client);
 	}
 
 }
