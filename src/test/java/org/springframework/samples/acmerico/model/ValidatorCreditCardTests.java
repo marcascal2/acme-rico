@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,9 +14,6 @@ import javax.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.samples.acmerico.model.BankAccount;
-import org.springframework.samples.acmerico.model.Client;
-import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorCreditCardTests {
@@ -179,7 +176,7 @@ public class ValidatorCreditCardTests {
 		CreditCard cc = new CreditCard();
 		cc.setNumber("5509189773541186");
 		cc.setDeadline("12/2025");
-		cc.setCvv(null);
+		cc.setCvv("676");
 		cc.setBankAccount(bankAccount);
 		cc.setClient(null);
 		
@@ -199,7 +196,7 @@ public class ValidatorCreditCardTests {
 		CreditCard cc = new CreditCard();
 		cc.setNumber("5509189773541186");
 		cc.setDeadline("12/2025");
-		cc.setCvv(null);
+		cc.setCvv("342");
 		cc.setBankAccount(null);
 		cc.setClient(client);
 		

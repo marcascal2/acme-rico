@@ -1,10 +1,11 @@
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -12,10 +13,7 @@ import javax.validation.Validator;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.samples.acmerico.model.BankAccount;
-import org.springframework.samples.acmerico.model.Client;
-import org.springframework.samples.acmerico.model.TransferApplication;
-import org.springframework.samples.acmerico.model.User;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorTransferApplicationTest {
@@ -65,6 +63,8 @@ public class ValidatorTransferApplicationTest {
 	
 	@Test
 	void shouldNotValidateWhenStatusNull() {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		TransferApplication transferApp = new TransferApplication();
 		transferApp.setStatus(null);
@@ -77,7 +77,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("no puede estar vacío");
+		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 		
 	}
 	
@@ -119,6 +119,9 @@ public class ValidatorTransferApplicationTest {
 	
 	@Test
 	void shouldNotValidateWhenDestinationNull() {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+
 		
 		TransferApplication transferApp = new TransferApplication();
 		transferApp.setStatus("PENDING");
@@ -131,7 +134,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("no puede estar vacío");
+		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 		
 	}
 	

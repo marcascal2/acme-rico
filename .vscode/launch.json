@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - AcmeRicoApplication",
+            "request": "launch",
+            "mainClass": "org.springframework.samples.acmerico.AcmeRicoApplication",
+            "projectName": "spring-petclinic"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch)-AcmeRicoApplication<spring-acmerico>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

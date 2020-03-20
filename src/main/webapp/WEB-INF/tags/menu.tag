@@ -13,7 +13,7 @@
 		<div class="navbar-header">
 			<a class="navbar-brand"
 				href="<spring:url value="/" htmlEscape="true" />">
-				<img src="resources/images/logo-negativo.png" alt="logo">	
+				<img src="/resources/images/logo-negativo.png" alt="logo">	
 			</a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#main-navbar">
@@ -67,7 +67,7 @@
 	          <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			         <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-			          Clients´ requests
+			          Clientsï¿½ requests
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						      <petclinic:menuSubitem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
@@ -99,7 +99,7 @@
 	      	<li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-		          Clients´ requests
+		          Clientsï¿½ requests
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					      <petclinic:menuSubitem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
@@ -117,7 +117,7 @@
 
 		</ul>
 
-		<!-- MENÚ DERECHO -->
+		<!-- MENï¿½ DERECHO -->
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>
