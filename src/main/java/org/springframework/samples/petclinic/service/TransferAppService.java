@@ -104,4 +104,8 @@ public class TransferAppService {
 		this.save(transferApplication);
 	}
 
+	public Collection<TransferApplication> findAllTransfersApplicationsByClientId(int clientId) {
+		return this.transferAppRepository.findAllByClientId(clientId);
+	}
+
 }

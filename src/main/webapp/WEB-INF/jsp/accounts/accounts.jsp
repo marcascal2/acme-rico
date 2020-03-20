@@ -33,5 +33,8 @@
     </table>
     <form method="get" action="/accounts/${clientId}/new">
      	<button class="btn btn-default">Add new bank account</button>
-	</form>
+    </form>
+    <form method="get" action="/transferapps_mine/${clientId}">
+        <button class="btn btn-default">My transfer application list</button>
+   </form>
 </petclinic:layout>

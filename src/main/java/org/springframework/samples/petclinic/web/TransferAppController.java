@@ -52,6 +52,16 @@ public class TransferAppController {
 		return LIST_APPLICATIONS_VIEW;
 	}
 
+	// Listar transferAplications propias
+	@GetMapping(value = "/transferapps_mine/{clientId}")
+	public String listMineTransfersApp(@PathVariable("clientId") int clientId,ModelMap modelMap) {
+		Collection<TransferApplication> transfers_app = 
+			this.transferAppService.findAllTransfersApplicationsByClientId(clientId);
+		modelMap.addAttribute("transfers_app", transfers_app);
+		return LIST_APPLICATIONS_VIEW;
+	}
+
+
 	// Show
 	@GetMapping(value = "/transferapps/{transferappsId}")
 	public String showTransferApplication(@PathVariable("transferappsId") int transferappsId, ModelMap modelMap) {
