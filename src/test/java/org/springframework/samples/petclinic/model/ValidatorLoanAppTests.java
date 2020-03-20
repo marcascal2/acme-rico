@@ -24,16 +24,6 @@ public class ValidatorLoanAppTests {
 	private static User user = new User();
 	
 	@BeforeAll
-	static void populateLoan(){
-		loan.setMinimum_amount( 1550.0);
-		loan.setMinimum_income(700.0);
-		loan.setNumber_of_deadlines(2);
-		loan.setOpening_price(0.0);
-		loan.setMonthly_fee(0.01);
-		loan.setSingle_loan(true);
-	}
-	
-	@BeforeAll
 	static void populateUser() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
@@ -58,11 +48,22 @@ public class ValidatorLoanAppTests {
 	}
 	
 	@BeforeAll
+	static void populateLoan(){
+		loan.setMinimum_amount( 1550.0);
+		loan.setMinimum_income(700.0);
+		loan.setNumber_of_deadlines(2);
+		loan.setOpening_price(0.0);
+		loan.setMonthly_fee(0.01);
+		loan.setSingle_loan(true);
+		loan.setClient(client);
+	}
+	
+	@BeforeAll
 	static void populateBankAccount(){
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
-		bankAccount.setAlias("GERMANOCTAKO");
+		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
 	}
 	
@@ -85,13 +86,12 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount_paid(1200.0);
 		loanApp.setDestination(bankAccount);
 		loanApp.setLoan(loan);
+		loanApp.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("amount");
 		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 100.00");
 		
 	}
@@ -108,13 +108,12 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount_paid(1200.0);
 		loanApp.setDestination(bankAccount);
 		loanApp.setLoan(loan);
+		loanApp.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("income");
 		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 600.00");
 		
 	}
@@ -131,13 +130,12 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount_paid(1200.0);
 		loanApp.setDestination(bankAccount);
 		loanApp.setLoan(loan);
+		loanApp.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("purpose");
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
 		
 	}
@@ -154,13 +152,12 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount_paid(null);
 		loanApp.setDestination(bankAccount);
 		loanApp.setLoan(loan);
+		loanApp.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("amount_paid");
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 		
 	}
@@ -177,13 +174,12 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount_paid(1200.0);
 		loanApp.setDestination(null);
 		loanApp.setLoan(loan);
+		loanApp.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("destination");
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 		
 	}
@@ -200,13 +196,12 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount_paid(1200.0);
 		loanApp.setDestination(bankAccount);
 		loanApp.setLoan(null);
+		loanApp.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("loan");
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 		
 	}
