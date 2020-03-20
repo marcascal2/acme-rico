@@ -56,17 +56,17 @@
         
         
         <!-- MENU DIRECTOR COMPARTIDO CON WORKER -->
-				<sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
-          <petclinic:menuItem active="${name eq 'clients'}" url="/clients/find" title="find clients">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <span>Find clients</span>
-          </petclinic:menuItem>
-          
-          <petclinic:menuItem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <span>Credit Card Applications List</span>
-          </petclinic:menuItem>
-				</sec:authorize>
+		  <sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
+	          <petclinic:menuItem active="${name eq 'clients'}" url="/clients/find" title="find clients">
+		          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		          <span>Find clients</span>
+	          </petclinic:menuItem>
+	          
+	          <petclinic:menuItem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
+		          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		          <span>Credit Card Applications List</span>
+	          </petclinic:menuItem>
+		  </sec:authorize>
 				
         <!-- MENU DIRECTOR -->
 				<sec:authorize access="hasAuthority('director')">

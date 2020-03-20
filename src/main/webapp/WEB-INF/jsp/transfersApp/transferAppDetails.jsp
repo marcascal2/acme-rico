@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="transferapps">
 
@@ -26,18 +27,18 @@
 
 	</table>
 	
+	<sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
+		<c:choose>
+			<c:when test="${transfer_application.status == 'PENDING'}">
+				<form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
+			     	<button class="btn btn-default">Accept Transfer</button>
+				</form>
+				
+				<form method="get" action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
+			     	<button class="btn btn-default">Refuse Transfer</button>
+				</form>
+			</c:when>
+		</c:choose>
+	</sec:authorize>
 	
-	<c:choose>
-	<c:when test="${transfer_application.status == 'PENDING'}">
-	<form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
-     	<button class="btn btn-default">Accept Transfer</button>
-	</form>
-	
-	<form method="get" action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
-     	<button class="btn btn-default">Refuse Transfer</button>
-	</form>
-	 </c:when>
-	 </c:choose>
-
-
 </petclinic:layout>
