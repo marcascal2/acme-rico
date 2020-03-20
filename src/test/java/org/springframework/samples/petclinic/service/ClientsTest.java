@@ -22,7 +22,7 @@ public class ClientsTest {
 	@Test
 	public void testCountClients() {
 		Collection<Client> clients = this.service.findClientByLastName("");
-		assertThat(clients.size()).isEqualTo(5);
+		assertThat(clients.size()).isEqualTo(10);
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class ClientsTest {
 		this.service.saveClient(new_client);
 		
 		Collection<Client> clients = this.service.findClientByLastName("");
-		assertThat(clients.size()).isEqualTo(6);
+		assertThat(clients.size()).isEqualTo(11);
 	}
 	
 	@Test

@@ -28,7 +28,7 @@ public class BankAccountsTest {
 	public void testCountBankAccounts() {
 		
 		Collection<BankAccount> bankAccounts = this.accountService.findBankAccounts();
-		assertThat(bankAccounts.size()).isEqualTo(0);
+		assertThat(bankAccounts.size()).isEqualTo(10);
 	}
 	
 	@Test
@@ -112,6 +112,6 @@ public class BankAccountsTest {
 		bankAccount.setClient(client);
 		this.accountService.saveBankAccount(bankAccount);
 		Collection<BankAccount> accounts = this.accountService.findBankAccounts();
-		assertThat(accounts.size()).isEqualTo(1);
+		assertThat(accounts.size()).isEqualTo(11);
 	}
 }
