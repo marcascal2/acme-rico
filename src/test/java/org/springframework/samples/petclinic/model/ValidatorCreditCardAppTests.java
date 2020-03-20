@@ -21,7 +21,7 @@ public class ValidatorCreditCardAppTests {
 	}
 	
 	@Test
-	void shouldNotValidateWhenStatusBlank() {
+	void shouldNotValidateWhenStatusEmpty() {
 		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
@@ -31,10 +31,38 @@ public class ValidatorCreditCardAppTests {
 		Validator validator = createValidator();
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
 		
-		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("status");
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 
+	@Test
+	void shouldNotValidateWhenClientEmpty() {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		CreditCardApplication ccApp = new CreditCardApplication();
+		ccApp.setClient(null);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
+		
+		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
+	}
+	
+	@Test
+	void shouldNotValidateWhenBankAccountEmpty() {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		CreditCardApplication ccApp = new CreditCardApplication();
+		ccApp.setBankAccount(null);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
+		
+		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
+	}
+	
 }
