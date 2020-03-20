@@ -74,7 +74,6 @@ public class TransferAppController {
 		account.getClient().setTransferApps(transferAppsC);
 
 		transfer_app.setStatus("PENDING");
-		this.accountService.saveBankAccount(account);
 
 		model.put("transfer_app", transfer_app);
 
@@ -87,6 +86,17 @@ public class TransferAppController {
 		BankAccount account = this.accountService.findBankAccountById(accountId);
 		transfer_app.setBankAccount(account);
 		transfer_app.setClient(account.getClient());
+		
+		if(transfer_app.getAmount()!=null){
+			if (transfer_app.getAmount() > account.getAmount()) {
+				result.rejectValue("amount", "This amount can´t be higher than bank account amount", "This amount can´t be higher than bank account amount");
+			}
+		}
+
+		if (account.getAccountNumber().equals(transfer_app.getAccount_number_destination())) {
+			result.rejectValue("account_number_destination", "Account number can not be the same that destination number account", "Account number can not be the same that destination number account");
+		}
+		
 
 		if (result.hasErrors()) {
 			model.put("transfer_app", transfer_app);
