@@ -50,5 +50,20 @@ public class BankAccountService {
 	public void deleteAccount(BankAccount bankAccount) {
 		bankAccountRepository.delete(bankAccount);
 	}
+
+	@Transactional
+	public BankAccount findBankAccountByNumber(String account_number_destination) {
+		return bankAccountRepository.findByAccounNumber(account_number_destination);
+	}
+
+	public void sumAmount(Double transferAmount, BankAccount destinationAccount) {
+		Double amount = destinationAccount.getAmount() + transferAmount;
+		destinationAccount.setAmount(amount);
+	}
+
+	public void SubstractAmount(Double transferAmount, BankAccount originAccount) {
+		Double amount = originAccount.getAmount() - transferAmount;
+		originAccount.setAmount(amount);
+	}
 	
 }
