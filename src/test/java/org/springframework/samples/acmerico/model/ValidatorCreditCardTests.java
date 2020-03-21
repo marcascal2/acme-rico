@@ -18,7 +18,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorCreditCardTests {
 	
-	private static Client client=new Client();
+	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
 	
 	private Validator createValidator() {
@@ -34,8 +34,10 @@ public class ValidatorCreditCardTests {
 		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setAlias("menos de 30 caracteres");
 		bankAccount.setClient(client);
+		
 		Set<BankAccount> bankAccounts=new HashSet<BankAccount>();
 		bankAccounts.add(bankAccount);
+		
 		client.setAddress("address");
 		client.setAge(20);
 		client.setBankAccounts(bankAccounts);
