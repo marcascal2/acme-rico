@@ -19,7 +19,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 public class ValidatorInstantTransferTest {
 
 	private static InstantTransfer instantTransfer = new InstantTransfer();
-	private static Client client=new Client();
+	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
 
 	@BeforeAll
@@ -29,8 +29,10 @@ public class ValidatorInstantTransferTest {
 		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setAlias("menos de 30 caracteres");
 		bankAccount.setClient(client);
+		
 		Set<BankAccount> bankAccounts=new HashSet<BankAccount>();
 		bankAccounts.add(bankAccount);
+		
 		client.setAddress("address");
 		client.setAge(20);
 		client.setBankAccounts(bankAccounts);
@@ -51,65 +53,85 @@ public class ValidatorInstantTransferTest {
 
 	@Test
 	void shouldNotValidateWhenAmountMin() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		instantTransfer.setAmount(0.00);
 		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
 		instantTransfer.setBankAccount(bankAccount);
 		instantTransfer.setClient(client);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0.01");
 	}
 
 	@Test
 	void shouldNotValidateWhenAmountMax() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		instantTransfer.setAmount(201.00);
 		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
 		instantTransfer.setBankAccount(bankAccount);
 		instantTransfer.setClient(client);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 200.00");
 	}
 	
 	@Test
 	void shouldNotValidateWhenAmountEmpty() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		instantTransfer.setAmount(null);
 		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
 		instantTransfer.setBankAccount(bankAccount);
 		instantTransfer.setClient(client);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 	
 	@Test
 	void shouldNotValidateWhenDestinationPattern() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		instantTransfer.setAmount(20.00);
 		instantTransfer.setDestination("23 2323 2323 2323 2323");
 		instantTransfer.setBankAccount(bankAccount);
 		instantTransfer.setClient(client);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("Invalid account number");
 	}
 	
 	@Test
 	void shouldNotValidateWhenDestinationEmpty() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		instantTransfer.setAmount(20.00);
 		instantTransfer.setDestination(null);
 		instantTransfer.setBankAccount(bankAccount);
 		instantTransfer.setClient(client);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}

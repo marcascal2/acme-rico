@@ -32,61 +32,69 @@ public class ValidatorEmployeeTest {
 	
 	@Test
 	void shouldNotValidateWhenFirstNameEmpty() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		employee.setFirstName(null);
 		employee.setLastName("Coleto");
 		employee.setSalary(200.00);
 		employee.setUser(user);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-		assertThat(constraintViolations.size()).isEqualTo(1);
+		
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
 	
 	@Test
 	void shouldNotValidateWhenLastNameEmpty() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		employee.setFirstName("Emilia");
 		employee.setLastName(null);
 		employee.setSalary(200.00);
 		employee.setUser(user);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-		assertThat(constraintViolations.size()).isEqualTo(1);
+		
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("lastName");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
 	
 	@Test
 	void shouldNotValidateWhenSalaryEmpty() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		employee.setFirstName("Emilia");
 		employee.setLastName("Coleto");
 		employee.setSalary(null);
 		employee.setUser(user);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-		assertThat(constraintViolations.size()).isEqualTo(1);
+		
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("salary");
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 	
 	@Test
 	void shouldNotValidateWhenUserEmpty() {
+		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		employee.setFirstName("Emilia");
 		employee.setLastName("Coleto");
 		employee.setSalary(200.00);
 		employee.setUser(null);
+		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
-		assertThat(constraintViolations.size()).isEqualTo(1);
+		
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("user");
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 
