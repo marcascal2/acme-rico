@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,8 +12,11 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -99,12 +103,24 @@ public class ValidatorTransferApplicationTest {
 		
 	}
 	
+	@ParameterizedTest
+	@ValueSource(doubles = {100.,120.,150.,170.,200.})
+	void positiveTestWithValueSource(Double amount) {
+		assertTrue(amount>=100.00 && amount<=200.00);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {99.,201.})
+	void negativeTestWithValueSource(Double amount) {
+		Assertions.assertThrows(AssertionError.class, ()->{assertTrue(amount>=100.00 && amount<=200.00);});
+	}
+	
 	@Test
-	void shouldNotValidateWhenAmountIncorrect() {
-		
+	void shouldNotValidateWhenAmountEmpty() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		TransferApplication transferApp = new TransferApplication();
 		transferApp.setStatus("PENDING");
-		transferApp.setAmount(90.0);
+		transferApp.setAmount(null);
 		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
 		transferApp.setBankAccount(bankAccount);
 		transferApp.setClient(client);
@@ -113,7 +129,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("The amount must be greater than € 100, please if you need a smaller amount make an instant transfer");
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
 		
 	}
 	

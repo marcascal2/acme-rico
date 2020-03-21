@@ -26,6 +26,7 @@ public class TransferApplication extends BaseEntity {
 	
 	@Range(min = 100,message = "The amount must be greater than € 100,"
 			+ " please if you need a smaller amount make an instant transfer")
+	@NotNull
 	private Double amount;
 
 	@NotEmpty
