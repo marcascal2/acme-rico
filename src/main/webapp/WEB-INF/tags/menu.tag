@@ -67,12 +67,16 @@
 	          <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			         <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-			          Clients� requests
+			          Clients requests
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						      <petclinic:menuSubitem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
 					            <span>Credit Card Applications</span>
 					          </petclinic:menuSubitem>
+	          					<div class="dropdown-divider"></div>
+							  <petclinic:menuSubitem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
+									<span>Transfers Applications List</span>
+							   </petclinic:menuSubitem>
 			      	</div>
 	      		</li>
 		</sec:authorize>
@@ -93,13 +97,17 @@
 				          <petclinic:menuSubitem active="${name eq 'clients'}" url="/clients/find" title="find clients">
 				            <span>Find clients</span>
 				          </petclinic:menuSubitem>
+						  <div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
+									<span>Transfers Applications List</span>
+							</petclinic:menuSubitem>
 		      	</div>
 	      	</li>
 	      	
 	      	<li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-		          Clients� requests
+		          Clients requests
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					      <petclinic:menuSubitem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
@@ -117,7 +125,7 @@
 
 		</ul>
 
-		<!-- MEN� DERECHO -->
+		<!-- MENU DERECHO -->
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>

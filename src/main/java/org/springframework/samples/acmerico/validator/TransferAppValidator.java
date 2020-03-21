@@ -19,7 +19,7 @@ public class TransferAppValidator implements Validator {
 			errors.rejectValue("account_number_destination", "Account number can not be blank", "Account number can not be blank");
 		}
 		
-		if(amount == null) {
+		if(amount == null || amount == 0) {
 			errors.rejectValue("amount", "Amount can not be blank", "Amount can not be blank");
 		}
 
