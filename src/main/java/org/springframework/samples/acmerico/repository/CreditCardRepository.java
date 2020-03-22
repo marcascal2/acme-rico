@@ -7,4 +7,6 @@ public interface CreditCardRepository {
 
 	CreditCard findById(int id) throws DataAccessException;
 
+	void save(CreditCard cc) throws DataAccessException;
+
 }

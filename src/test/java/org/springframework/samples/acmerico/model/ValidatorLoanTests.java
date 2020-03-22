@@ -23,14 +23,14 @@ public class ValidatorLoanTests {
 	private static User user = new User();
 	
 	@BeforeAll
-	static void populateUser() {
+	static void setUpUser() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
 	}
 	
 	@BeforeAll
-	static void populateClient(){
+	static void setUpClient(){
 		client.setFirstName("Germán");
 		client.setLastName("Márquez Trujillo");
 		client.setAddress("C/ Marques de Aracena, 37");
@@ -47,7 +47,7 @@ public class ValidatorLoanTests {
 	}
 	
 	@BeforeAll
-	static void populateBankAccount(){
+	static void setUpBankAccount(){
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
@@ -85,7 +85,7 @@ public class ValidatorLoanTests {
 	}
 	
 	@Test
-	void shouldNotValidateWhenMinimunIncomeDown500() {
+	void shouldNotValidateWhenMinimunIncomeDown600() {
 		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
