@@ -20,6 +20,9 @@
 			<petclinic:inputField label="Alias" name="alias" readonly="true" />
 		</div>
 	</form:form>
+	<form action="/transferapps/${bankAccount.id}/new">
+		<button class="btn btn-default" type="submit">Create new transfer</button>
+	 </form>
   <form action="/creditcardapps/${bankAccount.id}/new">
      <button class="btn btn-default" type="submit">Request credit card</button>
   </form>
