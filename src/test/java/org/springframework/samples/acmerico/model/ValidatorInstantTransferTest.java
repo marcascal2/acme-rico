@@ -1,7 +1,6 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +11,6 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -57,15 +55,73 @@ public class ValidatorInstantTransferTest {
 	
 	
 	@ParameterizedTest
-	@ValueSource(doubles = {10.,20.,50.,70.,99.})
-	void positiveTestWithValueSource(Double amount) {
-		assertTrue(amount>0.00 && amount<100.00);
+	@ValueSource(doubles = {10.,20.,50.,70.,80.})
+	void positiveTestWithNormalCases(Double amount) {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		instantTransfer.setAmount(amount);
+		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
+		instantTransfer.setBankAccount(bankAccount);
+		instantTransfer.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
+		assertThat(constraintViolations.size() == 0);
 	}
 	
 	@ParameterizedTest
-	@ValueSource(doubles = {0.,100.})
-	void negativeTestWithValueSource(Double amount) {
-		Assertions.assertThrows(AssertionError.class, ()->{assertTrue(amount>0.00 && amount<100.00);});
+	@ValueSource(doubles = {0.01,0.011,99.,100.})
+	void positiveTestWithLimitCases(Double amount) {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		instantTransfer.setAmount(amount);
+		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
+		instantTransfer.setBankAccount(bankAccount);
+		instantTransfer.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
+		assertThat(constraintViolations.size() == 0);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {-30.,-0.1,0.,0.009})
+	void negativeTestWithInsufficientAmount(Double amount) {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		instantTransfer.setAmount(amount);
+		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
+		instantTransfer.setBankAccount(bankAccount);
+		instantTransfer.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
+		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0.01");
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {101.,200.,1000.,4000.})
+	void negativeTestWithExceededAmount(Double amount) {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		instantTransfer.setAmount(amount);
+		instantTransfer.setDestination("ES23 2323 2323 2323 2323");
+		instantTransfer.setBankAccount(bankAccount);
+		instantTransfer.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
+		
+		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 100.00");
 	}
 	
 	@Test
