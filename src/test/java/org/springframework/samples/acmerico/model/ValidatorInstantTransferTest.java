@@ -72,7 +72,7 @@ public class ValidatorInstantTransferTest {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(doubles = {0.01,0.011,99.,100.})
+	@ValueSource(doubles = {0.01,0.011,99.,99.99})
 	void positiveTestWithLimitCases(Double amount) {
 		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
@@ -107,7 +107,7 @@ public class ValidatorInstantTransferTest {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(doubles = {101.,200.,1000.,4000.})
+	@ValueSource(doubles = {100.,200.,1000.,4000.})
 	void negativeTestWithExceededAmount(Double amount) {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
@@ -121,7 +121,7 @@ public class ValidatorInstantTransferTest {
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 		
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 100.00");
+		assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 99.99");
 	}
 	
 	@Test
