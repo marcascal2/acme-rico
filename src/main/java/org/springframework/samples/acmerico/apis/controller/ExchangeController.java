@@ -52,7 +52,8 @@ public class ExchangeController {
 		
 		exchange = restTemplate.getForObject(url, Exchange.class);
 		
-		//Esto no coge los rates d elas monedas, saca nulls, hay que buscar alguna forma de cogerlos.
+		//Esto no coge los rates de las monedas, saca nulls, hay que buscar alguna forma de cogerlos.
+		//Bien sea con un método a parte o usando algo que no hemos visto de estas clases o java.
 		Double iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
 		Double pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 
