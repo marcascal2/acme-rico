@@ -78,7 +78,8 @@ public class ClientControllerTest{
     @WithMockUser(value = "spring")
     @Test
     void testInitCreationForm() throws Exception{
-       mockMvc.perform(get("/clients/new")).andExpect(status().isOk())
+       mockMvc.perform(get("/clients/new"))
+       .andExpect(status().isOk())
        .andExpect(model().attributeExists("client"))
 	   .andExpect(view().name("clients/createOrUpdateClientForm"));
     }
@@ -87,32 +88,32 @@ public class ClientControllerTest{
     @Test
     void testProcessCreationFormSuccess() throws Exception{
         mockMvc.perform(post("/clients/new")
-        .param("firstName", "Javier")
-        .param("lastName", "Ruiz")
-        .with(csrf())
-        .param("address", "Gordal")
-        .param("birthDate", "1998-11-27")
-        .param("city", "Sevilla")
-        .param("maritalStatus", "single but whole")
-        .param("salaryPerYear", "300000.")
-        .param("age", "21")
-        .param("job","student")
-        .param("lastEmployDate", "2010-01-22")
+            .param("firstName", "Javier")
+            .param("lastName", "Ruiz")
+            .with(csrf())
+            .param("address", "Gordal")
+            .param("birthDate", "1998-11-27")
+            .param("city", "Sevilla")
+            .param("maritalStatus", "single but whole")
+            .param("salaryPerYear", "300000.")
+            .param("age", "21")
+            .param("job","student")
+            .param("lastEmployDate", "2010-01-22")
         ).andExpect(status().is2xxSuccessful());
     }
     @WithMockUser(value = "spring")
     @Test
     void testProcessCreationFormHasErrors() throws Exception{
         mockMvc.perform(post("/clients/new")
-        .with(csrf())
-        .param("firstName", "Javier")
-        .param("lastName", "Ruiz")
-        .param("address", "Gordal")
-        //.param("birthDate", "1998/11/27")
-        .param("city", "Sevilla")
-        .param("maritalStatus", "single but whole")
-        .param("salaryPerYear", "300000.")
-        .param("lastEmployDate", "2010-01-22"))
+            .with(csrf())
+            .param("firstName", "Javier")
+            .param("lastName", "Ruiz")
+            .param("address", "Gordal")
+            //.param("birthDate", "1998/11/27")
+            .param("city", "Sevilla")
+            .param("maritalStatus", "single but whole")
+            .param("salaryPerYear", "300000.")
+            .param("lastEmployDate", "2010-01-22"))
         .andExpect(status().isOk())
         .andExpect(model().attributeHasErrors("client"))
         .andExpect(model().attributeHasFieldErrors("client", "age"))
@@ -129,10 +130,35 @@ public class ClientControllerTest{
         .andExpect(view().name("clients/findClients"));
     }
 
-    //Test de listar
+    ////////////////////////////////////////////////////////////////////////
+
+    //List test
 
 
-    /////////////////
+    ////////////////////////////////////////////////////////////////////////
+
+    //Show test
+    @WithMockUser(value = "spring")
+    @Test
+    
+    void testShowClientById() throws Exception{
+        mockMvc.perform(get("/clients/{clientId}", TEST_CLIENT_ID))
+        .andExpect(model().attributeExists("client"))
+        .andExpect(model().attribute("client", hasProperty("firstName",is("Javier"))))
+        .andExpect(model().attribute("client", hasProperty("lastName",is("Ruiz"))))
+        .andExpect(model().attribute("client", hasProperty("address",is("Gordal"))))
+        .andExpect(model().attribute("client", hasProperty("city",is("Sevilla"))))
+        .andExpect(view().name("clients/clientsDetails"))
+        .andExpect(status().is2xxSuccessful());
+
+
+        verify(clientService).findClientById(TEST_CLIENT_ID);
+
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////
     
     //Edit tests
     @WithMockUser(value = "spring")
@@ -166,20 +192,43 @@ public class ClientControllerTest{
 
         mockMvc.perform(post("/clients/{clientId}/edit", TEST_CLIENT_ID)
         .with(csrf())
-        .param("firstName", "Javier")
-        .param("lastName", "Ruiz")
-        .param("address", "Gordal")
-        .param("birthDate", "1998-11-27")
-        .param("city", "Sevilla")
-        .param("maritalStatus", "single but whole")
-        .param("salaryPerYear", "300000.")
-        .param("age", "21")
-        .param("job","student")
-        .param("lastEmployDate", "2010-01-22"))
+            .param("firstName", "Javier")
+            .param("lastName", "Ruiz")
+            .param("address", "Gordal")
+            .param("birthDate", "1998-11-27")
+            .param("city", "Sevilla")
+            .param("maritalStatus", "single but whole")
+            .param("salaryPerYear", "300000.")
+            .param("age", "21")
+            .param("job","student")
+            .param("lastEmployDate", "2010-01-22"))
         .andExpect(status().is2xxSuccessful())
         .andExpect(view().name("clients/createOrUpdateClientForm"));
     }
 
+    @WithMockUser(value = "spring")
+    @Test
+
+    void testUpdateFormClientHasErrors() throws Exception{
+        mockMvc.perform(post("/clients/{clientId}/edit",  TEST_CLIENT_ID)
+        .with(csrf())
+            .param("firstName", "Javier")
+            .param("lastName", "Ruiz")
+            .param("address", "Gordal")
+            //.param("birthDate", "1998/11/27")
+            .param("city", "Sevilla")
+            .param("maritalStatus", "single but whole")
+            .param("salaryPerYear", "300000.")
+            .param("lastEmployDate", "2010-01-22"))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeHasErrors("client"))
+        .andExpect(model().attributeHasFieldErrors("client", "age"))
+        .andExpect(model().attributeHasFieldErrors("client", "job"))
+        .andExpect(model().attributeHasFieldErrors("client", "birthDate"))
+        .andExpect(view().name("clients/createOrUpdateClientForm"));
+    }
+
+    /////////////////////////////////////////////////////////
 
 
 }

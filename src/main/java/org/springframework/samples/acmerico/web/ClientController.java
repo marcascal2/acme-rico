@@ -36,6 +36,7 @@ public class ClientController {
 		dataBinder.setDisallowedFields("id");
 	}
 
+	//Test: init, success y errors
 	@GetMapping(value = "/clients/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Client client = new Client();
@@ -55,12 +56,14 @@ public class ClientController {
 			return "redirect:/clients/" + client.getId();
 		}
 	}
-
+	
+	//init
 	@GetMapping(value = "/clients/find")
 	public String initFindForm(Map<String, Object> model) {
 		model.put("client", new Client());
 		return "clients/findClients";
 	}
+
 
 	@GetMapping(value = "/clients")
 	public String processFindForm(Client client, BindingResult result, Map<String, Object> model) {
@@ -89,6 +92,7 @@ public class ClientController {
 		}
 	}
 
+	//Test: init, success, errors
 	@GetMapping(value = "/clients/{clientId}/edit")
 	public String initUpdateClientForm(@PathVariable("clientId") int clientId, Model model) {
 		Client client = this.clientService.findClientById(clientId);
