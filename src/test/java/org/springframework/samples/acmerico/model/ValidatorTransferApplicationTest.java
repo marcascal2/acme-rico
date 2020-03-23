@@ -1,8 +1,6 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +10,6 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -104,15 +101,60 @@ public class ValidatorTransferApplicationTest {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(doubles = {100.,120.,150.,170.,200.})
-	void positiveTestWithValueSource(Double amount) {
-		assertTrue(amount>=100.00 && amount<=200.00);
+	@ValueSource(doubles = {150.,200.,5000.,70000.,800000.})
+	void positiveTestWithNormalCases(Double amount) {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		TransferApplication transferApp = new TransferApplication();
+		transferApp.setStatus("ACCEPTED");
+		transferApp.setAmount(amount);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
+		
+		assertThat(constraintViolations.size() == 0);
 	}
 	
 	@ParameterizedTest
-	@ValueSource(doubles = {99.,201.})
-	void negativeTestWithValueSource(Double amount) {
-		Assertions.assertThrows(AssertionError.class, ()->{assertTrue(amount>=100.00 && amount<=200.00);});
+	@ValueSource(doubles = {100.,100.011})
+	void positiveTestWithLimitCases(Double amount) {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		TransferApplication transferApp = new TransferApplication();
+		transferApp.setStatus("ACCEPTED");
+		transferApp.setAmount(amount);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
+		
+		assertThat(constraintViolations.size() == 0);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {-30.,-0.1,50.,99.,99.9999})
+	void negativeTestWithInsufficientAmount(Double amount) {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		TransferApplication transferApp = new TransferApplication();
+		transferApp.setStatus("ACCEPTED");
+		transferApp.setAmount(amount);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
+		
+		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("The amount must be greater than € 100, please if you need a smaller amount make an instant transfer");
 	}
 	
 	@Test
