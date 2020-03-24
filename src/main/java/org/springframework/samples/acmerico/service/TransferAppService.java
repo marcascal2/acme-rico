@@ -104,7 +104,7 @@ public class TransferAppService {
 	}
 
 	@Transactional
-	public Collection<TransferApplication> findAllTransfersApplicationsByClientId(Client client) {
+	public Collection<TransferApplication> findAllTransfersApplicationsByClient(Client client) {
 		return this.transferAppRepository.findAllByClient(client);
 	}
 
