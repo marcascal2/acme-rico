@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -22,9 +23,14 @@ public class ValidatorBankAccountTest {
 	private static BankAccount bankAccount = new BankAccount();
 	
 	@BeforeAll
-	static void createClient() {
+	static void createClientAndBankAccount() {
 		Set<BankAccount> bankAccounts=new HashSet<BankAccount>();
 		bankAccounts.add(bankAccount);
+		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
+		bankAccount.setAmount(899.0);
+		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
+		bankAccount.setAlias("menos de 30 caracteres");
+		bankAccount.setClient(client);
 		client.setAddress("address");
 		client.setAge(20);
 		client.setBankAccounts(bankAccounts);
@@ -35,8 +41,16 @@ public class ValidatorBankAccountTest {
 		client.setLastName("Marquez");
 		client.setMaritalStatus("single");
 		client.setSalaryPerYear(0.00);
-	} 
-	
+	}
+
+	@AfterEach
+	private void resetBankAccount() {
+		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
+		bankAccount.setAmount(899.0);
+		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
+		bankAccount.setAlias("menos de 30 caracteres");
+		bankAccount.setClient(client);
+	}
 	
 	
 	private Validator createValidator() {
@@ -48,12 +62,7 @@ public class ValidatorBankAccountTest {
 	@Test
 	void shouldNotValidateWhenAmountEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(null);
-		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
-		bankAccount.setAlias("menos de 30 caracteres");
-		bankAccount.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
@@ -65,12 +74,7 @@ public class ValidatorBankAccountTest {
 	@Test
 	void shouldNotValidateWhenAccountNumberEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
 		bankAccount.setAccountNumber(null);
-		bankAccount.setAmount(200.00);
-		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
-		bankAccount.setAlias("menos de 30 caracteres");
-		bankAccount.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
@@ -82,12 +86,7 @@ public class ValidatorBankAccountTest {
 	@Test
 	void shouldNotValidateWhenAccountNumberPattern() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
 		bankAccount.setAccountNumber("23 2323 2323 2323 2323");
-		bankAccount.setAmount(200.00);
-		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
-		bankAccount.setAlias("menos de 30 caracteres");
-		bankAccount.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
@@ -99,11 +98,6 @@ public class ValidatorBankAccountTest {
 	@Test
 	void shouldNotValidateWhenClientEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccount.setAmount(200.00);
-		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
-		bankAccount.setAlias("menos de 30 caracteres");
 		bankAccount.setClient(null);
 		
 		Validator validator = createValidator();
@@ -116,12 +110,7 @@ public class ValidatorBankAccountTest {
 	@Test
 	void shouldNotValidateWhenAliasLength() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccount.setAmount(200.00);
-		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setAlias("esto es un string con mas de 30 caracteres");
-		bankAccount.setClient(client);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
@@ -131,18 +120,14 @@ public class ValidatorBankAccountTest {
 	}
 	
 	@Test
-	void shouldNotValidateWhenCreatedAtPast() {
+	void shouldNotValidateWhenNotCreatedAtPast() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccount.setAmount(200.00);
 		bankAccount.setCreatedAt(LocalDateTime.of(2021, 2, 1, 17, 30));
-		bankAccount.setAlias("menos de 30 caracteres");
-		bankAccount.setClient(client);
+
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
-		
+
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must be a past date");
 	}
@@ -150,13 +135,8 @@ public class ValidatorBankAccountTest {
 	@Test
 	void shouldNotValidateWhenCreatedAtEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccount.setAmount(200.00);
 		bankAccount.setCreatedAt(null);
-		bankAccount.setAlias("menos de 30 caracteres");
-		bankAccount.setClient(client);
-		
+
 		Validator validator = createValidator();
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 		

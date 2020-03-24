@@ -9,11 +9,42 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorClientsTest {
+
+	private static Client client = new Client();
+
+	@BeforeAll
+	static void setUser() {
+		User new_user = new User();
+		new_user.setUsername("clientUser");
+		new_user.setPassword("clientPass");
+		new_user.setEnabled(true);
+		client.setUser(new_user);
+	}
+
+	@BeforeEach
+	private void resetClient() {
+		LocalDate bday = LocalDate.of(1999, 9, 6);
+		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
+		client.setFirstName("Maria");
+		client.setLastName("Casasola");
+		client.setAddress("Calle Sevilla");
+		client.setAge(20);
+		client.setBirthDate(bday);
+		client.setCity("Sevilla");
+		client.setJob("Empresaria");
+		client.setLastEmployDate(lastEmployDate);
+		client.setMaritalStatus("Casada");
+		client.setSalaryPerYear(20000.00);
+	}
+
+
 	
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
@@ -23,31 +54,11 @@ public class ValidatorClientsTest {
 	
 	@Test
 	public void testCreationClientsWhitoutAddress() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate bday = LocalDate.of(1999, 9, 6);
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("");
-		new_client.setAge(20);
-		new_client.setBirthDate(bday);
-		new_client.setCity("Sevilla");
-		new_client.setJob("Empresaria");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("Casada");
-		new_client.setSalaryPerYear(20000.00);
-		new_client.setUser(new_user);
+		client.setAddress("");
 		
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
@@ -55,31 +66,11 @@ public class ValidatorClientsTest {
 
 	@Test
 	public void testCreationClientsWhitoutAge() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate bday = LocalDate.of(1999, 9, 6);
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("C/ TEBA");
-		new_client.setAge(null);
-		new_client.setBirthDate(bday);
-		new_client.setCity("Sevilla");
-		new_client.setJob("Empresaria");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("Casada");
-		new_client.setSalaryPerYear(20000.00);
-		new_client.setUser(new_user);
-		
+		client.setAge(null);
+
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
@@ -88,28 +79,10 @@ public class ValidatorClientsTest {
 	@Test
 	public void testCreationClientsWhitoutBirthday() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("C/ TEBA");
-		new_client.setAge(20);
-		new_client.setBirthDate(null);
-		new_client.setCity("Sevilla");
-		new_client.setJob("Empresaria");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("Casada");
-		new_client.setSalaryPerYear(20000.00);
-		new_client.setUser(new_user);
+		client.setBirthDate(null);
 		
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
@@ -118,29 +91,10 @@ public class ValidatorClientsTest {
 	@Test
 	public void testCreationClientsWhitoutCity() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate bday = LocalDate.of(1999, 9, 6);
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("C/ TEBA");
-		new_client.setAge(20);
-		new_client.setBirthDate(bday);
-		new_client.setCity("");
-		new_client.setJob("Empresaria");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("Casada");
-		new_client.setSalaryPerYear(20000.00);
-		new_client.setUser(new_user);
+		client.setCity("");
 		
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
@@ -148,31 +102,11 @@ public class ValidatorClientsTest {
 	
 	@Test
 	public void testCreationClientsWhitoutJob() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate bday = LocalDate.of(1999, 9, 6);
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("C/ TEBA");
-		new_client.setAge(20);
-		new_client.setBirthDate(bday);
-		new_client.setCity("Sevilla");
-		new_client.setJob("");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("Casada");
-		new_client.setSalaryPerYear(20000.00);
-		new_client.setUser(new_user);
+		client.setJob("");
 		
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
@@ -181,29 +115,10 @@ public class ValidatorClientsTest {
 	@Test
 	public void testCreationClientsWhitoutMaritalStatus() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate bday = LocalDate.of(1999, 9, 6);
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("C/ TEBA");
-		new_client.setAge(20);
-		new_client.setBirthDate(bday);
-		new_client.setCity("Sevilla");
-		new_client.setJob("Empresaria");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("");
-		new_client.setSalaryPerYear(20000.00);
-		new_client.setUser(new_user);
+		client.setMaritalStatus("");
 		
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
@@ -212,29 +127,10 @@ public class ValidatorClientsTest {
 	@Test
 	public void testCreationClientsWhitoutSalaryPerYear() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		Client new_client = new Client();
-		User new_user = new User();
-		LocalDate bday = LocalDate.of(1999, 9, 6);
-		LocalDate lastEmployDate = LocalDate.of(2019, 8, 23);
-		
-		new_user.setUsername("clientUser");
-		new_user.setPassword("clientPass");
-		new_user.setEnabled(true);
-		new_client.setFirstName("Maria");
-		new_client.setLastName("Casasola");
-		new_client.setAddress("C/ TEBA");
-		new_client.setAge(20);
-		new_client.setBirthDate(bday);
-		new_client.setCity("Sevilla");
-		new_client.setJob("Empresaria");
-		new_client.setLastEmployDate(lastEmployDate);
-		new_client.setMaritalStatus("Casada");
-		new_client.setSalaryPerYear(null);
-		new_client.setUser(new_user);
+		client.setSalaryPerYear(null);
 		
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(new_client);
+		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");

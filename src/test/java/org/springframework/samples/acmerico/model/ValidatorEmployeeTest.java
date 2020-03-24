@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -23,6 +24,14 @@ public class ValidatorEmployeeTest {
 		user.setUsername("user");
 		user.setPassword("pass");
 	}
+
+	@BeforeEach
+	private void resetUser() {
+		employee.setFirstName("Emilia");
+		employee.setLastName("Coleto");
+		employee.setSalary(200.00);
+		employee.setUser(user);
+	}
 	
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
@@ -32,13 +41,8 @@ public class ValidatorEmployeeTest {
 	
 	@Test
 	void shouldNotValidateWhenFirstNameEmpty() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
 		employee.setFirstName(null);
-		employee.setLastName("Coleto");
-		employee.setSalary(200.00);
-		employee.setUser(user);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
@@ -49,13 +53,8 @@ public class ValidatorEmployeeTest {
 	
 	@Test
 	void shouldNotValidateWhenLastNameEmpty() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		employee.setFirstName("Emilia");
 		employee.setLastName(null);
-		employee.setSalary(200.00);
-		employee.setUser(user);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
@@ -66,13 +65,8 @@ public class ValidatorEmployeeTest {
 	
 	@Test
 	void shouldNotValidateWhenSalaryEmpty() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		employee.setFirstName("Emilia");
-		employee.setLastName("Coleto");
 		employee.setSalary(null);
-		employee.setUser(user);
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
@@ -83,12 +77,7 @@ public class ValidatorEmployeeTest {
 	
 	@Test
 	void shouldNotValidateWhenUserEmpty() {
-		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
-		employee.setFirstName("Emilia");
-		employee.setLastName("Coleto");
-		employee.setSalary(200.00);
 		employee.setUser(null);
 		
 		Validator validator = createValidator();
