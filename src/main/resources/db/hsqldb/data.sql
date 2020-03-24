@@ -1,4 +1,3 @@
-
 -- USERS
 -- Director
 INSERT INTO users(username,password,enabled) VALUES ('director1','director1',TRUE);
