@@ -11,6 +11,6 @@ public class Container {
 	
 	private Double amount;
 	
-	private Double amountResult;
+	private Double resultAmount;
 	
 }
