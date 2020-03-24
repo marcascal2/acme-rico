@@ -18,17 +18,19 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorCreditCardTests {
-	
+
 	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
 	private static CreditCard cc = new CreditCard();
-	
+
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
 		localValidatorFactoryBean.afterPropertiesSet();
 		return localValidatorFactoryBean;
 	}
-	
+
+	private Validator validator = createValidator();
+
 	@BeforeAll
 	static void createClientAndBankAccount() {
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
@@ -36,10 +38,10 @@ public class ValidatorCreditCardTests {
 		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setAlias("menos de 30 caracteres");
 		bankAccount.setClient(client);
-		
-		Set<BankAccount> bankAccounts=new HashSet<BankAccount>();
+
+		Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
 		bankAccounts.add(bankAccount);
-		
+
 		client.setAddress("address");
 		client.setAge(20);
 		client.setBankAccounts(bankAccounts);
@@ -50,7 +52,7 @@ public class ValidatorCreditCardTests {
 		client.setLastName("Marquez");
 		client.setMaritalStatus("single");
 		client.setSalaryPerYear(0.00);
-	} 
+	}
 
 	@BeforeEach
 	private void createCreditCard() {
@@ -60,99 +62,91 @@ public class ValidatorCreditCardTests {
 		cc.setBankAccount(bankAccount);
 		cc.setClient(client);
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenNumberIncorrect() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setNumber("543534");
 
-		Validator validator = createValidator();
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("invalid credit card number");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenNumberEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setNumber(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenDeadlineIncorrect() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setDeadline("12/20a5");
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("Incorrect deadline");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenDeadlineEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setDeadline(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenCvvIncorrect() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setCvv("1293");
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("Incorrect CVV");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenCvvEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setCvv(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenClientEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setClient(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenBankAccountEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		cc.setBankAccount(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
-		
+
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}

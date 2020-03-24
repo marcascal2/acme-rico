@@ -18,15 +18,17 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorCreditCardAppTests {
 
-	private static Client client=new Client();
+	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
-	
+
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
 		localValidatorFactoryBean.afterPropertiesSet();
 		return localValidatorFactoryBean;
 	}
-	
+
+	private Validator validator = createValidator();
+
 	@BeforeAll
 	static void createClientAndBankAccount() {
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
@@ -34,10 +36,10 @@ public class ValidatorCreditCardAppTests {
 		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setAlias("menos de 30 caracteres");
 		bankAccount.setClient(client);
-		
-		Set<BankAccount> bankAccounts=new HashSet<BankAccount>();
+
+		Set<BankAccount> bankAccounts = new HashSet<BankAccount>();
 		bankAccounts.add(bankAccount);
-		
+
 		client.setAddress("address");
 		client.setAge(20);
 		client.setBankAccounts(bankAccounts);
@@ -48,19 +50,18 @@ public class ValidatorCreditCardAppTests {
 		client.setLastName("Marquez");
 		client.setMaritalStatus("single");
 		client.setSalaryPerYear(0.00);
-	} 
-	
+	}
+
 	@Test
 	void shouldNotValidateWhenStatusBlank() {
-		
+
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
+
 		CreditCardApplication ccApp = new CreditCardApplication();
 		ccApp.setClient(client);
 		ccApp.setBankAccount(bankAccount);
 		ccApp.setStatus("");
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
 
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
@@ -69,36 +70,34 @@ public class ValidatorCreditCardAppTests {
 
 	@Test
 	void shouldNotValidateWhenClientEmpty() {
-		
+
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
+
 		CreditCardApplication ccApp = new CreditCardApplication();
 		ccApp.setStatus("PENDING");
 		ccApp.setBankAccount(null);
 		ccApp.setClient(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
-		
+
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
-	
+
 	@Test
 	void shouldNotValidateWhenBankAccountEmpty() {
-		
+
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		
+
 		CreditCardApplication ccApp = new CreditCardApplication();
 		ccApp.setClient(client);
 		ccApp.setStatus("PENDING");
 		ccApp.setBankAccount(null);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
-		
+
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
-	
+
 }

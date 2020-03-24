@@ -11,6 +11,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -22,6 +23,8 @@ public class ValidatorTransferApplicationTest {
 	private static BankAccount bankAccount = new BankAccount();
 	private static Client client = new Client();
 	private static User user = new User();
+	private static TransferApplication transferApp = new TransferApplication();
+
 	
 	@BeforeAll
 	static void populateUser() {
@@ -56,25 +59,31 @@ public class ValidatorTransferApplicationTest {
 		bankAccount.setClient(client);
 	}
 	
+	@BeforeEach
+	private void resetTransferApp() {
+		transferApp.setStatus("PENDING");
+		transferApp.setAmount(200.0);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+	}
+	
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
 		localValidatorFactoryBean.afterPropertiesSet();
 		return localValidatorFactoryBean;
 	}
 	
+	private Validator validator = createValidator();
+
+	
 	@Test
 	void shouldNotValidateWhenStatusNull() {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
-		TransferApplication transferApp = new TransferApplication();
 		transferApp.setStatus(null);
-		transferApp.setAmount(200.0);
-		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
@@ -83,15 +92,12 @@ public class ValidatorTransferApplicationTest {
 	}
 	
 	@Test
-	void shouldNotValidateWhenStatusIncorrect() {
+	void shouldNotValidateWhenIncorrectStatus() {
 		
-		TransferApplication transferApp = new TransferApplication();
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
 		transferApp.setStatus("cualquier cosa");
-		transferApp.setAmount(200.0);
-		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
+	
 		Validator validator = createValidator();
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
@@ -105,14 +111,9 @@ public class ValidatorTransferApplicationTest {
 	void positiveTestWithNormalCases(Double amount) {
 		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("ACCEPTED");
+	
 		transferApp.setAmount(amount);
-		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
-		Validator validator = createValidator();
+	
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		assertThat(constraintViolations.size() == 0);
@@ -124,14 +125,8 @@ public class ValidatorTransferApplicationTest {
 		
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
-		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("ACCEPTED");
 		transferApp.setAmount(amount);
-		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		assertThat(constraintViolations.size() == 0);
@@ -143,14 +138,8 @@ public class ValidatorTransferApplicationTest {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
-		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("ACCEPTED");
 		transferApp.setAmount(amount);
-		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
-		Validator validator = createValidator();
+
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
@@ -160,14 +149,9 @@ public class ValidatorTransferApplicationTest {
 	@Test
 	void shouldNotValidateWhenAmountEmpty() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("PENDING");
+
 		transferApp.setAmount(null);
-		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
 		
-		Validator validator = createValidator();
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
@@ -179,16 +163,9 @@ public class ValidatorTransferApplicationTest {
 	void shouldNotValidateWhenDestinationNull() {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-
 		
-		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("PENDING");
-		transferApp.setAmount(200.0);
 		transferApp.setAccount_number_destination(null);
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
 		
-		Validator validator = createValidator();
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
@@ -198,15 +175,11 @@ public class ValidatorTransferApplicationTest {
 	
 	@Test
 	void shouldNotValidateWhenDestinationIncorrect() {
+	
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
-		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("PENDING");
-		transferApp.setAmount(200.0);
 		transferApp.setAccount_number_destination("ES23 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
 		
-		Validator validator = createValidator();
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
