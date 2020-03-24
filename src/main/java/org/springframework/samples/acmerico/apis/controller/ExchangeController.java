@@ -1,9 +1,7 @@
 package org.springframework.samples.acmerico.apis.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.apis.model.foreignExchange.Container;
@@ -18,9 +16,9 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class ExchangeController {
 
-	private Exchange exchange = new Exchange();
+	private Exchange exchange;
 	private String uri = "https://api.exchangeratesapi.io/latest?base=";
-	private List<String> rates = new ArrayList<String>();
+	private List<String> rates;
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -41,10 +39,6 @@ public class ExchangeController {
 		rates.add("EUR");
 		
 		model.addAttribute("container", container);
-		model.addAttribute("initRate", "");
-		model.addAttribute("postRate", "");
-		model.addAttribute("amount", 0.);
-		model.addAttribute("resultAmount", 0.);
 		model.addAttribute("rates", rates);
 
 		return "exchanges/exchangeView";
@@ -66,11 +60,9 @@ public class ExchangeController {
 		Double pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 
 		Double resultAmount = (amount * pRate) / iRate;
+		resultAmount = Math.round(resultAmount * 100.0) / 100.0;
 		container.setResultAmount(resultAmount);
-		model.addAttribute("initRate", initRate);
-		model.addAttribute("postRate", postRate);
-		model.addAttribute("amount", amount);
-		model.addAttribute("resultAmount", resultAmount);
+
 		model.addAttribute("rates", rates);
 		model.addAttribute("isPost", true);
 
