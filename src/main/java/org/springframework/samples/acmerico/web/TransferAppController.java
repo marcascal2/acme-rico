@@ -63,7 +63,7 @@ public class TransferAppController {
 	public String listMineTransfersApp(@PathVariable("clientId") int clientId,ModelMap modelMap) {
 		Client client = this.clientService.findClientById(clientId);
 		Collection<TransferApplication> transfers_app = 
-			this.transferAppService.findAllTransfersApplicationsByClientId(client);
+			this.transferAppService.findAllTransfersApplicationsByClient(client);
 		modelMap.addAttribute("transfers_app", transfers_app);
 		return LIST_APPLICATIONS_VIEW;
 	}
