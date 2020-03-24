@@ -1,7 +1,6 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ import javax.validation.Validator;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -99,12 +100,52 @@ public class ValidatorTransferApplicationTest {
 		
 	}
 	
-	@Test
-	void shouldNotValidateWhenAmountIncorrect() {
+	@ParameterizedTest
+	@ValueSource(doubles = {150.,200.,5000.,70000.,800000.})
+	void positiveTestWithNormalCases(Double amount) {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		TransferApplication transferApp = new TransferApplication();
+		transferApp.setStatus("ACCEPTED");
+		transferApp.setAmount(amount);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
+		
+		assertThat(constraintViolations.size() == 0);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {100.,100.011})
+	void positiveTestWithLimitCases(Double amount) {
+		
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		TransferApplication transferApp = new TransferApplication();
-		transferApp.setStatus("PENDING");
-		transferApp.setAmount(90.0);
+		transferApp.setStatus("ACCEPTED");
+		transferApp.setAmount(amount);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
+		
+		assertThat(constraintViolations.size() == 0);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {-30.,-0.1,50.,99.,99.9999})
+	void negativeTestWithInsufficientAmount(Double amount) {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		TransferApplication transferApp = new TransferApplication();
+		transferApp.setStatus("ACCEPTED");
+		transferApp.setAmount(amount);
 		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
 		transferApp.setBankAccount(bankAccount);
 		transferApp.setClient(client);
@@ -114,6 +155,23 @@ public class ValidatorTransferApplicationTest {
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("The amount must be greater than € 100, please if you need a smaller amount make an instant transfer");
+	}
+	
+	@Test
+	void shouldNotValidateWhenAmountEmpty() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		TransferApplication transferApp = new TransferApplication();
+		transferApp.setStatus("PENDING");
+		transferApp.setAmount(null);
+		transferApp.setAccount_number_destination("ES23 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
+		
+		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
 		
 	}
 	

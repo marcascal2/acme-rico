@@ -1,18 +1,17 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Set;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -62,13 +61,13 @@ public class ValidatorLoanTests {
 		return localValidatorFactoryBean;
 	}
 	
-	@Test
-	void shouldNotValidateWhenMinimunAmountDown100() {
-		
+	@ParameterizedTest
+	@ValueSource(doubles = {100.00, 100.01, 50000.00, 999999.99, 1000000.00})
+	void positiveTestWithMinimunAmount(Double minimum_amount) {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		Loan loan = new Loan();
-		loan.setMinimum_amount(60.0);
+		loan.setMinimum_amount(minimum_amount);
 		loan.setMinimum_income(700.0);
 		loan.setNumber_of_deadlines(2);
 		loan.setOpening_price(0.0);
@@ -79,19 +78,43 @@ public class ValidatorLoanTests {
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
-		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 100.00");
-		
+		assertThat(constraintViolations.isEmpty());
 	}
 	
-	@Test
-	void shouldNotValidateWhenMinimunIncomeDown600() {
-		
+
+	@ParameterizedTest
+	@ValueSource(doubles = {99.99, 1000000.01})
+	void negativeTestWithMinimunAmount(Double minimum_amount) {	
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		Loan loan = new Loan();
-		loan.setMinimum_amount( 1550.0);
-		loan.setMinimum_income(500.0);
+		loan.setMinimum_amount(minimum_amount);
+		loan.setMinimum_income(700.0);
+		loan.setNumber_of_deadlines(2);
+		loan.setOpening_price(0.0);
+		loan.setMonthly_fee(0.01);
+		loan.setSingle_loan(true);
+		loan.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+		
+		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
+		if(minimum_amount < 100.00) {
+			assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 100.00");
+		}else {
+			assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 1000000.00");
+		}
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {600.00, 600.01, 50000.00, 999999.99, 1000000.00})
+	void positiveTestWithMinimunIncome(Double minimum_income) {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		Loan loan = new Loan();
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(minimum_income);
 		loan.setNumber_of_deadlines(2);
 		loan.setOpening_price(0.0);
 		loan.setMonthly_fee(0.01);
@@ -101,20 +124,43 @@ public class ValidatorLoanTests {
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
-		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 600.00");
-		
+		assertThat(constraintViolations.isEmpty());
 	}
 	
-	@Test
-	void shouldNotValidateWhenNumberOfDeadlinesDown2() {
-		
+	@ParameterizedTest
+	@ValueSource(doubles = {599.99, 1000000.01})
+	void negativeTestWithMinimunIncome(Double minimum_income) {	
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		Loan loan = new Loan();
-		loan.setMinimum_amount( 1550.0);
-		loan.setMinimum_income(900.0);
-		loan.setNumber_of_deadlines(1);
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(minimum_income);
+		loan.setNumber_of_deadlines(2);
+		loan.setOpening_price(0.0);
+		loan.setMonthly_fee(0.01);
+		loan.setSingle_loan(true);
+		loan.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+		
+		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
+		if(minimum_income < 600.00) {
+			assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 600.00");
+		}else {
+			assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 1000000.00");
+		}
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints = {2, 3, 500})
+	void positiveTestWithNumberOfDealines(int number_of_deadlines) {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		Loan loan = new Loan();
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(800.0);
+		loan.setNumber_of_deadlines(number_of_deadlines);
 		loan.setOpening_price(0.0);
 		loan.setMonthly_fee(0.01);
 		loan.setSingle_loan(true);
@@ -123,21 +169,60 @@ public class ValidatorLoanTests {
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
+		assertThat(constraintViolations.isEmpty());
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints = {-1,1})
+	void negativeTestWithNumberOfDealines(int number_of_deadlines) {	
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		Loan loan = new Loan();
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(800.0);
+		loan.setNumber_of_deadlines(number_of_deadlines);
+		loan.setOpening_price(0.0);
+		loan.setMonthly_fee(0.01);
+		loan.setSingle_loan(true);
+		loan.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+		
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 2");
-		
 	}
 	
-	@Test
-	void shouldNotValidateWhenOpeningPriceNegative() {
-		
+	@ParameterizedTest
+	@ValueSource(doubles = {.0, 100.0, 5000.0})
+	void positiveTestWithOpeningPrice(Double opening_price) {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		Loan loan = new Loan();
-		loan.setMinimum_amount( 1550.0);
-		loan.setMinimum_income(900.0);
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(800.0);
 		loan.setNumber_of_deadlines(2);
-		loan.setOpening_price(-12.0);
+		loan.setOpening_price(opening_price);
+		loan.setMonthly_fee(0.01);
+		loan.setSingle_loan(true);
+		loan.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+
+		assertThat(constraintViolations.isEmpty());
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {-1.0, -100.0})
+	void negativeTestWithOpeningPrice(Double opening_price) {	
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		Loan loan = new Loan();
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(800.0);
+		loan.setNumber_of_deadlines(2);
+		loan.setOpening_price(opening_price);
 		loan.setMonthly_fee(0.01);
 		loan.setSingle_loan(true);
 		loan.setClient(client);
@@ -147,20 +232,39 @@ public class ValidatorLoanTests {
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0");
-		
 	}
 	
-	@Test
-	void shouldNotValidateWhenMonthlyFeeDown001() {
-		
+	@ParameterizedTest
+	@ValueSource(doubles = {0.01, 0.02, 1.01})
+	void positiveTestWithMonthlyFee(Double monthly_fee) {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		Loan loan = new Loan();
-		loan.setMinimum_amount( 1550.0);
-		loan.setMinimum_income(900.0);
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(800.0);
 		loan.setNumber_of_deadlines(2);
-		loan.setOpening_price(0.0);
-		loan.setMonthly_fee(0.0);
+		loan.setOpening_price(100.0);
+		loan.setMonthly_fee(monthly_fee);
+		loan.setSingle_loan(true);
+		loan.setClient(client);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+
+		assertThat(constraintViolations.isEmpty());
+	}
+	
+	@ParameterizedTest
+	@ValueSource(doubles = {.0, -0.01, -1.01})
+	void negativeTestWithMonthlyFee(Double monthly_fee) {	
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+		
+		Loan loan = new Loan();
+		loan.setMinimum_amount(700.0);
+		loan.setMinimum_income(800.0);
+		loan.setNumber_of_deadlines(2);
+		loan.setOpening_price(100.0);
+		loan.setMonthly_fee(monthly_fee);
 		loan.setSingle_loan(true);
 		loan.setClient(client);
 		
@@ -169,12 +273,10 @@ public class ValidatorLoanTests {
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0.01");
-		
-	}
-	
+	}		
+
 	@Test
-	void shouldNotValidateWhenSinglesLoanNull() {
-		
+	void shouldNotValidateWhenSinglesLoanNull() {	
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
 		Loan loan = new Loan();
@@ -191,7 +293,26 @@ public class ValidatorLoanTests {
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be null");
+	}
+	
+	@Test
+	void shouldNotValidateWhenClientNull() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		
+		Loan loan = new Loan();
+		loan.setMinimum_amount( 1550.0);
+		loan.setMinimum_income(900.0);
+		loan.setNumber_of_deadlines(2);
+		loan.setOpening_price(0.0);
+		loan.setMonthly_fee(0.01);
+		loan.setSingle_loan(true);
+		loan.setClient(null);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+
+		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 
 }

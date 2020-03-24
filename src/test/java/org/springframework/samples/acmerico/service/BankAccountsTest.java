@@ -1,11 +1,9 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -26,7 +24,6 @@ public class BankAccountsTest {
 	
 	@Test
 	public void testCountBankAccounts() {
-		
 		Collection<BankAccount> bankAccounts = this.accountService.findBankAccounts();
 		assertThat(bankAccounts.size()).isEqualTo(10);
 	}

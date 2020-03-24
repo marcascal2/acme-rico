@@ -54,6 +54,11 @@
 					<span>My credit cards</span>
 				</petclinic:menuSubitem>
         </div>
+        <petclinic:menuItem active="${name eq 'exchanges'}" url="/exchanges"
+			title="currency page">					
+			<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
+			<span>Currency Exchange</span>
+		</petclinic:menuItem>
       	</li>
 		</sec:authorize>
         

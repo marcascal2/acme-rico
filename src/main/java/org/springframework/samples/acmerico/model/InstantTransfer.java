@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 public class InstantTransfer extends BaseEntity {
 
 	@DecimalMin(value = "0.01")
-	@DecimalMax(value = "200.00")
+	@DecimalMax(value = "99.99")
 	@NotNull
 	private Double amount;
 	
