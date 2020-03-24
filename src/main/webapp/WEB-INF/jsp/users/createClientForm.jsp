@@ -10,7 +10,7 @@
     <h2>
         <c:if test="${client['new']}">New </c:if> Client
     </h2>
-    <form:form modelAttribute="client" class="form-horizontal" id="add-client-form">
+    <form:form enctype="multipart/form-data" modelAttribute="client" class="form-horizontal" id="add-client-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="First Name" name="firstName"/>
             <petclinic:inputField label="Last Name" name="lastName"/>
@@ -24,6 +24,7 @@
             <petclinic:inputField label="Last Employ Date" name="lastEmployDate"/>
             <petclinic:inputField label="Username" name="user.username"/>
             <petclinic:inputField label="Password" name="user.password"/>
+            <input type="file" name="dniFile" path="dniFile"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
