@@ -15,23 +15,19 @@
  */
 package org.springframework.samples.acmerico.web;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.v2.DbxClientV2;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.acmerico.apis.service.DropboxService;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.ClientService;
+import org.springframework.samples.acmerico.validator.ClientValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Juergen Hoeller
@@ -45,15 +41,23 @@ public class UserController {
 	private static final String VIEWS_CLIENT_CREATE_FORM = "users/createClientForm";
 
 	private final ClientService clientService;
+	
+	private final DropboxService dropboxService;
 
 	@Autowired
-	public UserController(ClientService clinicService) {
+	public UserController(ClientService clinicService, DropboxService dropboxService) {
 		this.clientService = clinicService;
+		this.dropboxService = dropboxService;
 	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+	
+	@InitBinder("client")
+	public void initTransferAppBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ClientValidator());
 	}
 
 	@GetMapping(value = "/users/new")
@@ -66,17 +70,13 @@ public class UserController {
 	@PostMapping(value = "/users/new")
 	public String processCreationForm(@Valid Client client, BindingResult result) {
 		try {
-			MultipartFile file = client.getDniFile();
 			if (result.hasErrors()) {
 				return VIEWS_CLIENT_CREATE_FORM;
 			}
 			else {
-				InputStream dni = new ByteArrayInputStream(file.getBytes());
 				//creating owner, user, and authority
 				this.clientService.saveClient(client);
-				DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-				DbxClientV2 dropboxClient = new DbxClientV2(config, "vpE6YdhjRO0AAAAAAAAAx2xh4rUC8VL_ZU9UCMvI0nVN8K_rFGVq6a9omN2yd4a5");
-				dropboxClient.files().uploadBuilder("/" + client.getFirstName() + " " + client.getLastName() + ".jpg").uploadAndFinish(dni);
+				this.dropboxService.uploadFile(client.getDniFile(), client);
 				return "redirect:/";
 			}
 		} catch (Exception e) {
