@@ -24,14 +24,19 @@ public class TransferApplicationsTest {
 	@Autowired
 	private TransferAppService transferAppService;
 	
+	@Autowired
+	private BankAccountService bankAccountService;
+	
+	@Autowired
+	private ClientService clientService;
+	
 	BankAccount bankAccount = new BankAccount();
 	Client client = new Client();
 	User user = new User();
-	
+	TransferApplication transferApp = new TransferApplication();
+
 	@BeforeEach
 	private void populateData() {
-		TransferApplication transferApp = new TransferApplication();
-		
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
@@ -50,11 +55,15 @@ public class TransferApplicationsTest {
 		client.setBankAccounts(new ArrayList<BankAccount>());
 		client.getBankAccounts().add(bankAccount);
 		
+		this.clientService.saveClient(client);
+		
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
+		
+		this.bankAccountService.saveBankAccount(bankAccount);
 		
 		transferApp.setStatus("PENDING");
 		transferApp.setAmount(200.00);
@@ -75,5 +84,29 @@ public class TransferApplicationsTest {
 	public void testFindTransferApplicationsByClient() {
 		Collection<TransferApplication> transferApps = this.transferAppService.findAllTransfersApplicationsByClient(client);
 		assertThat(transferApps.size()).isEqualTo(1);
+	}
+	
+	@Test
+	public void testSetMoney() {
+		this.transferAppService.setMoney(transferApp);
+		assertThat(bankAccount.getAmount()).isEqualTo(99800.);
+	}
+	
+//	@Test
+//	public void testCheckInstant() {
+//		this.transferAppService.checkInstant(transferApp);
+//		
+//	} ----No entiendo muy bien cómo testear este
+	
+	@Test
+	public void testAcceptApp() {
+		this.transferAppService.acceptApp(transferApp);
+		assertThat(transferApp.getStatus()).isEqualTo("ACCEPTED");
+	}
+	
+	@Test
+	public void testRefuseApp() {
+		this.transferAppService.refuseApp(transferApp);
+		assertThat(transferApp.getStatus()).isEqualTo("REJECTED");
 	}
 }
