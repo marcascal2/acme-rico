@@ -21,16 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ClientController {
-	
+
 	private static final String VIEWS_CLIENT_CREATE_OR_UPDATE_FORM = "clients/createOrUpdateClientForm";
-	
+
 	private final ClientService clientService;
-	
+
 	@Autowired
-	public ClientController(ClientService clientService, UserService userService, AuthoritiesService authoritiesService) {
+	public ClientController(ClientService clientService, UserService userService,
+			AuthoritiesService authoritiesService) {
 		this.clientService = clientService;
 	}
-	
+
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -47,11 +48,10 @@ public class ClientController {
 	public String processCreationForm(@Valid Client client, BindingResult result) {
 		if (result.hasErrors()) {
 			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-			//creating client, user and authorities
+		} else {
+			// creating client, user and authorities
 			this.clientService.saveClient(client);
-			
+
 			return "redirect:/clients/" + client.getId();
 		}
 	}
@@ -76,13 +76,11 @@ public class ClientController {
 			// no clients found
 			result.rejectValue("lastName", "notFound", "not found");
 			return "clients/findClients";
-		}
-		else if (results.size() == 1) {
+		} else if (results.size() == 1) {
 			// 1 client found
 			client = results.iterator().next();
 			return "redirect:/clients/" + client.getId();
-		}
-		else {
+		} else {
 			// multiple clients found
 			model.put("selections", results);
 			return "clients/clientsList";
@@ -101,16 +99,17 @@ public class ClientController {
 			@PathVariable("clientId") int clientId) {
 		if (result.hasErrors()) {
 			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			client.setId(clientId);
 			this.clientService.saveClient(client);
 			return "redirect:/clients/{clientId}";
 		}
 	}
 
+	
 	/**
 	 * Custom handler for displaying an owner.
+	 * 
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
@@ -120,31 +119,34 @@ public class ClientController {
 		mav.addObject(this.clientService.findClientById(clientId));
 		return mav;
 	}
-	
+
 	@GetMapping(value = "/personalData/{name}")
 	public ModelAndView processInitPersonalDataForm(@PathVariable("name") String name, Model model) {
 		ModelAndView mav = new ModelAndView("clients/clientsDetails");
 		mav.addObject(this.clientService.findClientByUserName(name));
 		return mav;
 	}
-	
+
 	@GetMapping(value = "/personalData/{clientId}/edit")
 	public String initUpdatepersonalDataForm(@PathVariable("clientId") int clientId, Model model) {
 		Client client = this.clientService.findClientById(clientId);
 		model.addAttribute(client);
 		return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
 	}
-	
+
 	@PostMapping(value = "/personalData/{clientId}/edit")
-	public String processUpdatePersonalDataForm(@Valid Client client, BindingResult result, @PathVariable("clientId") int clientId) {
+	public String processUpdatePersonalDataForm(@Valid Client client, BindingResult result,
+			@PathVariable("clientId") int clientId) {
 		if (result.hasErrors()) {
 			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			client.setId(clientId);
 			this.clientService.saveClient(client);
 			SecurityContextHolder.clearContext();
 			return "redirect:/";
 		}
 	}
+
+	
+
 }

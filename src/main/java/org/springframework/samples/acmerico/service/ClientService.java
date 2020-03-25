@@ -52,11 +52,6 @@ public class ClientService {
 		authoritiesService.saveAuthorities(client.getUser().getUsername(), "client");
 	}
 
-	@Transactional
-	public void deleteUser(Client client) throws DataAccessException {
-		clientRepository.delete(client.getUser());
-	}
-	
 	public Collection<BankAccount> findBankAccountsByUsername(String username) {
 		Client client = findClientByUserName(username);
 		return client.getBankAccounts();

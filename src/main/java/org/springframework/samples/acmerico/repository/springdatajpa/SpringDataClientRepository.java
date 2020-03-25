@@ -2,14 +2,10 @@ package org.springframework.samples.acmerico.repository.springdatajpa;
 
 import java.util.Collection;
 
-import javax.transaction.Transactional;
-
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.acmerico.model.Client;
-import org.springframework.samples.acmerico.model.User;
 import org.springframework.samples.acmerico.repository.ClientRepository;
 
 public interface SpringDataClientRepository extends ClientRepository, Repository<Client, Integer> {
@@ -23,13 +19,7 @@ public interface SpringDataClientRepository extends ClientRepository, Repository
 	public Client findById(@Param("id") int id);
 	
 	@Override
-
 	@Query("SELECT client FROM Client client WHERE client.user.username =:name")
 	public Client findByUserName(@Param("name") String name);
 	
-	@Transactional
-	@Modifying
-	@Override
-	@Query("DELETE FROM User user WHERE user =:user")
-	void delete(@Param("user") User user);
 }
