@@ -2,7 +2,8 @@ package org.springframework.samples.acmerico.web;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import org.springframework.samples.acmerico.service.CreditCardService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -63,10 +67,8 @@ public class CreditCardControllerTest {
 		client.setJob("DP2 Developement Student");
 		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
 		client.setUser(user);
-		client.setBankAccounts(new ArrayList<BankAccount>());
-		client.getBankAccounts().add(bankAccount);
-		client.setCreditCards(new ArrayList<CreditCard>());
-		client.getCreditCards().add(creditCard);
+		client.setBankAccounts(Arrays.asList(bankAccount));
+		client.setCreditCards(Arrays.asList(creditCard));
 	}
 	
 	@BeforeAll
@@ -77,8 +79,7 @@ public class CreditCardControllerTest {
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
-		bankAccount.setCreditCards(new ArrayList<CreditCard>());
-		bankAccount.getCreditCards().add(creditCard);
+		bankAccount.setCreditCards(Arrays.asList(creditCard));
 	}
 	
 	@BeforeAll
@@ -87,29 +88,37 @@ public class CreditCardControllerTest {
 		creditCard.setNumber("5130218133680652");
 		creditCard.setDeadline("07/2022");
 		creditCard.setCvv("156");
-		creditCard.setClient(client);
-		creditCard.setBankAccount(bankAccount);
 	}
-	
+
 	@WithMockUser(value = "spring")
     @Test
     void testShowClientCards() throws Exception{
+		Collection<CreditCard> creditCards = Arrays.asList(creditCard);
+		
+		when(this.clientService.findClientByUserName(user.getUsername())).thenReturn(client);
+		when(this.clientService.findCreditCardsByUsername(user.getUsername())).thenReturn(creditCards);
+		
 		mockMvc.perform(get("/cards"))
 		   .andExpect(status().isOk())
-	       .andExpect(model().attributeExists("cards"))
-	       .andExpect(model().attributeExists("clientId"))
-		   .andExpect(view().name("cards/cards"));
+		   .andExpect(model().attributeExists("cards"))
+		   .andExpect(model().attributeExists("clientId"))
+		   .andExpect(view().name("cards/cards"))
+		   .andExpect(status().is2xxSuccessful());
 	}
 	
 	@WithMockUser(value = "spring")
     @Test
     void testAccountInfo() throws Exception{
-		this.creditCardService.saveCreditCard(creditCard);
+		when(this.creditCardService.findCreditCardById(creditCard.getId())).thenReturn(creditCard);  
 		
 		mockMvc.perform(get("/cards/{cardId}/show", creditCard.getId()))
 		   .andExpect(status().isOk())
-	       .andExpect(model().attributeExists("creditCard"))
-		   .andExpect(view().name("cards/showCardInfo"));
+		   .andExpect(model().attributeExists("creditCard"))
+		   .andExpect(model().attribute("creditCard", hasProperty("number", is("5130218133680652"))))
+		   .andExpect(model().attribute("creditCard", hasProperty("deadline", is("07/2022"))))
+		   .andExpect(model().attribute("creditCard", hasProperty("cvv", is("156"))))
+		   .andExpect(view().name("cards/showCardInfo"))
+		   .andExpect(status().is2xxSuccessful());
 	}
 	
 }

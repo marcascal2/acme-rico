@@ -13,8 +13,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class CreditCardController {
@@ -24,11 +22,6 @@ public class CreditCardController {
 	private final ClientService clientService;
 
 	private final CreditCardService creditCardService;
-	
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
-	}
 
 	@Autowired
 	public CreditCardController(ClientService clientService, CreditCardService creditCardService) {
@@ -36,7 +29,12 @@ public class CreditCardController {
 		this.creditCardService = creditCardService;
 	}
 	
-	@RequestMapping(value = "/cards", method = RequestMethod.GET)
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
+	}
+	
+	@GetMapping(value = "/cards")
 	public String showClientCards(Principal principal, Model model) {
 		String username = principal.getName();
 		Client client = this.clientService.findClientByUserName(username);
