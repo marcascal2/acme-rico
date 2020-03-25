@@ -3,14 +3,19 @@ package org.springframework.samples.acmerico.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
+import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +26,7 @@ public class ClientsTest {
 	private ClientService service;
 
 	Client new_client = new Client();
-	
+
 	@BeforeEach
 	private void populateData() {
 		User new_user = new User();
@@ -44,6 +49,7 @@ public class ClientsTest {
 		new_client.setUser(new_user);
 
 		this.service.saveClient(new_client);
+
 	}
 
 	@Test
@@ -64,4 +70,51 @@ public class ClientsTest {
 		assertThat(client.getFirstName()).isEqualTo("Name");
 	}
 
+	@Test
+	public void testCountBankAccountsFromClient() {
+		BankAccount account = new BankAccount();
+
+		account.setAccountNumber("ES23 2323 2323 2323 2323");
+		account.setAlias("alias");
+		account.setAmount(200.00);
+		account.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
+		account.setClient(new_client);
+
+		List<BankAccount> accounts = new ArrayList<BankAccount>();
+		accounts.add(account);
+
+		new_client.setBankAccounts(accounts);
+
+		String username = new_client.getUser().getUsername();
+		List<BankAccount> ba = (List<BankAccount>) this.service.findBankAccountsByUsername(username);
+		assertThat(ba.size()).isEqualTo(1);
+	}
+
+	@Test
+	public void testCountCreditCardsFromClient() {
+		BankAccount account = new BankAccount();
+
+		account.setAccountNumber("ES23 2323 2323 2323 2323");
+		account.setAlias("alias");
+		account.setAmount(200.00);
+		account.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
+		account.setClient(new_client);
+		
+		CreditCard card = new CreditCard();
+
+		card.setNumber("5130218133680652");
+		card.setDeadline("07/2022");
+		card.setCvv("298");
+		card.setBankAccount(account);
+		card.setClient(new_client);
+
+		List<CreditCard> cards = new ArrayList<CreditCard>();
+		cards.add(card);
+
+		new_client.setCreditCards(cards);
+		
+		String username = new_client.getUser().getUsername();
+		List<CreditCard> cc = (List<CreditCard>) this.service.findCreditCardsByUsername(username);
+		assertThat(cc.size()).isEqualTo(1);
+	}
 }
