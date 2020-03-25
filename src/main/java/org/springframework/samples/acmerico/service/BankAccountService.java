@@ -61,7 +61,7 @@ public class BankAccountService {
 		destinationAccount.setAmount(amount);
 	}
 
-	public void SubstractAmount(Double transferAmount, BankAccount originAccount) {
+	public void substractAmount(Double transferAmount, BankAccount originAccount) {
 		Double amount = originAccount.getAmount() - transferAmount;
 		originAccount.setAmount(amount);
 	}

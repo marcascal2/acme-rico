@@ -69,4 +69,31 @@ public class BankAccountsTest {
 		Collection<BankAccount> accounts = this.accountService.findBankAccounts();
 		assertThat(accounts.size()).isEqualTo(11);
 	}
+
+	@Test
+	public void testDeleteBankAccount() {
+		this.accountService.deleteAccount(bankAccount);
+		Collection<BankAccount> accounts = this.accountService.findBankAccounts();
+		assertThat(accounts.size()).isEqualTo(10);
+	}
+
+	@Test
+	public void testFindBankAccountByNumber() {
+		BankAccount b = this.accountService.findBankAccountByNumber(bankAccount.getAccountNumber());
+		assertThat(b).isEqualTo(bankAccount);
+	}
+	
+	@Test
+	public void testSumAmount() {
+		Double transferAmount = 40.;
+		this.accountService.sumAmount(transferAmount, bankAccount);
+		assertThat(bankAccount.getAmount()).isEqualTo(240.);
+	}
+	
+	@Test
+	public void testSubstractAmount() {
+		Double tranferAmount = 40.;
+		this.accountService.substractAmount(tranferAmount, bankAccount);
+		assertThat(bankAccount.getAmount()).isEqualTo(160.);
+	}
 }
