@@ -51,14 +51,14 @@ public class TransferAppService {
 
 			this.bankAccountService.sumAmount(transferAmount, destinationAccount);
 
-			this.bankAccountService.SubstractAmount(transferAmount, originAccount);
+			this.bankAccountService.substractAmount(transferAmount, originAccount);
 
 			this.bankAccountService.saveBankAccount(originAccount);
 			this.bankAccountService.saveBankAccount(destinationAccount);
 
 		} else {
 			// Solo le quitamos el dinero a la cuenta origen
-			this.bankAccountService.SubstractAmount(transferAmount, originAccount);
+			this.bankAccountService.substractAmount(transferAmount, originAccount);
 			this.bankAccountService.saveBankAccount(originAccount);
 
 		}
