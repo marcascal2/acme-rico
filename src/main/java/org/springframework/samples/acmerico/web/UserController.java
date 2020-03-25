@@ -56,7 +56,7 @@ public class UserController {
 	}
 	
 	@InitBinder("client")
-	public void initTransferAppBinder(WebDataBinder dataBinder) {
+	public void initClientBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new ClientValidator());
 	}
 
