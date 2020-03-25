@@ -3,8 +3,6 @@ package org.springframework.samples.acmerico.controller;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,15 +11,11 @@ import org.springframework.samples.acmerico.configuration.SecurityConfiguration;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.User;
-import org.springframework.samples.acmerico.service.AuthoritiesService;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
-import org.springframework.samples.acmerico.service.UserService;
-import org.springframework.samples.acmerico.web.ClientController;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.servlet.ModelAndView;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,10 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.jasper.tagplugins.jstl.core.When;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.context.annotation.FilterType;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.hamcrest.Matchers.*;
 
 import org.springframework.samples.acmerico.web.BankAccountController;
@@ -47,7 +38,6 @@ public class BankAccountControllerTest {
     private static final Integer TEST_BANK_ACCOUNT_ID = 1;
     private static final String TEST_BANK_ACCOUNT_NUMBER = "ES23 0025 0148 1259 1424";
     private static final String TEST_CLIENT_USERNAME = "client1";
-    private static final Integer TEST_BANK_ACCOUNT_ID_2 = 2;
 
     @MockBean
     private ClientService clientService;

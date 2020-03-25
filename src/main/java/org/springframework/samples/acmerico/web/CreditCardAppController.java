@@ -73,12 +73,13 @@ public class CreditCardAppController {
 	
 	@RequestMapping(value = "/mycreditcardapps", method = RequestMethod.GET)
 	public String showClientCardApps(Principal principal, Model model) {
+		String view = "creditCardApps/clientCreditCardApps";
 		String username = principal.getName();
 		Client client = this.clientService.findClientByUserName(username);
 		Collection<CreditCardApplication> result = creditCardAppService.findCreditCardAppByClientId(client.getId());
 		model.addAttribute("cardApps", result);
 		model.addAttribute("clientUser", client.getUser().getUsername());
-		return "creditCardApps/clientCreditCardApps";
+		return view;
 	}
   
   @GetMapping(value = "/creditcardapps/{bankAccountId}/new")
