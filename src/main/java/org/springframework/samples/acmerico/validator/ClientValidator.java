@@ -13,13 +13,12 @@ public class ClientValidator implements Validator {
 		MultipartFile dni = client.getDniFile();
 
 		if (dni == null) {
-			errors.rejectValue("dniFile", "DNI file can not be blank");
+			errors.rejectValue("dniFile", "DNI file can not be blank", "DNI file can not be blank");
 		}
 
 		if (dni != null && !dni.getContentType().equals("image/jpeg")) {
-			errors.rejectValue("dniFile", "DNI file must be jpg type");
+			errors.rejectValue("dniFile", "DNI file must be jpg type", "DNI file must be jpg type");
 		}
-
 	}
 
 	@Override

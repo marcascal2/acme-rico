@@ -24,7 +24,13 @@
             <petclinic:inputField label="Last Employ Date" name="lastEmployDate"/>
             <petclinic:inputField label="Username" name="user.username"/>
             <petclinic:inputField label="Password" name="user.password"/>
-            <input type="file" name="dniFile" path="dniFile"/>
+            <div class="dni-form">
+                <div class="dni-form-and-label">
+                    <label class="col-sm-2 control-label">DNI: </label>
+                    <input type="file" name="dniFile" path="dniFile"/>
+                </div>
+                <form:errors path="dniFile" cssClass="dni-error" />
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

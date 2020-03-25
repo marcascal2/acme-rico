@@ -22,7 +22,7 @@ public class DropboxService {
 	@Transactional
 	public void uploadFile(MultipartFile file, Client client) throws IOException, DbxException{
 		InputStream dni = new ByteArrayInputStream(file.getBytes());
-		dropboxClient.files().uploadBuilder("/" + client.getFirstName() + " " + client.getLastName() + ".jpg").uploadAndFinish(dni);
+		dropboxClient.files().uploadBuilder("/" + client.getFirstName() + " " + client.getLastName() + " - " + client.getAddress() + ".jpg").uploadAndFinish(dni);
 	}
 	
 }
