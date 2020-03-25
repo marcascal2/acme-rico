@@ -68,21 +68,21 @@ public class ValidatorCreditCardAppTests {
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
 	}
 	
-//	@Test
-//	void shouldNotValidateWhenStatusIncorrect() {
-//
-//		LocaleContextHolder.setLocale(Locale.ENGLISH);
-//
-//		CreditCardApplication ccApp = new CreditCardApplication();
-//		ccApp.setClient(client);
-//		ccApp.setBankAccount(bankAccount);
-//		ccApp.setStatus("cualquier cosa");
-//
-//		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
-//
-//		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
-//		assertThat(violation.getMessage()).isEqualTo("Card application status only can be ACCEPTED, REJECTED or PENDING");
-//	}
+	@Test
+	void shouldNotValidateWhenStatusIncorrect() {
+
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+
+		CreditCardApplication ccApp = new CreditCardApplication();
+		ccApp.setClient(client);
+		ccApp.setBankAccount(bankAccount);
+		ccApp.setStatus("cualquier cosa");
+
+		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
+
+		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("Card application status only can be ACCEPTED, REJECTED or PENDING");
+	}
 
 	@Test
 	void shouldNotValidateWhenClientEmpty() {
