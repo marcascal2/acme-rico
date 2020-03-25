@@ -51,8 +51,8 @@ public class TransferAppService {
 			if(b.getAccountNumber() == destination) {
 				destinationAccount = b;
 			}
-		
 		}
+		
 		BankAccount originAccount = transfer_app.getBankAccount();
 		
 		if (destinationAccount != null) {
