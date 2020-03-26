@@ -17,7 +17,7 @@ import com.dropbox.core.v2.DbxClientV2;
 public class DropboxService {
 	
 	private DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-	private DbxClientV2 dropboxClient=new DbxClientV2(config, "vpE6YdhjRO0AAAAAAAAAyr6r3u2p88ACVUU9mu1KM0MR4nFbFhw2_3_ygih-Qu1Q");;
+	private DbxClientV2 dropboxClient=new DbxClientV2(config, "vpE6YdhjRO0AAAAAAAAAyr6r3u2p88ACVUU9mu1KM0MR4nFbFhw2_3_ygih-Qu1Q");
 	
 	@Transactional
 	public void uploadFile(MultipartFile file, Client client) throws IOException, DbxException{
