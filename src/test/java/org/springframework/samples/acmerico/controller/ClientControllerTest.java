@@ -3,7 +3,6 @@ package org.springframework.samples.acmerico.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,9 @@ import org.springframework.context.annotation.FilterType;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.hamcrest.Matchers.*;
 
-
 @WebMvcTest(controllers = ClientController.class,
     excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
     excludeAutoConfiguration = SecurityConfiguration.class)
-
 public class ClientControllerTest{
 
     private static final Integer TEST_CLIENT_ID = 1;
@@ -39,8 +36,6 @@ public class ClientControllerTest{
     private static final String TEST_CLIENT_USER = "client1";
 
     private static final String TEST_CLIENT_LASTNAME = "Ruiz";
-
-
 
     @MockBean
     private ClientService   clientService;
@@ -59,7 +54,6 @@ public class ClientControllerTest{
 
     @BeforeEach
     void setup(){
-
         user = new User();
 
         user.setUsername(TEST_CLIENT_USER);
@@ -120,6 +114,7 @@ public class ClientControllerTest{
             .param("lastEmployDate", "2010-01-22")
         ).andExpect(status().is2xxSuccessful());
     }
+    
     @WithMockUser(value = "spring")
     @Test
     void testProcessCreationFormHasErrors() throws Exception{
@@ -128,7 +123,6 @@ public class ClientControllerTest{
             .param("firstName", "Javier")
             .param("lastName", "Ruiz")
             .param("address", "Gordal")
-            //.param("birthDate", "1998/11/27")
             .param("city", "Sevilla")
             .param("maritalStatus", "single but whole")
             .param("salaryPerYear", "300000.")
@@ -149,8 +143,6 @@ public class ClientControllerTest{
         .andExpect(view().name("clients/findClients"));
     }
 
-    ////////////////////////////////////////////////////////////////////////
-
     //List test
     @WithMockUser(value = "spring")
     @Test
@@ -162,15 +154,11 @@ public class ClientControllerTest{
         .andExpect(view().name("clients/findClients"));
 
         verify(clientService).findClientByLastName("");
-
     }
-
-    ////////////////////////////////////////////////////////////////////////
 
     //Show test
     @WithMockUser(value = "spring")
     @Test
-    
     void testShowClientById() throws Exception{
         mockMvc.perform(get("/clients/{clientId}", TEST_CLIENT_ID))
         .andExpect(model().attributeExists("client"))
@@ -183,17 +171,11 @@ public class ClientControllerTest{
 
 
         verify(clientService).findClientById(TEST_CLIENT_ID);
-
     }
-
-
-
-    ////////////////////////////////////////////////////////////////////////
     
     //Edit tests
     @WithMockUser(value = "spring")
     @Test
-
     void initUpdateFormClient() throws Exception{
         final LocalDate bithday = LocalDate.of(1998, 11, 27);
         final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
@@ -217,7 +199,6 @@ public class ClientControllerTest{
 
     @WithMockUser(value = "spring")
     @Test
-
     void testUpdateFormClientSuccess() throws Exception{
 
         mockMvc.perform(post("/clients/{clientId}/edit", TEST_CLIENT_ID)
@@ -238,7 +219,6 @@ public class ClientControllerTest{
 
     @WithMockUser(value = "spring")
     @Test
-
     void testUpdateFormClientHasErrors() throws Exception{
         mockMvc.perform(post("/clients/{clientId}/edit",  TEST_CLIENT_ID)
         .with(csrf())
@@ -261,28 +241,26 @@ public class ClientControllerTest{
     /////////////////////////////////////////////////////////
 
     //Test show datos personales
-//Show test
-@WithMockUser(value = "spring")
-@Test
+    //Show test
+	@WithMockUser(value = "spring")
+	@Test
+	void testShowPersonalDataByName() throws Exception{
+	    mockMvc.perform(get("/personalData/{name}", TEST_CLIENT_USER))
+	    .andExpect(model().attributeExists("client"))
+	    .andExpect(model().attribute("client", hasProperty("firstName",is("Javier"))))
+	    .andExpect(model().attribute("client", hasProperty("lastName",is("Ruiz"))))
+	    .andExpect(model().attribute("client", hasProperty("address",is("Gordal"))))
+	    .andExpect(model().attribute("client", hasProperty("city",is("Sevilla"))))
+	    .andExpect(view().name("clients/clientsDetails"))
+	    .andExpect(status().is2xxSuccessful());
+	
+	    verify(clientService).findClientByUserName(TEST_CLIENT_USER);
+	
+	}
 
-void testShowPersonalDataByName() throws Exception{
-    mockMvc.perform(get("/personalData/{name}", TEST_CLIENT_USER))
-    .andExpect(model().attributeExists("client"))
-    .andExpect(model().attribute("client", hasProperty("firstName",is("Javier"))))
-    .andExpect(model().attribute("client", hasProperty("lastName",is("Ruiz"))))
-    .andExpect(model().attribute("client", hasProperty("address",is("Gordal"))))
-    .andExpect(model().attribute("client", hasProperty("city",is("Sevilla"))))
-    .andExpect(view().name("clients/clientsDetails"))
-    .andExpect(status().is2xxSuccessful());
-
-    verify(clientService).findClientByUserName(TEST_CLIENT_USER);
-
-}
-
-//Personal Data edit
-@WithMockUser(value = "spring")
+	//Personal Data edit
+	@WithMockUser(value = "spring")
     @Test
-
     void initUpdateFormPersonalDataClient() throws Exception{
         final LocalDate bithday = LocalDate.of(1998, 11, 27);
         final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
@@ -313,9 +291,7 @@ void testShowPersonalDataByName() throws Exception{
 
     @WithMockUser(value = "spring")
     @Test
-
     void testUpdateFormPersonalDataSuccess() throws Exception{
-
         mockMvc.perform(post("/personalData/{clientId}/edit", TEST_CLIENT_ID)
         .with(csrf())
             .param("firstName", "Javier")
@@ -334,7 +310,6 @@ void testShowPersonalDataByName() throws Exception{
 
     @WithMockUser(value = "spring")
     @Test
-
     void testUpdateFormPersonalDataHasErrors() throws Exception{
         mockMvc.perform(post("/personalData/{clientId}/edit",  TEST_CLIENT_ID)
         .with(csrf())
