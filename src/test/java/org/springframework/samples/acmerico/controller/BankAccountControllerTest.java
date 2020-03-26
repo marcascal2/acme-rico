@@ -2,7 +2,9 @@ package org.springframework.samples.acmerico.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -11,23 +13,29 @@ import org.springframework.samples.acmerico.configuration.SecurityConfiguration;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.service.AuthoritiesService;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
+import org.springframework.samples.acmerico.service.UserService;
+import org.springframework.samples.acmerico.web.ClientController;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.BindingResult;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.context.annotation.FilterType;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+import static org.hamcrest.Matchers.*;
+
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import org.springframework.context.annotation.FilterType;
-import static org.hamcrest.Matchers.*;
 
 import org.springframework.samples.acmerico.web.BankAccountController;
 
@@ -194,30 +202,13 @@ public class BankAccountControllerTest {
 
     }
 
-    // @WithMockUser(value = "spring")
-    // @Test
+    @WithMockUser(value = "spring")
+    @Test
 
-    // void testMakeDepositSuccess() throws Exception{
+    void testMakeDepositSuccess() throws Exception {
+        mockMvc.perform(post("/accounts/{accountId}/depositMoney", TEST_BANK_ACCOUNT_ID)
+        .with(csrf()));
 
-    // //final LocalDateTime creationDate = LocalDateTime.of(2019, 11, 23,
-    // 12,12,12);
-
-    // mockMvc.perform(post("/accounts/{accountId}/depositMoney",TEST_BANK_ACCOUNT_ID))
-    // //.andExpect(model().attributeExists("bankAccount"))
-    // // .andExpect(model().attribute("bankAccount",
-    // hasProperty("accountNumber",is(TEST_BANK_ACCOUNT_NUMBER))))
-    // // .andExpect(model().attribute("bankAccount",
-    // hasProperty("amount",is(10000.0))))
-    // // .andExpect(model().attribute("bankAccount",
-    // hasProperty("createdAt",is(creationDate))))
-    // // .andExpect(model().attribute("bankAccount",
-    // hasProperty("client",is(javier))))
-    // .andExpect(status().is4xxClientError());
-    // //.andExpect(view().name("redirect:/accounts/"));
-
-    // //verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
-    // verify(bankAccountService).saveBankAccount(account);
-
-    // }
+    }
 
 }

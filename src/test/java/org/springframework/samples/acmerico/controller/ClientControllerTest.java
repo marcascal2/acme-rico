@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,6 +21,8 @@ import org.springframework.samples.acmerico.web.ClientController;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.BindingResult;
+
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -54,11 +57,16 @@ public class ClientControllerTest{
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private BindingResult bindingResult;
+
     private Client javier;
     private User user;
 
     @BeforeEach
     void setup(){
+
+        MockitoAnnotations.initMocks(this);
 
         user = new User();
 
@@ -91,6 +99,7 @@ public class ClientControllerTest{
         when(this.clientService.findClientById(TEST_CLIENT_ID)).thenReturn(javier);  
         when(this.clientService.findClientByUserName(TEST_CLIENT_USER)).thenReturn(javier);
         when(this.clientService.findClientByLastName(TEST_CLIENT_LASTNAME)).thenReturn(collection);
+        when(bindingResult.hasErrors()).thenReturn(false);
     }
 
     //Create tests
@@ -357,6 +366,7 @@ void testShowPersonalDataByName() throws Exception{
         .andExpect(model().attributeHasFieldErrors("client", "age"))
         .andExpect(model().attributeHasFieldErrors("client", "job"))
         .andExpect(model().attributeHasFieldErrors("client", "birthDate"))
+        .andExpect(status().is2xxSuccessful())
         .andExpect(view().name("clients/createOrUpdateClientForm"));
     }
 

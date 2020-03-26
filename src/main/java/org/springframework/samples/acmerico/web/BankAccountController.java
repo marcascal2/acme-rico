@@ -103,7 +103,7 @@ public class BankAccountController {
 
 	@PostMapping(value = "/accounts/{accountId}/depositMoney")
 	public String makeDeposit(@PathVariable("accountId") Integer accountId, @Valid BankAccount bankAccount,
-			BindingResult result) {
+			BindingResult result, Model model) {
 		BankAccount account = this.bankAccountService.findBankAccountById(accountId);
 		Double oldAmount = account.getAmount();
 		String deposit = (String) result.getFieldValue("amount");
