@@ -20,8 +20,10 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.acmerico.apis.service.DropboxService;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.ClientService;
+import org.springframework.samples.acmerico.validator.ClientValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -39,15 +41,23 @@ public class UserController {
 	private static final String VIEWS_CLIENT_CREATE_FORM = "users/createClientForm";
 
 	private final ClientService clientService;
+	
+	private final DropboxService dropboxService;
 
 	@Autowired
-	public UserController(ClientService clinicService) {
+	public UserController(ClientService clinicService, DropboxService dropboxService) {
 		this.clientService = clinicService;
+		this.dropboxService = dropboxService;
 	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+	
+	@InitBinder("client")
+	public void initClientBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ClientValidator());
 	}
 
 	@GetMapping(value = "/users/new")
@@ -59,14 +69,18 @@ public class UserController {
 
 	@PostMapping(value = "/users/new")
 	public String processCreationForm(@Valid Client client, BindingResult result) {
-		if (result.hasErrors()) {
-			return VIEWS_CLIENT_CREATE_FORM;
-		}
-		else {
-			//creating owner, user, and authority
-			this.clientService.saveClient(client);
-			return "redirect:/";
+		try {
+			if (result.hasErrors()) {
+				return VIEWS_CLIENT_CREATE_FORM;
+			}
+			else {
+				//creating owner, user, and authority
+				this.clientService.saveClient(client);
+				this.dropboxService.uploadFile(client.getDniFile(), client);
+				return "redirect:/";
+			}
+		} catch (Exception e) {
+			return "redirect:/oups";
 		}
 	}
-
 }

@@ -196,8 +196,6 @@ table td.action-column {
 .deployment-status-deploying {
   .label-info
 }
-.deployment-status-na {
-}
 
 .container-details-table th {
   background-color: lighten(@spring-brown, 3%);
@@ -368,6 +366,29 @@ hr {
 
 .xd-container {
 margin-bottom: 40px;
+}
+
+.dni-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dni-form-and-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    margin-right: 5px;
+  }
+}
+
+.dni-error {
+  margin-top: 10px;
+  color: red;
 }
 
 @import "typography.less";

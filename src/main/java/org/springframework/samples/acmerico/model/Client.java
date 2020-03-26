@@ -10,9 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -79,4 +82,7 @@ public class Client extends Person {
 	
 	@OneToMany(mappedBy = "client")
 	public Collection<LoanApplication> loanApps;
+
+	@Transient
+	private MultipartFile dniFile;
 }
