@@ -1,11 +1,11 @@
-package org.springframework.samples.acmerico.apis.controller;
+package org.springframework.samples.acmerico.api.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.acmerico.apis.model.foreignExchange.Container;
-import org.springframework.samples.acmerico.apis.model.foreignExchange.Exchange;
+import org.springframework.samples.acmerico.api.model.foreignExchange.Container;
+import org.springframework.samples.acmerico.api.model.foreignExchange.Exchange;
 import org.springframework.samples.acmerico.validator.ExchangeRateValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

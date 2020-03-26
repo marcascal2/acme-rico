@@ -1,4 +1,4 @@
-package org.springframework.samples.acmerico.apis.service;
+package org.springframework.samples.acmerico.api.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

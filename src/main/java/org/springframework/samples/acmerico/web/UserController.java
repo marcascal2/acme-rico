@@ -20,7 +20,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.acmerico.apis.service.DropboxService;
+import org.springframework.samples.acmerico.api.service.DropboxService;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.validator.ClientValidator;

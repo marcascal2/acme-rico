@@ -1,4 +1,4 @@
-package org.springframework.samples.acmerico.service;
+package org.springframework.samples.acmerico.api;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.samples.acmerico.apis.service.DropboxService;
+import org.springframework.samples.acmerico.api.service.DropboxService;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
