@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +19,7 @@ import lombok.EqualsAndHashCode;
 public class CreditCardApplication extends BaseEntity{
 	
 	@NotBlank
+	@Pattern(regexp = "ACCEPTED|REJECTED|PENDING", message="Card application status only can be ACCEPTED, REJECTED or PENDING")
 	private String status;
 	
 	@Valid
