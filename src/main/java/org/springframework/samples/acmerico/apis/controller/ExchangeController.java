@@ -60,12 +60,10 @@ public class ExchangeController {
 		String postRate = container.getPostRate();
 		Double amount = container.getAmount();
 
-		String url = "";
-
+		String url;
 		if (initRate == null || initRate == "") {
 			url = uri + "EUR";
 		} else {
-
 			url = uri + initRate;
 		}
 
@@ -75,25 +73,30 @@ public class ExchangeController {
 
 		Double iRate = 0.;
 		Double pRate = 0.;
+		Double resultAmount = 0.;
 
-		if (initRate.equals("EUR")) {
-			iRate = 1.;
-			if (postRate.equals("EUR")) {
-				pRate = 1.;
-			} else {
+		if(initRate != null && postRate != null) {
+			if (initRate.equals("EUR")) {
+				iRate = 1.;
+				if (postRate.equals("EUR")) {
+					pRate = 1.;
+					resultAmount = amount;
+				} else {
+					pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
+					resultAmount = amount * pRate;
+				}
+			} else if (initRate != null && postRate != null && amount != null){
+				iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
 				pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
+				resultAmount = (amount * pRate) / iRate;
 			}
-		} else if (initRate != null || postRate != null){
-			iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
-			pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 		}
-
-		Double resultAmount = (amount * pRate) / iRate;
+		
 		resultAmount = Math.round(resultAmount * 100.0) / 100.0;
 		container.setResultAmount(resultAmount);
 
 		model.addAttribute("rates", rates);
-		model.addAttribute("isPost", true);
+		model.addAttribute("isPost", initRate != null && postRate != null && amount != null);
 
 		return "exchanges/exchangeView";
 	}
