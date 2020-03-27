@@ -3,7 +3,6 @@ package org.springframework.samples.acmerico.web;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +46,11 @@ public class CreditCardControllerTest {
 	private MockMvc mockMvc;
 	
 	@BeforeAll
-	static void setUpUser() {
+	static void setUp() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
-	}
-	
-	@BeforeAll
-	static void setUpClient(){
+		
 		client.setId(1);
 		client.setFirstName("Germán");
 		client.setLastName("Márquez Trujillo");
@@ -69,10 +65,7 @@ public class CreditCardControllerTest {
 		client.setUser(user);
 		client.setBankAccounts(Arrays.asList(bankAccount));
 		client.setCreditCards(Arrays.asList(creditCard));
-	}
-	
-	@BeforeAll
-	static void setUpBankAccount(){
+		
 		bankAccount.setId(1);
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
@@ -80,10 +73,7 @@ public class CreditCardControllerTest {
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
 		bankAccount.setCreditCards(Arrays.asList(creditCard));
-	}
-	
-	@BeforeAll
-	static void setUpCreditCard() {
+		
 		creditCard.setId(1);
 		creditCard.setNumber("5130218133680652");
 		creditCard.setDeadline("07/2022");
@@ -93,10 +83,8 @@ public class CreditCardControllerTest {
 	@WithMockUser(value = "spring")
     @Test
     void testShowClientCards() throws Exception{
-		Collection<CreditCard> creditCards = Arrays.asList(creditCard);
-		
 		when(this.clientService.findClientByUserName(user.getUsername())).thenReturn(client);
-		when(this.clientService.findCreditCardsByUsername(user.getUsername())).thenReturn(creditCards);
+		when(this.clientService.findCreditCardsByUsername(user.getUsername())).thenReturn(Arrays.asList(creditCard));
 		
 		mockMvc.perform(get("/cards"))
 		   .andExpect(status().isOk())

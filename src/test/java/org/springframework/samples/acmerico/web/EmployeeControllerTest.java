@@ -22,9 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.Arrays;
-import java.util.Collection;
 
 @WebMvcTest(controllers = EmployeeController.class,
 				excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -47,21 +45,18 @@ public class EmployeeControllerTest {
 	private MockMvc mockMvc;
 	
 	@BeforeAll
-	static void setUpUser() {
+	static void setUp() {
 		user.setUsername("user");
 		user.setPassword("pass");
 		user.setEnabled(true);
-	}
-	
-	@BeforeAll
-	static void setUpEmployee() {
+		
 		employee.setId(1);
 		employee.setFirstName("Jose");
 		employee.setLastName("Garcia Dorado");
 		employee.setSalary(2000.0);
 		employee.setUser(user);
 	}
-	
+
 	@WithMockUser(value = "spring")
     @Test
     void testInitCreationForm() throws Exception{
@@ -109,13 +104,11 @@ public class EmployeeControllerTest {
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessFindFormHasEmployee() throws Exception{
-		Collection<Employee> employees = Arrays.asList(employee);
-		
-		when(this.employeeService.findEmployeeByLastName(employee.getLastName())).thenReturn(employees);
+		when(this.employeeService.findEmployeeByLastName(employee.getLastName())).thenReturn(Arrays.asList(employee));
 		
 		mockMvc.perform(get("/employees"))
 			.andExpect(status().isOk())
-			.andExpect(model().attribute("selections", employees))
+			.andExpect(model().attributeExists("selections"))
 			.andExpect(view().name("employees/employeesList"))
 			.andExpect(status().is2xxSuccessful());
 	}
@@ -123,9 +116,7 @@ public class EmployeeControllerTest {
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessFindFormNoHasEmployee() throws Exception{
-		Collection<Employee> employees = Arrays.asList();
-		
-		when(this.employeeService.findEmployeeByLastName("jaja")).thenReturn(employees);
+		when(this.employeeService.findEmployeeByLastName("jaja")).thenReturn(Arrays.asList());
 
 		mockMvc.perform(get("/employees"))
 			.andExpect(status().isOk())
@@ -156,9 +147,12 @@ public class EmployeeControllerTest {
 				.with(csrf())
 				.param("firstName", "Jose")
 				.param("lastName", "Garcia Dorado")
-				.param("salary", "1500.0"))
-			.andExpect(status().is2xxSuccessful())
-			.andExpect(view().name("/employees/{employeeId}"));
+				.param("salary", "1500.0")
+				.param("user.username", "user")
+				.param("user.password", "pass"))
+			.andExpect(status().isFound())
+			.andExpect(view().name("redirect:/employees/{employeeId}"))
+			.andExpect(status().is3xxRedirection());
 	}
 	
 	@WithMockUser(value = "spring")
@@ -227,12 +221,13 @@ public class EmployeeControllerTest {
 				.with(csrf())
 				.param("firstName", "Jose")
 				.param("lastName", "Garcia Dorado")
-				.param("salary", "1500.0"))
-		//User esta a Null así que hay que encontrar alguna forma de setearle el user al employee.
-			.andExpect(status().isOk())
+				.param("salary", "1500.0")
+				.param("user.username", "user")
+				.param("user.password", "pass"))
+			.andExpect(status().isFound())
 			.andExpect(model().hasNoErrors())
 			.andExpect(view().name("redirect:/"))
-			.andExpect(status().is2xxSuccessful());
+			.andExpect(status().is3xxRedirection());
 	}
 	
 	@WithMockUser(value = "spring")

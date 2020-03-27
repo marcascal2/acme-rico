@@ -129,7 +129,7 @@ public class TransferAppController {
 	public String acceptTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
 				
-		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
+		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
 		this.transferAppService.acceptApp(transferApplication);
 		modelMap.addAttribute("transfer_application", transferApplication);
 
@@ -140,7 +140,7 @@ public class TransferAppController {
 	@GetMapping(value = "transferapps/{transferappsId}/refuse/{bankAccountId}")
 	public String refuseTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
-		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
+		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
 		
 		this.transferAppService.refuseApp(transferApplication);
 		modelMap.addAttribute("transfer_application", transferApplication);
