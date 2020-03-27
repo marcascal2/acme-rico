@@ -1,7 +1,6 @@
 package org.springframework.samples.acmerico.model;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

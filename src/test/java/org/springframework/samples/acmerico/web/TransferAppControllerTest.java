@@ -178,7 +178,6 @@ public class TransferAppControllerTest {
 		
 		mockMvc.perform(get("/transferapps/{transferappsId}/accept/{bankAccountId}", transferApplication.getId(), bankAccountSource.getId()))
 		.andExpect(status().isFound())
-		.andExpect(model().attributeExists("transfer_application"))
 		.andExpect(view().name("redirect:/transferapps"))
 		.andExpect(status().is3xxRedirection());
 	}
@@ -190,7 +189,6 @@ public class TransferAppControllerTest {
 		
 		mockMvc.perform(get("/transferapps/{transferappsId}/refuse/{bankAccountId}", transferApplication.getId(), bankAccountSource.getId()))
 		.andExpect(status().isFound())
-		.andExpect(model().attributeExists("transfer_application"))
 		.andExpect(view().name("redirect:/transferapps"))
 		.andExpect(status().is3xxRedirection());
 	}

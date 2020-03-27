@@ -118,10 +118,8 @@ public class TransferAppController {
 	@GetMapping(value = "/transferapps/{transferappsId}/accept/{bankAccountId}")
 	public String acceptTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
-				
 		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
 		this.transferAppService.acceptApp(transferApplication);
-		modelMap.addAttribute("transfer_application", transferApplication);
 
 		return "redirect:/transferapps";
 	}
@@ -131,9 +129,8 @@ public class TransferAppController {
 	public String refuseTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
 		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
-		
 		this.transferAppService.refuseApp(transferApplication);
-		modelMap.addAttribute("transfer_application", transferApplication);
+		
 		return "redirect:/transferapps";
 	}
 }
