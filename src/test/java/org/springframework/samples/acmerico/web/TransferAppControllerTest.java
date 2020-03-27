@@ -72,7 +72,7 @@ public class TransferAppControllerTest {
 		
 		bankAccountSource.setId(1);
 		bankAccountSource.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccountSource.setAmount(100000.0);
+		bankAccountSource.setAmount(10000.0);
 		bankAccountSource.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccountSource.setAlias("Viajes");
 		bankAccountSource.setClient(client);
@@ -80,7 +80,7 @@ public class TransferAppControllerTest {
 		
 		bankAccountDestination.setId(2);
 		bankAccountDestination.setAccountNumber("ES44 4523 9853 3674 4366");
-		bankAccountDestination.setAmount(100000.0);
+		bankAccountDestination.setAmount(10000.0);
 		bankAccountDestination.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccountDestination.setAlias("Viajes");
 		bankAccountDestination.setClient(client);
@@ -135,6 +135,8 @@ public class TransferAppControllerTest {
 		
 		mockMvc.perform(get("/transferapps/{bank_account_id}/new", bankAccountSource.getId()))
 			.andExpect(status().isOk())
+			.andExpect(model().attributeExists("transfer_app"))
+			.andExpect(view().name("transfersApp/transfersAppCreate"))
 			.andExpect(status().is2xxSuccessful());
 	}
 	
@@ -148,7 +150,7 @@ public class TransferAppControllerTest {
 				.param("amount", "1000")
 				.param("account_number_destination", "ES44 4523 9853 3674 4366")
 				.param("status", "PENDING"))
-			.andExpect(status().isFound())
+			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/accounts"))
 			.andExpect(status().is3xxRedirection());
 	}
@@ -165,8 +167,6 @@ public class TransferAppControllerTest {
 				.param("status", "PENDING"))
 			.andExpect(status().isOk())
 			.andExpect(model().hasErrors())
-			.andExpect(model().attributeHasErrors("amount"))
-			.andExpect(model().attributeHasErrors("account_number_destination"))
 			.andExpect(view().name("transfersApp/transfersAppCreate"))
 			.andExpect(status().is2xxSuccessful());
 	}
@@ -176,11 +176,11 @@ public class TransferAppControllerTest {
     void testAcceptTransferApplication() throws Exception {
 		when(this.transferAppService.findTransferAppById(transferApplication.getId())).thenReturn(transferApplication);
 		
-		mockMvc.perform(get("transferapps/{transferappsId}/accept/{bankAccountId}", transferApplication.getId(), bankAccountSource.getId()))
-		.andExpect(status().isOk())
+		mockMvc.perform(get("/transferapps/{transferappsId}/accept/{bankAccountId}", transferApplication.getId(), bankAccountSource.getId()))
+		.andExpect(status().isFound())
 		.andExpect(model().attributeExists("transfer_application"))
 		.andExpect(view().name("redirect:/transferapps"))
-		.andExpect(status().is2xxSuccessful());
+		.andExpect(status().is3xxRedirection());
 	}
 	
 	@WithMockUser(value = "spring")
@@ -188,7 +188,7 @@ public class TransferAppControllerTest {
     void testRefuseTransferApplication() throws Exception {
 		when(this.transferAppService.findTransferAppById(transferApplication.getId())).thenReturn(transferApplication);
 		
-		mockMvc.perform(get("transferapps/{transferappsId}/refuse/{bankAccountId}", transferApplication.getId(), bankAccountSource.getId()))
+		mockMvc.perform(get("/transferapps/{transferappsId}/refuse/{bankAccountId}", transferApplication.getId(), bankAccountSource.getId()))
 		.andExpect(status().isFound())
 		.andExpect(model().attributeExists("transfer_application"))
 		.andExpect(view().name("redirect:/transferapps"))

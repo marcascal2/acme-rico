@@ -56,15 +56,4 @@ public class BankAccount extends BaseEntity {
 	@OneToMany(mappedBy = "bankAccount")
 	private Collection<TransferApplication> transfersApps;
 	
-	protected Collection<TransferApplication> getTransferApplicationsInternal() {
-		if(this.transfersApps == null) {
-			this.transfersApps = Arrays.asList();
-		}
-		return this.transfersApps;
-	}
-	
-	public void addTransferApplication(TransferApplication transfersApps) {
-		getTransferApplicationsInternal().add(transfersApps);
-		transfersApps.setBankAccount(this);
-	}
 }
