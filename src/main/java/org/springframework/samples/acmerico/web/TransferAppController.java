@@ -83,12 +83,8 @@ public class TransferAppController {
 		TransferApplication transfer_app = new TransferApplication();
 		
 		BankAccount account = this.accountService.findBankAccountById(accountId);
-		Collection<TransferApplication> transferApps = account.getTransfersApps();
-		transferApps.add(transfer_app);
-		account.setTransfersApps(transferApps);
-		Collection<TransferApplication> transferAppsC = account.getClient().getTransferApps();
-		transferAppsC.add(transfer_app);
-		account.getClient().setTransferApps(transferAppsC);
+		account.addTransferApplication(transfer_app);
+		account.getClient().addTransferApplication(transfer_app);
 
 		transfer_app.setStatus("PENDING");
 

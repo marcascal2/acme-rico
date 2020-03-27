@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest(controllers = CreditCardController.class,
 			    excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -86,7 +87,9 @@ public class CreditCardControllerTest {
 		when(this.clientService.findClientByUserName(user.getUsername())).thenReturn(client);
 		when(this.clientService.findCreditCardsByUsername(user.getUsername())).thenReturn(Arrays.asList(creditCard));
 		
-		mockMvc.perform(get("/cards"))
+		mockMvc.perform(get("/cards")
+				.with(csrf())
+				.param("principal", user.getUsername()))
 		   .andExpect(status().isOk())
 		   .andExpect(model().attributeExists("cards"))
 		   .andExpect(model().attributeExists("clientId"))

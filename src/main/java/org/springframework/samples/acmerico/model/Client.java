@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -79,4 +80,16 @@ public class Client extends Person {
 	
 	@OneToMany(mappedBy = "client")
 	public Collection<LoanApplication> loanApps;
+
+	protected Collection<TransferApplication> getTransferApplicationsInternal() {
+		if(this.transferApps == null) {
+			this.transferApps = Arrays.asList();
+		}
+		return this.transferApps;
+	}
+	
+	public void addTransferApplication(TransferApplication transfersApps) {
+		getTransferApplicationsInternal().add(transfersApps);
+		transfersApps.setClient(this);
+	}
 }

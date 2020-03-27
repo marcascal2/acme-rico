@@ -106,7 +106,9 @@ public class EmployeeControllerTest {
 	void testProcessFindFormHasEmployee() throws Exception{
 		when(this.employeeService.findEmployeeByLastName(employee.getLastName())).thenReturn(Arrays.asList(employee));
 		
-		mockMvc.perform(get("/employees"))
+		mockMvc.perform(get("/employees")
+				.with(csrf())
+				.param("lastName", employee.getLastName()))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("selections"))
 			.andExpect(view().name("employees/employeesList"))

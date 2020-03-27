@@ -135,8 +135,6 @@ public class TransferAppControllerTest {
 		
 		mockMvc.perform(get("/transferapps/{bank_account_id}/new", bankAccountSource.getId()))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("transfer_app"))
-			.andExpect(view().name("transfersApp/transfersAppCreate"))
 			.andExpect(status().is2xxSuccessful());
 	}
 	
