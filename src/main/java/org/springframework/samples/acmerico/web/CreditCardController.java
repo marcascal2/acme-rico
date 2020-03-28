@@ -36,9 +36,8 @@ public class CreditCardController {
 	
 	@GetMapping(value = "/cards")
 	public String showClientCards(Principal principal, Model model) {
-		String username = principal.getName();
-		Client client = this.clientService.findClientByUserName(username);
-		Collection<CreditCard> result = clientService.findCreditCardsByUsername(username);
+		Client client = this.clientService.findClientByUserName(principal.getName());
+		Collection<CreditCard> result = clientService.findCreditCardsByUsername(principal.getName());
 		model.addAttribute("cards", result);
 		model.addAttribute("clientId", client.getId());
 		return "cards/cards";
@@ -50,4 +49,5 @@ public class CreditCardController {
 		model.addAttribute("creditCard", creditCard);
 		return VIEWS_CARD_DETAILS;
 	}
+	
 }
