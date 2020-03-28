@@ -51,7 +51,6 @@ public class EmployeeController {
 			return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-			//creating client, user and authorities
 			this.employeeService.saveEmployee(employee);
 			
 			return "redirect:/employees/" + employee.getId();
