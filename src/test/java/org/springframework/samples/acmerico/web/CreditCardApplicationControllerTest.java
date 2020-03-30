@@ -118,20 +118,21 @@ public class CreditCardApplicationControllerTest{
 
     @WithMockUser(value = "spring")
     @Test
-
     void testAcceptCreditCardAppplication() throws Exception{
-
-        mockMvc.perform(get("creditcardapps/{creditcardappsId}/accept", TEST_CREDITCARDAPP_ID));
+        mockMvc.perform(get("/creditcardapps/{creditcardappsId}/accept", TEST_CREDITCARDAPP_ID))
+        .andExpect(status().isFound())
+        .andExpect(view().name("redirect:/creditcardapps"))
+        .andExpect(status().is3xxRedirection());
 
     }
 
     @WithMockUser(value = "spring")
     @Test
-
     void testRefuseCreditCardAppplication() throws Exception{
-
-        mockMvc.perform(get("creditcardapps/{creditcardappsId}/refuse", TEST_CREDITCARDAPP_ID));
-
+        mockMvc.perform(get("/creditcardapps/{creditcardappsId}/refuse", TEST_CREDITCARDAPP_ID))
+        .andExpect(status().isFound())
+        .andExpect(view().name("redirect:/creditcardapps"))
+        .andExpect(status().is3xxRedirection());
     }
 
     @WithMockUser(value = "spring")

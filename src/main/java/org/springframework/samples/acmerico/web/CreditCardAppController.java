@@ -53,22 +53,20 @@ public class CreditCardAppController {
 		}
 	}
 	
-	@GetMapping(value = "creditcardapps/{creditcardappsId}/accept")
+	@GetMapping(value = "/creditcardapps/{creditcardappsId}/accept")
 	public String acceptCreditCardApplication(@PathVariable("creditcardappsId") int creditcardappsId, ModelMap modelMap) {
-		CreditCardApplication transferApplication = this.creditCardAppService.findCreditCardAppById(creditcardappsId);
-		this.creditCardAppService.acceptApp(transferApplication);
+		CreditCardApplication creditCardApplication = this.creditCardAppService.findCreditCardAppById(creditcardappsId);
+		this.creditCardAppService.acceptApp(creditCardApplication);
 
-		modelMap.addAttribute("transfer_application", transferApplication);
-		return listCreditCardApps(modelMap);
+		return "redirect:/creditcardapps";
 	}
 
-	@GetMapping(value = "creditcardapps/{creditcardappsId}/refuse")
+	@GetMapping(value = "/creditcardapps/{creditcardappsId}/refuse")
 	public String refuseCreditCardApplication(@PathVariable("creditcardappsId") int creditcardappsId, ModelMap modelMap) {
-		CreditCardApplication transferApplication = this.creditCardAppService.findCreditCardAppById(creditcardappsId);
-		this.creditCardAppService.refuseApp(transferApplication);
+		CreditCardApplication creditCardApplication = this.creditCardAppService.findCreditCardAppById(creditcardappsId);
+		this.creditCardAppService.refuseApp(creditCardApplication);
 
-		modelMap.addAttribute("transfer_application", transferApplication);
-		return listCreditCardApps(modelMap);
+		return "redirect:/creditcardapps";
 	}
 	
 	@RequestMapping(value = "/mycreditcardapps", method = RequestMethod.GET)
