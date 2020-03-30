@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 
@@ -50,5 +51,11 @@ public class EmployeesTest {
 	public void testCountEmployeesByUserName() {
 		Employee employees = (Employee) this.service.findEmployeeByUserName("user");
 		assertThat(employees.getFirstName()).isEqualTo("Name");
+	}
+
+	@Test
+	public void saveInvalidEmployee() {
+		new_employee.setUser(null);
+		assertThrows(NullPointerException.class, () -> this.service.saveEmployee(new_employee));
 	}
 }
