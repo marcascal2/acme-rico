@@ -1,11 +1,14 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +32,8 @@ public class TransferApplicationsTest {
 	
 	@Autowired
 	private ClientService clientService;
+
+	EntityManager entityManager;
 	
 	BankAccount bankAccount = new BankAccount();
 	Client client = new Client();
@@ -92,12 +97,6 @@ public class TransferApplicationsTest {
 		assertThat(bankAccount.getAmount()).isEqualTo(99800.);
 	}
 	
-//	@Test
-//	public void testCheckInstant() {
-//		this.transferAppService.checkInstant(transferApp);
-//		
-//	} ----No entiendo muy bien cómo testear este
-	
 	@Test
 	public void testAcceptApp() {
 		this.transferAppService.acceptApp(transferApp);
@@ -108,5 +107,17 @@ public class TransferApplicationsTest {
 	public void testRefuseApp() {
 		this.transferAppService.refuseApp(transferApp);
 		assertThat(transferApp.getStatus()).isEqualTo("REJECTED");
+	}
+
+	@Test
+	public void testTransferWithoutMoneyInAccount() {
+		transferApp.setAmount(102000.00);
+		assertThrows(IllegalArgumentException.class, ()-> this.transferAppService.setMoney(transferApp));
+	}
+
+	@Test
+	public void saveInvalidTransferApp() {
+		transferApp.setAccount_number_destination("");
+		assertThrows(NullPointerException.class, ()-> { this.transferAppService.save(transferApp); this.entityManager.flush(); });
 	}
 }

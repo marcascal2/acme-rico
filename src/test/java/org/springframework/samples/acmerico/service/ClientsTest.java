@@ -1,12 +1,15 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +29,8 @@ public class ClientsTest {
 	private ClientService service;
 
 	Client new_client = new Client();
+
+	EntityManager entityManager;
 
 	@BeforeEach
 	private void populateData() {
@@ -116,5 +121,16 @@ public class ClientsTest {
 		String username = new_client.getUser().getUsername();
 		List<CreditCard> cc = (List<CreditCard>) this.service.findCreditCardsByUsername(username);
 		assertThat(cc.size()).isEqualTo(1);
+	}
+
+	@Test
+	public void testSaveInvalidClient() {
+		new_client.setUser(null);
+		assertThrows(NullPointerException.class, ()-> {service.saveClient(new_client); entityManager.flush();});
+	}
+
+	@Test
+	public void testGetBankAccountsOfNonRegisteredClient() {
+		assertThrows(NullPointerException.class, ()-> service.findBankAccountsByUsername("asdf"));
 	}
 }

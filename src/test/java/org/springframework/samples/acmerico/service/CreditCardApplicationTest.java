@@ -1,12 +1,15 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +38,7 @@ public class CreditCardApplicationTest {
 	Client client = new Client();
 	User user = new User();
 	CreditCardApplication application = new CreditCardApplication();
+	EntityManager entityManager;
 
 	@BeforeEach
 	private void setUpData() {
@@ -95,5 +99,11 @@ public class CreditCardApplicationTest {
 	public void testRefuseCreditCardApplication() {
 		this.creditCardAppService.refuseApp(application);
 		assertThat(application.getStatus()).isEqualTo("REJECTED");
+	}
+
+	@Test
+	public void createInvalidCreditCardApp() {
+		application.setStatus("");
+		assertThrows(NullPointerException.class, ()-> { this.creditCardAppService.save(application); this.entityManager.flush(); });
 	}
 }

@@ -54,6 +54,10 @@ public class TransferAppService {
 		}
 		
 		BankAccount originAccount = transfer_app.getBankAccount();
+
+		if(transfer_app.getBankAccount().getAmount() < transfer_app.getAmount()) {
+			throw new IllegalArgumentException("Don´t have money for this transfer");
+		}
 		
 		if (destinationAccount != null) {
 			// Descontamos el dinero a la cuenta origen y se lo añadimos al destino
@@ -82,17 +86,11 @@ public class TransferAppService {
 			inst.setDestination(account_number_destination);
 			inst.setClient(transfer_app.getClient());
 			inst.setBankAccount(account_origin);
-			instantService.save(inst);
-			
 			this.setMoney(transfer_app);
-
-
+			instantService.save(inst);
 		} else {
-
 			this.save(transfer_app);
-
 		}
-
 	}
 	
 

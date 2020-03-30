@@ -1,9 +1,13 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +30,7 @@ public class BankAccountsTest {
 
 	BankAccount bankAccount = new BankAccount();
 	Client client = new Client();
+	EntityManager entityManager;
 
 	@BeforeEach
 	void populateData() {
@@ -95,5 +100,11 @@ public class BankAccountsTest {
 		Double tranferAmount = 40.;
 		this.accountService.substractAmount(tranferAmount, bankAccount);
 		assertThat(bankAccount.getAmount()).isEqualTo(160.);
+	}
+
+	@Test
+	public void saveInvalidBankAccount() {
+		bankAccount.setAlias("aliasaliasaliasaliasaliasaliasaliasalias");
+		assertThrows(NullPointerException.class, ()-> { this.accountService.saveBankAccount(bankAccount); this.entityManager.flush(); });
 	}
 }
