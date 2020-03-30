@@ -57,11 +57,8 @@ public class TransferAppService {
 		
 		if (destinationAccount != null) {
 			// Descontamos el dinero a la cuenta origen y se lo añadimos al destino
-
 			this.bankAccountService.sumAmount(transferAmount, destinationAccount);
-
 			this.bankAccountService.substractAmount(transferAmount, originAccount);
-
 			this.bankAccountService.saveBankAccount(originAccount);
 			this.bankAccountService.saveBankAccount(destinationAccount);
 
@@ -69,7 +66,6 @@ public class TransferAppService {
 			// Solo le quitamos el dinero a la cuenta origen
 			this.bankAccountService.substractAmount(transferAmount, originAccount);
 			this.bankAccountService.saveBankAccount(originAccount);
-
 		}
 	}
 

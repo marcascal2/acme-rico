@@ -81,17 +81,8 @@ public class TransferAppController {
 	@GetMapping(value = "/transferapps/{bank_account_id}/new")
 	public String createTransfers(@PathVariable("bank_account_id") Integer accountId, Map<String, Object> model) {
 		TransferApplication transfer_app = new TransferApplication();
-		
-		BankAccount account = this.accountService.findBankAccountById(accountId);
-		Collection<TransferApplication> transferApps = account.getTransfersApps();
-		transferApps.add(transfer_app);
-		account.setTransfersApps(transferApps);
-		Collection<TransferApplication> transferAppsC = account.getClient().getTransferApps();
-		transferAppsC.add(transfer_app);
-		account.getClient().setTransferApps(transferAppsC);
 
 		transfer_app.setStatus("PENDING");
-
 		model.put("transfer_app", transfer_app);
 
 		return "transfersApp/transfersAppCreate";
@@ -99,10 +90,7 @@ public class TransferAppController {
 
 	@PostMapping(value = "/transferapps/{bank_account_id}/new")
 	public String saveTransferApplication(@PathVariable("bank_account_id") Integer accountId, @ModelAttribute("transfer_app") @Valid TransferApplication transfer_app, BindingResult result, Map<String, Object> model) {
-
 		BankAccount account = this.accountService.findBankAccountById(accountId);
-		transfer_app.setBankAccount(account);
-		transfer_app.setClient(account.getClient());
 		
 		if(transfer_app.getAmount()!=null){
 			if (transfer_app.getAmount() > account.getAmount()) {
@@ -119,31 +107,30 @@ public class TransferAppController {
 			model.put("transfer_app", transfer_app);
 			return "transfersApp/transfersAppCreate";
 		} else {
+			transfer_app.setBankAccount(account);
+			transfer_app.setClient(account.getClient());
 			this.transferAppService.checkInstant(transfer_app);
 			return "redirect:/accounts";
 		}
 	}
 
 	// Accept application
-	@GetMapping(value = "transferapps/{transferappsId}/accept/{bankAccountId}")
+	@GetMapping(value = "/transferapps/{transferappsId}/accept/{bankAccountId}")
 	public String acceptTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
-				
-		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
+		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
 		this.transferAppService.acceptApp(transferApplication);
-		modelMap.addAttribute("transfer_application", transferApplication);
 
 		return "redirect:/transferapps";
 	}
 
 	// Refuse application
-	@GetMapping(value = "transferapps/{transferappsId}/refuse/{bankAccountId}")
+	@GetMapping(value = "/transferapps/{transferappsId}/refuse/{bankAccountId}")
 	public String refuseTransferApplication(@PathVariable("transferappsId") int transferappsId,
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
-		TransferApplication transferApplication = transferAppService.findTransferAppById(transferappsId);
-		
+		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
 		this.transferAppService.refuseApp(transferApplication);
-		modelMap.addAttribute("transfer_application", transferApplication);
+		
 		return "redirect:/transferapps";
 	}
 }

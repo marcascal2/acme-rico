@@ -84,4 +84,5 @@ public class Client extends Person {
 
 	@Transient
 	private MultipartFile dniFile;
+
 }

@@ -62,10 +62,10 @@ INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) V
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (1,'ES90 9763 8820 9194 3456','2000.','ACCEPT',6,1);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (2,'ES57 1000 5683 9655 0960','220.2','REJECTED',6,1);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (3,'ES57 1000 5683 9655 0960','100.','ACCEPT',6,1);
-INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (4,'ES65 1365 1287 1024 4569','1200.','PENDING',6,1);
+INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (4,'ES29 1258 1010 1064 2579','1200.','PENDING',6,1);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (5,'ES47 1200 1289 9655 1269','140.54','ACCEPT',8,10);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (6,'ES24 3456 2323 4568 9078','256.34','PENDING',8,10);
-INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (7,'ES90 9763 8820 9194 3456','150.','PENDING',10,5);
+INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (7,'ES29 1258 1010 1064 2579','150.','PENDING',10,5);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (8,'ES57 1254 5483 9655 4569','1267.','ACCEPT',9,9);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (9,'ES24 3456 2323 4568 9078','223.50','REJECTED',9,9);
 INSERT INTO transfer_applications(id,account_number_destination,amount,status,bank_account_id,client_id) VALUES (10,'ES27 2414 2564 1235 1256','200.','ACCEPT',9,9);

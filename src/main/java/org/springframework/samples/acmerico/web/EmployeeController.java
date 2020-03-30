@@ -51,7 +51,6 @@ public class EmployeeController {
 			return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-			//creating client, user and authorities
 			this.employeeService.saveEmployee(employee);
 			
 			return "redirect:/employees/" + employee.getId();
@@ -66,21 +65,16 @@ public class EmployeeController {
 
 	@GetMapping(value = "/employees")
 	public String processFindForm(Employee employee, BindingResult result, Map<String, Object> model) {
-
-		// allow parameterless GET request for /owners to return all records
 		if (employee.getLastName() == null) {
-			employee.setLastName(""); // empty string signifies broadest possible search
+			employee.setLastName("");
 		}
 
-		// find owners by last name
 		Collection<Employee> results = this.employeeService.findEmployeeByLastName(employee.getLastName());
 		if (results.isEmpty()) {
-			// no clients found
 			result.rejectValue("lastName", "notFound", "not found");
 			return "employees/findEmployees";
 		}
 		else {
-			// multiple clients found
 			model.put("selections", results);
 			return "employees/employeesList";
 		}
