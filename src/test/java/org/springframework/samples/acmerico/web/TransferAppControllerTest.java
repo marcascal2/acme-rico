@@ -107,7 +107,7 @@ public class TransferAppControllerTest {
     @Test
     void testListMineTransfersApp() throws Exception {
 		when(this.clientService.findClientById(client.getId())).thenReturn(client);
-		when(this.transferAppService.findAllTransfersApplicationsByClientId(client)).thenReturn(Arrays.asList(transferApplication));
+		when(this.transferAppService.findAllTransfersApplicationsByClient(client)).thenReturn(Arrays.asList(transferApplication));
 		
 		mockMvc.perform(get("/transferapps_mine/{clientId}", client.getId()))
 			.andExpect(status().isOk())
