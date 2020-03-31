@@ -6,6 +6,8 @@
 
 [INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://github.com/marcascal2/acme-rico/blob/master/informe_decisiones.md)
 
+[FALLOS ARREGLADOS GRACIAS A LOS TESTS](https://github.com/marcascal2/acme-rico/blob/master/fallos_corregidos_gracias_tests.md)
+
 ![MODELO UML](https://github.com/marcascal2/acme-rico/blob/master/UML%20DP2%20B.jpg)
 
 This is a fork of https://github.com/spring-projects/spring-petclinic to be used for the DP2 course. The main changes that have been performed were:
