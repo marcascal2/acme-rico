@@ -1,7 +1,6 @@
 package org.springframework.samples.acmerico.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -44,15 +43,7 @@ public class TransferAppService {
 	public void setMoney(@Valid TransferApplication transfer_app) {
 		Double transferAmount = transfer_app.getAmount();
 		String destination = transfer_app.getAccount_number_destination();
-		List<BankAccount> accounts = (List<BankAccount>) this.bankAccountService.findBankAccounts();
-		BankAccount destinationAccount = null;
-		
-		for(BankAccount b: accounts) {
-			if(b.getAccountNumber() == destination) {
-				destinationAccount = b;
-			}
-		}
-		
+		BankAccount destinationAccount = this.bankAccountService.findBankAccountByNumber(destination);
 		BankAccount originAccount = transfer_app.getBankAccount();
 
 		if(transfer_app.getBankAccount().getAmount() < transfer_app.getAmount()) {
@@ -61,8 +52,11 @@ public class TransferAppService {
 		
 		if (destinationAccount != null) {
 			// Descontamos el dinero a la cuenta origen y se lo añadimos al destino
+
 			this.bankAccountService.sumAmount(transferAmount, destinationAccount);
+
 			this.bankAccountService.substractAmount(transferAmount, originAccount);
+
 			this.bankAccountService.saveBankAccount(originAccount);
 			this.bankAccountService.saveBankAccount(destinationAccount);
 
@@ -70,6 +64,7 @@ public class TransferAppService {
 			// Solo le quitamos el dinero a la cuenta origen
 			this.bankAccountService.substractAmount(transferAmount, originAccount);
 			this.bankAccountService.saveBankAccount(originAccount);
+
 		}
 	}
 
