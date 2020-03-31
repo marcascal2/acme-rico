@@ -4,6 +4,8 @@
 
 [HISTORIAS DE USUARIO](https://drive.google.com/open?id=1aRuunAi2xsZ3byhwTv1dXPHnwUEEDQyc)
 
+[INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://github.com/marcascal2/acme-rico/blob/master/informe_decisiones.md)
+
 ![MODELO UML](https://github.com/marcascal2/acme-rico/blob/master/UML%20DP2%20B.jpg)
 
 This is a fork of https://github.com/spring-projects/spring-petclinic to be used for the DP2 course. The main changes that have been performed were:
