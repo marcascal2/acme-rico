@@ -1,9 +1,14 @@
 package org.springframework.samples.acmerico.web;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import javax.validation.Valid;
+
+import com.dropbox.core.DbxException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.acmerico.api.service.DropboxService;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.AuthoritiesService;
 import org.springframework.samples.acmerico.service.ClientService;
@@ -26,10 +31,13 @@ public class ClientController {
 
 	private final ClientService clientService;
 
+	private final DropboxService dropboxService;
+
 	@Autowired
-	public ClientController(ClientService clientService, UserService userService,
-			AuthoritiesService authoritiesService) {
+	public ClientController(ClientService clientService, UserService userService, AuthoritiesService authoritiesService,
+			DropboxService dropboxService) {
 		this.clientService = clientService;
+		this.dropboxService = dropboxService;
 	}
 
 	@InitBinder
@@ -96,12 +104,13 @@ public class ClientController {
 
 	@PostMapping(value = "/clients/{clientId}/edit")
 	public String processUpdateClientForm(@Valid Client client, BindingResult result,
-			@PathVariable("clientId") int clientId) {
+			@PathVariable("clientId") int clientId) throws IOException, DbxException {
 		if (result.hasErrors()) {
 			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
 		} else {
 			client.setId(clientId);
 			this.clientService.saveClient(client);
+			this.dropboxService.uploadFile(client.getDniFile(), client);
 			return "redirect:/clients/{clientId}";
 		}
 	}

@@ -42,12 +42,11 @@ public class UserController {
 
 	private final ClientService clientService;
 	
-	private final DropboxService dropboxService;
 
 	@Autowired
 	public UserController(ClientService clinicService, DropboxService dropboxService) {
 		this.clientService = clinicService;
-		this.dropboxService = dropboxService;
+	
 	}
 
 	@InitBinder
@@ -76,7 +75,6 @@ public class UserController {
 			else {
 				//creating owner, user, and authority
 				this.clientService.saveClient(client);
-				this.dropboxService.uploadFile(client.getDniFile(), client);
 				return "redirect:/";
 			}
 		} catch (Exception e) {

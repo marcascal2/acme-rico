@@ -2,7 +2,6 @@ package org.springframework.samples.acmerico.ui;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
-import org.junit.jupiter.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class ClientLoginUITest {
   }
 
   @Test
-  public void testClientLoginUI() throws Exception {
+  public void clientLoginUITest() throws Exception {
     driver.get("http://localhost:8080/login");
     driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys("client1");

@@ -33,6 +33,7 @@
 			</div>
 			<petclinic:inputField label="Password" name="user.password" />
 		</div>
+		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<c:choose>
@@ -40,6 +41,13 @@
 						<button class="btn btn-default" type="submit">Add Client</button>
 					</c:when>
 					<c:otherwise>
+						<div class="dni-form">
+							<div class="dni-form-and-label">
+								<label class="col-sm-2 control-label">DNI: </label>
+								<input type="file" name="dniFile" path="dniFile"/>
+							</div>
+							<form:errors path="dniFile" cssClass="dni-error" />
+						</div>
 						<button class="btn btn-default" type="submit">Update
 							Client</button>
 					</c:otherwise>
