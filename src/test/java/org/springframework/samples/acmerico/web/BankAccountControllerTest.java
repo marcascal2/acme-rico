@@ -49,14 +49,14 @@ public class BankAccountControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private Client javier;
+    private Client client;
     private User user;
     private BankAccount account;
     private BankAccount account2;
 
     @BeforeEach
     void setup() {
-        javier = new Client();
+        client = new Client();
         account = new BankAccount();
         account2 = new BankAccount();
         user = new User();
@@ -71,48 +71,47 @@ public class BankAccountControllerTest {
         final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
         final LocalDateTime creationDate = LocalDateTime.of(2019, 11, 23, 12, 12, 12);
 
-        javier.setId(TEST_CLIENT_ID);
-        javier.setFirstName("Javier");
-        javier.setLastName("Ruiz");
-        javier.setAddress("Gordal");
-        javier.setBirthDate(bithday);
-        javier.setCity("Sevilla");
-        javier.setMaritalStatus("single but whole");
-        javier.setSalaryPerYear(300000.);
-        javier.setAge(21);
-        javier.setJob("student");
-        javier.setLastEmployDate(lEmpDate);
-        javier.setUser(user);
+        client.setId(TEST_CLIENT_ID);
+        client.setFirstName("client");
+        client.setLastName("Ruiz");
+        client.setAddress("Gordal");
+        client.setBirthDate(bithday);
+        client.setCity("Sevilla");
+        client.setMaritalStatus("single but whole");
+        client.setSalaryPerYear(300000.);
+        client.setAge(21);
+        client.setJob("student");
+        client.setLastEmployDate(lEmpDate);
+        client.setUser(user);
 
         account.setAccountNumber(TEST_BANK_ACCOUNT_NUMBER);
         account.setAlias("Cuenta personal");
         account.setAmount(10000.);
         account.setCreatedAt(creationDate);
-        account.setClient(javier);
+        account.setClient(client);
 
         account2.setAccountNumber("ES23 0025 2222 1259 1424");
         account2.setAlias("Segunda Cuenta personal");
         account2.setAmount(5000.);
         account2.setCreatedAt(creationDate);
-        account2.setClient(javier);
+        account2.setClient(client);
 
         accounts.add(account);
         accounts.add(account2);
 
-        when(clientService.findClientById(TEST_CLIENT_ID)).thenReturn(javier);
+        when(clientService.findClientById(TEST_CLIENT_ID)).thenReturn(client);
         when(bankAccountService.findBankAccountById(TEST_BANK_ACCOUNT_ID)).thenReturn(account);
         when(bankAccountService.findBankAccounts()).thenReturn(accounts);
-        when(bankAccountService.findBankAccountByClient(javier)).thenReturn(accounts);
+        when(bankAccountService.findBankAccountByClient(client)).thenReturn(accounts);
         when(bankAccountService.findBankAccountByNumber(TEST_BANK_ACCOUNT_NUMBER)).thenReturn(account);
         when(clientService.findBankAccountsByUsername(TEST_CLIENT_USERNAME)).thenReturn(accounts);
-        when(clientService.findClientByUserName(TEST_CLIENT_USERNAME)).thenReturn(javier);
+        when(clientService.findClientByUserName(TEST_CLIENT_USERNAME)).thenReturn(client);
 
     }
 
     // List all account by username test: Terminar
     @WithMockUser(username = "client1",roles = {"client"})
     @Test
-
     void testShowClientsAccounts() throws Exception {
         mockMvc.perform(get("/accounts"))
         .andExpect(status().is2xxSuccessful())
@@ -162,7 +161,7 @@ public class BankAccountControllerTest {
                 .andExpect(model().attribute("bankAccount", hasProperty("accountNumber", is(TEST_BANK_ACCOUNT_NUMBER))))
                 .andExpect(model().attribute("bankAccount", hasProperty("amount", is(10000.0))))
                 .andExpect(model().attribute("bankAccount", hasProperty("createdAt", is(creationDate))))
-                .andExpect(model().attribute("bankAccount", hasProperty("client", is(javier))))
+                .andExpect(model().attribute("bankAccount", hasProperty("client", is(client))))
                 .andExpect(status().is2xxSuccessful()).andExpect(view().name("accounts/showAccountInfo"));
 
         verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
@@ -195,7 +194,7 @@ public class BankAccountControllerTest {
                 .andExpect(model().attribute("bankAccount", hasProperty("accountNumber", is(TEST_BANK_ACCOUNT_NUMBER))))
                 .andExpect(model().attribute("bankAccount", hasProperty("amount", is(10000.0))))
                 .andExpect(model().attribute("bankAccount", hasProperty("createdAt", is(creationDate))))
-                .andExpect(model().attribute("bankAccount", hasProperty("client", is(javier))))
+                .andExpect(model().attribute("bankAccount", hasProperty("client", is(client))))
                 .andExpect(status().is2xxSuccessful()).andExpect(view().name("accounts/depositMoney"));
 
         verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
