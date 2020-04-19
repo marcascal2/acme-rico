@@ -26,15 +26,17 @@
 
 	<c:choose>
 		<c:when test="${credit_card_app.status == 'PENDING'}">
-			<form method="get"
-				action="/creditcardapps/${credit_card_app.id}/accept">
-				<button class="btn btn-default">Accept Credit Card Application</button>
-			</form>
+			<div class="buttons-group">
+				<form method="get"
+					action="/creditcardapps/${credit_card_app.id}/accept">
+					<button class="btn btn-default">Accept Credit Card Application</button>
+				</form>
 
-			<form method="get"
-				action="/creditcardapps/${credit_card_app.id}/refuse">
-				<button class="btn btn-default">Refuse Credit Card Application</button>
-			</form>
+				<form method="get"
+					action="/creditcardapps/${credit_card_app.id}/refuse">
+					<button class="btn btn-default">Refuse Credit Card Application</button>
+				</form>
+			</div>
 		</c:when>
 	</c:choose>
 

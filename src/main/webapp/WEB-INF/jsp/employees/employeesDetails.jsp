@@ -20,14 +20,16 @@
         </tr>
     </table>
 
-    <spring:url value="{employeeId}/edit" var="editUrl">
-        <spring:param name="employeeId" value="${employee.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Edit Worker</a>
-    
-    <spring:url value="{employeeId}/delete" var="deleteUrl">
-        <spring:param name="employeeId" value="${employee.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete Worker</a>
+    <div class="buttons-group">
+        <spring:url value="{employeeId}/edit" var="editUrl">
+            <spring:param name="employeeId" value="${employee.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Edit Worker</a>
+        
+        <spring:url value="{employeeId}/delete" var="deleteUrl">
+            <spring:param name="employeeId" value="${employee.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete Worker</a>
+    </div>
 
 </petclinic:layout>
