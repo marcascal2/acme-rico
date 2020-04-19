@@ -29,13 +29,15 @@
 	<sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
 		<c:choose>
 			<c:when test="${transfer_application.status == 'PENDING'}">
-				<form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
-			     	<button class="btn btn-default">Accept Transfer</button>
-				</form>
-				
-				<form method="get" action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
-			     	<button class="btn btn-default">Refuse Transfer</button>
-				</form>
+				<div class="buttons-group">
+					<form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
+						<button class="btn btn-default">Accept Transfer</button>
+				   </form>
+				   
+				   <form method="get" action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
+						<button class="btn btn-default">Refuse Transfer</button>
+				   </form>
+				</div>
 			</c:when>
 		</c:choose>
 	</sec:authorize>

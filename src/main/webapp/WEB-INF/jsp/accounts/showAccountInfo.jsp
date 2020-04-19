@@ -20,22 +20,24 @@
 			<petclinic:inputField label="Alias" name="alias" readonly="true" />
 		</div>
 	</form:form>
-	<form action="/transferapps/${bankAccount.id}/new">
-		<button class="btn btn-default" type="submit">Create new transfer</button>
-	 </form>
-  <form action="/creditcardapps/${bankAccount.id}/new">
-     <button class="btn btn-default" type="submit">Request credit card</button>
-  </form>
-	<spring:url value="{accountId}/depositMoney" var="depositUrl">
-		<spring:param name="accountId" value="${bankAccount.id}" />
-	</spring:url>
-	<a href="${fn:escapeXml(depositUrl)}" class="btn btn-default"
-		type="submit">Deposit money</a>
-	<c:if test="${noMoney}">
-		<spring:url value="{accountId}/delete" var="deleteUrl">
+	<div class="buttons-group">
+		<form action="/transferapps/${bankAccount.id}/new">
+			<button class="btn btn-default" type="submit">Create new transfer</button>
+		</form>
+		<form action="/creditcardapps/${bankAccount.id}/new">
+			<button class="btn btn-default" type="submit">Request credit card</button>
+		</form>
+		<spring:url value="{accountId}/depositMoney" var="depositUrl">
 			<spring:param name="accountId" value="${bankAccount.id}" />
 		</spring:url>
-		<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
-			Account</a>
-	</c:if>
+		<a href="${fn:escapeXml(depositUrl)}" class="btn btn-default"
+			type="submit">Deposit money</a>
+		<c:if test="${noMoney}">
+			<spring:url value="{accountId}/delete" var="deleteUrl">
+				<spring:param name="accountId" value="${bankAccount.id}" />
+			</spring:url>
+			<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
+				Account</a>
+		</c:if>
+	</div>
 </petclinic:layout>
