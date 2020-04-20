@@ -64,7 +64,6 @@ public class ValidatorLoanTests {
 		loan.setOpening_price(0.);
 		loan.setMonthly_fee(0.01);
 		loan.setSingle_loan(true);
-		loan.setClient(client);
 	}
 
 	private Validator createValidator() {
@@ -226,18 +225,6 @@ public class ValidatorLoanTests {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 
 		loan.setSingle_loan(null);
-
-		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
-
-		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
-	}
-
-	@Test
-	void shouldNotValidateWhenClientNull() {
-		LocaleContextHolder.setLocale(Locale.ENGLISH);
-
-		loan.setClient(null);
 
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 

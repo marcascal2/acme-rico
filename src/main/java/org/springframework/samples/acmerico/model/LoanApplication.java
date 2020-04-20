@@ -39,7 +39,7 @@ public class LoanApplication extends BaseEntity {
 	private BankAccount destination;
 	
 	@Valid
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
 	private Loan loan;
 	

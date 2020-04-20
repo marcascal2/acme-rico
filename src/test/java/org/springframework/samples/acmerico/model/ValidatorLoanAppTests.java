@@ -59,7 +59,6 @@ public class ValidatorLoanAppTests {
 		loan.setOpening_price(0.0);
 		loan.setMonthly_fee(0.01);
 		loan.setSingle_loan(true);
-		loan.setClient(client);
 	}
 
 	@BeforeAll

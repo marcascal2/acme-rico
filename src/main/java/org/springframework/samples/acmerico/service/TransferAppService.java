@@ -29,8 +29,8 @@ public class TransferAppService {
 	@Transactional
 	public Collection<TransferApplication> findAllTransfersApplications() {
 		return (Collection<TransferApplication>) this.transferAppRepository.findAll();
-
 	}
+	
 	@Transactional
 	public TransferApplication findTransferAppById(int transferAppId) {
 		return this.transferAppRepository.findById(transferAppId).get();

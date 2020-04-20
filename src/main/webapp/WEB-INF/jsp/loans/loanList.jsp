@@ -1,0 +1,48 @@
+<%@ page session="false" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+
+<petclinic:layout pageName="loans">
+	<h2>Loans</h2>
+
+	<table id="loans" class="table table-striped">
+		<thead>
+			<tr>
+				<th style="width: 150px;">Id</th>
+				<th style="width: 150px;">Minimun Amount</th>
+				<th style="width: 150px;">Minimun Income</th>
+				<th style="width: 200px;">Number of Deadlines</th>
+				<th style="width: 200px;">Opening Price</th>
+				<th style="width: 200px;">Monthly Fee</th>
+				<th style="width: 200px;">Single Loan</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${loans}" var="loan">
+				<tr>
+					<td>
+						<spring:url value="/loans/{loanId}" var="loanUrl">
+							<spring:param name="loanId" value="${loan.id}" />
+						</spring:url> 
+						<a href="${fn:escapeXml(loanUrl)}"><c:out value="${loan.id}"/></a>
+					</td>
+					<td><c:out value="${loan.minimum_amount}" /></td>
+					<td><c:out value="${loan.minimum_income}" /></td>
+					<td><c:out value="${loan.number_of_deadlines}" /></td>
+					<td><c:out value="${loan.opening_price}" /></td>
+					<td><c:out value="${loan.monthly_fee}" /></td>
+					<td><c:out value="${loan.single_loan}" /></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	<div class="buttons-group">
+		<form action="/loans/new">
+			<button class="btn btn-default" type="submit">Create new loan</button>
+		</form>
+	</div>
+</petclinic:layout>

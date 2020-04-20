@@ -9,10 +9,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.repository.CreditCardAppRepository;
 import org.springframework.stereotype.Service;
+
 @Service
 public class CreditCardAppService {
 	
-private CreditCardAppRepository creditCardAppRepository;
+	private CreditCardAppRepository creditCardAppRepository;
 	
 	@Autowired
 	public CreditCardAppService(CreditCardAppRepository creditCardAppRepository) {
