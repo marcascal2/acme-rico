@@ -15,10 +15,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "debts")
-public class Debt {
+public class Debt extends BaseEntity {
 
     @DecimalMin(value = "0")
 	@NotBlank
