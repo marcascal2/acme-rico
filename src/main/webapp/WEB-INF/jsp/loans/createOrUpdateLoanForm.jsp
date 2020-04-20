@@ -10,7 +10,7 @@
     <form:form modelAttribute="loan" class="form-horizontal" id="add-client-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Minimun Amount" name="minimum_amount"/>
-            <petclinic:inputField label="Minimun Income" name="minimum_income"/>
+            <petclinic:inputField label="Minimun Client Income" name="minimum_income"/>
             <petclinic:inputField label="Number of Deadlines" name="number_of_deadlines"/>
             <petclinic:inputField label="Opening Price" name="opening_price"/>
             <petclinic:inputField label="Monthly Fee" name="monthly_fee"/>

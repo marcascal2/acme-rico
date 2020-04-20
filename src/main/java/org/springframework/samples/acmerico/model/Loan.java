@@ -20,19 +20,24 @@ public class Loan extends BaseEntity {
 
 	@DecimalMin(value = "100.00")
 	@DecimalMax(value = "1000000.00")
+	@NotNull
 	private Double minimum_amount;
 	
 	@DecimalMin(value = "600.00")
 	@DecimalMax(value = "1000000.00")
+	@NotNull
 	private Double minimum_income;
 	
 	@Min(value = 2)
+	@NotNull
 	private Integer number_of_deadlines;
 	
 	@Min(value = 0)
+	@NotNull
 	private Double opening_price;
 	
 	@DecimalMin(value = "0.01")
+	@NotNull
 	private Double monthly_fee;
 	
 	@NotNull

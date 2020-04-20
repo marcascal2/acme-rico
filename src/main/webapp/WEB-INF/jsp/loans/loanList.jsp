@@ -13,7 +13,7 @@
 			<tr>
 				<th style="width: 150px;">Id</th>
 				<th style="width: 150px;">Minimun Amount</th>
-				<th style="width: 150px;">Minimun Income</th>
+				<th style="width: 150px;">Minimun Client Income</th>
 				<th style="width: 200px;">Number of Deadlines</th>
 				<th style="width: 200px;">Opening Price</th>
 				<th style="width: 200px;">Monthly Fee</th>
