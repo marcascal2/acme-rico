@@ -5,14 +5,24 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientLoginUITest {
+
+  @LocalServerPort
+  private int port;
+
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -20,8 +30,6 @@ public class ClientLoginUITest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    String pathToGeckoDriver="C:\\Users\\Javier\\Downloads";
-    System.setProperty("webdriver.gecko.driver", pathToGeckoDriver+ "\\geckodriver.exe");
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -29,7 +37,7 @@ public class ClientLoginUITest {
 
   @Test
   public void clientLoginUITest() throws Exception {
-    driver.get("http://localhost:8080/login");
+    driver.get("http://localhost:" + port + "/login");
     driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys("client1");
     driver.findElement(By.id("password")).click();

@@ -33,6 +33,9 @@
         <!--Selenium-->
         <selenium.version>3.141.59</selenium.version>
 
+        <!-- Cucumber -->
+        <cucumber.version>5.5.0</cucumber.version>
+
     </properties>
 
     <dependencies>
@@ -179,6 +182,31 @@
             <artifactId>selenium-support</artifactId>
             <version>${selenium.version}</version>
         </dependency>
+
+        <!-- Cucumber dependences -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -299,7 +327,53 @@
         </license>
     </licenses>
 
+    <profiles>
+        <profile>
+            <id>AcceptanceTests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includes>
+                                <include>**/*CucumberUITest.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
 
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>3.8.0</version>
+                        <executions>
+                            <execution>
+                                <id>post-integration-test</id>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>${name}</projectName>
+                                    <outputDirectory>target</outputDirectory>
+                                    <cucumberOutput>target/cucumber-reports/cucumber-report.json</cucumberOutput>
+                                    <buildNumber>1</buildNumber>
+                                    <parallelTesting>false</parallelTesting>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
 
