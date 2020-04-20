@@ -8,14 +8,19 @@ import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ClientRegisterUITest {
+
+
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     String pathToGeckoDriver="C:\\Users\\Javier\\Downloads";
     System.setProperty("webdriver.gecko.driver", pathToGeckoDriver+ "\\geckodriver.exe");
@@ -60,10 +65,10 @@ public class ClientRegisterUITest {
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("javi");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("JAVI", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+    assertEquals("javi", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
