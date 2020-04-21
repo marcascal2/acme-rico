@@ -8,12 +8,13 @@
 <%@ page import="java.util.Arrays" %>
 
 <petclinic:layout pageName="loanApp">
-    <form:form modelAttribute="loanApp" class="form-horizontal" id="add-loanApp-form">
+    <form:form modelAttribute="loan_app" class="form-horizontal" id="add-loanApp-form">
         <div class="form-group has-feedback">
-        	<petclinic:inputField label="Description" name="amount"/>
-            <petclinic:inputField label="Minimun Amount" name="purpose"/>
-            <petclinic:inputField label="Minimun Client Income" name="status"/>
-            <petclinic:inputField label="Number of Deadlines" name="amount_paid"/>
+        	<petclinic:inputField label="Amount" name="amount"/>
+            <petclinic:inputField label="Purpose" name="purpose"/>
+            <petclinic:inputField label="Status" name="status" readonly = "true"/>
+            <petclinic:inputField label="Amount Paid" name="amount_paid" readonly = "true"/>
+    
         </div>
 
        

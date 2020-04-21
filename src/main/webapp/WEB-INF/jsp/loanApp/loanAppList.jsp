@@ -13,19 +13,16 @@
 			<tr>
 				<th style="width: 150px;">Id</th>
 				<th style="width: 150px;">Amount</th>
+				<th style="width: 150px;">Purpose</th>
 				<th style="width: 150px;">Status</th>
-				<th style="width: 150px;">Amount paid</th>
+				<th style="width: 150px;">Amount Paid</th>
+				
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${loanApps}" var="loanApp">
 				<tr>
-					<td>
-						<spring:url value="/loanApp/{loanId}" var="loanAppUrl">
-							<spring:param name="loanAppId" value="${loanApp.id}" />
-						</spring:url> 
-						<a href="${fn:escapeXml(loanUrl)}"><c:out value="${loan.id}"/></a>
-					</td>
+					<td><c:out value="${loanApp.id}" /></td>
 					<td><c:out value="${loanApp.amount}" /></td>
 					<td><c:out value="${loanApp.purpose}" /></td>
 					<td><c:out value="${loanApp.status}" /></td>

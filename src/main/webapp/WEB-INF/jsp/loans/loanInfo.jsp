@@ -19,13 +19,9 @@
             <petclinic:selectField label="Single Loan" name="single_loan" names='<%= Arrays.asList("Yes", "No") %>' size="1"/>
         </div>
 
-        <div class="form-group">
-            <input type="hidden" value="bankAccountId"
-            <form method="get" action="/loanapps/{loanId}/new/{bankAccountId}">
-                <button class="btn btn-default">Create Loan Application</button>
-           </form>
-       </div>
-
     </sec:authorize>
     </form:form>
+    <form action="/loanapps/${loan.id}/new/${bankAccountId}">
+        <button class="btn btn-default" type="submit">Create application for this loan</button>
+    </form>
 </petclinic:layout>
