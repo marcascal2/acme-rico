@@ -68,14 +68,7 @@ public class ClientListUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.get("http://localhost:"+ port + "/clients?lastName=");
-
-		try {
-			assertEquals("There was an unexpected error (type=Forbidden, status=403).",
-					driver.findElement(By.xpath("//div[2]")).getText());
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertEquals(false, isElementPresent(By.linkText("Clients")));;
 	}
 
 	@AfterEach
