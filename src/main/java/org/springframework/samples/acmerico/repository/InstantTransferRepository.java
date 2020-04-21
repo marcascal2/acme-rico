@@ -6,5 +6,4 @@ import org.springframework.samples.acmerico.model.InstantTransfer;
 
 public interface InstantTransferRepository extends CrudRepository<InstantTransfer, Integer> {
 
-
 }

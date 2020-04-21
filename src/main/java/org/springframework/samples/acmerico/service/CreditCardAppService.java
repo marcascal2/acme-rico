@@ -19,7 +19,7 @@ public class CreditCardAppService {
 	private CreditCardAppRepository creditCardAppRepository;
 	
 	private CreditCardRepository creditCardRepository;
-	
+
 	@Autowired
 	public CreditCardAppService(CreditCardAppRepository creditCardAppRepository, CreditCardRepository creditCardRepository) {
 		this.creditCardAppRepository = creditCardAppRepository;

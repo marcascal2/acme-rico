@@ -102,9 +102,13 @@
 				          <petclinic:menuSubitem active="${name eq 'clients'}" url="/clients/find" title="find clients">
 				            <span>Find clients</span>
 				          </petclinic:menuSubitem>
-						  <div class="dropdown-divider"></div>
+					  <div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
 									<span>Transfers Applications List</span>
+							</petclinic:menuSubitem>
+					  <div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans" title="loansList">
+									<span>Loans List</span>
 							</petclinic:menuSubitem>
 		      	</div>
 	      	</li>
