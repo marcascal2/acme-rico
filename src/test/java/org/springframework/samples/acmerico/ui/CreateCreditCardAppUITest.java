@@ -47,6 +47,34 @@ public class CreateCreditCardAppUITest {
       driver.findElement(By.id("credit-card-apps")).click();
       assertEquals("PENDING", driver.findElement(By.xpath("//table[@id='cardAppsTable']/tbody/tr[3]/td")).getText());
     }
+
+    @Test
+    public void testCreditCardAppUINegative() throws Exception {
+      driver.get("http://localhost:" + port + "/");
+      driver.findElement(By.id("login-button")).click();
+      driver.findElement(By.id("username")).click();
+      driver.findElement(By.id("username")).clear();
+      driver.findElement(By.id("username")).sendKeys("client1");
+      driver.findElement(By.id("password")).click();
+      driver.findElement(By.id("password")).clear();
+      driver.findElement(By.id("password")).sendKeys("client1");
+      driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+      driver.findElement(By.linkText("Bank Accounts")).click();
+      driver.findElement(By.id("dropdown-clients")).click();
+      driver.findElement(By.id("my-accounts")).click();
+      driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
+      driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
+      driver.findElement(By.id("dropdown-clients")).click();
+      driver.findElement(By.id("my-accounts")).click();
+      driver.findElement(By.xpath("//table[@id='accountsTable']/tbody/tr/td")).click();
+      driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
+      driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
+      driver.findElement(By.id("dropdown-clients")).click();
+      driver.findElement(By.id("my-accounts")).click();
+      driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
+      driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
+      assertEquals("Your have to wait until we accept your pending credit card applications.", driver.findElement(By.xpath("//h3")).getText());
+    }
   
     @AfterEach
     public void tearDown() throws Exception {
