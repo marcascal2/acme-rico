@@ -1,17 +1,19 @@
 package org.springframework.samples.acmerico.ui;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
-import org.junit.*;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientRegisterUITest {
 
 
@@ -20,10 +22,14 @@ public class ClientRegisterUITest {
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  @LocalServerPort
+  private int port;
+
   @BeforeEach
   public void setUp() throws Exception {
-    String pathToGeckoDriver="C:\\Users\\Javier\\Downloads";
-    System.setProperty("webdriver.gecko.driver", pathToGeckoDriver+ "\\geckodriver.exe");
+    // String pathToGeckoDriver="C:\\Users\\Javier\\Downloads";
+    // System.setProperty("webdriver.gecko.driver", pathToGeckoDriver+ "\\geckodriver.exe");
+    System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -31,7 +37,7 @@ public class ClientRegisterUITest {
 
   @Test
   public void testClientRegisterUI() throws Exception {
-    driver.get("http://localhost:8080/users/new");
+    driver.get("http://localhost:"+port+"/users/new");
     driver.findElement(By.id("firstName")).click();
     driver.findElement(By.id("firstName")).clear();
     driver.findElement(By.id("firstName")).sendKeys("Javier");
@@ -59,13 +65,30 @@ public class ClientRegisterUITest {
     driver.findElement(By.id("user.password")).sendKeys("javi");
     driver.findElement(By.xpath("//*[@id='dniFile']")).sendKeys("C:\\Users\\Javier\\Pictures\\629642.jpg");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    driver.get("http://localhost:8080/login");
+    driver.get("http://localhost:"+port+"/login");
     driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys("javi");
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("javi");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("javi", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+    assertEquals("JAVI", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+  }
+
+
+  @Test
+  public void testClientRegisterUINegativeCase() throws Exception{
+    driver.get("http://localhost:"+port+"/login");
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("client1");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("client1");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    assertEquals("client1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+    //assertEquals(false, driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/li[2]/a")).isDisplayed());
+    //assertEquals(0, driver.findElement(By.linkText("Register")).getSize());
+    assertEquals(false, isElementPresent(By.linkText("Register")));
+
   }
 
   @AfterEach
