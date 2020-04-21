@@ -2,7 +2,7 @@
 
 [REPARTO DE TAREAS](https://github.com/marcascal2/acme-rico/blob/master/tasks.md)
 
-[HISTORIAS DE USUARIO](https://drive.google.com/open?id=1aRuunAi2xsZ3byhwTv1dXPHnwUEEDQyc)
+[HISTORIAS DE USUARIO](https://drive.google.com/open?id=19vpqeJiKiy582NfK6wPUkoJ1HYdG40fG5e8ec9KoUYQ)
 
 [INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://github.com/marcascal2/acme-rico/blob/master/informe_decisiones.md)
 
