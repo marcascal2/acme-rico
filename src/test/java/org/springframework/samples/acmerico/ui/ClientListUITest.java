@@ -27,8 +27,10 @@ public class ClientListUITest {
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		String pathToGeckoDriver = "C:\\Users\\Maria\\Downloads\\geckodriver";
-		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "\\geckodriver.exe");
+		System.out.println(System.getenv("webdriver.gecko.driver"));
+		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+//		String pathToGeckoDriver = "C:\\Users\\Maria\\Downloads\\geckodriver";
+//		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
