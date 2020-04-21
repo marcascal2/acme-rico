@@ -12,6 +12,7 @@
 		<thead>
 			<tr>
 				<th style="width: 150px;">Id</th>
+				<th style="width: 150px;">Description</th>
 				<th style="width: 150px;">Minimun Amount</th>
 				<th style="width: 150px;">Minimun Client Income</th>
 				<th style="width: 200px;">Number of Deadlines</th>
@@ -29,12 +30,22 @@
 						</spring:url> 
 						<a href="${fn:escapeXml(loanUrl)}"><c:out value="${loan.id}"/></a>
 					</td>
+					<td><c:out value="${loan.description}" /></td>
 					<td><c:out value="${loan.minimum_amount}" /></td>
 					<td><c:out value="${loan.minimum_income}" /></td>
 					<td><c:out value="${loan.number_of_deadlines}" /></td>
 					<td><c:out value="${loan.opening_price}" /></td>
 					<td><c:out value="${loan.monthly_fee}" /></td>
-					<td><c:out value="${loan.single_loan}" /></td>
+					<td>
+					<c:choose>
+						<c:when test = "${loan.single_loan}">
+							<c:out value="Yes"/>
+						 </c:when>
+						<c:when test = "${!loan.single_loan}">
+							<c:out value="No"/>
+						 </c:when>
+					</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
