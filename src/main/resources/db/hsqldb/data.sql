@@ -100,15 +100,15 @@ INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (8,'PEND
 INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (9,'PENDING',9,9);
 
 -- CREDIT CARDS
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (1,'123','01/2021','5541147884694773',1,1);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (2,'223','02/2022','5496675056390627',2,2);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (3,'376','03/2021','5159262819350277',3,3);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (4,'124','01/2023','5541147884694778',4,4);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (5,'253','02/2021','5496675056390629',5,5);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (6,'386','03/2022','5159262819350271',2,2);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (7,'223','01/2021','5541147884694772',3,3);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (8,'323','02/2021','5496675056394623',10,5);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (9,'476','03/2023','5159262813350277',8,10);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (10,'623','01/2022','5541147884694773',9,9);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (11,'983','02/2021','5496675656390627',10,5);
-INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (12,'456','03/2021','5159272819350277',5,5);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (1,'123','01/2021','4095742744779740',1,1);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (2,'223','02/2022','4441073223421195',2,2);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (3,'376','03/2021','4490428524957448',3,3);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (4,'124','01/2023','4845983225854171',4,4);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (5,'253','02/2021','4775897438414330',5,5);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (6,'386','03/2022','4187254491775326',2,2);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (7,'223','01/2021','4371563020327524',3,3);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (8,'323','02/2021','4811790951023057',10,5);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (9,'476','03/2023','4728223415960187',8,10);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (10,'623','01/2022','4744376754678685',9,9);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (11,'983','02/2021','4309996709140460',10,5);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (12,'456','03/2021','4730019669930512',5,5);

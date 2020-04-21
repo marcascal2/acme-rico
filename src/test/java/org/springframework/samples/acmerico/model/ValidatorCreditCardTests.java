@@ -56,7 +56,7 @@ public class ValidatorCreditCardTests {
 
 	@BeforeEach
 	private void createCreditCard() {
-		cc.setNumber("5509189773541186");
+		cc.setNumber("4880576829512546");
 		cc.setDeadline("12/2025");
 		cc.setCvv("123");
 		cc.setBankAccount(bankAccount);

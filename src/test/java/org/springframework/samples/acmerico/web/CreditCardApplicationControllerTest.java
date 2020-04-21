@@ -49,7 +49,7 @@ public class CreditCardApplicationControllerTest{
     @Autowired
     private MockMvc mockMvc;
 
-    private Client javier;
+    private Client client;
     
     private CreditCardApplication application;
     
@@ -58,7 +58,7 @@ public class CreditCardApplicationControllerTest{
     @BeforeEach
     void setup(){
 
-        javier = new Client();
+        client = new Client();
         application = new CreditCardApplication();
         account = new BankAccount();
 
@@ -67,29 +67,29 @@ public class CreditCardApplicationControllerTest{
         final LocalDateTime creationDate = LocalDateTime.of(2019, 11, 23, 12, 12, 12);
 
 
-        javier.setId(1);
-        javier.setFirstName("Javier");
-        javier.setLastName("Ruiz");
-        javier.setAddress("Gordal");
-        javier.setBirthDate(bithday);
-        javier.setCity("Sevilla");
-        javier.setMaritalStatus("single but whole");
-        javier.setSalaryPerYear(300000.);
-        javier.setAge(21);
-        javier.setJob("student");
-        javier.setLastEmployDate(lEmpDate);
+        client.setId(1);
+        client.setFirstName("client");
+        client.setLastName("Ruiz");
+        client.setAddress("Gordal");
+        client.setBirthDate(bithday);
+        client.setCity("Sevilla");
+        client.setMaritalStatus("single but whole");
+        client.setSalaryPerYear(300000.);
+        client.setAge(21);
+        client.setJob("student");
+        client.setLastEmployDate(lEmpDate);
 
         account.setId(TEST_BANK_ACCOUNT_ID);
         account.setAccountNumber("ES23 0025 0148 1259 1424");
         account.setAlias("Cuenta personal");
         account.setAmount(10000.);
         account.setCreatedAt(creationDate);
-        account.setClient(javier);
+        account.setClient(client);
 
         application.setId(TEST_CREDITCARDAPP_ID);
         application.setStatus("PENDING");
         application.setBankAccount(account);
-        application.setClient(javier);
+        application.setClient(client);
 
         when(creditCardAppService.findCreditCardAppById(TEST_CREDITCARDAPP_ID)).thenReturn(application);
     }

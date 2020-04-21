@@ -9,6 +9,7 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,10 @@ public class LoanApplication extends BaseEntity {
 	@NotBlank
 	private String purpose;
 	
+	@NotBlank
+	@Pattern(regexp = "ACCEPTED|REJECTED|PENDING", message="Loan application status only can be ACCEPTED, REJECTED or PENDING")
+	private String status;
+	
 	@NotNull
 	private Double amount_paid;
 	
@@ -39,7 +44,7 @@ public class LoanApplication extends BaseEntity {
 	private BankAccount destination;
 	
 	@Valid
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
 	private Loan loan;
 	

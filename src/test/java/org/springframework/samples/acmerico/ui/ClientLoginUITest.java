@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -16,6 +17,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientLoginUITest {
+
+  @LocalServerPort
+  private int port;
+
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -27,6 +32,7 @@ public class ClientLoginUITest {
   @BeforeEach
   public void setUp() throws Exception {
     System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -34,7 +40,7 @@ public class ClientLoginUITest {
 
   @Test
   public void clientLoginUITest() throws Exception {
-    driver.get("http://localhost:"+port+"/login");
+    driver.get("http://localhost:" + port + "/login");
     driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys("client1");
     driver.findElement(By.id("password")).click();

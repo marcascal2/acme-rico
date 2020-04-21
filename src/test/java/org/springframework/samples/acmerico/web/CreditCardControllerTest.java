@@ -75,7 +75,7 @@ public class CreditCardControllerTest {
 		bankAccount.setCreditCards(Arrays.asList(creditCard));
 		
 		creditCard.setId(1);
-		creditCard.setNumber("5130218133680652");
+		creditCard.setNumber("4616328728383848");
 		creditCard.setDeadline("07/2022");
 		creditCard.setCvv("156");
 	}
@@ -102,7 +102,7 @@ public class CreditCardControllerTest {
 		mockMvc.perform(get("/cards/{cardId}/show", creditCard.getId()))
 		   .andExpect(status().isOk())
 		   .andExpect(model().attributeExists("creditCard"))
-		   .andExpect(model().attribute("creditCard", hasProperty("number", is("5130218133680652"))))
+		   .andExpect(model().attribute("creditCard", hasProperty("number", is("4616328728383848"))))
 		   .andExpect(model().attribute("creditCard", hasProperty("deadline", is("07/2022"))))
 		   .andExpect(model().attribute("creditCard", hasProperty("cvv", is("156"))))
 		   .andExpect(view().name("cards/showCardInfo"))
