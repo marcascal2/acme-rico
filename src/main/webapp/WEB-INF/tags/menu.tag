@@ -51,7 +51,7 @@
 	          <div class="dropdown-divider"></div>
 	          	<petclinic:menuSubitem active="${name eq 'clients'}" url="/cards"
 					title="my cards">
-					<span>My credit cards</span>
+					<span id="my-credit-card">My credit cards</span>
 				</petclinic:menuSubitem>
         </div>
         <petclinic:menuItem active="${name eq 'exchanges'}" url="/exchanges"

@@ -9,18 +9,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ClientLoginUITest {
-
-  @LocalServerPort
-  private int port;
-
+public class CreditCardApplicationInformationUITest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -32,23 +27,29 @@ public class ClientLoginUITest {
   @BeforeEach
   public void setUp() throws Exception {
     System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
-
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void clientLoginUITest() throws Exception {
-    driver.get("http://localhost:" + port + "/login");
+  public void testCreditCardApplicationInformationUI() throws Exception {
+    driver.get("http://localhost:"+port+"/");
+    driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/li[1]/a")).click();
     driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys("client1");
-    driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("client1");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-    assertEquals("client1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+    driver.findElement(By.linkText("Bank Accounts")).click();
+    driver.findElement(By.id("dropdown-clients")).click();
+    driver.findElement(By.id("credit-card-apps")).click();
+    assertEquals("My Credit Cards Applications", driver.findElement(By.xpath("//h2")).getText());
+    assertEquals("PENDING", driver.findElement(By.xpath("//table[@id='cardAppsTable']/tbody/tr[2]/td")).getText());
+    assertEquals("client1", driver.findElement(By.xpath("//table[@id='cardAppsTable']/tbody/tr[2]/td[2]")).getText());
+
   }
+  
 
   @AfterEach
   public void tearDown() throws Exception {
