@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "loans")
 public class Loan extends BaseEntity {
 	
-	@NotEmpty
+	@NotBlank
 	private String description;
 
 	@DecimalMin(value = "100.00")

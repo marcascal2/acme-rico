@@ -58,6 +58,7 @@ public class ValidatorLoanTests {
 
 	@BeforeEach
 	private void resetLoan() {
+		loan.setDescription("This is a loan");
 		loan.setMinimum_amount(200.);
 		loan.setMinimum_income(700.);
 		loan.setNumber_of_deadlines(2);
@@ -73,6 +74,18 @@ public class ValidatorLoanTests {
 	}
 
 	private Validator validator = createValidator();
+	
+	@Test
+	void shouldNotValidateWhenDescriptionBlank() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+
+		loan.setDescription("");;
+
+		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
+
+		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+	}
 
 	@ParameterizedTest
 	@ValueSource(doubles = { 200., 5000., 700000., 900000. })

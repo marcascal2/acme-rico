@@ -53,6 +53,7 @@ public class ValidatorLoanAppTests {
 
 	@BeforeAll
 	static void populateLoan() {
+		loan.setDescription("This is a loan");
 		loan.setMinimum_amount(1550.0);
 		loan.setMinimum_income(700.0);
 		loan.setNumber_of_deadlines(2);
@@ -75,6 +76,7 @@ public class ValidatorLoanAppTests {
 		loanApp.setAmount(50000.);
 		loanApp.setIncome(700.0);
 		loanApp.setPurpose("This is a purpose");
+		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(1200.0);
 		loanApp.setDestination(bankAccount);
 		loanApp.setLoan(loan);
@@ -157,6 +159,30 @@ public class ValidatorLoanAppTests {
 
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+	}
+	
+	@Test
+	void shouldNotValidateWhenStatusBlank() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+
+		loanApp.setStatus(null);
+
+		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
+
+		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+	}
+	
+	@Test
+	void shouldNotValidateWhenStatusNotMatchPattern() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
+
+		loanApp.setStatus("acepppppted");
+
+		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
+
+		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("Loan application status only can be ACCEPTED, REJECTED or PENDING");
 	}
 
 	@Test
