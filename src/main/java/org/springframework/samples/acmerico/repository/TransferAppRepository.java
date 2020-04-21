@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.TransferApplication;
 
-public interface TransferAppRepository extends CrudRepository<TransferApplication, Integer>{
+public interface TransferAppRepository extends CrudRepository<TransferApplication, Integer> {
 
     Collection<TransferApplication> findAllByClient(Client client) throws DataAccessException;	
 

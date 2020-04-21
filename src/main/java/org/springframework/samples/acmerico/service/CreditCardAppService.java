@@ -76,8 +76,6 @@ public class CreditCardAppService {
   		CreditCardNumberGenerator generator = new CreditCardNumberGenerator();
   		String number = generator.generate("4", 16);
   		
-  		System.out.println(this.creditCardRepository.findByNumber(number));
-  		
   		while(this.creditCardRepository.findByNumber(number) != null) {
   			number = generator.generate("4", 16);
   		}
