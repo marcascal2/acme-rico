@@ -30,4 +30,9 @@ public class LoanService {
 		this.loanRepository.save(loan);
 	}
 
+	@Transactional
+	public Loan findLoanById(int loanId) {
+		return loanRepository.findById(loanId).get();
+	}
+
 }

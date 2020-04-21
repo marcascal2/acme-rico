@@ -18,9 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientLoginUITest {
 
-  @LocalServerPort
-  private int port;
-
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;

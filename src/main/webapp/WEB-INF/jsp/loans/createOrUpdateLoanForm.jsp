@@ -18,10 +18,19 @@
             <petclinic:inputField label="Monthly Fee" name="monthly_fee"/>
             <petclinic:selectField label="Single Loan" name="single_loan" names='<%= Arrays.asList("Yes", "No") %>' size="1"/>
         </div>
-        <div class="form-group">
+
+       
+        <div class="form-group" >
             <div class="col-sm-offset-2 col-sm-10">
             	<button class="btn btn-default" type="submit">Add Loan</button>
             </div>
         </div>
+        <div class="form-group">
+            <form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
+                <button class="btn btn-default">Create Loan Application</button>
+           </form>
+       </div>
+
+    </sec:authorize>
     </form:form>
 </petclinic:layout>

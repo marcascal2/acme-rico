@@ -74,7 +74,6 @@ public class ValidatorLoanAppTests {
 	@BeforeEach
 	private void resetLoanApp() {
 		loanApp.setAmount(50000.);
-		loanApp.setIncome(700.0);
 		loanApp.setPurpose("This is a purpose");
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(1200.0);
@@ -125,8 +124,6 @@ public class ValidatorLoanAppTests {
 	void positiveTestWithIncome(Double income) {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 
-		loanApp.setIncome(income);
-
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
 		assertThat(constraintViolations.isEmpty());
@@ -136,8 +133,6 @@ public class ValidatorLoanAppTests {
 	@ValueSource(doubles = { 599.99, 1000000.01 })
 	void negativeTestWithIncome(Double income) {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-
-		loanApp.setIncome(income);
 
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
