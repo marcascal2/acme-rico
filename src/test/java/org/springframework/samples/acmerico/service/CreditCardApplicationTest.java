@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -104,6 +105,6 @@ public class CreditCardApplicationTest {
 	@Test
 	public void createInvalidCreditCardApp() {
 		application.setStatus("");
-		assertThrows(NullPointerException.class, ()-> { this.creditCardAppService.save(application); this.entityManager.flush(); });
+		assertThrows(ConstraintViolationException.class, ()-> { this.creditCardAppService.save(application); this.entityManager.flush(); });
 	}
 }

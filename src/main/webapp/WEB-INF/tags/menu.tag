@@ -30,8 +30,8 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Home</span>
 				</petclinic:menuItem>
-
-				<!-- MENU CLIENTES -->
+				
+		<!-- MENU CLIENTES -->
 				<sec:authorize access="hasAuthority('client')">
 					<li class="nav-item dropdown" id="dropdown-clients"><a
 						class="nav-link dropdown-toggle" role="button"
@@ -48,68 +48,64 @@
 							<petclinic:menuSubitem active="${name eq 'clients'}"
 								url="/mycreditcardapps" title="my cardApps">
 								<span id="credit-card-apps">My credit card applications</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'clients'}" url="/cards"
-								title="my cards">
-								<span>My credit cards</span>
-							</petclinic:menuSubitem>
-						</div> <petclinic:menuItem active="${name eq 'exchanges'}"
-							url="/exchanges" title="currency page">
-							<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
-							<span>Currency Exchange</span>
-						</petclinic:menuItem></li>
-				</sec:authorize>
-
-
-				<!-- MENU WORKER -->
-				<sec:authorize access="hasAuthority('worker')">
-					<petclinic:menuItem active="${name eq 'clients'}"
-						url="/clients/find" title="find clients">
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						<span>Clients</span>
-					</petclinic:menuItem>
-					<li class="nav-item dropdown" id="dropdown-workers"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-							Clients requests
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<petclinic:menuSubitem active="${name eq 'creditcardapps'}"
-								url="/creditcardapps" title="creditCardAppsList">
-								<span>Credit Card Applications</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'transferapps'}"
-								url="/transferapps" title="transferappsList">
-								<span id="transfer-apps">Transfers Applications List</span>
-							</petclinic:menuSubitem>
-						</div></li>
-				</sec:authorize>
-
-				<!-- MENU DIRECTOR -->
-				<sec:authorize access="hasAuthority('director')">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-							Manage users
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<petclinic:menuSubitem active="${name eq 'director'}"
-								url="/employees/find" title="find employees">
-								<span>Find employees</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'clients'}"
-								url="/clients/find" title="find clients">
-								<span>Find clients</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'transferapps'}"
-								url="/transferapps" title="transferappsList">
-								<span>Transfers Applications List</span>
+				      </petclinic:menuSubitem>
+	          <div class="dropdown-divider"></div>
+	          	<petclinic:menuSubitem active="${name eq 'clients'}" url="/cards"
+					title="my cards">
+					<span id="my-credit-card">My credit cards</span>
+				</petclinic:menuSubitem>
+        </div>
+        <petclinic:menuItem active="${name eq 'exchanges'}" url="/exchanges"
+			title="currency page">					
+			<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
+			<span>Currency Exchange</span>
+		</petclinic:menuItem>
+      	</li>
+		</sec:authorize>
+        
+        
+        <!-- MENU WORKER -->
+		<sec:authorize access="hasAuthority('worker')">
+	          <petclinic:menuItem active="${name eq 'clients'}" url="/clients/find" title="find clients">
+	            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+	            <span>Clients</span>
+	          </petclinic:menuItem>
+	          <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			         <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+			          Clients requests
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						      <petclinic:menuSubitem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
+					            <span>Credit Card Applications</span>
+					          </petclinic:menuSubitem>
+	          					<div class="dropdown-divider"></div>
+							  <petclinic:menuSubitem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
+									<span>Transfers Applications List</span>
+							   </petclinic:menuSubitem>
+			      	</div>
+	      		</li>
+		</sec:authorize>
+				
+        <!-- MENU DIRECTOR -->
+        <sec:authorize access="hasAuthority('director')">
+			<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		       	<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+		          Manage users
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				         <petclinic:menuSubitem active="${name eq 'director'}"
+							url="/employees/find" title="find employees">
+							<span>Find employees</span>
+						</petclinic:menuSubitem>
+					  <div class="dropdown-divider"></div>
+				          <petclinic:menuSubitem active="${name eq 'clients'}" url="/clients/find" title="find clients">
+				            <span>Find clients</span>
+				          </petclinic:menuSubitem>
+					  <div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
+									<span>Transfers Applications List</span>
 							</petclinic:menuSubitem>
 							<div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"

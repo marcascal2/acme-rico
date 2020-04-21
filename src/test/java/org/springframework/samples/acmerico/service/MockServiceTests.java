@@ -4,7 +4,6 @@ import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -146,21 +145,21 @@ public class MockServiceTests {
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindClientById() {
-		Client c = this.clientService.findClientById(client.getId());
+		this.clientService.findClientById(client.getId());
 		verify(clientService).findClientById(TEST_CLIENT_ID);
 	}
 
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindAccountById() {
-		BankAccount b = this.accountService.findBankAccountById(account.getId());
+		this.accountService.findBankAccountById(account.getId());
 		verify(accountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
 	}
 
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindBankAccountsByAccountNumber() {
-		Collection<BankAccount> bankAccountsList = this.accountService
+		this.accountService
 				.findBankAccountByAccountNumber(account.getAccountNumber());
 		verify(accountService).findBankAccountByAccountNumber(account.getAccountNumber());
 	}
@@ -184,7 +183,7 @@ public class MockServiceTests {
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindTransferById() {
-		TransferApplication t = this.transferAppService
+		this.transferAppService
 				.findTransferAppById(transfer.getId());
 		verify(transferAppService).findTransferAppById(TEST_TRANSFER_ID);
 	}
@@ -201,7 +200,7 @@ public class MockServiceTests {
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindCardById() {
-		CreditCard cc = this.creditCardService
+		this.creditCardService
 				.findCreditCardById(creditCard.getId());
 		verify(creditCardService).findCreditCardById(TEST_CARD_ID);
 	}
@@ -209,7 +208,7 @@ public class MockServiceTests {
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindEmployeeById() {
-		Employee e = this.employeeService
+		this.employeeService
 				.findEmployeeById(employee.getId());
 		verify(employeeService).findEmployeeById(TEST_EMPLOYEE_ID);
 	}
@@ -225,7 +224,7 @@ public class MockServiceTests {
 	@WithMockUser(value = "spring")
 	@Test
 	public void testFindCardAppById() {
-		CreditCardApplication a = this.creditCardAppService
+		this.creditCardAppService
 				.findCreditCardAppById(application.getId());
 		verify(creditCardAppService).findCreditCardAppById(TEST_CREDITCARDAPP_ID);
 	}

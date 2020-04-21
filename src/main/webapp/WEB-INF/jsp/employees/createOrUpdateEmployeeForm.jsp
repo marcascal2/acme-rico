@@ -19,6 +19,7 @@
 	           <label class="col-sm-2 control-label">Username</label>
 	           <div class="col-sm-10">
 	           		<form:input class="form-control" label="Username" name="user.username" path="user.username" readonly="${!employee['new']}"/>
+	           	<form:errors path="user.username"/>
 	           </div>
 	       	</div>
             <petclinic:inputField label="Password" name="user.password"/>
