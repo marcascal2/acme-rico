@@ -24,7 +24,7 @@ public class BankAccountsTest {
 
 	@Autowired
 	private BankAccountService accountService;
-
+	
 	@Autowired
 	private ClientService clientService;
 
@@ -54,6 +54,7 @@ public class BankAccountsTest {
 		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setClient(client);
 		this.accountService.saveBankAccount(bankAccount);
+
 	}
 
 	@Test
@@ -67,6 +68,7 @@ public class BankAccountsTest {
 		Collection<BankAccount> bankAccountsList = this.accountService
 				.findBankAccountByAccountNumber(bankAccount.getAccountNumber());
 		assertThat(bankAccountsList.size()).isEqualTo(1);
+
 	}
 
 	@Test
@@ -87,14 +89,14 @@ public class BankAccountsTest {
 		BankAccount b = this.accountService.findBankAccountByNumber(bankAccount.getAccountNumber());
 		assertThat(b).isEqualTo(bankAccount);
 	}
-	
+
 	@Test
 	public void testSumAmount() {
 		Double transferAmount = 40.;
 		this.accountService.sumAmount(transferAmount, bankAccount);
 		assertThat(bankAccount.getAmount()).isEqualTo(240.);
 	}
-	
+
 	@Test
 	public void testSubstractAmount() {
 		Double tranferAmount = 40.;
@@ -105,6 +107,9 @@ public class BankAccountsTest {
 	@Test
 	public void saveInvalidBankAccount() {
 		bankAccount.setAlias("aliasaliasaliasaliasaliasaliasaliasalias");
-		assertThrows(NullPointerException.class, ()-> { this.accountService.saveBankAccount(bankAccount); this.entityManager.flush(); });
+		assertThrows(NullPointerException.class, () -> {
+			this.accountService.saveBankAccount(bankAccount);
+			this.entityManager.flush();
+		});
 	}
 }
