@@ -27,7 +27,7 @@
             <div class="dni-form">
                 <div class="dni-form-and-label">
                     <label class="col-sm-2 control-label">DNI: </label>
-                    <input type="file" name="dniFile" path="dniFile"/>
+                    <input type="file" name="dniFile" path="dniFile" id="dniFile"/>
                 </div>
                 <form:errors path="dniFile" cssClass="dni-error" />
             </div>
