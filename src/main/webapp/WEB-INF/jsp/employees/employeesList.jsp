@@ -22,7 +22,7 @@
                     <spring:url value="/employees/{employeeId}" var="employeeUrl">
                         <spring:param name="employeeId" value="${employee.id}"/>
                     </spring:url>
-                    <a href="${fn:escapeXml(employeeUrl)}"><c:out value="${employee.firstName} ${employee.lastName}"/></a>
+                    <a id="employeeUrl" href="${fn:escapeXml(employeeUrl)}"><c:out value="${employee.firstName} ${employee.lastName}"/></a>
                 </td>
                 <td>
                     <c:out value="${employee.salary}"/>

@@ -47,6 +47,11 @@ public class EmployeeController {
 
 	@PostMapping(value = "/employees/new")
 	public String processCreationForm(@Valid Employee employee, BindingResult result) {
+		
+		if(this.employeeService.findEmployeeByUserName(employee.getUser().getUsername())!=null) {
+			result.rejectValue("user.username", "username already taken", "username already taken");
+		}
+		
 		if (result.hasErrors()) {
 			return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
 		}
