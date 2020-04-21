@@ -3,18 +3,28 @@ package org.springframework.samples.acmerico.ui;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientListUITest {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
+	@LocalServerPort
+	private int port;
+	
 	@BeforeEach
 	public void setUp() throws Exception {
 		String pathToGeckoDriver = "C:\\Users\\Maria\\Downloads\\geckodriver";
@@ -26,16 +36,16 @@ public class ClientListUITest {
 
 	@Test
 	public void testClientListUISuccess() throws Exception {
-		driver.get("http://localhost:8080/");
-		driver.get("http://localhost:8080/login");
+		driver.get("http://localhost:"+ port +"/");
+		driver.get("http://localhost:"+ port +"/login");
 		driver.findElement(By.id("username")).clear();
 		driver.findElement(By.id("username")).sendKeys("director1");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("director1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 		driver.findElement(By.id("navbarDropdown")).click();
-		driver.get("http://localhost:8080/clients/find");
-		driver.get("http://localhost:8080/clients?lastName=");
+		driver.get("http://localhost:"+ port + "/clients/find");
+		driver.get("http://localhost:"+ port + "/clients?lastName=");
 
 		assertEquals("George Franklin", driver.findElement(By.linkText("George Franklin")).getText());
 		assertEquals("Betty Davis", driver.findElement(By.linkText("Betty Davis")).getText());
@@ -51,14 +61,14 @@ public class ClientListUITest {
 
 	@Test
 	public void testClientListUIUnsuccess() throws Exception {
-		driver.get("http://localhost:8080/");
-		driver.get("http://localhost:8080/login");
+		driver.get("http://localhost:"+ port + "/");
+		driver.get("http://localhost:"+ port + "/login");
 		driver.findElement(By.id("username")).clear();
 		driver.findElement(By.id("username")).sendKeys("client1");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.get("http://localhost:8080/clients?lastName=");
+		driver.get("http://localhost:"+ port + "/clients?lastName=");
 
 		try {
 			assertEquals("There was an unexpected error (type=Forbidden, status=403).",
