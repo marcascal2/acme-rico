@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/mycreditcardapps/**").hasAnyAuthority("client")
 				.antMatchers("/exchanges/**").hasAnyAuthority("client","worker","director")
 				.antMatchers("/loans/**").hasAnyAuthority("director", "client")
+				.antMatchers("/loanapps/**").hasAnyAuthority("director", "client")
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()

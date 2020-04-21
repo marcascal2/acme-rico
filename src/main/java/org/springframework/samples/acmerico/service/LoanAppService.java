@@ -1,5 +1,7 @@
 package org.springframework.samples.acmerico.service;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -23,6 +25,11 @@ public class LoanAppService {
     @Transactional
 	public void save(@Valid LoanApplication loanApp) throws DataAccessException {
 		this.loanAppRepository.save(loanApp);
+    }
+    
+    @Transactional
+	public Collection<LoanApplication> findAllLoanApps() {
+		return (Collection<LoanApplication>) this.loanAppRepository.findAll();
 	}
 
 }
