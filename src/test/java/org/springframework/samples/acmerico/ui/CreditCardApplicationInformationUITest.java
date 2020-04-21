@@ -17,8 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CreditCardApplicationInformationUITest {
   private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @LocalServerPort
@@ -26,9 +24,8 @@ public class CreditCardApplicationInformationUITest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+    // System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
     driver = new FirefoxDriver();
-    baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
@@ -47,7 +44,6 @@ public class CreditCardApplicationInformationUITest {
     assertEquals("My Credit Cards Applications", driver.findElement(By.xpath("//h2")).getText());
     assertEquals("PENDING", driver.findElement(By.xpath("//table[@id='cardAppsTable']/tbody/tr[2]/td")).getText());
     assertEquals("client1", driver.findElement(By.xpath("//table[@id='cardAppsTable']/tbody/tr[2]/td[2]")).getText());
-
   }
   
 
@@ -57,39 +53,6 @@ public class CreditCardApplicationInformationUITest {
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
-    }
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
     }
   }
 }
