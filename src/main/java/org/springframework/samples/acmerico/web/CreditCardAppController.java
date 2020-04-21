@@ -79,7 +79,7 @@ public class CreditCardAppController {
 		return "creditCardApps/clientCreditCardApps";
 	}
   
-  @GetMapping(value = "/creditcardapps/{bankAccountId}/new")
+  	@GetMapping(value = "/creditcardapps/{bankAccountId}/new")
 	public String requestNewCreditCard(Model model, @PathVariable("bankAccountId") int bankAccountId) {
 		try {
 			CreditCardApplication creditCardApp = new CreditCardApplication();
@@ -88,6 +88,9 @@ public class CreditCardAppController {
 			creditCardApp.setBankAccount(bankAccount);
 			Client client = bankAccount.getClient();
 			creditCardApp.setClient(client);
+			if(!canCreateCreditCardApp(client)) {
+				return "redirect:/creditcardapps/limit-reached";
+			}
 			this.creditCardAppService.save(creditCardApp);
 			return "redirect:/creditcardapps/created";
 		} catch (Exception e) {
@@ -98,6 +101,17 @@ public class CreditCardAppController {
 	@GetMapping(value = "/creditcardapps/created")
 	public String creditCarddAppCreated(Model model) {
 		return "creditCardApps/successfullyCreated";
+	}
+
+	@GetMapping(value = "/creditcardapps/limit-reached")
+	public String creditCarddAppLimitReached(Model model) {
+		return "creditCardApps/limitReached";
+	}
+
+	private Boolean canCreateCreditCardApp(Client client) {
+		Long pendingCreditCardApps = this.creditCardAppService.findCreditCardAppByClientId(client.getId())
+			.stream().filter(x->x.getStatus().equals("PENDING")).count();
+		return pendingCreditCardApps <= 2;
 	}
 	
 }
