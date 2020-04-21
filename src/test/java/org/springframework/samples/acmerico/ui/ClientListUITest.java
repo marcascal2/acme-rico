@@ -62,7 +62,7 @@ public class ClientListUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		assertEquals(false, isElementPresent(By.linkText("Clients")));;
+		assertEquals(false, isElementPresent(By.linkText("Clients")));
 	}
 
 	@AfterEach

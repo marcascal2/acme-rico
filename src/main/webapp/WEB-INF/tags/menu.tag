@@ -12,8 +12,8 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand"
-				href="<spring:url value="/" htmlEscape="true" />">
-				<img src="/resources/images/logo-negativo.png" alt="logo">	
+				href="<spring:url value="/" htmlEscape="true" />"> <img
+				src="/resources/images/logo-negativo.png" alt="logo">
 			</a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#main-navbar">
@@ -26,28 +26,29 @@
 			<ul class="nav navbar-nav">
 
 				<petclinic:menuItem active="${name eq 'home'}" url="/"
-					title="home page">					
+					title="home page">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Home</span>
 				</petclinic:menuItem>
 				
 		<!-- MENU CLIENTES -->
-		<sec:authorize access="hasAuthority('client')">
-		<li class="nav-item dropdown" id="dropdown-clients">
-        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-          Bank Accounts
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <petclinic:menuSubitem active="${name eq 'clients'}" url="/accounts"
-					title="my accounts">
-					<span id="my-accounts">My accounts</span>
-			  </petclinic:menuSubitem>
-			  <div class="dropdown-divider"></div>
-	          	<petclinic:menuSubitem active="${name eq 'clients'}" url="/mycreditcardapps"
-				title="my cardApps">
-					<span id="credit-card-apps">My credit card applications</span>
-				</petclinic:menuSubitem>
+				<sec:authorize access="hasAuthority('client')">
+					<li class="nav-item dropdown" id="dropdown-clients"><a
+						class="nav-link dropdown-toggle" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+							Bank Accounts
+					</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<petclinic:menuSubitem active="${name eq 'clients'}"
+								url="/accounts" title="my accounts">
+								<span id="my-accounts">My accounts</span>
+							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'clients'}"
+								url="/mycreditcardapps" title="my cardApps">
+								<span id="credit-card-apps">My credit card applications</span>
+				      </petclinic:menuSubitem>
 	          <div class="dropdown-divider"></div>
 	          	<petclinic:menuSubitem active="${name eq 'clients'}" url="/cards"
 					title="my cards">
@@ -106,35 +107,36 @@
 							<petclinic:menuSubitem active="${name eq 'transferapps'}" url="/transferapps" title="transferappsList">
 									<span>Transfers Applications List</span>
 							</petclinic:menuSubitem>
-					  <div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans" title="loansList">
-									<span>Loans List</span>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
+								title="loansList">
+								<span>Loans List</span>
 							</petclinic:menuSubitem>
-		      	</div>
-	      	</li>
-	      	
-	      	<li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-		          Clients requests
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					      <petclinic:menuSubitem active="${name eq 'creditcardapps'}" url="/creditcardapps" title="creditCardAppsList">
-				            <span>Credit Card Applications</span>
-				          </petclinic:menuSubitem>
-		      	</div>
-	      	</li>
-		</sec:authorize>
+						</div></li>
 
-		<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+							Clients requests
+					</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<petclinic:menuSubitem active="${name eq 'creditcardapps'}"
+								url="/creditcardapps" title="creditCardAppsList">
+								<span>Credit Card Applications</span>
+							</petclinic:menuSubitem>
+						</div></li>
+				</sec:authorize>
+
+				<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span>Error</span>
 		</petclinic:menuItem> -->
 
-		</ul>
+			</ul>
 
-		<!-- MENU DERECHO -->
+			<!-- MENU DERECHO -->
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />" id="login-button">Login</a></li>
