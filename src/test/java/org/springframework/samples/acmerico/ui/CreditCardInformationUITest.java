@@ -1,7 +1,6 @@
 package org.springframework.samples.acmerico.ui;
 
 import java.util.concurrent.TimeUnit;
-import org.junit.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,8 +24,7 @@ public class CreditCardInformationUITest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-    driver = new FirefoxDriver(capabilities);
+    driver = new FirefoxDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
