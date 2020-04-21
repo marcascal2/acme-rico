@@ -2,6 +2,8 @@ package org.springframework.samples.acmerico.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,12 @@ public class CreditCardAppService {
 	}	
   
   	@Transactional
-	public void save(@Valid CreditCardApplication creditCardApp) throws DataAccessException {
+	public void save(@Valid CreditCardApplication creditCardApp) {
+		Collection<CreditCardApplication> applications = creditCardAppRepository.findAppByClientId(creditCardApp.getClient().getId())
+		.stream().filter(x -> x.getStatus().equals("PENDING")).collect(Collectors.toSet());
+		if(applications.size() >= 3) {
+			return;
+		}
 		this.creditCardAppRepository.save(creditCardApp);
 	}
   	
