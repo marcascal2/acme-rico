@@ -18,6 +18,8 @@ import org.springframework.samples.acmerico.web.CreditCardAppController;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -26,156 +28,152 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import java.time.LocalDateTime;
 
+@WebMvcTest(controllers = CreditCardAppController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 
+public class CreditCardApplicationControllerTest {
 
-@WebMvcTest(controllers = CreditCardAppController.class,
-     excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
-     classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
+	private static final Integer TEST_BANK_ACCOUNT_ID = 1;
+	private static final Integer TEST_CREDITCARDAPP_ID = 1;
 
-public class CreditCardApplicationControllerTest{
+	@MockBean
+	private ClientService clientService;
 
-    private static final Integer TEST_BANK_ACCOUNT_ID = 1;
-    private static final Integer TEST_CREDITCARDAPP_ID = 1;
+	@MockBean
+	private CreditCardAppService creditCardAppService;
 
-    @MockBean
-    private ClientService clientService;
+	@MockBean
+	private BankAccountService bankAccountService;
 
-    @MockBean
-    private CreditCardAppService creditCardAppService;
-    
-    @MockBean
-    private BankAccountService bankAccountService;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @Autowired
-    private MockMvc mockMvc;
+	private Client client;
 
-    private Client client;
-    
-    private CreditCardApplication application;
-    
-    private BankAccount account;
+	private CreditCardApplication application;
 
-    @BeforeEach
-    void setup(){
+	private BankAccount account;
 
-        client = new Client();
-        application = new CreditCardApplication();
-        account = new BankAccount();
+	@BeforeEach
+	void setup() {
 
-        final LocalDate bithday = LocalDate.of(1998, 11, 27);
-        final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
-        final LocalDateTime creationDate = LocalDateTime.of(2019, 11, 23, 12, 12, 12);
+		client = new Client();
+		application = new CreditCardApplication();
+		account = new BankAccount();
 
+		final LocalDate bithday = LocalDate.of(1998, 11, 27);
+		final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
+		final LocalDateTime creationDate = LocalDateTime.of(2019, 11, 23, 12, 12, 12);
 
-        client.setId(1);
-        client.setFirstName("client");
-        client.setLastName("Ruiz");
-        client.setAddress("Gordal");
-        client.setBirthDate(bithday);
-        client.setCity("Sevilla");
-        client.setMaritalStatus("single but whole");
-        client.setSalaryPerYear(300000.);
-        client.setAge(21);
-        client.setJob("student");
-        client.setLastEmployDate(lEmpDate);
+		client.setId(1);
+		client.setFirstName("client");
+		client.setLastName("Ruiz");
+		client.setAddress("Gordal");
+		client.setBirthDate(bithday);
+		client.setCity("Sevilla");
+		client.setMaritalStatus("single but whole");
+		client.setSalaryPerYear(300000.);
+		client.setAge(21);
+		client.setJob("student");
+		client.setLastEmployDate(lEmpDate);
 
-        account.setId(TEST_BANK_ACCOUNT_ID);
-        account.setAccountNumber("ES23 0025 0148 1259 1424");
-        account.setAlias("Cuenta personal");
-        account.setAmount(10000.);
-        account.setCreatedAt(creationDate);
-        account.setClient(client);
+		account.setId(TEST_BANK_ACCOUNT_ID);
+		account.setAccountNumber("ES23 0025 0148 1259 1424");
+		account.setAlias("Cuenta personal");
+		account.setAmount(10000.);
+		account.setCreatedAt(creationDate);
+		account.setClient(client);
 
-        application.setId(TEST_CREDITCARDAPP_ID);
-        application.setStatus("PENDING");
-        application.setBankAccount(account);
-        application.setClient(client);
+		application.setId(TEST_CREDITCARDAPP_ID);
+		application.setStatus("PENDING");
+		application.setBankAccount(account);
+		application.setClient(client);
 
-        when(creditCardAppService.findCreditCardAppById(TEST_CREDITCARDAPP_ID)).thenReturn(application);
-    }
+		when(creditCardAppService.findCreditCardAppById(TEST_CREDITCARDAPP_ID)).thenReturn(application);
+	}
 
-    @WithMockUser(value = "spring")
-    @Test
+	@WithMockUser(value = "spring")
+	@Test
 
-    void testListSuccess() throws Exception{
-        mockMvc.perform(get("/creditcardapps"))
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(model().attributeExists("credit_cards_app"))
-        .andExpect(view().name("creditCardApps/creditCardAppList"));
+	void testListSuccess() throws Exception {
+		mockMvc.perform(get("/creditcardapps")).andExpect(status().is2xxSuccessful())
+				.andExpect(model().attributeExists("credit_cards_app"))
+				.andExpect(view().name("creditCardApps/creditCardAppList"));
 
-    }
+	}
 
-    @WithMockUser(value = "spring")
-    @Test
-    void testShowCreditCardApplicationSuccess() throws Exception{
-        mockMvc.perform(get("/creditcardapps/{creditcardappsId}", TEST_CREDITCARDAPP_ID))
-        .andExpect(model().attributeExists("credit_card_app"))
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(view().name("creditCardApps/creditCardAppDetails"));
-        
-        verify(creditCardAppService).findCreditCardAppById(TEST_CREDITCARDAPP_ID);
-    }
+	@WithMockUser(value = "spring")
+	@Test
+	void testShowCreditCardApplicationSuccess() throws Exception {
+		mockMvc.perform(get("/creditcardapps/{creditcardappsId}", TEST_CREDITCARDAPP_ID))
+				.andExpect(model().attributeExists("credit_card_app")).andExpect(status().is2xxSuccessful())
+				.andExpect(view().name("creditCardApps/creditCardAppDetails"));
 
-    @WithMockUser(value = "spring")
-    @Test
-    void testAcceptCreditCardAppplication() throws Exception{
-        mockMvc.perform(get("/creditcardapps/{creditcardappsId}/accept", TEST_CREDITCARDAPP_ID))
-        .andExpect(status().isFound())
-        .andExpect(view().name("redirect:/creditcardapps"))
-        .andExpect(status().is3xxRedirection());
+		verify(creditCardAppService).findCreditCardAppById(TEST_CREDITCARDAPP_ID);
+	}
 
-    }
+	@WithMockUser(value = "spring")
+	@Test
+	void testAcceptCreditCardAppplication() throws Exception {
+		mockMvc.perform(get("/creditcardapps/{creditcardappsId}/accept", TEST_CREDITCARDAPP_ID))
+				.andExpect(status().isFound()).andExpect(view().name("redirect:/creditcardapps"))
+				.andExpect(status().is3xxRedirection());
 
-    @WithMockUser(value = "spring")
-    @Test
-    void testRefuseCreditCardAppplication() throws Exception{
-        mockMvc.perform(get("/creditcardapps/{creditcardappsId}/refuse", TEST_CREDITCARDAPP_ID))
-        .andExpect(status().isFound())
-        .andExpect(view().name("redirect:/creditcardapps"))
-        .andExpect(status().is3xxRedirection());
-    }
+	}
 
-    @WithMockUser(value = "spring")
-    @Test
+	@WithMockUser(value = "spring")
+	@Test
+	void testRefuseCreditCardAppplication() throws Exception {
+		mockMvc.perform(get("/creditcardapps/{creditcardappsId}/refuse", TEST_CREDITCARDAPP_ID))
+				.andExpect(status().isFound()).andExpect(view().name("redirect:/creditcardapps"))
+				.andExpect(status().is3xxRedirection());
+	}
 
-    void testShowClientCreditCards() throws Exception{
-        mockMvc.perform(get("/mycreditcardapps"))
-        .andExpect(model().hasNoErrors())
-        .andExpect(status().is2xxSuccessful());
+	@WithMockUser(value = "spring")
+	@Test
 
-    }
+	void testShowClientCreditCards() throws Exception {
+		mockMvc.perform(get("/mycreditcardapps")).andExpect(model().hasNoErrors())
+				.andExpect(status().is2xxSuccessful());
 
-    @WithMockUser(value = "spring")
-    @Test
-    void testRequestNewCreditCardHasErrors() throws Exception{
-        mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID))
-        .andExpect(status().is3xxRedirection())
-       .andExpect(view().name("redirect:/oups"));
-       
-       verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
+	}
 
-    }
+	@WithMockUser(value = "spring")
+	@Test
+	void testRequestNewCreditCardHasErrors() throws Exception {
+		mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID))
+				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/oups"));
 
-    @WithMockUser(value = "spring")
-    @Test
-    void testRequestNewCreditCardSuccess() throws Exception{
-        mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID)
-        .param("status", "PENDING")
-        .with(csrf()));
-        
-       
-       verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
+		verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
 
-    }
+	}
 
-    @WithMockUser(value = "spring")
-    @Test
-    void testRequestCreated() throws Exception{
-        mockMvc.perform(get("/creditcardapps/created"))
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(view().name("creditCardApps/successfullyCreated"));
-    }
+	@WithMockUser(value = "spring")
+	@Test
+	void testRequestNewCreditCardSuccess() throws Exception {
+		mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID).param("status", "PENDING")
+				.with(csrf()));
 
+		verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
 
-    
+	}
+
+//	@WithMockUser(value = "spring")
+//    @Test
+//    void testRequestNewCreditCardUnable() throws Exception{
+//        mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID))
+//        		.andExpect(status().is3xxRedirection())
+//                .andExpect(view().name("creditCardApps/limitReached"));
+//        
+//       
+//       verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
+//
+//    }
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testRequestCreated() throws Exception {
+		mockMvc.perform(get("/creditcardapps/created")).andExpect(status().is2xxSuccessful())
+				.andExpect(view().name("creditCardApps/successfullyCreated"));
+	}
+
 }
