@@ -33,20 +33,20 @@
 				
 		<!-- MENU CLIENTES -->
 		<sec:authorize access="hasAuthority('client')">
-		<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<li class="nav-item dropdown" id="dropdown-clients">
+        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
           Bank Accounts
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <petclinic:menuSubitem active="${name eq 'clients'}" url="/accounts"
 					title="my accounts">
-					<span>My accounts</span>
+					<span id="my-accounts">My accounts</span>
 			  </petclinic:menuSubitem>
 			  <div class="dropdown-divider"></div>
 	          	<petclinic:menuSubitem active="${name eq 'clients'}" url="/mycreditcardapps"
 				title="my cardApps">
-					<span>My credit card applications</span>
+					<span id="credit-card-apps">My credit card applications</span>
 				</petclinic:menuSubitem>
 	          <div class="dropdown-divider"></div>
 	          	<petclinic:menuSubitem active="${name eq 'clients'}" url="/cards"
@@ -137,7 +137,7 @@
 		<!-- MENU DERECHO -->
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
-					<li><a href="<c:url value="/login" />">Login</a></li>
+					<li><a href="<c:url value="/login" />" id="login-button">Login</a></li>
 					<li><a href="<c:url value="/users/new" />">Register</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
