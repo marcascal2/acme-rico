@@ -20,6 +20,9 @@ public class ClientLoginUITest {
   private WebDriver driver;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  @LocalServerPort
+  private int port;
+  
   @BeforeEach
   public void setUp() throws Exception {
     // System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));

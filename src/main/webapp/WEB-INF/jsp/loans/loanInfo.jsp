@@ -24,14 +24,14 @@
 		<c:when test = "${clienSingleLoan}">
 			
             <button class="btn btn-default" onclick="document.getElementById('demo').innerHTML = 'No puedes aplicar a este loan'">
-                Create application for this loan</button>
+                Apply for this loan</button>
 
             <p id="demo"></p>
 		 </c:when>
 		<c:when test = "${!clienSingleLoan}">
         
         <form action="/loanapps/${loan.id}/new/${bankAccountId}">
-            <button class="btn btn-default" type="submit">Create application for this loan</button>
+            <button class="btn btn-default" type="submit">Apply for this loan</button>
         </form>
 	     </c:when>
 	</c:choose>

@@ -3,8 +3,6 @@ package org.springframework.samples.acmerico.web;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
