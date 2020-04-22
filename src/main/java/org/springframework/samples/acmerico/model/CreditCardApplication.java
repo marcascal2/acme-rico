@@ -23,12 +23,12 @@ public class CreditCardApplication extends BaseEntity{
 	private String status;
 	
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@NotNull
 	private Client client;
 	
 	@Valid
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@NotNull
 	private BankAccount bankAccount;
 

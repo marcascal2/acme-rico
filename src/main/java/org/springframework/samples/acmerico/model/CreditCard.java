@@ -31,12 +31,12 @@ public class CreditCard extends BaseEntity {
 	private String cvv;
 	
 	@Valid
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@NotNull
 	private Client client;
 	
 	@Valid
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@NotNull
 	private BankAccount bankAccount;
 

@@ -57,7 +57,7 @@ public class Client extends Person {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate lastEmployDate;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
 	

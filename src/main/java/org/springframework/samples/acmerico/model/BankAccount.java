@@ -39,7 +39,7 @@ public class BankAccount extends BaseEntity {
 	private String alias;
 	
 	@Valid
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@NotNull
 	private Client client;
 	

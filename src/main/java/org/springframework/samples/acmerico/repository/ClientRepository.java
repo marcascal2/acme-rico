@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.Client;
 
-public interface ClientRepository {
+public interface ClientRepository{
 	
 	Collection<Client> findByLastName(String lastName) throws DataAccessException;
 
@@ -14,5 +14,7 @@ public interface ClientRepository {
 	void save(Client client) throws DataAccessException;
 	
 	Client findByUserName(String name) throws DataAccessException;
+
+	
 
 }

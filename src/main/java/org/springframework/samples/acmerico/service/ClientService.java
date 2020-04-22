@@ -61,4 +61,5 @@ public class ClientService {
 		Client client = findClientByUserName(username);
 		return client.getCreditCards();
 	}
+
 }

@@ -17,4 +17,7 @@
             <petclinic:inputField label="Cvv" name="cvv" readonly="true"/>
 		</div>
     </form:form>
+    <form action="/cards/${creditCard.id}/delete">
+        <button class="btn btn-default" type="submit">Delete credit card</button>
+    </form>
 </petclinic:layout>

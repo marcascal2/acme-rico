@@ -13,4 +13,5 @@ public interface CreditCardRepository extends CrudRepository<CreditCard, Integer
 	@Query("SELECT creditCard FROM CreditCard creditCard WHERE creditCard.number =:number")
 	CreditCard findByNumber(@Param("number") String number) throws DataAccessException;
 
+
 }
