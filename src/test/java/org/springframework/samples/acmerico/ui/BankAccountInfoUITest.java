@@ -28,8 +28,8 @@ public class BankAccountInfoUITest {
   }
 
   @Test
-  public void testBankAccountInfoUI() throws Exception {
-	    driver.get("http://localhost:"+port+ "/");
+  public void testBankAccountInfoUIPositive() throws Exception {
+	    driver.get("http://localhost:" + port + "/");
 	    driver.findElement(By.id("login-button")).click();
 	    driver.findElement(By.id("username")).click();
 	    driver.findElement(By.id("username")).clear();
@@ -45,6 +45,20 @@ public class BankAccountInfoUITest {
 	    assertEquals("ES23 0025 0148 1259 1424", driver.findElement(By.id("accountNumber")).getAttribute("value"));
 	    assertEquals("2567.34", driver.findElement(By.id("amount")).getAttribute("value"));
 	    assertEquals("Viajes", driver.findElement(By.id("alias")).getAttribute("value"));
+  }
+  
+  @Test
+  public void testBankAccountInfoUINegative() throws Exception {
+    driver.get("http://localhost:" + port + "/");
+    driver.findElement(By.id("login-button")).click();
+    driver.findElement(By.id("username")).click();
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("worker1");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("worker1");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    assertNotEquals("Bank Accounts", driver.findElement(By.id("dropdown-clients")).getText());
   }
 
   @AfterEach
