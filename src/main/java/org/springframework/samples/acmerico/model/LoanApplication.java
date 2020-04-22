@@ -14,9 +14,9 @@ import javax.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Entity
 @Data
 @EqualsAndHashCode(callSuper=true)
+@Entity
 @Table(name = "loan_applications")
 public class LoanApplication extends BaseEntity {
 
@@ -36,9 +36,9 @@ public class LoanApplication extends BaseEntity {
 	private Double amount_paid;
 	
 	@Valid
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
-	private BankAccount destination;
+	private BankAccount bankAccount;
 	
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)

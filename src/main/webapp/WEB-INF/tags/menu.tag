@@ -54,6 +54,11 @@
 								title="my cards">
 								<span id="my-credit-card">My credit cards</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'clients'}"
+								url="/myloanapps" title="my loanApps">
+								<span id="loan-apps">My loan applications</span>
+							</petclinic:menuSubitem>
 
 						</div> <petclinic:menuItem active="${name eq 'exchanges'}"
 							url="/exchanges" title="currency page">
@@ -111,7 +116,7 @@
 							<petclinic:menuSubitem active="${name eq 'transferapps'}"
 								url="/transferapps" title="transferappsList">
 								<span>Transfers Applications List</span>
-							</petclinic:menuSubitem>							
+							</petclinic:menuSubitem>
 						</div></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -124,6 +129,11 @@
 								url="/creditcardapps" title="creditCardAppsList">
 								<span>Credit Card Applications</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loan apps'}"
+								url="/loanapps" title="my loan applications">
+								<span id="my-credit-card">Loan applications</span>
+							</petclinic:menuSubitem>
 						</div></li>
 
 					<li class="nav-item dropdown" id="loans-dropdown"><a
@@ -131,83 +141,77 @@
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 							Loans
-						</a>
+					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
 								title="loansList">
 								<span id="see-loans">Loans list</span>
 							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'loan apps'}"
-								url="/loanapps" title="my loan applications">
-								<span id="my-credit-card">Loan applications</span>
-							</petclinic:menuSubitem>						
-						</div>
-					</li>
+						</div></li>
 				</sec:authorize>
 
-		<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
+				<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span>Error</span>
 		</petclinic:menuItem> -->
 
-		</ul>
+			</ul>
 
-		<!-- MENU DERECHO -->
-		<ul class="nav navbar-nav navbar-right">
-			<sec:authorize access="!isAuthenticated()">
-				<li><a href="<c:url value="/login" />" id="login-button">Login</a></li>
-				<li><a href="<c:url value="/users/new" />">Register</a></li>
-			</sec:authorize>
-			<sec:authorize access="isAuthenticated()">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
-						<strong><sec:authentication property="name" /></strong> <span
-						class="glyphicon glyphicon-chevron-down"></span>
-				</a>
-					<ul class="dropdown-menu">
-						<li>
-							<div class="navbar-login">
-								<div class="row" id="info-content">
-									<div class="col-lg-4" id="info-icon">
-										<p class="text-center">
-											<span class="glyphicon glyphicon-user icon-size"></span>
-										</p>
-									</div>
-									<div class="col-lg-8" id="info-name">
-										<p class="text-left">
-											<strong><sec:authentication property="name" /></strong>
-										</p>
-									</div>
-									<div id="info-funct">
-										<sec:authorize access="hasAuthority('client')">
-											<p class="text-left">
-												<a
-													href="/personalData/<sec:authentication property="name" />"
-													class="btn btn-primary btn-block btn-sm"><c:out
-														value="Personal Information" /></a>
+			<!-- MENU DERECHO -->
+			<ul class="nav navbar-nav navbar-right">
+				<sec:authorize access="!isAuthenticated()">
+					<li><a href="<c:url value="/login" />" id="login-button">Login</a></li>
+					<li><a href="<c:url value="/users/new" />">Register</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
+							<strong><sec:authentication property="name" /></strong> <span
+							class="glyphicon glyphicon-chevron-down"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li>
+								<div class="navbar-login">
+									<div class="row" id="info-content">
+										<div class="col-lg-4" id="info-icon">
+											<p class="text-center">
+												<span class="glyphicon glyphicon-user icon-size"></span>
 											</p>
-										</sec:authorize>
-										<sec:authorize access="!hasAuthority('client')">
+										</div>
+										<div class="col-lg-8" id="info-name">
 											<p class="text-left">
-												<a
-													href="/personalDataEmployee/<sec:authentication property="name" />"
-													class="btn btn-primary btn-block btn-sm"><c:out
-														value="Employee Information" /></a>
+												<strong><sec:authentication property="name" /></strong>
 											</p>
-										</sec:authorize>
+										</div>
+										<div id="info-funct">
+											<sec:authorize access="hasAuthority('client')">
+												<p class="text-left">
+													<a
+														href="/personalData/<sec:authentication property="name" />"
+														class="btn btn-primary btn-block btn-sm"><c:out
+															value="Personal Information" /></a>
+												</p>
+											</sec:authorize>
+											<sec:authorize access="!hasAuthority('client')">
+												<p class="text-left">
+													<a
+														href="/personalDataEmployee/<sec:authentication property="name" />"
+														class="btn btn-primary btn-block btn-sm"><c:out
+															value="Employee Information" /></a>
+												</p>
+											</sec:authorize>
 
-										<p class="text-left">
-											<a href="<c:url value="/logout" />"
-												class="btn btn-primary btn-block btn-sm">Logout</a>
-										</p>
+											<p class="text-left">
+												<a href="<c:url value="/logout" />"
+													class="btn btn-primary btn-block btn-sm">Logout</a>
+											</p>
+										</div>
 									</div>
 								</div>
-							</div>
-						</li>
-						<li class="divider"></li>
-						<!-- 							
+							</li>
+							<li class="divider"></li>
+							<!-- 							
                             <li> 
 								<div class="navbar-login navbar-login-session">
 									<div class="row">
@@ -222,10 +226,10 @@
 								</div>
 							</li>
 -->
-					</ul></li>
-			</sec:authorize>
-		</ul>
-	</div>
+						</ul></li>
+				</sec:authorize>
+			</ul>
+		</div>
 
 
 

@@ -77,7 +77,7 @@ public class ValidatorLoanAppTests {
 		loanApp.setPurpose("This is a purpose");
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(1200.0);
-		loanApp.setDestination(bankAccount);
+		loanApp.setBankAccount(bankAccount);
 		loanApp.setLoan(loan);
 		loanApp.setClient(client);
 	}
@@ -181,7 +181,7 @@ public class ValidatorLoanAppTests {
 	void shouldNotValidateWhenDestinationNull() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 
-		loanApp.setDestination(null);
+		loanApp.setBankAccount(null);
 
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 

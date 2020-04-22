@@ -1,5 +1,6 @@
 package org.springframework.samples.acmerico.web;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.Map;
 
@@ -9,9 +10,11 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.service.BankAccountService;
+import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.LoanAppService;
 import org.springframework.samples.acmerico.service.LoanService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoanApplicationController{
 
+	@Autowired
+	private final ClientService clientService;
+	
     @Autowired
 	private LoanAppService  loanAppService;
 	
@@ -33,10 +39,11 @@ public class LoanApplicationController{
 
     @Autowired
 	public LoanApplicationController(LoanAppService loanAppService,
-	 BankAccountService accountService, LoanService loanService) {
+	 BankAccountService accountService, LoanService loanService, ClientService clientService) {
 		this.loanAppService = loanAppService;
 		this.accountService = accountService;
 		this.loanService = loanService;
+		this.clientService = clientService;
 	}
 	
 	@GetMapping(value = "/loanapps")
@@ -44,6 +51,16 @@ public class LoanApplicationController{
 		Collection<LoanApplication> loanApps = this.loanAppService.findAllLoanApps();
 		modelMap.addAttribute("loanApps", loanApps);
 		return "loanApp/loanAppList";
+	}
+	
+	@GetMapping(value = "/myloanapps")
+	public String listClientLoanApp(Principal principal, Model model) {
+		String username = principal.getName();
+		Client client = this.clientService.findClientByUserName(username);
+		Collection<LoanApplication> loanApps = this.loanAppService.findLoanAppsByClient(client.getId());
+		model.addAttribute("loanApps", loanApps);
+		model.addAttribute("clientUser", client.getUser().getUsername());
+		return "loanApp/clientLoanApps";
 	}
     
     @GetMapping(value = "/loanapps/{loanId}/new/{bankAccountId}")
@@ -98,7 +115,7 @@ public class LoanApplicationController{
 		else {
 
 			this.loanAppService.saveApplication(loanApp, loan, client, account);
-			return listLoanApp(modelMap);
+			return "redirect:/myloanapps";
 		}
 	}
 
