@@ -21,10 +21,16 @@ public class CreditCardService {
 	public void saveCreditCard(CreditCard cc) {
 		this.creditCardRepository.save(cc);
 	}
+
 	@Transactional(readOnly = true)
 	public CreditCard findCreditCardById(int id) throws DataAccessException {
 		CreditCard cc = this.creditCardRepository.findById(id);
 		return cc;
+	}
+
+	@Transactional
+	public void deleteCreditCardById(int id) throws DataAccessException {
+		this.creditCardRepository.deleteCreditCard(id);
 	}
 	
 }

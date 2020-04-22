@@ -22,6 +22,7 @@ public class ValidatorCreditCardTests {
 	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
 	private static CreditCard cc = new CreditCard();
+	private static CreditCardApplication ccApp = new CreditCardApplication();
 
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
@@ -52,6 +53,10 @@ public class ValidatorCreditCardTests {
 		client.setLastName("Marquez");
 		client.setMaritalStatus("single");
 		client.setSalaryPerYear(0.00);
+
+		ccApp.setBankAccount(bankAccount);
+		ccApp.setClient(client);
+		ccApp.setStatus("PENDING");
 	}
 
 	@BeforeEach
@@ -61,6 +66,7 @@ public class ValidatorCreditCardTests {
 		cc.setCvv("123");
 		cc.setBankAccount(bankAccount);
 		cc.setClient(client);
+		cc.setCreditCardApplication(ccApp);
 	}
 
 	@Test

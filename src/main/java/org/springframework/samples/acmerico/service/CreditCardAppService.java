@@ -92,8 +92,9 @@ public class CreditCardAppService {
   		creditCard.setDeadline(deadLine);
   		creditCard.setCvv(cvv.toString());
   		creditCard.setBankAccount(creditCardApp.getBankAccount());
-  		creditCard.setClient(creditCardApp.getClient());
-  		
+		creditCard.setClient(creditCardApp.getClient());
+		creditCard.setCreditCardApplication(creditCardApp);
+		
   		this.saveCreditCard(creditCard);
 
   		creditCardApp.setStatus("ACCEPTED");
