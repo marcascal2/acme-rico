@@ -18,10 +18,22 @@
             <petclinic:inputField label="Monthly Fee" name="monthly_fee"/>
             <petclinic:selectField label="Single Loan" name="single_loan" names='<%= Arrays.asList("Yes", "No") %>' size="1"/>
         </div>
-
-    </sec:authorize>
     </form:form>
-    <form action="/loanapps/${loan.id}/new/${bankAccountId}">
-        <button class="btn btn-default" type="submit">Create application for this loan</button>
-    </form>
+    </sec:authorize>
+    <c:choose>
+		<c:when test = "${clienSingleLoan}">
+			
+            <button class="btn btn-default" onclick="document.getElementById('demo').innerHTML = 'No puedes aplicar a este loan'">
+                Create application for this loan</button>
+
+            <p id="demo"></p>
+		 </c:when>
+		<c:when test = "${!clienSingleLoan}">
+        
+        <form action="/loanapps/${loan.id}/new/${bankAccountId}">
+            <button class="btn btn-default" type="submit">Create application for this loan</button>
+        </form>
+	     </c:when>
+	</c:choose>
+   
 </petclinic:layout>

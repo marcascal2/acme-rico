@@ -52,9 +52,7 @@ public class LoanApplicationController{
 	public String initCreationForm(@PathVariable("bankAccountId") int bankAccountId,
 	@PathVariable("loanId") int loanId, Map<String, Object> model) {
 		LoanApplication loanApp = new LoanApplication();
-
 		this.loanAppService.setAttributes(bankAccountId, loanId, loanApp);
-
 		model.put("loan_app", loanApp);
 		return "loanApp/createOrUpdateLoanApp";
 	}
@@ -68,6 +66,7 @@ public class LoanApplicationController{
 		Loan loan = this.loanService.findLoanById(loanId);
 		Client client = account.getClient();
 
+		//Validations
 		if(loanApp.getPurpose() == "" || loanApp.getPurpose().equals(null)){
 			result.rejectValue("purpose", "This purpuse can´t be empty", "This purpose can´t be empty");
 
@@ -93,18 +92,14 @@ public class LoanApplicationController{
 			}
 		}
 
+		///////////////////////////////////////////////////////////////
+
 		if (result.hasErrors()) {
-			//result.getAllErrors().stream().forEach(x->System.out.println(x));
 			return "loanApp/createOrUpdateLoanApp";
 		}
 		else {
-			
-			loanApp.setClient(client);
-			loanApp.setDestination(account);
-			loanApp.setLoan(loan);
-			loan.getLoanApplications().add(loanApp);
-			this.loanService.save(loan);
-			this.loanAppService.save(loanApp);
+
+			this.loanAppService.saveApplication(loanApp, loan, client, account);
 			return listLoanApp(modelMap);
 		}
 	}

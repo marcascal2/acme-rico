@@ -53,4 +53,13 @@ public class LoanAppService {
 		loanApp.setLoan(loan);
 	}
 
+	public void saveApplication(LoanApplication loanApp, Loan loan, Client client, BankAccount account) {
+			loanApp.setClient(client);
+			loanApp.setDestination(account);
+			loanApp.setLoan(loan);
+			loan.getLoanApplications().add(loanApp);
+			this.loanService.save(loan);
+			this.save(loanApp);
+	}
+
 }

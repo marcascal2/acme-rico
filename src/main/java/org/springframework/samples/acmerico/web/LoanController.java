@@ -80,8 +80,11 @@ public class LoanController {
 	public String showTransferApplication(@PathVariable("bankAccountId") int bankAccountId,
 	@PathVariable("loanId") int loanId, ModelMap modelMap) {
 		Loan loan = this.loanService.findLoanById(loanId);
+		Boolean clienSingleLoan = this.loanService.checkSingleLoan(bankAccountId);
+
 		modelMap.put("loan", loan);
 		modelMap.put("bankAccountId", bankAccountId);
+		modelMap.put("clienSingleLoan", clienSingleLoan);
 		return "loans/loanInfo";
 	}
 
