@@ -5,12 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.samples.acmerico.bdd.CucumberContextConfiguration;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LoginStepDefinitions extends AbstractStep {
+public class LoginStepDefinitions extends CucumberContextConfiguration {
 
     @LocalServerPort
     private int port;
