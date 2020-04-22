@@ -12,7 +12,7 @@
     </h2>
     <form:form modelAttribute="bankAccount" class="form-horizontal" id="add-client-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Account Number" name="accountNumber"/>
+            <petclinic:inputField label="Account Number" name="accountNumber" readonly="true"/>
             <petclinic:inputField label="Amount" name="amount"/>
             <petclinic:inputField label="Alias" name="alias"/>
 		</div>
