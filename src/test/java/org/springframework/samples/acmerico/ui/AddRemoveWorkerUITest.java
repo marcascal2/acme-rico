@@ -1,5 +1,7 @@
 package org.springframework.samples.acmerico.ui;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -81,7 +84,7 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		Assert.assertNotEquals("Manage users", driver.findElement(By.id("navbarDropdown")).getText());
+		assertEquals(false, isElementPresent(By.id("navbarDropdown")));
 	}
 	
 	@Test
@@ -104,6 +107,15 @@ public class AddRemoveWorkerUITest {
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			Assert.fail(verificationErrorString);
+		}
+	}
+	
+	private boolean isElementPresent(By by) {
+		try {
+			driver.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
 		}
 	}
 
