@@ -58,7 +58,7 @@ public class BankAccountInfoUITest {
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("worker1");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-    assertNotEquals("Bank Accounts", driver.findElement(By.id("dropdown-clients")).getText());
+    assertEquals(false, isElementPresent(By.linkText("Bank Accounts")));
   }
 
   @AfterEach
