@@ -62,4 +62,9 @@ public class LoanAppService {
 			this.save(loanApp);
 	}
 
+	public Collection<LoanApplication> findLoanAppsByClient(int id) throws DataAccessException {
+		Collection<LoanApplication> l_app = this.loanAppRepository.findAppByClientId(id);
+		return l_app;
+	}
+
 }

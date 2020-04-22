@@ -23,6 +23,5 @@
             </div>
         </div>
 
-    </sec:authorize>
     </form:form>
 </petclinic:layout>
