@@ -91,6 +91,11 @@
 								url="/transferapps" title="transferappsList">
 								<span id="transfer-apps">Transfers Applications List</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loan apps'}"
+								url="/loanapps" title="loan applications">
+								<span id="loan-applications">Loan applications</span>
+							</petclinic:menuSubitem>
 						</div></li>
 				</sec:authorize>
 
@@ -131,8 +136,8 @@
 							</petclinic:menuSubitem>
 							<div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'loan apps'}"
-								url="/loanapps" title="my loan applications">
-								<span id="my-credit-card">Loan applications</span>
+								url="/loanapps" title="loan applications">
+								<span id="loan-applications">Loan applications</span>
 							</petclinic:menuSubitem>
 						</div></li>
 
@@ -143,7 +148,7 @@
 							Loans
 					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
+							<petclinic:menuSubitem active="${name eq 'loans'}" url="/director/loans"
 								title="loansList">
 								<span id="see-loans">Loans list</span>
 							</petclinic:menuSubitem>

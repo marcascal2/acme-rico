@@ -17,35 +17,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoanAppService {
 
-    @Autowired
-    private LoanApplicationRepository loanAppRepository;
+	@Autowired
+	private LoanApplicationRepository loanAppRepository;
 
-    @Autowired
-    private BankAccountService accountService;
-  
-    @Autowired
-    private LoanService loanService;
+	@Autowired
+	private BankAccountService accountService;
 
-    @Autowired
+	@Autowired
+	private LoanService loanService;
+
+	@Autowired
 	public LoanAppService(LoanApplicationRepository loanAppRepository) {
 		this.loanAppRepository = loanAppRepository;
-    }
-    
-    @Transactional
+	}
+
+	@Transactional
 	public void save(@Valid LoanApplication loanApp) throws DataAccessException {
 		this.loanAppRepository.save(loanApp);
-    }
-    
-    @Transactional
+	}
+
+	@Transactional
 	public Collection<LoanApplication> findAllLoanApps() {
 		return (Collection<LoanApplication>) this.loanAppRepository.findAll();
 	}
 
 	public void setAttributes(int bankAccountId, int loanId, LoanApplication loanApp) {
-    BankAccount account = this.accountService.findBankAccountById(bankAccountId);
+		BankAccount account = this.accountService.findBankAccountById(bankAccountId);
 		Loan loan = this.loanService.findLoanById(loanId);
 		Client client = account.getClient();
-	
+
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(0.0);
 		loanApp.setClient(client);
@@ -54,17 +54,38 @@ public class LoanAppService {
 	}
 
 	public void saveApplication(LoanApplication loanApp, Loan loan, Client client, BankAccount account) {
-			loanApp.setClient(client);
-			loanApp.setBankAccount(account);
-			loanApp.setLoan(loan);
-			loan.getLoanApplications().add(loanApp);
-			this.loanService.save(loan);
-			this.save(loanApp);
+		loanApp.setClient(client);
+		loanApp.setBankAccount(account);
+		loanApp.setLoan(loan);
+		loan.getLoanApplications().add(loanApp);
+		this.loanService.save(loan);
+		this.save(loanApp);
 	}
 
 	public Collection<LoanApplication> findLoanAppsByClient(int id) throws DataAccessException {
 		Collection<LoanApplication> l_app = this.loanAppRepository.findAppByClientId(id);
 		return l_app;
+	}
+
+	@Transactional
+	public LoanApplication findLoanAppById(int loanAppId) {
+		return this.loanAppRepository.findById(loanAppId).get();
+	}
+
+	@Transactional
+	public void acceptLoanApp(LoanApplication loanApp) {
+		BankAccount bankAccount = loanApp.getBankAccount();
+		loanApp.setStatus("ACCEPTED");
+		Double amount = bankAccount.getAmount();
+		bankAccount.setAmount(amount + loanApp.getAmount());
+		this.accountService.saveBankAccount(bankAccount);
+		this.save(loanApp);
+	}
+	
+	@Transactional
+	public void refuseLoanApp(LoanApplication loanApp) {
+		loanApp.setStatus("REJECTED");
+		this.save(loanApp);
 	}
 
 }
