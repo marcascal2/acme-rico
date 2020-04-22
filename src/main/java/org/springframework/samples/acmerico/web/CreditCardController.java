@@ -44,10 +44,21 @@ public class CreditCardController {
 	}
 
 	@GetMapping(value = "/cards/{cardId}/show")
-	public String showAccountInfo(@PathVariable("cardId") int cardId, Model model) {
+	public String showCreditCardInfo(@PathVariable("cardId") int cardId, Model model) {
 		CreditCard creditCard = creditCardService.findCreditCardById(cardId);
 		model.addAttribute("creditCard", creditCard);
 		return VIEWS_CARD_DETAILS;
+	}
+
+	@GetMapping(value = "/cards/{cardId}/delete")
+	public String deleteCreditCard(@PathVariable("cardId") int cardId) {
+		try {
+			this.creditCardService.deleteCreditCardById(cardId);
+			return "redirect:/cards";
+		} catch (Exception e) {
+			System.out.println(e);
+			return "redirect:/oups";
+		}
 	}
 	
 }

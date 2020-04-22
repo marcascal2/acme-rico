@@ -3,6 +3,7 @@ package org.springframework.samples.acmerico.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -40,4 +41,8 @@ public class CreditCard extends BaseEntity {
 	@NotNull
 	private BankAccount bankAccount;
 
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL)
+	@NotNull
+	private CreditCardApplication creditCardApplication;
 }
