@@ -20,13 +20,10 @@ import lombok.EqualsAndHashCode;
 @Table(name = "loan_applications")
 public class LoanApplication extends BaseEntity {
 
+	//Debe ser mayor que minimun_amount
 	@DecimalMin(value = "100.00")
 	@DecimalMax(value = "1000000.00")
 	private Double amount;
-	
-	@DecimalMin(value = "600.00")
-	@DecimalMax(value = "1000000.00")
-	private Double income;
 	
 	@NotBlank
 	private String purpose;

@@ -74,7 +74,6 @@ public class ValidatorLoanAppTests {
 	@BeforeEach
 	private void resetLoanApp() {
 		loanApp.setAmount(50000.);
-		loanApp.setIncome(700.0);
 		loanApp.setPurpose("This is a purpose");
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(1200.0);
@@ -125,28 +124,9 @@ public class ValidatorLoanAppTests {
 	void positiveTestWithIncome(Double income) {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 
-		loanApp.setIncome(income);
-
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
 		assertThat(constraintViolations.isEmpty());
-	}
-
-	@ParameterizedTest
-	@ValueSource(doubles = { 599.99, 1000000.01 })
-	void negativeTestWithIncome(Double income) {
-		LocaleContextHolder.setLocale(Locale.ENGLISH);
-
-		loanApp.setIncome(income);
-
-		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
-
-		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
-		if (income < 600.00) {
-			assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 600.00");
-		} else {
-			assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 1000000.00");
-		}
 	}
 
 	@Test

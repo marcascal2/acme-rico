@@ -29,8 +29,15 @@ INSERT INTO authorities VALUES ('client9','client');
 INSERT INTO users(username,password,enabled) VALUES ('client10','client10',TRUE);
 INSERT INTO authorities VALUES ('client10','client');
 
+--LOAN
+INSERT INTO loans VALUES (1, 'hola', 20000.0 , 800.0, 4, 150.0, 0.01, TRUE);
+INSERT INTO loans VALUES (2, 'hola1', 15000.0 , 1200.0, 4, 150.0, 0.01, TRUE);
+INSERT INTO loans VALUES (3, 'hola2', 10000.0 , 800.0, 4, 150.0, 0.01, TRUE);
+
+
+
 -- CLIENTS
-INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client1');
+INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '10000.0', 'client1');
 INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client2');
 INSERT INTO clients VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', '23', '1998-04-04', 'McFarland', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client3');
 INSERT INTO clients VALUES (4, 'Harold', 'Davis', '563 Friendly St.', '23', '1998-04-04', 'Windsor', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client4');
