@@ -1,7 +1,6 @@
 package org.springframework.samples.acmerico.bdd.stepdefinitions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.springframework.boot.test.context.SpringBootTest;

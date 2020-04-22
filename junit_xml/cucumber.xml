@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="2" tests="2" time="0.445">
+<testcase classname="Client Bank Account Information" name="Successfull login as client and find the information (Positive)" time="0.061">
+<skipped><![CDATA[Given I am not logged in the system.........................................undefined
+When I tray to login as a client and look my bank account information.......undefined
+Then The information is shown as the current user...........................undefined
+]]></skipped>
+</testcase>
+<testcase classname="Client Login" name="Successfull login as client (Positive)" time="0.004">
+<skipped><![CDATA[Given I am not logged in the system.........................................undefined
+When I tray to login as a client............................................undefined
+Then Client name is shown as the current user...............................undefined
+]]></skipped>
+</testcase>
+</testsuite>
