@@ -126,7 +126,7 @@
 							</petclinic:menuSubitem>
 						</div></li>
 
-					<li class="nav-item dropdown"><a
+					<li class="nav-item dropdown" id="loans-dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
@@ -135,7 +135,7 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
 								title="loansList">
-								<span>Loans list</span>
+								<span id="see-loans">Loans list</span>
 							</petclinic:menuSubitem>
 							<div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'loan apps'}"
