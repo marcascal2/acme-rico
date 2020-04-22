@@ -78,18 +78,18 @@ public class EmployeeControllerTest {
 			.andExpect(status().is2xxSuccessful());
 	}
 	
-	@WithMockUser(value = "spring")
-	@Test
-	void testProcessCreationFormHasErrors() throws Exception{
-		mockMvc.perform(post("/employees/new")
-		    .param("firstName", "Jose")
-			.with(csrf()))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeHasErrors("employee"))
-			.andExpect(model().attributeHasFieldErrors("employee", "lastName"))
-			.andExpect(model().attributeHasFieldErrors("employee", "salary"))
-			.andExpect(view().name("employees/createOrUpdateEmployeeForm"));
-	}
+	// @WithMockUser(value = "spring")
+	// @Test
+	// void testProcessCreationFormHasErrors() throws Exception{
+	// 	mockMvc.perform(post("/employees/new")
+	// 	    .param("firstName", "Jose")
+	// 		.with(csrf()))
+	// 		.andExpect(status().isOk())
+	// 		.andExpect(model().attributeHasErrors("employee"))
+	// 		.andExpect(model().attributeHasFieldErrors("employee", "lastName"))
+	// 		.andExpect(model().attributeHasFieldErrors("employee", "salary"))
+	// 		.andExpect(view().name("employees/createOrUpdateEmployeeForm"));
+	// }
 	
 	@WithMockUser(value = "spring")
 	@Test
