@@ -11,7 +11,6 @@
 	<table id="loans" class="table table-striped">
 		<thead>
 			<tr>
-				<th style="width: 150px;">Id</th>
 				<th style="width: 150px;">Description</th>
 				<th style="width: 150px;">Minimun Amount</th>
 				<th style="width: 150px;">Minimun Client Income</th>
@@ -25,12 +24,11 @@
 			<c:forEach items="${loans}" var="loan">
 				<tr>
 					<td>
-						<spring:url value="/loans/${bankAccountId}/{loanId}" var="loanUrl">
+						<spring:url value="/loans/{loanId}/${bankAccountId}" var="loanUrl">
 							<spring:param name="loanId" value="${loan.id}" />
 						</spring:url> 
-						<a href="${fn:escapeXml(loanUrl)}"><c:out value="${loan.id}"/></a>
+						<a href="${fn:escapeXml(loanUrl)}"><c:out value="${loan.description}" /></a>
 					</td>
-					<td><c:out value="${loan.description}" /></td>
 					<td><c:out value="${loan.minimum_amount}" /></td>
 					<td><c:out value="${loan.minimum_income}" /></td>
 					<td><c:out value="${loan.number_of_deadlines}" /></td>

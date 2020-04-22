@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoanController {
-	
+
 	private final LoanService loanService;
 
 	private final BankAccountService accountService;
-	
+
 	@Autowired
 	public LoanController(LoanService loanService, BankAccountService accountService) {
 		this.loanService = loanService;
 		this.accountService = accountService;
 	}
-	
-	@GetMapping(value = "/loans")
-	public String listTransfersApp(ModelMap modelMap) {
+
+	@GetMapping(value = "/director/loans")
+	public String listLoan(ModelMap modelMap) {
 		Collection<Loan> loans = this.loanService.findAllLoans();
 		modelMap.addAttribute("loans", loans);
 		return "loans/loanList";
@@ -43,40 +43,49 @@ public class LoanController {
 		Collection<Loan> loans = this.loanService.findAllLoans();
 		BankAccount account = this.accountService.findBankAccountById(bankAccountId);
 		Client c = account.getClient();
-		double salaryPerMonth = c.getSalaryPerYear()/12;
+		double salaryPerMonth = c.getSalaryPerYear() / 12;
 
-		//Mostramos solo los loans disponibles para ese cliente, es decir, los cuales
-		//su minimum_income es menor al salario anual
-		Collection<Loan> loansForClient = loans.stream().filter(x->x.getMinimum_income() <= salaryPerMonth)
-		.collect(Collectors.toList());
+		// Mostramos solo los loans disponibles para ese cliente, es decir, los cuales
+		// su minimum_income es menor al salario anual
+		Collection<Loan> loansForClient = loans.stream().filter(x -> x.getMinimum_income() <= salaryPerMonth)
+				.collect(Collectors.toList());
 
 		modelMap.addAttribute("loans", loansForClient);
 		modelMap.addAttribute("bankAccountId", bankAccountId);
 		return "loans/personalicedLoanList";
 	}
-	
-	@GetMapping(value = "/loans/new")
+
+	@GetMapping(value = "/director/loans/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Loan loan = new Loan();
 		model.put("loan", loan);
-		return "loans/createOrUpdateLoanForm";
+		return "loans/loanInfo";
 	}
 
-	@PostMapping(value = "/loans/new")
+	@PostMapping(value = "/director/loans/new")
 	public String processCreationForm(@Valid Loan loan, BindingResult result) {
 		if (result.hasErrors()) {
-			return "loans/createOrUpdateLoanForm";
-		}
-		else {
+			return "loans/loanInfo";
+		} else {
 			this.loanService.save(loan);
-			return "redirect:/loans";
+			return "redirect:/director/loans";
 		}
 	}
 
-	// Show
-	@GetMapping(value = "/loans/{bankAccountId}/{loanId}")
-	public String showTransferApplication(@PathVariable("bankAccountId") int bankAccountId,
-	@PathVariable("loanId") int loanId, ModelMap modelMap) {
+	@GetMapping(value = "/director/loans/{loanId}")
+	public String showDirectorLoan(@PathVariable("loanId") int loanId, ModelMap modelMap) {
+		try {
+			Loan loan = this.loanService.findLoanById(loanId);
+			modelMap.put("loan", loan);
+			return "loans/loanInfo";
+		} catch (Exception e) {
+			return "redirect:/";
+		}
+	}
+	
+	@GetMapping(value = "/loans/{loanId}/{bankAccountId}")
+	public String showClientLoan(@PathVariable("bankAccountId") int bankAccountId,
+			@PathVariable("loanId") int loanId, ModelMap modelMap) {
 		Loan loan = this.loanService.findLoanById(loanId);
 		Boolean clienSingleLoan = this.loanService.checkSingleLoan(bankAccountId);
 

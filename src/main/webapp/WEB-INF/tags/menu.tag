@@ -87,12 +87,17 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<petclinic:menuSubitem active="${name eq 'creditcardapps'}"
 						url="/creditcardapps" title="creditCardAppsList">
-						<span>Credit Card Applications</span>
+						<span id="card-apps">Credit Card Applications</span>
 					</petclinic:menuSubitem>
 					<div class="dropdown-divider"></div>
 					<petclinic:menuSubitem active="${name eq 'transferapps'}"
 						url="/transferapps" title="transferappsList">
 						<span id="transfer-apps">Transfer Applications</span>
+					</petclinic:menuSubitem>
+          <div class="dropdown-divider"></div>
+					<petclinic:menuSubitem active="${name eq 'loan apps'}"
+						  url="/loanapps" title="loan applications">
+							<span id="loan-applications">Loan applications</span>
 					</petclinic:menuSubitem>
 				</div></li>
 		</sec:authorize>
@@ -130,15 +135,14 @@
 					<div class="dropdown-divider"></div>
 					<petclinic:menuSubitem active="${name eq 'loan apps'}"
 						url="/loanapps" title="my loan applications">
-						<span id="my-credit-card">Loan Applications</span>
+						<span id="loan-applications">Loan Applications</span>
 					</petclinic:menuSubitem>
 					<div class="dropdown-divider"></div>
 					<petclinic:menuSubitem active="${name eq 'transferapps'}"
 						url="/transferapps" title="transferappsList">
-						<span>Transfer Applications</span>
+						<span id="tranfer-app">Transfer Applications</span>
 					</petclinic:menuSubitem>
 				</div></li>
-
 			<li class="nav-item dropdown" id="loans-dropdown"><a
 				class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

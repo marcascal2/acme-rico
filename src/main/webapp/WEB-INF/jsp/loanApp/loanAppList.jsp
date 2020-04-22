@@ -22,7 +22,11 @@
 		<tbody>
 			<c:forEach items="${loanApps}" var="loanApp">
 				<tr>
-					<td><c:out value="${loanApp.loan.description}" /></td>
+					<td><spring:url value="/loanapps/{loanAppId}" var="loanAppUrl">
+							<spring:param name="loanAppId" value="${loanApp.id}" />
+						</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"> <c:out
+								value="${loanApp.loan.description}" />
+					</a></td>
 					<td><c:out value="${loanApp.amount}" /></td>
 					<td><c:out value="${loanApp.purpose}" /></td>
 					<td><c:out value="${loanApp.status}" /></td>
