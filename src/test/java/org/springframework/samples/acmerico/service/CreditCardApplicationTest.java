@@ -39,6 +39,10 @@ public class CreditCardApplicationTest {
 	Client client = new Client();
 	User user = new User();
 	CreditCardApplication application = new CreditCardApplication();
+	CreditCardApplication application1 = new CreditCardApplication();
+	CreditCardApplication application2 = new CreditCardApplication();
+	CreditCardApplication application3 = new CreditCardApplication();
+
 	EntityManager entityManager;
 
 	@BeforeEach
@@ -89,13 +93,13 @@ public class CreditCardApplicationTest {
 		Collection<CreditCardApplication> apps = this.creditCardAppService.findCreditCardAppByClientId(client.getId());
 		assertThat(apps.size()).isEqualTo(1);
 	}
-	
+
 	@Test
 	public void testAcceptCreditCardApplication() {
 		this.creditCardAppService.acceptApp(application);
 		assertThat(application.getStatus()).isEqualTo("ACCEPTED");
 	}
-	
+
 	@Test
 	public void testRefuseCreditCardApplication() {
 		this.creditCardAppService.refuseApp(application);
@@ -105,6 +109,31 @@ public class CreditCardApplicationTest {
 	@Test
 	public void createInvalidCreditCardApp() {
 		application.setStatus("");
-		assertThrows(ConstraintViolationException.class, ()-> { this.creditCardAppService.save(application); this.entityManager.flush(); });
+		assertThrows(ConstraintViolationException.class, () -> {
+			this.creditCardAppService.save(application);
+			this.entityManager.flush();
+		});
+	}
+
+	@Test
+	public void testCreditCardAppNumberRestriction() {
+		application1.setStatus("PENDING");
+		application1.setClient(client);
+		application1.setBankAccount(bankAccount);
+		this.creditCardAppService.save(application1);
+
+		application2.setStatus("PENDING");
+		application2.setClient(client);
+		application2.setBankAccount(bankAccount);
+		this.creditCardAppService.save(application2);
+
+		application3.setStatus("PENDING");
+		application3.setClient(client);
+		application3.setBankAccount(bankAccount);
+		this.creditCardAppService.save(application3);
+
+		Collection<CreditCardApplication> apps = this.creditCardAppService.findCreditCardAppByClientId(client.getId());
+				
+		assertThat(apps.size()).isEqualTo(3);
 	}
 }

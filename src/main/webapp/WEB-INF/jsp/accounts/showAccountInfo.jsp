@@ -24,6 +24,9 @@
 		<form action="/transferapps/${bankAccount.id}/new">
 			<button class="btn btn-default" type="submit">Create new transfer</button>
 		</form>
+		<form action="/loans/${bankAccount.id}">
+			<button class="btn btn-default" type="submit">Apply for a loan</button>
+		</form>
 		<form action="/creditcardapps/${bankAccount.id}/new">
 			<button class="btn btn-default" type="submit">Request credit card</button>
 		</form>
