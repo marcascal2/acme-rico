@@ -3,8 +3,6 @@ package org.springframework.samples.acmerico.web;
 import java.security.Principal;
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.CreditCard;
@@ -57,9 +55,7 @@ public class CreditCardController {
 	
 	@GetMapping("/cards/{creditCardId}/delete")
 	public String deleteCard(@PathVariable("creditCardId") int cardId, Model model) {
-		CreditCard cc = this.creditCardService.findCreditCardById(cardId);
-		
-		this.creditCardService.deleteCard(cc);
+		this.creditCardService.deleteCard(cardId);
 		return "cards/cards";
 	}
 	
