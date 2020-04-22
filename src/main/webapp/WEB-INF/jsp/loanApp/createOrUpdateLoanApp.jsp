@@ -14,7 +14,6 @@
             <petclinic:inputField label="Purpose" name="purpose"/>
             <petclinic:inputField label="Status" name="status" readonly = "true"/>
             <petclinic:inputField label="Amount Paid" name="amount_paid" readonly = "true"/>
-    
         </div>
 
        

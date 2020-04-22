@@ -53,15 +53,7 @@ public class LoanApplicationController{
 	@PathVariable("loanId") int loanId, Map<String, Object> model) {
 		LoanApplication loanApp = new LoanApplication();
 
-		BankAccount account = this.accountService.findBankAccountById(bankAccountId);
-		Loan loan = this.loanService.findLoanById(loanId);
-		Client client = account.getClient();
-	
-		loanApp.setStatus("PENDING");
-		loanApp.setAmount_paid(0.0);
-		loanApp.setClient(client);
-		loanApp.setDestination(account);
-		loanApp.setLoan(loan);
+		this.loanAppService.setAttributes(bankAccountId, loanId, loanApp);
 
 		model.put("loan_app", loanApp);
 		return "loanApp/createOrUpdateLoanApp";
@@ -76,8 +68,29 @@ public class LoanApplicationController{
 		Loan loan = this.loanService.findLoanById(loanId);
 		Client client = account.getClient();
 
-		if((loan.getMinimum_amount() < loanApp.getAmount())){
-			result.rejectValue("amount", "This amount can´t be higher than loan amount", "This amount can´t be higher than loan amount");
+		if(loanApp.getPurpose() == "" || loanApp.getPurpose().equals(null)){
+			result.rejectValue("purpose", "This purpuse can´t be empty", "This purpose can´t be empty");
+
+		}
+
+		if(loanApp.getAmount() == null){
+			result.rejectValue("amount", "Amount can´t be empty", "Amount can´t be empty");
+		}
+
+		if(loanApp.getAmount() != null){
+			if((loan.getMinimum_amount() < loanApp.getAmount())){
+				result.rejectValue("amount", "This amount can´t be higher than loan amount", "This amount can´t be higher than loan amount");
+			}
+			
+			if(loanApp.getAmount()<100.0){
+				result.rejectValue("amount", "This amount can´t be lower than minimum amount", "This amount can´t be lower than minimum amount");
+
+			}
+
+			if(loanApp.getAmount()>1000000.00){
+				result.rejectValue("amount", "This amount can´t be bigger than minimum amount", "This amount can´t be bigger than minimum amount");
+
+			}
 		}
 
 		if (result.hasErrors()) {
@@ -89,6 +102,8 @@ public class LoanApplicationController{
 			loanApp.setClient(client);
 			loanApp.setDestination(account);
 			loanApp.setLoan(loan);
+			loan.getLoanApplications().add(loanApp);
+			this.loanService.save(loan);
 			this.loanAppService.save(loanApp);
 			return listLoanApp(modelMap);
 		}
