@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
 public class AbstractStep {
     private static WebDriver driver;
     private static StringBuffer verificationErrors = new StringBuffer();

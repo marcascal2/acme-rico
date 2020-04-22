@@ -8,8 +8,9 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
     features = {"src/test/java/"},
     plugin = {"pretty", "json:target/cucumber-reports/cucumber-report.json"},
-    glue = {"src/test/java/org/springframework/samples/acmerico/bdd/stepdefinitions/LoginStepDefinitions"},
-    monochrome=true)
+    glue = {"stepdefinitions"},
+    monochrome=true,
+    strict = true)
 public class CucumberUITest {
 
 }

@@ -5,21 +5,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.samples.acmerico.bdd.CucumberContextConfiguration;
 
+import io.cucumber.java.StepDefinitionAnnotation;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BankAccountInfoStepDefinitions extends CucumberContextConfiguration {
+public class BankAccountInfoStepDefinitions extends AbstractStep {
 
     @LocalServerPort
     private int port;
 
     @Given("I am not logged in the system")
     public void IamNotLogged() throws Exception {
-        getDriver().get("http://localhost:" + port + "/login");
+        getDriver().get("http://localhost:" + port + "/");
     }
     
     @When("I tray to login as a client and look my bank account information")
