@@ -22,24 +22,24 @@
 	</form:form>
 	<div class="buttons-group">
 		<form action="/transferapps/${bankAccount.id}/new">
-			<button class="btn btn-default" type="submit">Create new transfer</button>
+			<button class="btn btn-default" id="create-transfer" type="submit">Create new transfer</button>
 		</form>
 		<form action="/loans/${bankAccount.id}">
-			<button class="btn btn-default" type="submit">Apply for a loan</button>
+			<button class="btn btn-default" id="apply-loan" type="submit">Apply for a loan</button>
 		</form>
 		<form action="/creditcardapps/${bankAccount.id}/new">
-			<button class="btn btn-default" type="submit">Request credit card</button>
+			<button class="btn btn-default" id="request-cc" type="submit">Request credit card</button>
 		</form>
 		<spring:url value="{accountId}/depositMoney" var="depositUrl">
 			<spring:param name="accountId" value="${bankAccount.id}" />
 		</spring:url>
-		<a href="${fn:escapeXml(depositUrl)}" class="btn btn-default"
+		<a id="deposit-money" href="${fn:escapeXml(depositUrl)}" class="btn btn-default"
 			type="submit">Deposit money</a>
 		<c:if test="${noMoney}">
 			<spring:url value="{accountId}/delete" var="deleteUrl">
 				<spring:param name="accountId" value="${bankAccount.id}" />
 			</spring:url>
-			<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
+			<a id="delete-account" href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
 				Account</a>
 		</c:if>
 	</div>

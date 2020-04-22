@@ -1,12 +1,9 @@
 package org.springframework.samples.acmerico.bdd.stepdefinitions;
 
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 
 public class AbstractStep {
     private static WebDriver driver;
@@ -14,6 +11,7 @@ public class AbstractStep {
     
     public WebDriver getDriver() {
         if(driver == null) {
+        	System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
             driver = new FirefoxDriver();
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         }   
