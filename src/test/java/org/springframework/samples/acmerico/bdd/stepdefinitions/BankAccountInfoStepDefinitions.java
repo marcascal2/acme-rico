@@ -1,29 +1,23 @@
 package org.springframework.samples.acmerico.bdd.stepdefinitions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.openqa.selenium.*;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import io.cucumber.java.StepDefinitionAnnotation;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BankAccountInfoStepDefinitions extends AbstractStep {
 
     @LocalServerPort
     private int port;
 
-    @Given("I am not logged in the system")
-    public void IamNotLogged() throws Exception {
-        getDriver().get("http://localhost:" + port + "/");
+    @Given("I am not logged in the system how client")
+    public void IamNotLoggedHowClient() throws Exception {
+        getDriver().get("http://localhost:" + port + "/login");
     }
     
     @When("I tray to login as a client and look my bank account information")
-    public void ItryToLogin() throws Exception {
+    public void ItryToLoginhowClient() throws Exception {
         getDriver().findElement(By.id("username")).click();
         getDriver().findElement(By.id("username")).clear();
         getDriver().findElement(By.id("username")).sendKeys("client1");
@@ -44,4 +38,36 @@ public class BankAccountInfoStepDefinitions extends AbstractStep {
    	    assertEquals("Viajes", getDriver().findElement(By.id("alias")).getAttribute("value"));
         stopDriver();
     }
+    
+    @Given("I am not logged in the system how worker or director")
+    public void IamNotLoggedHowWorkerOrDirector() throws Exception {
+        getDriver().get("http://localhost:" + port + "/login");
+    }
+    
+    @When("I tray to login as a worker or director and look my bank account information")
+    public void ItryToLoginHowWorkerOrDirector() throws Exception {
+        getDriver().findElement(By.id("username")).click();
+        getDriver().findElement(By.id("username")).clear();
+        getDriver().findElement(By.id("username")).sendKeys("worker1");
+  	    getDriver().findElement(By.id("password")).click();
+  	    getDriver().findElement(By.id("password")).clear();
+   	    getDriver().findElement(By.id("password")).sendKeys("worker1");
+  	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+    }
+    
+    @Then("The button ins't shown in the menu bar")
+    public void NoHasButton() throws Exception {
+    	assertEquals(false, isElementPresent(By.linkText("Bank Accounts")));
+        stopDriver();
+    }
+    
+    private boolean isElementPresent(By by) {
+        try {
+          getDriver().findElement(by);
+          return true;
+        } catch (NoSuchElementException e) {
+          return false;
+        }
+      }
+    
 }

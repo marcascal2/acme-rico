@@ -8,7 +8,6 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
     features = {"src/test/java/"},
     plugin = {"pretty", "json:target/cucumber-reports/cucumber-report.json"},
-    glue = {"stepdefinitions"},
     monochrome=true,
     strict = true)
 public class CucumberUITest {

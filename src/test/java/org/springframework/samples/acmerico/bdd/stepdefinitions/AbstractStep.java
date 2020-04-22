@@ -1,9 +1,7 @@
 package org.springframework.samples.acmerico.bdd.stepdefinitions;
 
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
