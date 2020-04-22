@@ -53,6 +53,7 @@
 					title="my cards">
 					<span id="my-credit-card">My credit cards</span>
 				</petclinic:menuSubitem>
+			  
         </div>
         <petclinic:menuItem active="${name eq 'exchanges'}" url="/exchanges"
 			title="currency page">					
@@ -109,6 +110,11 @@
 					  <div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans" title="loansList">
 									<span>Loans List</span>
+							</petclinic:menuSubitem>
+					<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loan apps'}" url="/loanapps"
+									title="my loan applications">
+									<span id="my-credit-card">All Loan Applications</span>
 							</petclinic:menuSubitem>
 		      	</div>
 	      	</li>
