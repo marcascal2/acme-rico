@@ -62,7 +62,7 @@ public class ValidatorDebtTest {
 	static void createLoanApp() {
 		loanApplication.setAmount_paid(50.0);
 		loanApplication.setClient(client);
-		loanApplication.setDestination(bankAccount);
+		loanApplication.setBankAccount(bankAccount);
 		loanApplication.setLoan(loan);
 		loanApplication.setPurpose("purpose");
 		loanApplication.setStatus("ACCEPTED");

@@ -29,13 +29,6 @@ INSERT INTO authorities VALUES ('client9','client');
 INSERT INTO users(username,password,enabled) VALUES ('client10','client10',TRUE);
 INSERT INTO authorities VALUES ('client10','client');
 
---LOAN
-INSERT INTO loans VALUES (1, 'hola', 20000.0 , 800.0, 4, 150.0, 0.01, TRUE);
-INSERT INTO loans VALUES (2, 'hola1', 15000.0 , 1200.0, 4, 150.0, 0.01, TRUE);
-INSERT INTO loans VALUES (3, 'hola2', 10000.0 , 800.0, 4, 150.0, 0.01, TRUE);
-
-
-
 -- CLIENTS
 INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '10000.0', 'client1');
 INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client2');
@@ -55,11 +48,11 @@ INSERT INTO employees VALUES (3, 'Rafael', 'Corchuelo F', '20000.0', 'worker2');
 
 -- BANK ACCOUNTS
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (1, 'ES23 0025 0148 1259 1424', 2567.34, '2019-01-03', 'Viajes',1);
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (2, 'ES24 3456 2323 4568 9078', 345.54, '2017-04-24', 'Ahorro',2);
+INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (2, 'ES24 3456 2323 4568 9078', 3445.54, '2017-04-24', 'Ahorro',2);
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (3, 'ES25 2323 1247 9236 1245', 543.43, '2016-10-30', '',3);
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (4, 'ES26 2589 0123 1085 1626', 5436.87, '2018-06-17', 'Coche nuevo',4);
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (5, 'ES27 2414 2564 1235 1256', 123, '2015-11-08', 'Regalos',5);
-INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (6, 'ES28 1236 2352 0258 0214', 10000.00, '2019-01-03', 'Viajes',1);
+INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (6, 'ES28 1236 2352 0258 0214', 10000.00, '2019-01-03', 'Negocios',1);
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (7, 'ES29 1258 1010 1064 2579', 2000., '2017-04-24', 'Ahorro',1);
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (8, 'ES30 2323 6398 1245 5412', 150., '2016-10-30', '',10);
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (9, 'ES31 1237 2596 3614 1278', 250000., '2018-06-17', 'Coche nuevo',9);
@@ -119,3 +112,13 @@ INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUE
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (10,'623','01/2022','4744376754678685',9,9);
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (11,'983','02/2021','4309996709140460',10,5);
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id) VALUES (12,'456','03/2021','4730019669930512',5,5);
+
+--LOAN
+INSERT INTO loans VALUES (1, 'Préstamo de estudios', 20000.0 , 700.0, 4, 150.0, 0.01, TRUE);
+INSERT INTO loans VALUES (2, 'Préstamo hipotecario', 15000.0 , 1200.0, 4, 150.0, 0.02, TRUE);
+INSERT INTO loans VALUES (3, 'Préstamo personal', 10000.0 , 800.0, 4, 120.0, 0.03, TRUE);
+INSERT INTO loans VALUES (4, 'Préstamo único', 9000.0 , 700.0, 2, 90.0, 0.01, TRUE);
+INSERT INTO loans VALUES (5, 'Préstamo de negocio', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
+
+--LOANAPPS
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1)

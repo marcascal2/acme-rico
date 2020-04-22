@@ -49,13 +49,13 @@ public class LoanAppService {
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(0.0);
 		loanApp.setClient(client);
-		loanApp.setDestination(account);
+		loanApp.setBankAccount(account);
 		loanApp.setLoan(loan);
 	}
 
 	public void saveApplication(LoanApplication loanApp, Loan loan, Client client, BankAccount account) {
 			loanApp.setClient(client);
-			loanApp.setDestination(account);
+			loanApp.setBankAccount(account);
 			loanApp.setLoan(loan);
 			loan.getLoanApplications().add(loanApp);
 			this.loanService.save(loan);
