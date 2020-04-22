@@ -14,6 +14,7 @@ import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
+import org.springframework.samples.acmerico.util.BankAccountNumberGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,7 +53,13 @@ public class BankAccountController {
 
 	@GetMapping(value = "/accounts/{clientId}/new")
 	public String initCreationForm(@PathVariable("clientId") int clientId, Map<String, Object> model) {
+		BankAccountNumberGenerator generator = new BankAccountNumberGenerator();
+		String newAccountNumber = generator.generateRandomNumber();
+		while(this.bankAccountService.accountNumberAlreadyUsed(newAccountNumber)) {
+			newAccountNumber = generator.generateRandomNumber();
+		}
 		BankAccount bankAccount = new BankAccount();
+		bankAccount.setAccountNumber(newAccountNumber);
 		model.put("bankAccount", bankAccount);
 		return VIEWS_ACCOUNT_CREATE;
 	}

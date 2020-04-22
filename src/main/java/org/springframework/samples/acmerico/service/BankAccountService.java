@@ -65,5 +65,11 @@ public class BankAccountService {
 		Double amount = originAccount.getAmount() - transferAmount;
 		originAccount.setAmount(amount);
 	}
+
+	// Comprueba si el número está repetido a la hora de generar
+	public Boolean accountNumberAlreadyUsed(String accountNumber) {
+		BankAccount bankAccount = this.bankAccountRepository.findByAccounNumber(accountNumber);
+		return bankAccount != null;
+	} 
 	
 }
