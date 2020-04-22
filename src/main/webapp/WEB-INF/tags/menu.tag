@@ -129,6 +129,11 @@
 								url="/creditcardapps" title="creditCardAppsList">
 								<span>Credit Card Applications</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loan apps'}"
+								url="/loanapps" title="my loan applications">
+								<span id="my-credit-card">Loan applications</span>
+							</petclinic:menuSubitem>
 						</div></li>
 
 					<li class="nav-item dropdown"><a
@@ -141,11 +146,6 @@
 							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
 								title="loansList">
 								<span>Loans list</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'loan apps'}"
-								url="/loanapps" title="my loan applications">
-								<span id="my-credit-card">Loan applications</span>
 							</petclinic:menuSubitem>
 						</div></li>
 				</sec:authorize>
