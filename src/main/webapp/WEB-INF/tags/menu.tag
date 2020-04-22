@@ -111,17 +111,7 @@
 							<petclinic:menuSubitem active="${name eq 'transferapps'}"
 								url="/transferapps" title="transferappsList">
 								<span>Transfers Applications List</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
-								title="loansList">
-								<span>Loans List</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'loan apps'}"
-								url="/loanapps" title="my loan applications">
-								<span id="my-credit-card">All Loan Applications</span>
-							</petclinic:menuSubitem>
+							</petclinic:menuSubitem>							
 						</div></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -135,6 +125,25 @@
 								<span>Credit Card Applications</span>
 							</petclinic:menuSubitem>
 						</div></li>
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+							Loans
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
+								title="loansList">
+								<span>Loans list</span>
+							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'loan apps'}"
+								url="/loanapps" title="my loan applications">
+								<span id="my-credit-card">Loan applications</span>
+							</petclinic:menuSubitem>						
+						</div>
+					</li>
 				</sec:authorize>
 
 		<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
