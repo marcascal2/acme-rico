@@ -10,4 +10,4 @@ FALLOS CORREGIDOS GRACIAS A LOS TESTS: v1.1
 	
 	-Corrección del controlador de la API de ExchangeRate gracias a los tests de esta. Se tuvo que tener en cuenta si las llamadas partían de la moneda EUR, lo cuál implicaba el setteo de Double manualente, ya que la respuesta con dicha llamada no contaba con este valor, sin embargo, para cualquier otro tipo de moneda sí.
         
-        -Corrección del registro de un empleado. Al añadir un nuevo empleado con un username ya registrado redirigía a la página oups en vez de mostrar el error en el formulario.
+       -Corrección del registro de un empleado. Al añadir un nuevo empleado con un username ya registrado redirigía a la página oups en vez de mostrar el error en el formulario.
