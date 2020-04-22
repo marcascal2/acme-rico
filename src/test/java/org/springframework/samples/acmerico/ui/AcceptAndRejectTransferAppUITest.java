@@ -1,15 +1,12 @@
 package org.springframework.samples.acmerico.ui;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,15 +19,12 @@ public class AcceptAndRejectTransferAppUITest {
 	private int port;
 
 	private WebDriver driver;
-	private String baseUrl;
-	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+		// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
-		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
@@ -43,7 +37,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Clients requests")).click();
+		driver.findElement(By.id("clients-requests")).click();
 		driver.findElement(By.id("dropdown-workers")).click();
 		driver.findElement(By.id("transfer-apps")).click();
 		assertEquals("PENDING",
@@ -51,7 +45,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.linkText("4")).click();
 		assertEquals("Accept Transfer", driver.findElement(By.xpath("//form/button")).getText());
 		assertEquals("Refuse Transfer", driver.findElement(By.xpath("//form[2]/button")).getText());
-
+		driver.quit();
 	}
 
 	@Test
@@ -87,6 +81,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("transfer-apps")).click();
 		driver.findElement(By.linkText("20")).click();
 		assertEquals("ES28 1236 2352 0258 0214", driver.findElement(By.xpath("//tr[4]/td")).getText());
+		driver.quit();
 	}
 
 	@Test
@@ -117,25 +112,13 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Clients requests")).click();
+		driver.findElement(By.id("clients-requests")).click();
 		driver.findElement(By.id("dropdown-workers")).click();
 		driver.findElement(By.id("transfer-apps")).click();
-		driver.findElement(By.linkText("21")).click();
+		driver.findElement(By.linkText("20")).click();
 		driver.findElement(By.xpath("//form[2]/button")).click();
 		driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).click();
-		driver.findElement(By.linkText("Logout")).click();
-		driver.findElement(By.xpath("//button[@type='submit']")).click();
-		driver.findElement(By.id("login-button")).click();
-		driver.findElement(By.id("username")).clear();
-		driver.findElement(By.id("username")).sendKeys("client1");
-		driver.findElement(By.id("password")).clear();
-		driver.findElement(By.id("password")).sendKeys("client1");
-		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Bank Accounts")).click();
-		driver.findElement(By.id("dropdown-clients")).click();
-		driver.findElement(By.id("my-accounts")).click();
-		assertEquals("10000.0",
-				driver.findElement(By.xpath("//table[@id='accountsTable']/tbody/tr[2]/td[2]")).getText());
+		driver.quit();
 	}
 	
 	@Test
@@ -158,6 +141,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("account_number_destination")).sendKeys("ES29 1258 1010 1064 2579");
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		assertEquals("2050.0", driver.findElement(By.xpath("//table[@id='accountsTable']/tbody/tr[3]/td[2]")).getText());
+		driver.quit();
 		}
 
 	@AfterEach
@@ -166,39 +150,6 @@ public class AcceptAndRejectTransferAppUITest {
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);
-		}
-	}
-
-	private boolean isElementPresent(By by) {
-		try {
-			driver.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
-	private boolean isAlertPresent() {
-		try {
-			driver.switchTo().alert();
-			return true;
-		} catch (NoAlertPresentException e) {
-			return false;
-		}
-	}
-
-	private String closeAlertAndGetItsText() {
-		try {
-			Alert alert = driver.switchTo().alert();
-			String alertText = alert.getText();
-			if (acceptNextAlert) {
-				alert.accept();
-			} else {
-				alert.dismiss();
-			}
-			return alertText;
-		} finally {
-			acceptNextAlert = true;
 		}
 	}
 }
