@@ -38,8 +38,8 @@ public class CreditCardApplicationInformationUITest {
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("client1");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-    driver.findElement(By.linkText("Bank Accounts")).click();
-    driver.findElement(By.id("dropdown-clients")).click();
+    driver.findElement(By.linkText("My Applications")).click();
+    driver.findElement(By.id("dropdown-clients-apps")).click();
     driver.findElement(By.id("credit-card-apps")).click();
     assertEquals("My Credit Cards Applications", driver.findElement(By.xpath("//h2")).getText());
     assertEquals("PENDING", driver.findElement(By.xpath("//table[@id='cardAppsTable']/tbody/tr[2]/td")).getText());

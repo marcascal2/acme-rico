@@ -25,13 +25,13 @@ public class LoanCreateUITest {
   
   @BeforeEach
   public void setUp() throws Exception {
-    // System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+	// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
     driver = new FirefoxDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void clientLoginUITest() throws Exception {
+  public void loanCreateUITest() throws Exception {
     driver.get("http://localhost:" + port + "/");
     driver.findElement(By.id("login-button")).click();
     driver.findElement(By.id("username")).clear();
@@ -58,7 +58,7 @@ public class LoanCreateUITest {
     driver.findElement(By.id("monthly_fee")).clear();
     driver.findElement(By.id("monthly_fee")).sendKeys("0.04");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("Prueba", driver.findElement(By.xpath("//table[@id='loans']/tbody/tr[4]/td[2]")).getText());
+    assertEquals("Prueba", driver.findElement(By.xpath("//table[@id='loans']/tbody/tr[6]/td[2]")).getText());
     assertEquals("4", driver.findElement(By.linkText("4")).getText());
     driver.quit();
   }
