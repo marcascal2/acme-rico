@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 public class Debt extends BaseEntity {
 
     @DecimalMin(value = "0")
-	@NotBlank
+	@NotNull
 	private Double amount;
 
 	@NotBlank
