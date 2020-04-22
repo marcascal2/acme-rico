@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.web;
 
 import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,12 @@ import org.springframework.samples.acmerico.web.CreditCardAppController;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.BDDMockito.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.context.annotation.FilterType;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import java.time.LocalDateTime;
 
@@ -150,24 +150,14 @@ public class CreditCardApplicationControllerTest {
 	@WithMockUser(value = "spring")
 	@Test
 	void testRequestNewCreditCardSuccess() throws Exception {
-		mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID).param("status", "PENDING")
-				.with(csrf()));
+		when(this.bankAccountService.findBankAccountById(TEST_BANK_ACCOUNT_ID)).thenReturn(account);
+
+		mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID))
+				.andExpect(view().name("redirect:/creditcardapps/created")).andExpect(status().is3xxRedirection());
 
 		verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
 
 	}
-
-//	@WithMockUser(value = "spring")
-//    @Test
-//    void testRequestNewCreditCardUnable() throws Exception{
-//        mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID))
-//        		.andExpect(status().is3xxRedirection())
-//                .andExpect(view().name("creditCardApps/limitReached"));
-//        
-//       
-//       verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
-//
-//    }
 
 	@WithMockUser(value = "spring")
 	@Test
