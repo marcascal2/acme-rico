@@ -29,11 +29,9 @@ import org.springframework.context.annotation.FilterType;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.hamcrest.Matchers.*;
 
-
 @WebMvcTest(controllers = ClientController.class,
     excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
     excludeAutoConfiguration = SecurityConfiguration.class)
-
 public class ClientControllerTest{
 
     private static final Integer TEST_CLIENT_ID = 1;
@@ -45,9 +43,6 @@ public class ClientControllerTest{
     private static final String TEST_CLIENT_LASTNAME = "Ruiz";
 
     private static final String TEST_CLIENT_LASTNAME2 = "Muñiz";
-
-
-
 
     @MockBean
     private ClientService   clientService;

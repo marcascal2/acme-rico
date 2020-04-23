@@ -25,16 +25,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoanApplicationController {
 
-	@Autowired
 	private final ClientService clientService;
 
-	@Autowired
 	private LoanAppService loanAppService;
 
-	@Autowired
 	private BankAccountService accountService;
 
-	@Autowired
 	private LoanService loanService;
 
 	@Autowired
@@ -55,8 +51,7 @@ public class LoanApplicationController {
 
 	@GetMapping(value = "/myloanapps")
 	public String listClientLoanApp(Principal principal, Model model) {
-		String username = principal.getName();
-		Client client = this.clientService.findClientByUserName(username);
+		Client client = this.clientService.findClientByUserName(principal.getName());
 		Collection<LoanApplication> loanApps = this.loanAppService.findLoanAppsByClient(client.getId());
 		model.addAttribute("loanApps", loanApps);
 		model.addAttribute("clientUser", client.getUser().getUsername());

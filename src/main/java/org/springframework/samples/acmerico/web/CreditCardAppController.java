@@ -25,7 +25,6 @@ public class CreditCardAppController {
 
 	private final CreditCardAppService creditCardAppService;
   
-  @Autowired
 	private BankAccountService	bankAccountService;
 
 	@Autowired
