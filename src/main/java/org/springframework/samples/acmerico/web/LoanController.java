@@ -68,7 +68,7 @@ public class LoanController {
 			return "loans/loanInfo";
 		} else {
 			this.loanService.save(loan);
-			return "redirect:/director/loans";
+			return "redirect:/grantedLoans";
 		}
 	}
 
