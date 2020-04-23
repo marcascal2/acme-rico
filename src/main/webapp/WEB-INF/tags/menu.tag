@@ -64,7 +64,7 @@
 							<div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'clients'}"
 								url="/myloanapps" title="my loanApps">
-								<span id="loan-apps">My loan applications</span>
+								<span id="loanapps">My loan applications</span>
 							</petclinic:menuSubitem>
 						</div>
 		</sec:authorize>
