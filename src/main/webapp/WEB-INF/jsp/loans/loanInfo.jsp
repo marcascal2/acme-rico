@@ -10,96 +10,96 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="loans">
-<c:if test="${!loan['new']}">
-	<h2>Loan Information</h2>
-	<table class="table table-striped">
-		<tr>
-			<th>Description</th>
-			<td><b><c:out value="${loan.description}" /></b></td>
-		</tr>
-		<tr>
-			<th>Minimum amount</th>
-			<td><c:out value="${loan.minimum_amount}" /></td>
-		</tr>
-		<tr>
-			<th>Minimum income</th>
-			<td><c:out value="${loan.minimum_income}" /></td>
-		</tr>
-		<tr>
-			<th>Number of deadlines</th>
-			<td><c:out value="${loan.number_of_deadlines}" /></td>
-		</tr>
-		<tr>
-			<th>Opening price</th>
-			<td><c:out value="${loan.opening_price}" /></td>
-		</tr>
-		<tr>
-			<th>Monthly fee</th>
-			<td><c:out value="${loan.monthly_fee}" /></td>
-		</tr>
-		<tr>
-			<th>Single loan</th>
-			<td><c:out value="${loan.single_loan}" /></td>
-		</tr>
-	</table>
-	
-	<sec:authorize access="hasAuthority('director')">
-		<c:if test="${loan.loanApplications.size() > 0}">
-			<h2>Loans Applications</h2>
-	
-			<table id="loanApplicationsTable" class="table table-striped">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Amount</th>
-						<th>Purpose</th>
-						<th>Status</th>
-						<th>Number of Deadlines</th>
-						<th>Amount Paid</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${loan.loanApplications}" var="loanApplication">
-						<c:if test="${loanApplication.status == 'ACCEPTED'}">
-							<tr>
-								<td>
-				                    <spring:url value="/loanapps/{loanappsId}" var="loanAppUrl">
-				                        <spring:param name="loanappsId" value="${loanApplication.id}"/>
-				                    </spring:url>
-				                    <a href="${fn:escapeXml(loanAppUrl)}"><c:out value="${loanApplication.id}"/></a>
-				                </td>
-								<td><c:out value="${loanApplication.amount}" /></td>
-								<td><c:out value="${loanApplication.purpose}" /></td>
-								<td><c:out value="${loanApplication.status}" /></td>
-								<td><c:out value="${loanApplication.amount_paid}" /></td>
-							</tr>
-						</c:if>
-					</c:forEach>
-				</tbody>
-			</table>
-		</c:if>
-	</sec:authorize>
+	<c:if test="${!loan['new']}">
+		<h2>Loan Information</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>Description</th>
+				<td><b><c:out value="${loan.description}" /></b></td>
+			</tr>
+			<tr>
+				<th>Minimum amount</th>
+				<td><c:out value="${loan.minimum_amount}" /></td>
+			</tr>
+			<tr>
+				<th>Minimum income</th>
+				<td><c:out value="${loan.minimum_income}" /></td>
+			</tr>
+			<tr>
+				<th>Number of deadlines</th>
+				<td><c:out value="${loan.number_of_deadlines}" /></td>
+			</tr>
+			<tr>
+				<th>Opening price</th>
+				<td><c:out value="${loan.opening_price}" /></td>
+			</tr>
+			<tr>
+				<th>Monthly fee</th>
+				<td><c:out value="${loan.monthly_fee}" /></td>
+			</tr>
+			<tr>
+				<th>Single loan</th>
+				<td><c:out value="${loan.single_loan}" /></td>
+			</tr>
+		</table>
 
-	<sec:authorize access="hasAuthority('client')">
-		<c:choose>
-			<c:when test="${clienSingleLoan}">
+		<sec:authorize access="hasAuthority('director')">
+			<c:if test="${loan.loanApplications.size() > 0}">
+				<h2>Loans Applications</h2>
 
-				<button class="btn btn-default"
-					onclick="document.getElementById('demo').innerHTML = 'No puedes aplicar a este loan'">
-					Apply for this loan</button>
+				<table id="loanApplicationsTable" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Amount</th>
+							<th>Purpose</th>
+							<th>Status</th>
+							<th>Number of Deadlines</th>
+							<th>Amount Paid</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${loan.loanApplications}" var="loanApplication">
+							<c:if test="${loanApplication.status == 'ACCEPTED'}">
+								<tr>
+									<td><spring:url value="/loanapps/{loanappsId}"
+											var="loanAppUrl">
+											<spring:param name="loanappsId" value="${loanApplication.id}" />
+										</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"><c:out
+												value="${loanApplication.id}" /></a></td>
+									<td><c:out value="${loanApplication.amount}" /></td>
+									<td><c:out value="${loanApplication.purpose}" /></td>
+									<td><c:out value="${loanApplication.status}" /></td>
+									<td><c:out value="${loanApplication.loan.number_of_deadlines}" /></td>
+									<td><c:out value="${loanApplication.amount_paid}" /></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+		</sec:authorize>
 
-				<p id="demo"></p>
-			</c:when>
-			<c:when test="${!clienSingleLoan}">
+		<sec:authorize access="hasAuthority('client')">
+			<c:choose>
+				<c:when test="${clienSingleLoan}">
 
-				<form action="/loanapps/${loan.id}/new/${bankAccountId}">
-					<button class="btn btn-default" type="submit">Apply for
-						this loan</button>
-				</form>
-			</c:when>
-		</c:choose>
-	</sec:authorize>
-	
+					<button class="btn btn-default"
+						onclick="document.getElementById('demo').innerHTML = 'No puedes aplicar a este loan'">
+						Apply for this loan</button>
+
+					<p id="demo"></p>
+				</c:when>
+				<c:when test="${!clienSingleLoan}">
+
+					<form action="/loanapps/${loan.id}/new/${bankAccountId}">
+						<button class="btn btn-default" type="submit">Apply for
+							this loan</button>
+					</form>
+				</c:when>
+			</c:choose>
+		</sec:authorize>
+
 	</c:if>
 	<c:if test="${loan['new']}">
 		<form:form modelAttribute="loan" class="form-horizontal"

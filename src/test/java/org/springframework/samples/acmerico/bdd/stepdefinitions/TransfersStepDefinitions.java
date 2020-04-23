@@ -61,7 +61,8 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).sendKeys("client1");
   	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
 		getDriver().findElement(By.linkText("Bank Accounts")).click();
-		getDriver().findElement(By.linkText("My accounts")).click();
+		getDriver().findElement(By.id("dropdown-clients")).click();
+		getDriver().findElement(By.id("my-accounts")).click();
 	}
 
 	@Then("the system sends it to its destination online once the employee has accepted it")
