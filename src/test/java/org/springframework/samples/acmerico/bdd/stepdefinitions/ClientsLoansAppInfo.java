@@ -37,7 +37,7 @@ public class ClientsLoansAppInfo extends AbstractStep {
         getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
         getDriver().findElement(By.linkText("My Applications")).click();
         getDriver().findElement(By.id("dropdown-clients-apps")).click();
-        getDriver().findElement(By.id("loanapps")).click();
+        getDriver().findElement(By.id("loan-apps")).click();
         getDriver().findElement(By.linkText("Préstamo de estudios")).click();
 
     }
@@ -52,32 +52,7 @@ public class ClientsLoansAppInfo extends AbstractStep {
         stopDriver();
     }
     
-    @Given("I am not logged in the system as a clientt")
-    public void IamNotLoggedAsAClient2() throws Exception {
-        getDriver().get("http://localhost:" + port + "/login");
-    }
-    
-    @When("I tray to login as a client and look my loan applications information if I have")
-    public void ItryToLoginAsAClient2() throws Exception {
-        getDriver().findElement(By.id("username")).click();
-        getDriver().findElement(By.id("username")).clear();
-        getDriver().findElement(By.id("username")).sendKeys("client2");
-  	    getDriver().findElement(By.id("password")).click();
-  	    getDriver().findElement(By.id("password")).clear();
-   	    getDriver().findElement(By.id("password")).sendKeys("client2");
-        getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-        getDriver().findElement(By.linkText("My Applications")).click();
-        getDriver().findElement(By.id("dropdown-clients-apps")).click();
-        getDriver().findElement(By.id("loanapps")).click();
-        
-    }
-    
-
-    @Then("no information about my loan applications is displayed")
-    public void showLoanInformation2() throws Exception {
-        assertEquals(null, getDriver().findElement(By.linkText("Préstamo de estudios")));
-        stopDriver();
-    }
+       
    
 
   private boolean isElementPresent(By by) {
