@@ -29,13 +29,10 @@ public class TransferAppController {
 	private static final String EDIT_APPLICATIONS_VIEW = "transfersApp/transferAppDetails";
 	private static final String LIST_APPLICATIONS_VIEW = "transfersApp/transferAppList";
 
-	@Autowired
 	private TransferAppService transferAppService;
 
-	@Autowired
 	private BankAccountService accountService;
 	
-	@Autowired
 	private ClientService clientService;
 	
 	@Autowired
