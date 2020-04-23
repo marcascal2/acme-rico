@@ -1,6 +1,8 @@
 package org.springframework.samples.acmerico.bdd.stepdefinitions;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.Alert;
@@ -48,6 +50,29 @@ public class ClientsLoansAppInfo extends AbstractStep {
         assertEquals("Status", getDriver().findElement(By.xpath("//tr[4]/th")).getText());
         assertEquals("Client", getDriver().findElement(By.xpath("//tr[7]/th")).getText());
         stopDriver();
+    }
+
+    
+
+    @When("I tray to login as a client and look my loan applications information but but I do not have")
+    public void ItryToLoginAsAClient2() throws Exception {
+        getDriver().findElement(By.id("username")).click();
+        getDriver().findElement(By.id("username")).clear();
+        getDriver().findElement(By.id("username")).sendKeys("client2");
+  	    getDriver().findElement(By.id("password")).click();
+  	    getDriver().findElement(By.id("password")).clear();
+   	    getDriver().findElement(By.id("password")).sendKeys("client2");
+        getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+        getDriver().findElement(By.linkText("My Applications")).click();
+        getDriver().findElement(By.id("dropdown-clients-apps")).click();
+        getDriver().findElement(By.id("loanapps")).click();
+       
+
+    }
+
+    @Then("no information about my loan applications is displayed")
+    public void showEmptyLoanInformation() throws Exception {
+
     }
 
   private boolean isElementPresent(By by) {
