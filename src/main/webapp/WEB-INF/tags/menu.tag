@@ -150,7 +150,7 @@
 					Loans
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<petclinic:menuSubitem active="${name eq 'loans'}" url="/loans"
+					<petclinic:menuSubitem active="${name eq 'loans'}" url="/director/loans"
 						title="loansList">
 						<span id="see-loans">Loans list</span>
 					</petclinic:menuSubitem>

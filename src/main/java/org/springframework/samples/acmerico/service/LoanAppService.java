@@ -1,7 +1,7 @@
 package org.springframework.samples.acmerico.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
+import org.springframework.samples.acmerico.model.Debt;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.repository.LoanApplicationRepository;
@@ -25,6 +26,9 @@ public class LoanAppService {
 
 	@Autowired
 	private LoanService loanService;
+
+	@Autowired
+	private DebtService debtService;
 
 	@Autowired
 	public LoanAppService(LoanApplicationRepository loanAppRepository) {
@@ -77,15 +81,57 @@ public class LoanAppService {
 		BankAccount bankAccount = loanApp.getBankAccount();
 		loanApp.setStatus("ACCEPTED");
 		Double amount = bankAccount.getAmount();
-		bankAccount.setAmount(amount + loanApp.getAmount());
+		bankAccount.setAmount(amount + loanApp.getAmount() - loanApp.getLoan().getOpening_price());
 		this.accountService.saveBankAccount(bankAccount);
 		this.save(loanApp);
 	}
-	
+
 	@Transactional
 	public void refuseLoanApp(LoanApplication loanApp) {
 		loanApp.setStatus("REJECTED");
 		this.save(loanApp);
 	}
 
+	public Collection<LoanApplication> findLoanAppsAccepted() throws DataAccessException {
+		Collection<LoanApplication> l_app = this.loanAppRepository.findLoanAppAccepted();
+		return l_app;
+	}
+
+	@Transactional
+	public void collectAcceptedLoans(Collection<LoanApplication> loanApps) {
+		for (LoanApplication loanApp : loanApps) {
+			if (!loanApp.isPaid()) {
+				BankAccount account = loanApp.getBankAccount();
+				if (account.getAmount() >= loanApp.getAmountToPay()) {
+					Double amount = account.getAmount() - loanApp.getAmountToPay();
+					account.setAmount(amount);
+					this.accountService.saveBankAccount(account);
+					Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
+					loanApp.setAmount_paid(amountPaid);
+					this.save(loanApp);
+				} else {
+					Debt debt = new Debt();
+					debt.setAmount(loanApp.getAmountToPay());
+					debt.setClient(loanApp.getClient());
+					debt.setLoanApplication(loanApp);
+					debt.setRefreshDate(this.refreshDate());
+					this.debtService.save(debt);
+				}
+			}
+		}
+
+	}
+
+	private String refreshDate() {
+		LocalDate now = LocalDate.now();
+		int month = now.getMonthValue();
+		String deadLine;
+
+		if (month < 10) {
+			deadLine = "0" + now.getMonthValue() + "/" + now.getYear();
+		} else {
+			deadLine = now.getMonthValue() + "/" + now.getYear();
+		}
+		return deadLine;
+	}
 }
