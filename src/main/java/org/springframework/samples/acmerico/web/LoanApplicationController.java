@@ -119,6 +119,7 @@ public class LoanApplicationController {
 		try {
 			LoanApplication loanApp = this.loanAppService.findLoanAppById(loanappsId);
 			modelMap.put("loan_app", loanApp);
+			modelMap.put("isPaid", loanApp.isPaid());
 			return "loanApp/loanAppDetails";
 		} catch (Exception e) {
 			return "redirect:/";
@@ -138,6 +139,13 @@ public class LoanApplicationController {
 		LoanApplication loanApplication = this.loanAppService.findLoanAppById(loanappsId);
 		this.loanAppService.refuseLoanApp(loanApplication);
 
+		return "redirect:/loanapps";
+	}
+
+	@GetMapping(value = "/loanapps/collect")
+	public String collectAcceptedLoans(ModelMap modelMap) {
+		Collection<LoanApplication> acceptedLoanApps = this.loanAppService.findLoanAppsAccepted();
+		this.loanAppService.collectAcceptedLoans(acceptedLoanApps);
 		return "redirect:/loanapps";
 	}
 

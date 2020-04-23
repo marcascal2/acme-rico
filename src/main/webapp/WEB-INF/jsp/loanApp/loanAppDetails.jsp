@@ -36,6 +36,17 @@
 			<th>Client</th>
 			<td><c:out value="${loan_app.client.user.username}" /></td>
 		</tr>
+		<tr>
+			<th>Is paid</th>
+			<td><c:choose>
+					<c:when test="${isPaid}">
+						<c:out value="Yes" />
+					</c:when>
+					<c:when test="${!isPaid}">
+						<c:out value="No" />
+					</c:when>
+				</c:choose></td>
+		</tr>
 	</table>
 
 	<sec:authorize
