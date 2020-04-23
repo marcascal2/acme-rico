@@ -25,13 +25,13 @@ public class CreditCardAppController {
 
 	private final CreditCardAppService creditCardAppService;
   
-  @Autowired
-	private BankAccountService	bankAccountService;
+	private final BankAccountService	bankAccountService;
 
 	@Autowired
-	public CreditCardAppController(ClientService clientService, CreditCardAppService creditCardAppService) {
+	public CreditCardAppController(ClientService clientService, CreditCardAppService creditCardAppService, BankAccountService bankAccountService) {
 		this.clientService = clientService;
 		this.creditCardAppService = creditCardAppService;
+		this.bankAccountService = bankAccountService;
 	}
 	
 	@GetMapping(value= "/creditcardapps")
