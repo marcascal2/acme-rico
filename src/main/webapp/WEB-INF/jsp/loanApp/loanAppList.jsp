@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="loanApps">
 	<h2>Loan Applications</h2>
@@ -36,5 +38,12 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<sec:authorize access="hasAuthority('director')">
+		<div class="buttons-group">
+			<form method="get" action="/loanapps/collect">
+				<button class="btn btn-default">Collect accepted loans</button>
+			</form>
+		</div>
+	</sec:authorize>
 
 </petclinic:layout>

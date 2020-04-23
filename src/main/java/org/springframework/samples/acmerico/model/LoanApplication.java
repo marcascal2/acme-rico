@@ -53,6 +53,10 @@ public class LoanApplication extends BaseEntity {
 	//PROPIEDADES DERIVADAS
 	
 	public Double getAmountToPay() {
-		return (getAmount() - getLoan().getOpening_price()) / getLoan().getNumber_of_deadlines() * 100 * getLoan().getMonthly_fee();
+		return (getAmount() - getLoan().getOpening_price()) * (getLoan().getMonthly_fee()*(Math.pow(1+getLoan().getMonthly_fee(), getLoan().getNumber_of_deadlines())))/(Math.pow(1+getLoan().getMonthly_fee(), getLoan().getNumber_of_deadlines())-1) ;
+	}
+	
+	public boolean isPaid() {
+		return getAmountToPay()*getLoan().getNumber_of_deadlines()==getAmount_paid();
 	}
 }

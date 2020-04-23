@@ -106,11 +106,11 @@ INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit_card_application_id) VALUES (4,'124','01/2023','4845983225854171',10,5,7);
 
 --LOAN
-INSERT INTO loans VALUES (1, 'Préstamo de estudios', 20000.0 , 700.0, 4, 150.0, 0.01, TRUE);
-INSERT INTO loans VALUES (2, 'Préstamo hipotecario', 15000.0 , 1200.0, 4, 150.0, 0.02, TRUE);
-INSERT INTO loans VALUES (3, 'Préstamo personal', 10000.0 , 800.0, 4, 120.0, 0.03, TRUE);
-INSERT INTO loans VALUES (4, 'Préstamo único', 9000.0 , 700.0, 2, 90.0, 0.01, TRUE);
-INSERT INTO loans VALUES (5, 'Préstamo de negocio', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
+INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (1, 'Préstamo de estudios', 20000.0 , 700.0, 4, 150.0, 0.01, TRUE);
+INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (2, 'Préstamo hipotecario', 15000.0 , 1200.0, 4, 150.0, 0.02, TRUE);
+INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (3, 'Préstamo personal', 10000.0 , 800.0, 4, 120.0, 0.03, TRUE);
+INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (4, 'Préstamo único', 9000.0 , 700.0, 2, 90.0, 0.01, TRUE);
+INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (5, 'Préstamo de negocio', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
 
 --LOANAPPS
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1)
