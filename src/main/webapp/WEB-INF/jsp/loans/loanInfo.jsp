@@ -42,6 +42,43 @@
 			<td><c:out value="${loan.single_loan}" /></td>
 		</tr>
 	</table>
+	
+	<sec:authorize access="hasAuthority('director')">
+		<c:if test="${loan.loanApplications.size() > 0}">
+			<h2>Loans Applications</h2>
+	
+			<table id="loanApplicationsTable" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Amount</th>
+						<th>Purpose</th>
+						<th>Status</th>
+						<th>Number of Deadlines</th>
+						<th>Amount Paid</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${loan.loanApplications}" var="loanApplication">
+						<c:if test="${loanApplication.status == 'ACCEPTED'}">
+							<tr>
+								<td>
+				                    <spring:url value="/loanapps/{loanappsId}" var="loanAppUrl">
+				                        <spring:param name="loanappsId" value="${loanApplication.id}"/>
+				                    </spring:url>
+				                    <a href="${fn:escapeXml(loanAppUrl)}"><c:out value="${loanApplication.id}"/></a>
+				                </td>
+								<td><c:out value="${loanApplication.amount}" /></td>
+								<td><c:out value="${loanApplication.purpose}" /></td>
+								<td><c:out value="${loanApplication.status}" /></td>
+								<td><c:out value="${loanApplication.amount_paid}" /></td>
+							</tr>
+						</c:if>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+	</sec:authorize>
 
 	<sec:authorize access="hasAuthority('client')">
 		<c:choose>
@@ -62,6 +99,7 @@
 			</c:when>
 		</c:choose>
 	</sec:authorize>
+	
 	</c:if>
 	<c:if test="${loan['new']}">
 		<form:form modelAttribute="loan" class="form-horizontal"
