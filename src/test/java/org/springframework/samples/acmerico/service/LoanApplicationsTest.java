@@ -1,11 +1,13 @@
 package org.springframework.samples.acmerico.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-
+import java.util.Collection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class LoanApplicationsTest {
 
 	@Autowired
-	private LoanAppService loanAppService;
+	private LoanAppService loanApplicationService;
 	
 	private static User user = new User();
 	private static Client client = new Client();
@@ -29,7 +31,7 @@ public class LoanApplicationsTest {
 	private static LoanApplication loanApplication = new LoanApplication();
 	
 	@BeforeAll
-	private void setUp() {
+	private static void setUp() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
@@ -78,5 +80,11 @@ public class LoanApplicationsTest {
 		loanApplication.setBankAccount(bankAccount);
 		loanApplication.setLoan(loan);
 		loanApplication.setClient(client);
+	}
+	
+	@Test
+	public void testCountEmployeesAfterCreating() {
+		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findLoanAppsByClient(client.getId());
+		assertThat(loanAplocations.size()).isEqualTo(1);
 	}
 }
