@@ -31,7 +31,7 @@ public class LoanController {
 		this.accountService = accountService;
 	}
 
-	@GetMapping(value = "/director/loans")
+	@GetMapping(value = "/grantedLoans")
 	public String listLoan(ModelMap modelMap) {
 		Collection<Loan> loans = this.loanService.findAllLoans();
 		modelMap.addAttribute("loans", loans);

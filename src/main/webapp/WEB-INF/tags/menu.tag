@@ -31,42 +31,42 @@
 					<span>Home</span>
 				</petclinic:menuItem>
 
-				<!-- MENU CLIENTES -->
-				<sec:authorize access="hasAuthority('client')">
-					<li class="nav-item dropdown" id="dropdown-clients"><a
-						class="nav-link dropdown-toggle" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-							Bank Accounts
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<petclinic:menuSubitem active="${name eq 'clients'}"
-								url="/accounts" title="my accounts">
-								<span id="my-accounts">My accounts</span>
-							</petclinic:menuSubitem>
+		<!-- MENU CLIENTES -->
+		<sec:authorize access="hasAuthority('client')">
+			<li class="nav-item dropdown" id="dropdown-clients"><a 
+				class="nav-link dropdown-toggle" role="button"
+				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+				Bank Accounts
+				</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<petclinic:menuSubitem active="${name eq 'clients'}"
+							url="/accounts" title="my accounts">
+						<span id="my-accounts">My accounts</span>
+						</petclinic:menuSubitem>
 							<div class="dropdown-divider"></div>
 							<petclinic:menuSubitem active="${name eq 'clients'}" url="/cards"
 								title="my cards">
-								<span id="my-credit-card">My credit cards</span>
-							</petclinic:menuSubitem>
-						</div>
-					<li class="nav-item dropdown" id="dropdown-clients-apps"><a
-						class="nav-link dropdown-toggle" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-							My Applications
+							<span id="my-credit-card">My credit cards</span>
+						</petclinic:menuSubitem>
+					</div>
+				<li class="nav-item dropdown" id="dropdown-clients-apps"><a
+					class="nav-link dropdown-toggle" role="button"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+					My Applications
 					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<petclinic:menuSubitem active="${name eq 'clients'}"
-								url="/mycreditcardapps" title="my cardApps">
-								<span id="credit-card-apps">My credit card applications</span>
-							</petclinic:menuSubitem>
-							<div class="dropdown-divider"></div>
-							<petclinic:menuSubitem active="${name eq 'clients'}"
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<petclinic:menuSubitem active="${name eq 'clients'}"
+							url="/mycreditcardapps" title="my cardApps">
+							<span id="credit-card-apps">My credit card applications</span>
+						</petclinic:menuSubitem>
+						<div class="dropdown-divider"></div>
+						<petclinic:menuSubitem active="${name eq 'clients'}"
 								url="/myloanapps" title="my loanApps">
-								<span id="loan-apps">My loan applications</span>
-							</petclinic:menuSubitem>
-						</div>
+							<span id="loan-apps">My loan applications</span>
+						</petclinic:menuSubitem>
+					</div>
 		</sec:authorize>
 
 
@@ -150,7 +150,7 @@
 					Loans
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<petclinic:menuSubitem active="${name eq 'loans'}" url="/director/loans"
+					<petclinic:menuSubitem active="${name eq 'loans'}" url="/grantedLoans"
 						title="loansList">
 						<span id="see-loans">Loans list</span>
 					</petclinic:menuSubitem>
