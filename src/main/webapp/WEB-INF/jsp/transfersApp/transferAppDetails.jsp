@@ -31,11 +31,11 @@
 			<c:when test="${transfer_application.status == 'PENDING'}">
 				<div class="buttons-group">
 					<form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
-						<button class="btn btn-default">Accept Transfer</button>
+						<button class="btn btn-default" id="accept-transfer-button">Accept Transfer</button>
 				   </form>
 				   
 				   <form method="get" action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
-						<button class="btn btn-default">Refuse Transfer</button>
+						<button class="btn btn-default" id="reject-transfer-button">Refuse Transfer</button>
 				   </form>
 				</div>
 			</c:when>
