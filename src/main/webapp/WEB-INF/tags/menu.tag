@@ -122,7 +122,7 @@
 					</petclinic:menuSubitem>
 				</div></li>
 			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+				class="nav-link dropdown-toggle" id="dropdown-director" role="button"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
 					Clients requests

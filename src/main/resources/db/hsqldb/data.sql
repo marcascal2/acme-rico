@@ -31,7 +31,7 @@ INSERT INTO authorities VALUES ('client10','client');
 
 -- CLIENTS
 INSERT INTO clients VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '10000.0', 'client1');
-INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client2');
+INSERT INTO clients VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', '23', '1998-04-04', 'Sun Prairie', 'WORKER', '2018-06-06', 'MARRIED', '10000.0', 'client2');
 INSERT INTO clients VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', '23', '1998-04-04', 'McFarland', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client3');
 INSERT INTO clients VALUES (4, 'Harold', 'Davis', '563 Friendly St.', '23', '1998-04-04', 'Windsor', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client4');
 INSERT INTO clients VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', '23', '1998-04-04', 'Madison', 'WORKER', '2018-06-06', 'MARRIED', '1000.0', 'client5');
@@ -113,4 +113,7 @@ INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadli
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (5, 'Préstamo de negocio', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
 
 --LOANAPPS
-INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1)
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1);
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (2, 100.0, 'Alquiler', 'PENDING', 0.0, 2, 1, 2);
+
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (3, 900.0, 'Comida', 'PENDING', 0.0, 3, 1, 3);
