@@ -13,8 +13,6 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 	@LocalServerPort
     private int port;
 	
-	private StringBuffer verificationErrors = new StringBuffer();
-	
 	 @Given("I am not logged in the system as director")
 	 public void IamNotLogged() throws Exception {
 		 getDriver().get("http://localhost:" + port + "/login");
@@ -22,8 +20,6 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 	 
 	 @When("I tray to login as a director and see the granted loans")
 	 public void ItryToLogin() throws Exception {
-		 getDriver().get("http://localhost:8080/");
-		 getDriver().findElement(By.id("login-button")).click();
 		 getDriver().findElement(By.id("username")).click();
 		 getDriver().findElement(By.id("username")).clear();
 		 getDriver().findElement(By.id("username")).sendKeys("director1");
@@ -38,17 +34,8 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 	 
 	 @Then("The list of granted loans is shown")
 	 public void IsLoggedIn() throws Exception {
-		 try {
-			 assertEquals("Préstamo de estudios", getDriver().findElement(By.linkText("Préstamo de estudios")).getText());
-		 } catch (Error e) {
-		     verificationErrors.append(e.toString());
-		 }
-		 
-		 try {
-		     assertEquals("Préstamo hipotecario", getDriver().findElement(By.linkText("Préstamo hipotecario")).getText());
-		 } catch (Error e) {
-		     verificationErrors.append(e.toString());
-		 }
+		 assertEquals("Préstamo de estudios", getDriver().findElement(By.linkText("Préstamo de estudios")).getText());
+		 assertEquals("Préstamo hipotecario", getDriver().findElement(By.linkText("Préstamo hipotecario")).getText());
 	 }
 
 }

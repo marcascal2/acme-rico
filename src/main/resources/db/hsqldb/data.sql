@@ -113,4 +113,6 @@ INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadli
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (5, 'Préstamo de negocio', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
 
 --LOANAPPS
-INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1)
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1);
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (2, 1500.0, 'Trabajo', 'REJECTED', 0.0, 1, 1, 1);
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (3, 1300.0, 'Master/Doctorado', 'ACCEPTED', 0.0, 1, 1, 1);
