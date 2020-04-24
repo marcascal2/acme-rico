@@ -56,7 +56,6 @@ public class CreditCardController {
 			this.creditCardService.deleteCreditCardById(cardId);
 			return "redirect:/cards";
 		} catch (Exception e) {
-			System.out.println(e);
 			return "redirect:/oups";
 		}
 	}

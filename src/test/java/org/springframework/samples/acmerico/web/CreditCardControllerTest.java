@@ -26,31 +26,29 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = CreditCardController.class,
-			    excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
-			    excludeAutoConfiguration = SecurityConfiguration.class)
+@WebMvcTest(controllers = CreditCardController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class CreditCardControllerTest {
-	
+
 	private static User user = new User();
 	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
 	private static CreditCard creditCard = new CreditCard();
-    
+
 	@MockBean
 	private ClientService clientService;
-	
+
 	@MockBean
 	private CreditCardService creditCardService;
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@BeforeAll
-	static void setUp() {	
+	static void setUp() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
-		
+
 		client.setId(1);
 		client.setFirstName("Germán");
 		client.setLastName("Márquez Trujillo");
@@ -65,7 +63,7 @@ public class CreditCardControllerTest {
 		client.setUser(user);
 		client.setBankAccounts(Arrays.asList(bankAccount));
 		client.setCreditCards(Arrays.asList(creditCard));
-		
+
 		bankAccount.setId(1);
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
@@ -73,40 +71,41 @@ public class CreditCardControllerTest {
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
 		bankAccount.setCreditCards(Arrays.asList(creditCard));
-		
+
 		creditCard.setId(1);
 		creditCard.setNumber("4616328728383848");
 		creditCard.setDeadline("07/2022");
 		creditCard.setCvv("156");
 	}
 
-	@WithMockUser(username = "userPrueba", roles = {"client"})
-    @Test
-    void testShowClientCards() throws Exception{
+	@WithMockUser(username = "userPrueba", roles = { "client" })
+	@Test
+	void testShowClientCards() throws Exception {
 		when(this.clientService.findClientByUserName("userPrueba")).thenReturn(client);
 		when(this.clientService.findCreditCardsByUsername("userPrueba")).thenReturn(Arrays.asList(creditCard));
-		
-		mockMvc.perform(get("/cards"))
-		   .andExpect(status().isOk())
-		   .andExpect(model().attributeExists("cards"))
-		   .andExpect(model().attributeExists("clientId"))
-		   .andExpect(view().name("cards/cards"))
-		   .andExpect(status().is2xxSuccessful());
+
+		mockMvc.perform(get("/cards")).andExpect(status().isOk()).andExpect(model().attributeExists("cards"))
+				.andExpect(model().attributeExists("clientId")).andExpect(view().name("cards/cards"))
+				.andExpect(status().is2xxSuccessful());
 	}
-	
+
 	@WithMockUser(value = "spring")
-    @Test
-    void testAccountInfo() throws Exception{
-		when(this.creditCardService.findCreditCardById(creditCard.getId())).thenReturn(creditCard);  
-		
-		mockMvc.perform(get("/cards/{cardId}/show", creditCard.getId()))
-		   .andExpect(status().isOk())
-		   .andExpect(model().attributeExists("creditCard"))
-		   .andExpect(model().attribute("creditCard", hasProperty("number", is("4616328728383848"))))
-		   .andExpect(model().attribute("creditCard", hasProperty("deadline", is("07/2022"))))
-		   .andExpect(model().attribute("creditCard", hasProperty("cvv", is("156"))))
-		   .andExpect(view().name("cards/showCardInfo"))
-		   .andExpect(status().is2xxSuccessful());
+	@Test
+	void testAccountInfo() throws Exception {
+		when(this.creditCardService.findCreditCardById(creditCard.getId())).thenReturn(creditCard);
+
+		mockMvc.perform(get("/cards/{cardId}/show", creditCard.getId())).andExpect(status().isOk())
+				.andExpect(model().attributeExists("creditCard"))
+				.andExpect(model().attribute("creditCard", hasProperty("number", is("4616328728383848"))))
+				.andExpect(model().attribute("creditCard", hasProperty("deadline", is("07/2022"))))
+				.andExpect(model().attribute("creditCard", hasProperty("cvv", is("156"))))
+				.andExpect(view().name("cards/showCardInfo")).andExpect(status().is2xxSuccessful());
 	}
-	
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testDeleteSuccess() throws Exception {
+		mockMvc.perform(get("/cards/{cardId}/delete", creditCard.getId())).andExpect(status().isFound())
+				.andExpect(view().name("redirect:/cards")).andExpect(status().is3xxRedirection());
+	}
 }

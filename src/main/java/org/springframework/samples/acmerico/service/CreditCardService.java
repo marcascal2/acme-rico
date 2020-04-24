@@ -1,5 +1,7 @@
 package org.springframework.samples.acmerico.service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCard;
@@ -15,6 +17,11 @@ public class CreditCardService {
 	@Autowired
 	public CreditCardService(CreditCardRepository creditCardRepository) {
 		this.creditCardRepository = creditCardRepository;
+	}
+	
+	@Transactional
+	public Collection<CreditCard> findCreditCards() {
+		return (Collection<CreditCard>) this.creditCardRepository.findAll();
 	}
 
 	@Transactional
