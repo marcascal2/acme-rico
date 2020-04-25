@@ -78,6 +78,12 @@
 					</tbody>
 				</table>
 			</c:if>
+			
+			<div class="buttons-group">
+				<form method="get" action="/loanapps/collect">
+					<button class="btn btn-default">Collect accepted loans</button>
+				</form>
+			</div>
 		</sec:authorize>
 
 		<sec:authorize access="hasAuthority('client')">
@@ -99,8 +105,8 @@
 				</c:when>
 			</c:choose>
 		</sec:authorize>
-
 	</c:if>
+	
 	<c:if test="${loan['new']}">
 		<form:form modelAttribute="loan" class="form-horizontal"
 			id="add-loan-form">
@@ -123,4 +129,5 @@
 			</div>
 		</form:form>
 	</c:if>
+	
 </petclinic:layout>

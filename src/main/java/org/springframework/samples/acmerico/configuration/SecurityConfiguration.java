@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/exchanges/**").hasAnyAuthority("client","worker","director")
 				.antMatchers("/loans/**").hasAnyAuthority("client")
 				.antMatchers("/loanapps/**").hasAnyAuthority("director", "worker", "client")
-				.antMatchers("/grantedLoans").hasAnyAuthority("director")
+				.antMatchers("/grantedLoans/**").hasAnyAuthority("director")
 				.antMatchers("/director/loans/**").hasAnyAuthority("director")
 				.anyRequest().denyAll()
 				.and()

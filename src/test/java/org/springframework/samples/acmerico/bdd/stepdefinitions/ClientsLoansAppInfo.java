@@ -1,17 +1,9 @@
 package org.springframework.samples.acmerico.bdd.stepdefinitions;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.junit.jupiter.api.AfterEach;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.springframework.boot.web.server.LocalServerPort;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -51,26 +43,5 @@ public class ClientsLoansAppInfo extends AbstractStep {
         assertEquals("Client", getDriver().findElement(By.xpath("//tr[7]/th")).getText());
         stopDriver();
     }
-    
-       
-   
-
-  private boolean isElementPresent(By by) {
-    try {
-      getDriver().findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      getDriver().switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
 
 }

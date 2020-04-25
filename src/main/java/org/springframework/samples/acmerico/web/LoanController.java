@@ -55,14 +55,14 @@ public class LoanController {
 		return "loans/personalicedLoanList";
 	}
 
-	@GetMapping(value = "/director/loans/new")
+	@GetMapping(value = "/grantedLoans/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Loan loan = new Loan();
 		model.put("loan", loan);
 		return "loans/loanInfo";
 	}
 
-	@PostMapping(value = "/director/loans/new")
+	@PostMapping(value = "/grantedLoans/new")
 	public String processCreationForm(@Valid Loan loan, BindingResult result) {
 		if (result.hasErrors()) {
 			return "loans/loanInfo";
@@ -72,7 +72,7 @@ public class LoanController {
 		}
 	}
 
-	@GetMapping(value = "/director/loans/{loanId}")
+	@GetMapping(value = "/grantedLoans/{loanId}")
 	public String showDirectorLoan(@PathVariable("loanId") int loanId, ModelMap modelMap) {
 		try {
 			Loan loan = this.loanService.findLoanById(loanId);

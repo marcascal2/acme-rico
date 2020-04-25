@@ -49,9 +49,4 @@
 		</tbody>
 	</table>
 	
-	<!-- <div class="buttons-group">
-		<form action="/loans/new">
-			<button class="btn btn-default" type="submit">Create new loan</button>
-		</form>
-	</div> -->
 </petclinic:layout>

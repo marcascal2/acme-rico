@@ -23,7 +23,7 @@
 		<tbody>
 			<c:forEach items="${loans}" var="loan">
 				<tr>
-					<td><spring:url value="/director/loans/{loanId}" var="loanUrl">
+					<td><spring:url value="/grantedLoans/{loanId}" var="loanUrl">
 							<spring:param name="loanId" value="${loan.id}" />
 						</spring:url> <a href="${fn:escapeXml(loanUrl)}"><c:out value="${loan.description}" /></a>
 					</td>
@@ -47,7 +47,7 @@
 	</table>
 
 	<div class="buttons-group">
-		<form action="/director/loans/new">
+		<form action="/grantedLoans/new">
 			<button class="btn btn-default" type="submit">Create new
 				loan</button>
 		</form>

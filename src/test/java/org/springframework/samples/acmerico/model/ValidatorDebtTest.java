@@ -27,7 +27,7 @@ public class ValidatorDebtTest {
 	private static Loan loan = new Loan();
 
 	@BeforeAll
-	static void createClient() {
+	static void setUp() {
 		client.setAddress("address");
 		client.setAge(20);
 		client.setBirthDate(LocalDate.of(1999, 11, 05));
@@ -37,18 +37,12 @@ public class ValidatorDebtTest {
 		client.setLastName("Marquez");
 		client.setMaritalStatus("single");
 		client.setSalaryPerYear(0.00);
-	}
-
-	@BeforeAll
-	static void createBankAccount() {
+		
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccount.setClient(client);
-	}
-
-	@BeforeAll
-	static void createLoan() {
+		
 		loan.setDescription("This is a loan");
 		loan.setMinimum_amount(200.);
 		loan.setMinimum_income(700.);
@@ -56,10 +50,7 @@ public class ValidatorDebtTest {
 		loan.setOpening_price(0.);
 		loan.setMonthly_fee(0.01);
 		loan.setSingle_loan(true);
-	}
-
-	@BeforeAll
-	static void createLoanApp() {
+		
 		loanApplication.setAmount_paid(50.0);
 		loanApplication.setClient(client);
 		loanApplication.setBankAccount(bankAccount);

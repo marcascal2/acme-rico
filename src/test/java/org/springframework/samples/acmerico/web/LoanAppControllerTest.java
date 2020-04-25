@@ -3,7 +3,6 @@ package org.springframework.samples.acmerico.web;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import org.springframework.samples.acmerico.service.LoanService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,7 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest(controllers = LoanApplicationController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
+@WebMvcTest(controllers = LoanApplicationController.class, 
+				excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, 
+				classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class LoanAppControllerTest {
 
 	private static User user = new User();
@@ -158,11 +158,12 @@ public class LoanAppControllerTest {
 		mockMvc.perform(get("/loanapps/{loanappsId}/refuse", loanApp.getId())).andExpect(status().isFound())
 				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
 	}
-
+	
 	@WithMockUser(value = "spring")
 	@Test
-	void testCollectLoanApplication() throws Exception {
+	void testCollectAcceptedLoans() throws Exception {
 		mockMvc.perform(get("/loanapps/collect")).andExpect(status().isFound())
-				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
+				.andExpect(view().name("redirect:/grantedLoans")).andExpect(status().is3xxRedirection());
 	}
+
 }
