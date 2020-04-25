@@ -142,11 +142,4 @@ public class LoanApplicationController {
 		return "redirect:/loanapps";
 	}
 
-	@GetMapping(value = "/loanapps/collect")
-	public String collectAcceptedLoans(ModelMap modelMap) {
-		Collection<LoanApplication> acceptedLoanApps = this.loanAppService.findLoanAppsAccepted();
-		this.loanAppService.collectAcceptedLoans(acceptedLoanApps);
-		return "redirect:/loanapps";
-	}
-
 }

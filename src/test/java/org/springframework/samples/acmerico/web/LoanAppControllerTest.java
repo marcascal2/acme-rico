@@ -159,10 +159,4 @@ public class LoanAppControllerTest {
 				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
 	}
 
-	@WithMockUser(value = "spring")
-	@Test
-	void testCollectLoanApplication() throws Exception {
-		mockMvc.perform(get("/loanapps/collect")).andExpect(status().isFound())
-				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
-	}
 }
