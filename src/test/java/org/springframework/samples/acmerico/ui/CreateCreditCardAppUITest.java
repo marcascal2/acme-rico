@@ -70,10 +70,6 @@ public class CreateCreditCardAppUITest {
 		driver.findElement(By.id("my-accounts")).click();
 		driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
 		driver.findElement(By.id("request-cc")).click();
-		driver.findElement(By.id("dropdown-clients")).click();
-		driver.findElement(By.id("my-accounts")).click();
-		driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
-		driver.findElement(By.id("request-cc")).click();
 		assertEquals("Your have to wait until we accept your pending credit card applications.",
 				driver.findElement(By.xpath("//h3")).getText());
 		driver.quit();
