@@ -1,5 +1,7 @@
 package org.springframework.samples.acmerico.repository;
 
+import java.util.Collection;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCard;
 
@@ -12,5 +14,7 @@ public interface CreditCardRepository {
 	void deleteCreditCard(int id) throws DataAccessException;
 
 	void save(CreditCard creditCard) throws DataAccessException;
+
+	Collection<CreditCard> findAll();
 
 }
