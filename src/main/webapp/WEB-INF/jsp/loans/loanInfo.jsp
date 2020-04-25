@@ -80,7 +80,7 @@
 			</c:if>
 			
 			<div class="buttons-group">
-				<form method="get" action="/loansapps/collect)">
+				<form method="get" action="/loanapps/collect">
 					<button class="btn btn-default">Collect accepted loans</button>
 				</form>
 			</div>
