@@ -76,7 +76,9 @@ public class UserController {
 			else {
 				//creating owner, user, and authority
 				this.clientService.saveClient(client);
-				this.dropboxService.uploadFile(client.getDniFile(), client);
+				if(!client.getDniFile().isEmpty()) {
+					this.dropboxService.uploadFile(client.getDniFile(), client);
+				}
 				return "redirect:/";
 			}
 		} catch (Exception e) {

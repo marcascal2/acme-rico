@@ -48,20 +48,18 @@ public class CreditCardInformationUITest {
 		assertEquals("123", driver.findElement(By.id("cvv")).getAttribute("value"));
 	}
 
-//   TODO: Preguntar duda con el navigate().to()
-//   @Test
-//   public void testCreditCardInformationNegative() throws Exception {
-//     driver.get("http://localhost:"+port+"/");
-//     driver.findElement(By.id("login-button")).click();
-//     driver.findElement(By.id("username")).clear();
-//     driver.findElement(By.id("username")).sendKeys("worker1");
-//     driver.findElement(By.id("password")).click();
-//     driver.findElement(By.id("password")).clear();
-//     driver.findElement(By.id("password")).sendKeys("worker1");
-//     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-//     driver.findElement(By.linkText("Bank Accounts")).click();
-//     driver.navigate().to("http://localhost:"+port+"/cards/1/show");
-//   }
+	@Test
+	public void testCreditCardInformationNegative() throws Exception {
+		driver.get("http://localhost:" + port + "/");
+		driver.findElement(By.id("login-button")).click();
+		driver.findElement(By.id("username")).clear();
+		driver.findElement(By.id("username")).sendKeys("worker1");
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).clear();
+		driver.findElement(By.id("password")).sendKeys("worker1");
+		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+		assertEquals(false, isElementPresent(By.linkText("Bank Accounts")));
+	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
@@ -71,4 +69,14 @@ public class CreditCardInformationUITest {
 			fail(verificationErrorString);
 		}
 	}
+
+	private boolean isElementPresent(By by) {
+		try {
+			driver.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+
 }
