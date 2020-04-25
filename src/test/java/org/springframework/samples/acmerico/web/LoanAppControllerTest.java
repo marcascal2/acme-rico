@@ -24,17 +24,18 @@ import org.springframework.samples.acmerico.service.LoanService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest(controllers = LoanApplicationController.class,
-				excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
-				excludeAutoConfiguration = SecurityConfiguration.class)
+@WebMvcTest(controllers = LoanApplicationController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class LoanAppControllerTest {
-	
+
 	private static User user = new User();
 	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
@@ -42,7 +43,7 @@ public class LoanAppControllerTest {
 	private static LoanApplication loanApp = new LoanApplication();
 
 	@MockBean
-	private  ClientService clientService;
+	private ClientService clientService;
 
 	@MockBean
 	private LoanAppService loanAppService;
@@ -52,16 +53,16 @@ public class LoanAppControllerTest {
 
 	@MockBean
 	private LoanService loanService;
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@BeforeAll
 	static void setUp() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
-		
+
 		client.setId(1);
 		client.setFirstName("Germán");
 		client.setLastName("Márquez Trujillo");
@@ -69,14 +70,14 @@ public class LoanAppControllerTest {
 		client.setBirthDate(LocalDate.parse("1998-04-15"));
 		client.setCity("Sevilla");
 		client.setMaritalStatus("Single");
-		client.setSalaryPerYear(2000.0);
+		client.setSalaryPerYear(20000.0);
 		client.setAge(21);
 		client.setJob("DP2 Developement Student");
 		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
 		client.setUser(user);
 		client.setBankAccounts(Arrays.asList(bankAccount));
 		client.setLoanApps(Arrays.asList(loanApp));
-		
+
 		bankAccount.setId(1);
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(10000.0);
@@ -84,37 +85,84 @@ public class LoanAppControllerTest {
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
 		bankAccount.setLoanApps(Arrays.asList(loanApp));
-		
+
 		loan.setId(1);
 		loan.setDescription("This is a Description");
 		loan.setMinimum_amount(1000.0);
-		loan.setMinimum_income(1000.0);
+		loan.setMinimum_income(600.0);
 		loan.setNumber_of_deadlines(2);
-		loan.setOpening_price(100.0);		
+		loan.setOpening_price(100.0);
 		loan.setMonthly_fee(0.02);
-		loan.setSingle_loan(true);
+		loan.setSingle_loan(false);
 		loan.setLoanApplications(Arrays.asList(loanApp));
-		
+
 		loanApp.setId(1);
-		loanApp.setAmount(2000.0);
+		loanApp.setAmount(900.0);
 		loanApp.setPurpose("This is a purpose");
 		loanApp.setStatus("PENDING");
-		loanApp.setAmount_paid(100.0);
+		loanApp.setAmount_paid(0.0);
 	}
-	
-	@WithMockUser(username = "userPrueba", roles = {"client"})
-    @Test
-    void testListClientLoanApp() throws Exception {
+
+	@WithMockUser(username = "userPrueba", roles = { "client" })
+	@Test
+	void testListClientLoanApp() throws Exception {
 		when(this.clientService.findClientByUserName("userPrueba")).thenReturn(client);
 		when(this.loanAppService.findLoanAppsByClient(client.getId())).thenReturn(Arrays.asList(loanApp));
-		
-		mockMvc.perform(get("/myloanapps"))
-	    	.andExpect(status().isOk())
-	    	.andExpect(model().attributeExists("loanApps"))
-	    	.andExpect(model().attributeExists("clientUser"))
-	    	.andExpect(view().name("loanApp/clientLoanApps"))
-	    	.andExpect(status().is2xxSuccessful());
-	}
-	
-}
 
+		mockMvc.perform(get("/myloanapps")).andExpect(status().isOk()).andExpect(model().attributeExists("loanApps"))
+				.andExpect(model().attributeExists("clientUser")).andExpect(view().name("loanApp/clientLoanApps"))
+				.andExpect(status().is2xxSuccessful());
+	}
+
+	@WithMockUser(username = "userPrueba", roles = { "director", "worker" })
+	@Test
+	void testListEmployeeLoanApp() throws Exception {
+		when(this.loanAppService.findAllLoanApps()).thenReturn(Arrays.asList(loanApp));
+
+		mockMvc.perform(get("/loanapps")).andExpect(status().isOk()).andExpect(model().attributeExists("loanApps"))
+				.andExpect(view().name("loanApp/loanAppList")).andExpect(status().is2xxSuccessful());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testInitCreationForm() throws Exception {
+		when(this.loanAppService.findLoanAppById(loanApp.getId())).thenReturn(loanApp);
+
+		mockMvc.perform(get("/loanapps/{loanId}/new/{bankAccountId}", loanApp.getId(), bankAccount.getId()))
+				.andExpect(status().isOk()).andExpect(model().attributeExists("loan_app"))
+				.andExpect(view().name("loanApp/createOrUpdateLoanApp")).andExpect(status().is2xxSuccessful());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testProcessCreationForm() throws Exception {
+		when(this.loanAppService.findLoanAppById(loanApp.getId())).thenReturn(loanApp);
+
+		mockMvc.perform(post("/loanapps/{loanId}/new/{bankAccountId}", loanApp.getId(), bankAccount.getId())
+				.with(csrf()).param("amount", "2000.0").param("amount_paid", "0.0")
+				.param("purpose", "This is a purpose").param("status", "PENDING"))
+				.andExpect(status().is2xxSuccessful());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testAcceptLoanApplication() throws Exception {
+		mockMvc.perform(get("/loanapps/{loanappsId}/accept", loanApp.getId())).andExpect(status().isFound())
+				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
+
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testRefuseLoanApplication() throws Exception {
+		mockMvc.perform(get("/loanapps/{loanappsId}/refuse", loanApp.getId())).andExpect(status().isFound())
+				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testCollectLoanApplication() throws Exception {
+		mockMvc.perform(get("/loanapps/collect")).andExpect(status().isFound())
+				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
+	}
+}
