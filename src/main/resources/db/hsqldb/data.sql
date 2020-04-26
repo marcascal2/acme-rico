@@ -114,6 +114,5 @@ INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadli
 
 --LOANAPPS
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 1, 1, 1);
-INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (2, 100.0, 'Alquiler', 'PENDING', 0.0, 2, 1, 2);
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (3, 900.0, 'Comida', 'PENDING', 0.0, 3, 1, 3);
 

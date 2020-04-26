@@ -45,7 +45,7 @@
 
 		<sec:authorize access="hasAuthority('director')">
 			<c:if test="${loan.loanApplications.size() > 0}">
-				<h2>Loans Applications</h2>
+				<h2>Accepted loan applications</h2>
 
 				<table id="loanApplicationsTable" class="table table-striped">
 					<thead>
@@ -56,6 +56,7 @@
 							<th>Status</th>
 							<th>Number of Deadlines</th>
 							<th>Amount Paid</th>
+							<th>Remaining payments</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -72,6 +73,7 @@
 									<td><c:out value="${loanApplication.status}" /></td>
 									<td><c:out value="${loanApplication.loan.number_of_deadlines}" /></td>
 									<td><c:out value="${loanApplication.amount_paid}" /></td>
+									<td><c:out value="${loan.number_of_deadlines - loanApplication.payedDeadlines}" /></td>
 								</tr>
 							</c:if>
 						</c:forEach>
