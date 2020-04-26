@@ -82,13 +82,14 @@ public class LoanApplicationsTest {
 		loanApplication.setBankAccount(bankAccount);
 		loanApplication.setLoan(loan);
 		loanApplication.setClient(client);
+		loanApplication.setPayedDeadlines(0);
 		this.loanApplicationService.save(loanApplication);
 	}
 
 	@Test
 	public void testCountLoanAppsAfterCreating() {
 		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findAllLoanApps();
-		assertThat(loanAplocations.size()).isEqualTo(3);
+		assertThat(loanAplocations.size()).isEqualTo(2);
 	}
 
 	@Test
