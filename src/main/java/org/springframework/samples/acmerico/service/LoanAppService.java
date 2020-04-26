@@ -114,12 +114,19 @@ public class LoanAppService {
 						this.save(loanApp);
 					}
 				} else {
-					Debt debt = new Debt();
-					debt.setAmount(loanApp.getAmountToPay());
-					debt.setClient(loanApp.getClient());
-					debt.setLoanApplication(loanApp);
-					debt.setRefreshDate(this.refreshDate());
-					this.debtService.save(debt);
+					Debt debt = this.debtService.getClientDebt(loanApp.getClient());
+					if(debt != null) {
+						debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
+						debt.setRefreshDate(this.refreshDate());
+						this.debtService.save(debt);
+					} else {
+						Debt newDebt = new Debt();
+						newDebt.setAmount(loanApp.getAmountToPay());
+						newDebt.setClient(loanApp.getClient());
+						newDebt.setLoanApplication(loanApp);
+						newDebt.setRefreshDate(this.refreshDate());
+						this.debtService.save(newDebt);
+					}
 				}
 			}
 		}
