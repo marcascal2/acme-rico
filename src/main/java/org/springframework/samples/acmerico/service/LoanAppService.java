@@ -114,18 +114,24 @@ public class LoanAppService {
 						this.save(loanApp);
 					}
 				} else {
-					Debt debt = this.debtService.getClientDebt(loanApp.getClient());
-					if(debt != null) {
-						debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
-						debt.setRefreshDate(this.refreshDate());
-						this.debtService.save(debt);
-					} else {
-						Debt newDebt = new Debt();
-						newDebt.setAmount(loanApp.getAmountToPay());
-						newDebt.setClient(loanApp.getClient());
-						newDebt.setLoanApplication(loanApp);
-						newDebt.setRefreshDate(this.refreshDate());
-						this.debtService.save(newDebt);
+					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
+						Debt debt = this.debtService.getClientDebt(loanApp.getClient());
+						if(debt != null) {
+							debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
+							debt.setRefreshDate(this.refreshDate());
+							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+							this.save(loanApp);
+							this.debtService.save(debt);
+						} else {
+							Debt newDebt = new Debt();
+							newDebt.setAmount(loanApp.getAmountToPay());
+							newDebt.setClient(loanApp.getClient());
+							newDebt.setLoanApplication(loanApp);
+							newDebt.setRefreshDate(this.refreshDate());
+							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+							this.save(loanApp);
+							this.debtService.save(newDebt);
+						}
 					}
 				}
 			}
