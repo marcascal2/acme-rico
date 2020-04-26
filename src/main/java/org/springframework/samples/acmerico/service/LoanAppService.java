@@ -80,6 +80,7 @@ public class LoanAppService {
 	public void acceptLoanApp(LoanApplication loanApp) {
 		BankAccount bankAccount = loanApp.getBankAccount();
 		loanApp.setStatus("ACCEPTED");
+		loanApp.setAmount_paid(loanApp.getLoan().getOpening_price());
 		Double amount = bankAccount.getAmount();
 		bankAccount.setAmount(amount + loanApp.getAmount() - loanApp.getLoan().getOpening_price());
 		this.accountService.saveBankAccount(bankAccount);
@@ -103,12 +104,15 @@ public class LoanAppService {
 			if (!loanApp.isPaid()) {
 				BankAccount account = loanApp.getBankAccount();
 				if (account.getAmount() >= loanApp.getAmountToPay()) {
-					Double amount = account.getAmount() - loanApp.getAmountToPay();
-					account.setAmount(amount);
-					this.accountService.saveBankAccount(account);
-					Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
-					loanApp.setAmount_paid(amountPaid);
-					this.save(loanApp);
+					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
+						Double amount = account.getAmount() - loanApp.getAmountToPay();
+						account.setAmount(amount);
+						this.accountService.saveBankAccount(account);
+						Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
+						loanApp.setAmount_paid(amountPaid);
+						loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+						this.save(loanApp);
+					}
 				} else {
 					Debt debt = new Debt();
 					debt.setAmount(loanApp.getAmountToPay());

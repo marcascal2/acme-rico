@@ -57,6 +57,7 @@ public class ValidatorDebtTest {
 		loanApplication.setLoan(loan);
 		loanApplication.setPurpose("purpose");
 		loanApplication.setStatus("ACCEPTED");
+		loanApplication.setPayedDeadlines(0);
 	}
 
 	@BeforeEach
