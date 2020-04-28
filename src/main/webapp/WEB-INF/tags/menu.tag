@@ -103,7 +103,7 @@
 					<petclinic:menuItem active="${name eq 'debts'}"
 						url="/debts/pending" title="find debts">
 						<span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
-						<span>Debts</span>
+						<span id="debts">Debts</span>
 					</petclinic:menuItem>
 				</sec:authorize>
 
@@ -164,7 +164,7 @@
 					<petclinic:menuItem active="${name eq 'debts'}"
 						url="/debts/pending" title="find debts">
 						<span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
-						<span>Debts</span>
+						<span id="debts">Debts</span>
 					</petclinic:menuItem>
 				</sec:authorize>
 			</ul>
