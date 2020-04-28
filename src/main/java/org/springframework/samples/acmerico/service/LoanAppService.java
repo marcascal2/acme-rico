@@ -80,6 +80,7 @@ public class LoanAppService {
 	public void acceptLoanApp(LoanApplication loanApp) {
 		BankAccount bankAccount = loanApp.getBankAccount();
 		loanApp.setStatus("ACCEPTED");
+		loanApp.setAmount_paid(loanApp.getLoan().getOpening_price());
 		Double amount = bankAccount.getAmount();
 		bankAccount.setAmount(amount + loanApp.getAmount() - loanApp.getLoan().getOpening_price());
 		this.accountService.saveBankAccount(bankAccount);
@@ -103,19 +104,35 @@ public class LoanAppService {
 			if (!loanApp.isPaid()) {
 				BankAccount account = loanApp.getBankAccount();
 				if (account.getAmount() >= loanApp.getAmountToPay()) {
-					Double amount = account.getAmount() - loanApp.getAmountToPay();
-					account.setAmount(amount);
-					this.accountService.saveBankAccount(account);
-					Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
-					loanApp.setAmount_paid(amountPaid);
-					this.save(loanApp);
+					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
+						Double amount = account.getAmount() - loanApp.getAmountToPay();
+						account.setAmount(amount);
+						this.accountService.saveBankAccount(account);
+						Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
+						loanApp.setAmount_paid(amountPaid);
+						loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+						this.save(loanApp);
+					}
 				} else {
-					Debt debt = new Debt();
-					debt.setAmount(loanApp.getAmountToPay());
-					debt.setClient(loanApp.getClient());
-					debt.setLoanApplication(loanApp);
-					debt.setRefreshDate(this.refreshDate());
-					this.debtService.save(debt);
+					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
+						Debt debt = this.debtService.getClientDebt(loanApp.getClient());
+						if(debt != null) {
+							debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
+							debt.setRefreshDate(this.refreshDate());
+							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+							this.save(loanApp);
+							this.debtService.save(debt);
+						} else {
+							Debt newDebt = new Debt();
+							newDebt.setAmount(loanApp.getAmountToPay());
+							newDebt.setClient(loanApp.getClient());
+							newDebt.setLoanApplication(loanApp);
+							newDebt.setRefreshDate(this.refreshDate());
+							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+							this.save(loanApp);
+							this.debtService.save(newDebt);
+						}
+					}
 				}
 			}
 		}

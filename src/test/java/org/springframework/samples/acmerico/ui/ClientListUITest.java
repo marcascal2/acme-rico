@@ -30,7 +30,7 @@ public class ClientListUITest {
 	@Test
 	public void testClientListUISuccess() throws Exception {
 		driver.get("http://localhost:"+ port +"/");
-		driver.get("http://localhost:"+ port +"/login");
+		driver.findElement(By.id("login-button")).click();
 		driver.findElement(By.id("username")).clear();
 		driver.findElement(By.id("username")).sendKeys("director1");
 		driver.findElement(By.id("password")).clear();
@@ -53,10 +53,9 @@ public class ClientListUITest {
 	}
 
 	@Test
-	@Disabled
 	public void testClientListUIUnsuccess() throws Exception {
 		driver.get("http://localhost:"+ port + "/");
-		driver.get("http://localhost:"+ port + "/login");
+		driver.findElement(By.id("login-button")).click();
 		driver.findElement(By.id("username")).clear();
 		driver.findElement(By.id("username")).sendKeys("client1");
 		driver.findElement(By.id("password")).clear();

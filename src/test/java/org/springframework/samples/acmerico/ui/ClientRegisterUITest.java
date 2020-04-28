@@ -9,7 +9,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -32,7 +31,6 @@ public class ClientRegisterUITest {
   }
 
   @Test
-  @Disabled
   public void testClientRegisterUI() throws Exception {
     driver.get("http://localhost:"+port+"/users/new");
     driver.findElement(By.id("firstName")).click();
@@ -60,7 +58,6 @@ public class ClientRegisterUITest {
     driver.findElement(By.id("user.username")).sendKeys("javi");
     driver.findElement(By.id("user.password")).clear();
     driver.findElement(By.id("user.password")).sendKeys("javi");
-    driver.findElement(By.xpath("//*[@id='dniFile']")).sendKeys("C:\\Users\\Javier\\Pictures\\629642.jpg");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.get("http://localhost:"+port+"/login");
     driver.findElement(By.id("username")).clear();

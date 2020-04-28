@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
@@ -65,7 +64,6 @@ public class AddRemoveWorkerUITest {
 	}
 
 	@Test
-	@Disabled
 	public void testAddDeleteWorkerUnsuccessClient() throws Exception {
 		driver.get("http://localhost:" + port + "/login");
 		driver.findElement(By.id("username")).clear();
@@ -73,7 +71,7 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		Assert.assertNotEquals("Manage users", driver.findElement(By.id("navbarDropdown")).getText());
+		assertEquals(false, isElementPresent(By.id("navbarDropdown")));
 	}
 
 	@Test

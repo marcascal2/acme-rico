@@ -15,7 +15,6 @@ import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.CreditCardAppService;
-import org.springframework.samples.acmerico.web.CreditCardAppController;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;

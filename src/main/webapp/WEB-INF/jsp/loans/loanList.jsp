@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="loans">
 	<h2>Loans</h2>
@@ -11,13 +13,16 @@
 	<table id="loans" class="table table-striped">
 		<thead>
 			<tr>
-				<th style="width: 150px;">Description</th>
-				<th style="width: 150px;">Minimum Amount</th>
-				<th style="width: 150px;">Minimum Client Income</th>
-				<th style="width: 200px;">Number of Deadlines</th>
-				<th style="width: 200px;">Opening Price</th>
-				<th style="width: 200px;">Monthly Fee</th>
-				<th style="width: 200px;">Single Loan</th>
+				<th style="width: 15%;">Description</th>
+				<th style="width: 15%;">Minimum amount</th>
+				<th style="width: 15%;">Minimum income</th>
+				<th style="width: 10%;">Number of deadlines</th>
+				<th style="width: 10%;">Opening price</th>
+				<th style="width: 10%;">Monthly fee</th>
+				<th style="width: 10%;">Single lsoan</th>
+				<sec:authorize access="hasAuthority('director')">
+				<th style="width: 15%;">Nº of loan apps</th>
+				</sec:authorize>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,14 +38,19 @@
 					<td><c:out value="${loan.number_of_deadlines}" /></td>
 					<td><c:out value="${loan.opening_price}" /></td>
 					<td><c:out value="${loan.monthly_fee}" /></td>
-					<td><c:choose>
+					<td>
+						<c:choose>
 							<c:when test="${loan.single_loan}">
 								<c:out value="Yes" />
 							</c:when>
 							<c:when test="${!loan.single_loan}">
 								<c:out value="No" />
 							</c:when>
-						</c:choose></td>
+						</c:choose>
+					</td>
+					<sec:authorize access="hasAuthority('director')">
+					<td><c:out value="${loan.loanApplications.size()}" /></td>
+					</sec:authorize>
 				</tr>
 			</c:forEach>
 		</tbody>

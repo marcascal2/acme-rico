@@ -58,8 +58,8 @@ public class LoanCreateUITest {
     driver.findElement(By.id("monthly_fee")).clear();
     driver.findElement(By.id("monthly_fee")).sendKeys("0.04");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("Prueba", driver.findElement(By.xpath("//table[@id='loans']/tbody/tr[6]/td[2]")).getText());
-    assertEquals("4", driver.findElement(By.linkText("4")).getText());
+    assertEquals("Prueba", driver.findElement(By.xpath("//table/tbody/tr[6]/td[1]")).getText());
+    assertEquals("Prueba", driver.findElement(By.linkText("Prueba")).getText());
     driver.quit();
   }
 

@@ -80,6 +80,7 @@ public class ValidatorLoanAppTests {
 		loanApp.setBankAccount(bankAccount);
 		loanApp.setLoan(loan);
 		loanApp.setClient(client);
+		loanApp.setPayedDeadlines(0);
 	}
 
 	private Validator createValidator() {
