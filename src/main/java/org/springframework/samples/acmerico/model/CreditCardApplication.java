@@ -23,7 +23,7 @@ public class CreditCardApplication extends BaseEntity{
 	private String status;
 	
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
 	private Client client;
 	

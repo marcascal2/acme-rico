@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -34,15 +35,18 @@ public class CreditCard extends BaseEntity {
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@ToString.Exclude
 	private Client client;
 	
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@ToString.Exclude
 	private BankAccount bankAccount;
 
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@ToString.Exclude
 	private CreditCardApplication creditCardApplication;
 }
