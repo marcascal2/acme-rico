@@ -35,7 +35,7 @@ public class BankAccountInfoStepDefinitions extends AbstractStep {
     @Then("The information is shown as the current user")
     public void IsLoggedIn() throws Exception {
         assertEquals("ES23 0025 0148 1259 1424", getDriver().findElement(By.id("accountNumber")).getAttribute("value"));
-  	    assertEquals("2567.34", getDriver().findElement(By.id("amount")).getAttribute("value"));
+  	    assertEquals("3317.34", getDriver().findElement(By.id("amount")).getAttribute("value"));
    	    assertEquals("Viajes", getDriver().findElement(By.id("alias")).getAttribute("value"));
         stopDriver();
     }
@@ -69,6 +69,6 @@ public class BankAccountInfoStepDefinitions extends AbstractStep {
         } catch (NoSuchElementException e) {
           return false;
         }
-      }
+    }
     
 }

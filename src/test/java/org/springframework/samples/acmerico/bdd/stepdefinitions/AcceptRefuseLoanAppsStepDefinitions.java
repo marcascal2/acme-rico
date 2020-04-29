@@ -31,14 +31,14 @@ public class AcceptRefuseLoanAppsStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.linkText("Clients requests")).click();
 		getDriver().findElement(By.id("dropdown-director")).click();
 		getDriver().findElement(By.id("loan-applications")).click();
-		getDriver().findElement(By.xpath("(//a[contains(text(),'Préstamo de estudios')])[3]")).click();
-		 assertEquals("Accept Loan Application", getDriver().findElement(By.xpath("//form/button")).getText());
+		getDriver().findElement(By.xpath("//a[contains(text(),'Préstamo de estudios')]")).click();
+		assertEquals("Accept Loan Application", getDriver().findElement(By.xpath("//form/button")).getText());
 	}
 
 	@Then("The loan application is accepted")
 	public void LoanApplicationAccepted() throws Exception {
 		getDriver().findElement(By.xpath("//form/button")).click();
-	    assertEquals("ACCEPTED", getDriver().findElement(By.xpath("//table[@id='loanApps']/tbody/tr[3]/td[4]")).getText());
+	    assertEquals("ACCEPTED", getDriver().findElement(By.xpath("//table[@id='loanApps']/tbody/tr/td[4]")).getText());
 		stopDriver();
 	}
 

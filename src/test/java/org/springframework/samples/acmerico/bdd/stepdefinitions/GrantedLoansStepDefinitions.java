@@ -36,6 +36,7 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 	 public void IsLoggedIn() throws Exception {
 		 assertEquals("Préstamo de estudios", getDriver().findElement(By.linkText("Préstamo de estudios")).getText());
 		 assertEquals("Préstamo hipotecario", getDriver().findElement(By.linkText("Préstamo hipotecario")).getText());
+		 stopDriver();
 	 }
 
 }
