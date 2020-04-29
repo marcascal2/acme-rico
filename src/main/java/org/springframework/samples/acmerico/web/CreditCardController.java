@@ -9,6 +9,7 @@ import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.CreditCardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -44,9 +45,9 @@ public class CreditCardController {
 	}
 
 	@GetMapping(value = "/cards/{cardId}/show")
-	public String showCreditCardInfo(@PathVariable("cardId") int cardId, Model model) {
+	public String showCreditCardInfo(@PathVariable("cardId") int cardId, ModelMap model) {
 		CreditCard creditCard = creditCardService.findCreditCardById(cardId);
-		model.addAttribute("creditCard", creditCard);
+		model.put("creditCard", creditCard);
 		return VIEWS_CARD_DETAILS;
 	}
 
