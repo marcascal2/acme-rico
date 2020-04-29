@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -36,10 +37,12 @@ public class TransferApplication extends BaseEntity {
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@ToString.Exclude
 	private BankAccount bankAccount;
 	
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@ToString.Exclude
 	private Client client;
 }
