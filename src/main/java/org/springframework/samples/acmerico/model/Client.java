@@ -12,11 +12,13 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -59,24 +61,30 @@ public class Client extends Person {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
+	@ToString.Exclude
 	private User user;
 	
 	@OneToMany(mappedBy = "client")
+	@ToString.Exclude
 	private Collection<BankAccount> bankAccounts;
 	
 	@OneToMany(mappedBy = "client")
+	@ToString.Exclude
 	public Collection<CreditCard> creditCards;
 	
 	@OneToMany(mappedBy = "client")
+	@ToString.Exclude
 	public Collection<CreditCardApplication> creditCardApps;
 	
 	@OneToMany(mappedBy = "client")
+	@ToString.Exclude
 	public Collection<InstantTransfer> instantTransfers;
 	
 	@OneToMany(mappedBy = "client")
 	public Collection<TransferApplication> transferApps;
 	
 	@OneToMany(mappedBy = "client")
+	@ToString.Exclude
 	public Collection<LoanApplication> loanApps;
 
 	@Transient
