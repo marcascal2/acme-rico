@@ -94,7 +94,7 @@ public class ClientControllerTest {
 		javier.setAddress("Gordal");
 		javier.setBirthDate(bithday);
 		javier.setCity("Sevilla");
-		javier.setMaritalStatus("single but whole");
+		javier.setMaritalStatus("married");
 		javier.setSalaryPerYear(300000.);
 		javier.setAge(21);
 		javier.setJob("student");
@@ -206,7 +206,6 @@ public class ClientControllerTest {
 	// Show test
 	@WithMockUser(value = "spring")
 	@Test
-
 	void testShowClientById() throws Exception {
 		mockMvc.perform(get("/clients/{clientId}", TEST_CLIENT_ID)).andExpect(model().attributeExists("client"))
 				.andExpect(model().attribute("client", hasProperty("firstName", is("Javier"))))
@@ -224,7 +223,6 @@ public class ClientControllerTest {
 	// Edit tests
 	@WithMockUser(value = "spring")
 	@Test
-
 	void initUpdateFormClient() throws Exception {
 		final LocalDate bithday = LocalDate.of(1998, 11, 27);
 		final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
@@ -235,7 +233,7 @@ public class ClientControllerTest {
 				.andExpect(model().attribute("client", hasProperty("address", is("Gordal"))))
 				.andExpect(model().attribute("client", hasProperty("birthDate", is(bithday))))
 				.andExpect(model().attribute("client", hasProperty("city", is("Sevilla"))))
-				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("single but whole"))))
+				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("married"))))
 				.andExpect(model().attribute("client", hasProperty("salaryPerYear", is(300000.0))))
 				.andExpect(model().attribute("client", hasProperty("age", is(21))))
 				.andExpect(model().attribute("client", hasProperty("job", is("student"))))
@@ -247,9 +245,7 @@ public class ClientControllerTest {
 
 	@WithMockUser(value = "spring")
 	@Test
-
 	void testUpdateFormClientSuccess() throws Exception {
-
 		mockMvc.perform(post("/clients/{clientId}/edit", TEST_CLIENT_ID)
 				.with(csrf())
 				.param("firstName", "Javier")
@@ -257,7 +253,7 @@ public class ClientControllerTest {
 				.param("address", "Gordal")
 				.param("birthDate", "1998/11/27")
 				.param("city", "Sevilla")
-				.param("maritalStatus", "single but whole")
+				.param("maritalStatus", "married")
 				.param("salaryPerYear", "300000.")
 				.param("age", "21")
 				.param("job", "student")
@@ -269,14 +265,12 @@ public class ClientControllerTest {
 				.andExpect(view().name("redirect:/clients/{clientId}"));
 	}
 
-	// @WithMockUser(value = "spring")
-	// @Test
-
+	@WithMockUser(value = "spring")
+	@Test
 	void testUpdateFormClientHasErrors() throws Exception {
 		mockMvc.perform(post("/clients/{clientId}/edit", TEST_CLIENT_ID).with(csrf()).param("firstName", "Javier")
 				.param("lastName", "Ruiz").param("address", "Gordal")
-				// .param("birthDate", "1998/11/27")
-				.param("city", "Sevilla").param("maritalStatus", "single but whole").param("salaryPerYear", "300000.")
+				.param("city", "Sevilla").param("maritalStatus", "married").param("salaryPerYear", "300000.")
 				.param("lastEmployDate", "2010-01-22")).andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("client"))
 				.andExpect(model().attributeHasFieldErrors("client", "age"))
@@ -291,7 +285,6 @@ public class ClientControllerTest {
 	//Show test
 	@WithMockUser(value = "spring")
 	@Test
-
 	void testShowPersonalDataByName() throws Exception {
 		mockMvc.perform(get("/personalData/{name}", TEST_CLIENT_USER)).andExpect(model().attributeExists("client"))
 				.andExpect(model().attribute("client", hasProperty("firstName", is("Javier"))))
@@ -307,7 +300,6 @@ public class ClientControllerTest {
 	//Personal Data edit
 	@WithMockUser(value = "spring")
 	@Test
-
 	void initUpdateFormPersonalDataClient() throws Exception {
 		final LocalDate bithday = LocalDate.of(1998, 11, 27);
 		final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
@@ -324,7 +316,7 @@ public class ClientControllerTest {
 				.andExpect(model().attribute("client", hasProperty("address", is("Gordal"))))
 				.andExpect(model().attribute("client", hasProperty("birthDate", is(bithday))))
 				.andExpect(model().attribute("client", hasProperty("city", is("Sevilla"))))
-				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("single but whole"))))
+				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("married"))))
 				.andExpect(model().attribute("client", hasProperty("salaryPerYear", is(300000.0))))
 				.andExpect(model().attribute("client", hasProperty("age", is(21))))
 				.andExpect(model().attribute("client", hasProperty("job", is("student"))))
@@ -333,14 +325,11 @@ public class ClientControllerTest {
 				.andExpect(view().name("clients/createOrUpdateClientForm"));
 
 		verify(clientService).findClientById(TEST_CLIENT_ID);
-
 	}
 
 	@WithMockUser(value = "spring")
 	@Test
-
 	void testUpdateFormPersonalDataSuccess() throws Exception {
-
 		mockMvc.perform(post("/personalData/{clientId}/edit", TEST_CLIENT_ID)
 				.param("id", "2")
 				.param("firstName", "Javi")
@@ -348,25 +337,25 @@ public class ClientControllerTest {
 				.param("address", "Gordal")
 				.param("birthDate", "1998/11/27")
 				.param("city", "Sevilla")
-				.param("maritalStatus", "single but whole")
+				.param("maritalStatus", "married")
 				.param("salaryPerYear", "300000.")
 				.param("age", "21")
 				.param("job", "student")
-				.param("lastEmployDate", "2010/01/22").with(csrf()))
+				.param("lastEmployDate", "2010/01/22")
+				.param("user.username", "client1")
+				.param("user.password", "client1").with(csrf()))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/"));
-
 	}
 
 	@WithMockUser(value = "spring")
 	@Test
-
 	void testUpdateFormPersonalDataHasErrors() throws Exception {
 		mockMvc.perform(post("/personalData/{clientId}/edit", TEST_CLIENT_ID).param("firstName", "Javier")
 				.param("lastName", "Ruiz").param("address", "Gordal")
-				// .param("birthDate", "1998/11/27")
-				.param("city", "Sevilla").param("maritalStatus", "single but whole").param("salaryPerYear", "300000.")
-				.param("lastEmployDate", "2010/01/22").with(csrf())).andExpect(status().isOk())
+				.param("city", "Sevilla").param("maritalStatus", "married").param("salaryPerYear", "300000.")
+				.param("lastEmployDate", "2010/01/22").param("user.username", "client1")
+				.param("user.password", "client1").with(csrf())).andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("client"))
 				.andExpect(model().attributeHasFieldErrors("client", "age"))
 				.andExpect(model().attributeHasFieldErrors("client", "job"))
