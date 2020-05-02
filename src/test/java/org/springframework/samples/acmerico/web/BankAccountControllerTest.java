@@ -137,7 +137,6 @@ public class BankAccountControllerTest {
 
     @WithMockUser(value = "spring")
     @Test
-    // No puedo checkear mas porque ModelAndView no me deja usar las notaciones
     void testProcessCreationFormWithErrors() throws Exception {
         // ModelAndView modelAndView = Mockito.mock(ModelAndView.class);
 
