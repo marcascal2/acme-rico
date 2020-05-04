@@ -2,9 +2,12 @@ package org.springframework.samples.acmerico.web;
 
 import java.util.Collection;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.model.Client;
+import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.service.AuthoritiesService;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.UserService;
@@ -116,7 +119,24 @@ public class ClientController {
 	@GetMapping("/clients/{clientId}")
 	public ModelAndView showClient(@PathVariable("clientId") int clientId) {
 		ModelAndView mav = new ModelAndView("clients/clientsDetails");
-		mav.addObject(this.clientService.findClientById(clientId));
+		
+		Client client = this.clientService.findClientById(clientId);
+		Integer countAccounts = client.getBankAccounts().size();
+		
+		Collection<LoanApplication> clientLoans = client.getLoanApps();
+		Integer borrowedAmount = (int) clientLoans.stream().filter(x->x.getStatus().equals("ACCEPTED"))
+				.mapToDouble(x->x.getAmount()).sum();
+		
+		Integer totalAmount = (int) client.getBankAccounts().stream().mapToDouble(x->x.getAmount()).sum();
+		
+		mav.addObject(client);
+		mav.addObject("countAccounts", countAccounts);
+		mav.addObject("clientLoans",clientLoans);
+		mav.addObject("borrowedAmount", borrowedAmount);
+		mav.addObject("totalAmount", totalAmount);
+		
+		
+		
 		return mav;
 	}
 
