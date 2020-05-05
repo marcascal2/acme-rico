@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ch.qos.logback.core.net.server.Client;
-
 @Controller
 public class DashboardController {
 	
@@ -25,12 +23,8 @@ public class DashboardController {
 //		String username = principal.getName();
 //		Client client = (Client) this.clientService.findClientByUserName(username);
 		
-//		model.addAttribute("moneyPerDays",  Arrays.asList("7","6","5","4","3","2","1"));
-//		model.addAttribute("labels", Arrays.asList("7","6","5","4","3","2","1"));
-		
-		model.addAttribute("labels", Arrays.asList());
-		model.addAttribute("numC", Arrays.asList());
-		model.addAttribute("numI", Arrays.asList());
+		model.addAttribute("moneyPerDays",  Arrays.asList("7","6","5","4","3","2","1"));
+		model.addAttribute("labels", Arrays.asList("7","6","5","4","3","2","1"));
 		
 		return "dashboard/appInfo";
 	}
