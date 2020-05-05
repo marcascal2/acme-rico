@@ -118,7 +118,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping(value = "/personalDataEmployee/{name}")
-	public ModelAndView processInitPersonalDataForm(@PathVariable("name") String name, Model model) {
+	public ModelAndView processInitPersonalDataForm(@PathVariable("name") String name) {
 		ModelAndView mav = new ModelAndView("employees/employeesDetails");
 		mav.addObject(this.employeeService.findEmployeeByUserName(name));
 		return mav;
