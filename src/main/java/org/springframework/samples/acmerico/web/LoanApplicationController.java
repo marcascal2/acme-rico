@@ -118,8 +118,10 @@ public class LoanApplicationController {
 	public String showLoanApplication(@PathVariable("loanappsId") int loanappsId, ModelMap modelMap) {
 		try {
 			LoanApplication loanApp = this.loanAppService.findLoanAppById(loanappsId);
+			Integer remaining_deadlines = loanApp.getLoan().getNumber_of_deadlines() - loanApp.getPayedDeadlines();
 			modelMap.put("loan_app", loanApp);
 			modelMap.put("isPaid", loanApp.isPaid());
+			modelMap.put("remaining_deadlines", remaining_deadlines);
 			return "loanApp/loanAppDetails";
 		} catch (Exception e) {
 			return "redirect:/";

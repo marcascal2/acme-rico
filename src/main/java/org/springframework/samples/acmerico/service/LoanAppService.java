@@ -106,9 +106,11 @@ public class LoanAppService {
 				if (account.getAmount() >= loanApp.getAmountToPay()) {
 					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
 						Double amount = account.getAmount() - loanApp.getAmountToPay();
+						amount = (double) Math.round(amount*100)/100;
 						account.setAmount(amount);
 						this.accountService.saveBankAccount(account);
 						Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
+						amountPaid = (double) Math.round(amountPaid*100)/100;
 						loanApp.setAmount_paid(amountPaid);
 						loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
 						this.save(loanApp);

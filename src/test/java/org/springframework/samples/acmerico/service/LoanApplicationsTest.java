@@ -92,13 +92,13 @@ public class LoanApplicationsTest {
 	@Test
 	public void testCountLoanAppsAfterCreating() {
 		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findAllLoanApps();
-		assertThat(loanAplocations.size()).isEqualTo(2);
+		assertThat(loanAplocations.size()).isEqualTo(5);
 	}
 
 	@Test
 	public void testCountLoanAppsByClient() {
 		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findLoanAppsByClient(client.getId());
-		assertThat(loanAplocations.size()).isEqualTo(1);
+		assertThat(loanAplocations.size()).isEqualTo(3);
 	}
 
 	@Test

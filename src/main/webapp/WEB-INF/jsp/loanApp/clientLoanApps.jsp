@@ -25,10 +25,6 @@
 								value="${loanApp.loan.description}" />
 					</a></td>
 					<td>
-						<!-- <spring:url value="/cards/{cardId}/show" var="cardUrl">
-                        <spring:param name="cardId" value="${card.id}"/>
-                    </spring:url>
-                    <a href="${fn:escapeXml(cardUrl)}"><c:out value="${card.number}"/></a>-->
 						<c:out value="${loanApp.status}" />
 					</td>
 					<td><c:out value="${clientUser}" /></td>
