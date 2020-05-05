@@ -29,7 +29,7 @@ public class LoanApplicationControllerIntegrationTests {
 
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@WithMockUser(username = "client1", authorities = { "client" })
 	@Test
 	void testListClientLoanApp() throws Exception {
@@ -76,7 +76,7 @@ public class LoanApplicationControllerIntegrationTests {
 		mockMvc.perform(get("/loanapps/{loanappsId}/refuse", TEST_LOAN_APPLICATION_ID)).andExpect(status().isFound())
 				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
 	}
-	
+
 	@WithMockUser(username = "director1", authorities = { "director" })
 	@Test
 	void testCollectAcceptedLoans() throws Exception {
