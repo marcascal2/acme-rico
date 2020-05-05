@@ -15,6 +15,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -41,21 +42,27 @@ public class BankAccount extends BaseEntity {
 	@Valid
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
+	@ToString.Exclude
 	private Client client;
 	
 	@OneToMany(mappedBy = "bankAccount")
+	@ToString.Exclude
 	private Collection<CreditCardApplication> creditCardApps;
 	
 	@OneToMany(mappedBy = "bankAccount")
+	@ToString.Exclude
 	private Collection<CreditCard> creditCards;
 	
 	@OneToMany(mappedBy = "bankAccount")
+	@ToString.Exclude
 	private Collection<InstantTransfer> instantTransfers;
 	
 	@OneToMany(mappedBy = "bankAccount")
+	@ToString.Exclude
 	private Collection<TransferApplication> transfersApps;
 	
 	@OneToMany(mappedBy = "bankAccount")
+	@ToString.Exclude
 	private Collection<LoanApplication> loanApps;
 	
 }
