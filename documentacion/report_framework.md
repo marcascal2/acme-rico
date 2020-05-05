@@ -9,3 +9,9 @@ REPORT DE PROBLEMAS CON EL FRAMEWORK: v1.0
         - Al ejecutar los tests de controlador nos da un error al tratar de llamar al método toString() de nuestras entidades. Según lo que hemos encontrado en foros se debe a que Lombok tiene un problema al generar este método cuando hay relaciones circulares presentes en la base de datos.
         
         - Al tratar de eliminar una entidad con múltiples relaciones, no encontramos la forma de que funcione tanto en MySQL como en HSQLDB, ya que trata las relaciones de forma diferente y lanza excepciones en una o en otra dependiendo del tipo de asociación que hacemos.
+        
+        - La versión de RestAssured que utilizamos nos da error al ejecutar los tests: 
+        
+        java.lang.AbstractMethodError: Receiver class io.restassured.internal.ResponseParserRegistrar does not define or inherit an implementation of the resolved method 'abstract java.lang.Object getProperty(java.lang.String)' of interface groovy.lang.GroovyObject.
+        
+        Por lo que tuvimos que cambiar a la versión 3.3 para que funcione.
