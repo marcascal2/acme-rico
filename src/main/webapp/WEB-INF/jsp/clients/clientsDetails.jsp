@@ -57,7 +57,7 @@
 	
 		</br>
 		</br>
-		
+	<sec:authorize access="hasAuthority('director')">
 	<h2>Bank Customer Information</h2>
 	<table class="table table-striped">
 		<tr>
@@ -104,5 +104,5 @@
         </c:forEach>
         </tbody>
     </table>
-	
+	</sec:authorize>
 </petclinic:layout>

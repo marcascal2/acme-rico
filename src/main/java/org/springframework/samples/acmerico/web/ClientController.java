@@ -14,6 +14,7 @@ import org.springframework.samples.acmerico.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -116,10 +117,10 @@ public class ClientController {
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
-	@GetMapping("/clients/{clientId}")
-	public ModelAndView showClient(@PathVariable("clientId") int clientId) {
-		ModelAndView mav = new ModelAndView("clients/clientsDetails");
+	@GetMapping(value = "/clients/{clientId}")
+	public String showClient(@PathVariable("clientId") int clientId, Model model) {
 		
+				
 		Client client = this.clientService.findClientById(clientId);
 		Integer countAccounts = client.getBankAccounts().size();
 		
@@ -129,22 +130,25 @@ public class ClientController {
 		
 		Integer totalAmount = (int) client.getBankAccounts().stream().mapToDouble(x->x.getAmount()).sum();
 		
-		mav.addObject(client);
-		mav.addObject("countAccounts", countAccounts);
-		mav.addObject("clientLoans",clientLoans);
-		mav.addObject("borrowedAmount", borrowedAmount);
-		mav.addObject("totalAmount", totalAmount);
+		model.addAttribute("client", client);
+		model.addAttribute("countAccounts", countAccounts);
+		model.addAttribute("clientLoans",clientLoans);
+		model.addAttribute("borrowedAmount", borrowedAmount);
+		model.addAttribute("totalAmount", totalAmount);
 		
+		//System.out.println("=====================");
+		//System.out.println(mav.getModel().values().toString());
 		
-		
-		return mav;
+		return "clients/clientsDetails";
 	}
 
 	@GetMapping(value = "/personalData/{name}")
-	public ModelAndView processInitPersonalDataForm(@PathVariable("name") String name, Model model) {
-		ModelAndView mav = new ModelAndView("clients/clientsDetails");
-		mav.addObject(this.clientService.findClientByUserName(name));
-		return mav;
+	public String processInitPersonalDataForm(@PathVariable("name") String name, Model model) {
+		
+		Client client = this.clientService.findClientByUserName(name);
+		model.addAttribute("client", client);
+	
+		return "clients/clientsDetails";
 	}
 
 	@GetMapping(value = "/personalData/{clientId}/edit")
