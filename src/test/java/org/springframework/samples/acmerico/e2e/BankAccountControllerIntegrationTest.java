@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.e2e;
 
 import static org.hamcrest.Matchers.hasProperty;
+
 import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
