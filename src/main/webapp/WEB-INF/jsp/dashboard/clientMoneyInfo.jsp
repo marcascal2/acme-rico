@@ -6,7 +6,9 @@
 	<canvas id="canvas1"></canvas>
 </div>
 
-<script type="text/javascript">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">
 	$(document).ready(function(){
 		var data = {
 				labels: [
@@ -47,7 +49,7 @@
 		canvas = document.getElementById("canvas1");
 		context = canvas.getContext("2d");
 		new Chart(context, {
-			type : "line",
+			type : "bar",
 			data : data,
 			options : options
 		});

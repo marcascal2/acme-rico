@@ -2,8 +2,6 @@ package org.springframework.samples.acmerico.web;
 
 import java.security.Principal;
 import java.util.Arrays;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DashboardController {
 	
-	private ClientService clientService;
-	
-	@Autowired
-	public DashboardController(ClientService clientService) {
-		this.clientService = clientService;
-	}
+//	private ClientService clientService;
+//	
+//	@Autowired
+//	public DashboardController(ClientService clientService) {
+//		this.clientService = clientService;
+//	}
 
 	@GetMapping(value = "/dashboard")
 	public String showClientCards(Principal principal, Model model) {
@@ -26,6 +24,6 @@ public class DashboardController {
 		model.addAttribute("moneyPerDays",  Arrays.asList("7","6","5","4","3","2","1"));
 		model.addAttribute("labels", Arrays.asList("7","6","5","4","3","2","1"));
 		
-		return "dashboard/appInfo";
+		return "dashboard/clientMoneyInfo";
 	}
 }
