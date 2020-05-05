@@ -21,7 +21,6 @@ public class DebtController {
 		this.debtService = debtService;
 	}
 	
-	// Listar deudas pendientes
 	@GetMapping(value = "/debts/pending")
 	public String listPendingDebts(ModelMap modelMap) {
 		Collection<Debt> debts = this.debtService.getNonPayedDebts();

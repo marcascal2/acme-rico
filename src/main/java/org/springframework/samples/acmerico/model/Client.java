@@ -86,6 +86,10 @@ public class Client extends Person {
 	@OneToMany(mappedBy = "client")
 	@ToString.Exclude
 	public Collection<LoanApplication> loanApps;
+	
+	@OneToMany(mappedBy = "client")
+	@ToString.Exclude
+	public Collection<Debt> debts;
 
 	@Transient
 	private MultipartFile dniFile;
