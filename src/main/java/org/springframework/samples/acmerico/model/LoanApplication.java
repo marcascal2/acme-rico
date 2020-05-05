@@ -55,7 +55,6 @@ public class LoanApplication extends BaseEntity {
 	private Client client;
 	
 	//PROPIEDADES DERIVADAS
-	
 	public Double getAmountToPay() {
 		return (getAmount() - getLoan().getOpening_price()) * (getLoan().getMonthly_fee()*(Math.pow(1+getLoan().getMonthly_fee(), getLoan().getNumber_of_deadlines())))/(Math.pow(1+getLoan().getMonthly_fee(), getLoan().getNumber_of_deadlines())-1) ;
 	}
