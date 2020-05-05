@@ -49,6 +49,20 @@
 		</tr>
 	</table>
 
+	<sec:authorize access="hasAuthority('client')">
+		<c:choose>
+			<c:when test="${loan_app.status == 'ACCEPTED'}">
+				<div class="remaining-div">
+					<div class="remaining-main-div">
+						<p class="remaining-title">
+							<c:out value="${remaining_deadlines}" />
+							remaining deadlines to be paid!
+						</p>
+					</div>
+				</div>
+			</c:when>
+		</c:choose>
+	</sec:authorize>
 	<sec:authorize
 		access="hasAuthority('director') || hasAuthority('worker')">
 		<c:choose>
