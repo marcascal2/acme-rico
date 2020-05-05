@@ -38,7 +38,6 @@ public class DebtControllerTest {
 	@WithMockUser(value = "spring")
     @Test
     void testListPendingDebtsSuccess() throws Exception{
-		
 		mockMvc.perform(get("/debts/pending"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("debts"))
@@ -46,8 +45,6 @@ public class DebtControllerTest {
 			.andExpect(view().name("debts/debtsList"));
 		
 		verify(debtService).getNonPayedDebts();
-
-		
 	}
 
 }

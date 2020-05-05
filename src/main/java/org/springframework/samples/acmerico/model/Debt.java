@@ -30,7 +30,7 @@ public class Debt extends BaseEntity {
     
     @Valid
 	@OneToOne(cascade = CascadeType.ALL)
-	@NotNull
+    @NotNull
 	private LoanApplication loanApplication;
 	
 	@Valid
