@@ -78,7 +78,7 @@ public class LoanController {
 	public String showDirectorLoan(@PathVariable("loanId") int loanId, ModelMap modelMap) {
 		try {
 			Loan loan = this.loanService.findLoanById(loanId);
-			List<LoanApplication> acceptedLoanApps = loan.getLoanApplications().stream().filter(la->la.getStatus().equals("ACCEPTED")).collect(Collectors.toList());
+			List<LoanApplication> acceptedLoanApps = this.loanService.acceptedLoanApps(loan);
 			modelMap.put("loan", loan);
 			modelMap.put("acceptedLoanApps", acceptedLoanApps);
 			return "loans/loanInfo";

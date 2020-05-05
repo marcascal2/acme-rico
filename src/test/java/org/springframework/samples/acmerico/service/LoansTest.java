@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,7 +66,7 @@ public class LoansTest {
 		loanApplication.setId(1);
 		loanApplication.setAmount(2000.0);
 		loanApplication.setPurpose("This is a purpose");
-		loanApplication.setStatus("PENDING");
+		loanApplication.setStatus("ACCEPTED");
 		loanApplication.setAmount_paid(100.0);
 		loanApplication.setBankAccount(bankAccount);
 		loanApplication.setLoan(loan);
@@ -89,5 +91,11 @@ public class LoansTest {
 	public void testCheckSingleLoan() {
 		Boolean checkSingleLoan = this.loanService.checkSingleLoan(bankAccount.getId());
 		assertThat(checkSingleLoan).isEqualTo(true);
+	}
+	
+	@Test
+	public void testCheckAcceptedApps() {
+		List<LoanApplication> accepted = this.loanService.acceptedLoanApps(loan);
+		assertThat(accepted.size()).isEqualTo(1);
 	}
 }
