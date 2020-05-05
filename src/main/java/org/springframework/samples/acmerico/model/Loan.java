@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -47,5 +48,6 @@ public class Loan extends BaseEntity {
 	private Boolean single_loan;
 	
 	@OneToMany(mappedBy = "loan")
+	@ToString.Exclude
 	private Collection<LoanApplication> loanApplications;
 } 
