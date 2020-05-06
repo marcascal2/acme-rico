@@ -49,6 +49,11 @@
 								title="my cards">
 								<span id="my-credit-card">My credit cards</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'clients'}" url="/exchanges"
+								title="exchanges">
+								<span id="exchanges">Exchange rates</span>
+							</petclinic:menuSubitem>
 						</div>
 					<li class="nav-item dropdown" id="dropdown-clients-apps"><a
 						class="nav-link dropdown-toggle" role="button"
@@ -66,7 +71,8 @@
 								url="/myloanapps" title="my loanApps">
 								<span id="loan-apps">My loan applications</span>
 							</petclinic:menuSubitem>
-						</div> <petclinic:menuItem active="${name eq 'dashboards'}"
+						</div> 
+						<petclinic:menuItem active="${name eq 'dashboards'}"
 							url="/dashboard" title="find dashboard">
 							<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
 							<span id="dashboards">Dashboard</span>
