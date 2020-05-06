@@ -43,7 +43,7 @@ public class ClientsMYSQLTest {
 
 	@Test
 	public void testCountClientsByLastName() {
-		Collection<Client> clients = this.service.findClientByLastName("Franklin");
+		Collection<Client> clients = this.service.findClientByLastName("Parker");
 		assertThat(clients.size()).isEqualTo(1);
 	}
 
