@@ -23,10 +23,11 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class ClientsTest {
+public class ClientsTestHSQL {
 
 	@Autowired
 	private ClientService service;
@@ -36,6 +37,7 @@ public class ClientsTest {
 	EntityManager entityManager;
 
 	@BeforeEach
+	@DirtiesContext
 	private void populateData() {
 		User new_user = new User();
 		LocalDate bday = LocalDate.of(1999, 9, 6);

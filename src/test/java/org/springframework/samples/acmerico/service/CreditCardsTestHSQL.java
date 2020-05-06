@@ -1,16 +1,15 @@
 package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import javax.persistence.EntityManager;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -19,36 +18,42 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
-import org.springframework.samples.acmerico.model.TransferApplication;
+import org.springframework.samples.acmerico.model.CreditCard;
+import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 
+@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class TransferApplicationsTest {
+public class CreditCardsTestHSQL {
 
 	@Autowired
-	private TransferAppService transferAppService;
-	
+	private CreditCardService creditCardService;
 	@Autowired
-	private BankAccountService bankAccountService;
-	
+	private CreditCardAppService creditCardAppService;
+
 	@Autowired
 	private ClientService clientService;
 
-	EntityManager entityManager;
-	
+	@Autowired
+	private BankAccountService bankAccountService;
+
 	BankAccount bankAccount = new BankAccount();
 	Client client = new Client();
 	User user = new User();
-	TransferApplication transferApp = new TransferApplication();
+	CreditCardApplication application = new CreditCardApplication();
+
+	CreditCard creditCard = new CreditCard();
 
 	@BeforeEach
-	private void populateData() {
+	@DirtiesContext
+	void populateData() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
-		
+
 		client.setFirstName("Germán");
 		client.setLastName("Márquez Trujillo");
 		client.setAddress("C/ Marques de Aracena, 37");
@@ -62,65 +67,43 @@ public class TransferApplicationsTest {
 		client.setUser(user);
 		client.setBankAccounts(new ArrayList<BankAccount>());
 		client.getBankAccounts().add(bankAccount);
-		
+
 		this.clientService.saveClient(client);
-		
+
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
-		
+
 		this.bankAccountService.saveBankAccount(bankAccount);
+
+		application.setStatus("PENDING");
+		application.setClient(client);
+		application.setBankAccount(bankAccount);
+
+		this.creditCardAppService.save(application);
 		
-		transferApp.setStatus("PENDING");
-		transferApp.setAmount(200.00);
-		transferApp.setAccount_number_destination("ES24 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
-		this.transferAppService.save(transferApp);
+		creditCard.setBankAccount(bankAccount);
+		creditCard.setClient(client);
+		creditCard.setCreditCardApplication(application);
+		creditCard.setCvv("000");
+		creditCard.setDeadline("04/2020");
+		creditCard.setNumber("4295742384950740");
+		this.creditCardService.saveCreditCard(creditCard);
 	}
 
 	@Test
-	public void testCountTransferApplicationsAfterCreating() {
-		Collection<TransferApplication> transferApps = this.transferAppService.findAllTransfersApplications();
-		assertThat(transferApps.size()).isEqualTo(20);
-	}
-	
-	@Test
-	public void testFindTransferApplicationsByClient() {
-		Collection<TransferApplication> transferApps = this.transferAppService.findAllTransfersApplicationsByClient(client);
-		assertThat(transferApps.size()).isEqualTo(1);
-	}
-	
-	@Test
-	public void testSetMoney() {
-		this.transferAppService.setMoney(transferApp);
-		assertThat(bankAccount.getAmount()).isEqualTo(99800.);
-	}
-	
-	@Test
-	public void testAcceptApp() {
-		this.transferAppService.acceptApp(transferApp);
-		assertThat(transferApp.getStatus()).isEqualTo("ACCEPTED");
-	}
-	
-	@Test
-	public void testRefuseApp() {
-		this.transferAppService.refuseApp(transferApp);
-		assertThat(transferApp.getStatus()).isEqualTo("REJECTED");
+	public void testCountCreditCardAfterCreating() {
+		List<CreditCard> cards = (List<CreditCard>) this.creditCardService.findCreditCards();
+		assertThat(cards.size()).isEqualTo(5);
 	}
 
 	@Test
-	public void testTransferWithoutMoneyInAccount() {
-		transferApp.setAmount(102000.00);
-		assertThrows(IllegalArgumentException.class, ()-> this.transferAppService.setMoney(transferApp));
+	public void testDeleteCreditCard() {
+		this.creditCardService.deleteCreditCardById(creditCard.getId());
+		Collection<CreditCard> cards = this.creditCardService.findCreditCards();
+		assertThat(cards.size()).isEqualTo(4);
 	}
 
-	@Test
-	public void saveInvalidTransferApp() {
-		transferApp.setAccount_number_destination("");
-		assertThrows(NullPointerException.class, ()-> { this.transferAppService.save(transferApp); this.entityManager.flush(); });
-	}
 }

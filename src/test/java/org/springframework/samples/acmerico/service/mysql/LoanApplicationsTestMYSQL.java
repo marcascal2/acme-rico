@@ -1,4 +1,4 @@
-package org.springframework.samples.acmerico.service;
+package org.springframework.samples.acmerico.service.mysql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,11 +21,14 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.service.LoanAppService;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
+
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class LoanApplicationsTest {
+public class LoanApplicationsTestMYSQL {
 
 	@Autowired
 	private LoanAppService loanApplicationService;
