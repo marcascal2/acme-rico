@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import javax.validation.ConstraintViolationException;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -26,11 +26,10 @@ public class EmployeesMYSQLTest {
 	@Autowired
 	private EmployeeService service;
 
-	Employee new_employee = new Employee();
-	
-	@BeforeEach
-	private void populateData() {
+	@Test
+	public void testCountEmployeesAfterCreating() {
 		User new_user = new User();
+		Employee new_employee = new Employee();
 		new_user.setUsername("user");
 		new_user.setPassword("pass");
 		new_user.setEnabled(true);
@@ -39,10 +38,6 @@ public class EmployeesMYSQLTest {
 		new_employee.setSalary(33.00);
 		new_employee.setUser(new_user);
 		this.service.saveEmployee(new_employee);
-	}
-
-	@Test
-	public void testCountEmployeesAfterCreating() {
 		Collection<Employee> employees = this.service.findEmployeeByLastName("");
 		assertThat(employees.size()).isEqualTo(4);
 	}
@@ -55,13 +50,17 @@ public class EmployeesMYSQLTest {
 
 	@Test
 	public void testCountEmployeesByUserName() {
-		Employee employees = (Employee) this.service.findEmployeeByUserName("user");
-		assertThat(employees.getFirstName()).isEqualTo("Name");
+		Employee employees = (Employee) this.service.findEmployeeByUserName("worker2");
+		assertThat(employees.getFirstName()).isEqualTo("Rafael");
 	}
 
 	@Test
 	public void saveInvalidEmployee() {
+		Employee new_employee = new Employee();
+		new_employee.setFirstName("Name");
+		new_employee.setLastName("Surname");
+		new_employee.setSalary(33.00);
 		new_employee.setUser(null);
-		assertThrows(NullPointerException.class, () -> this.service.saveEmployee(new_employee));
+		assertThrows(ConstraintViolationException.class, () -> this.service.saveEmployee(new_employee));
 	}
 }

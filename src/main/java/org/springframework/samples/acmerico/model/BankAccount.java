@@ -40,28 +40,28 @@ public class BankAccount extends BaseEntity {
 	private String alias;
 	
 	@Valid
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@NotNull
 	@ToString.Exclude
 	private Client client;
 	
-	@OneToMany(mappedBy = "bankAccount")
+	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL)
 	@ToString.Exclude
 	private Collection<CreditCardApplication> creditCardApps;
 	
-	@OneToMany(mappedBy = "bankAccount")
+	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL)
 	@ToString.Exclude
 	private Collection<CreditCard> creditCards;
 	
-	@OneToMany(mappedBy = "bankAccount")
+	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL)
 	@ToString.Exclude
 	private Collection<InstantTransfer> instantTransfers;
 	
-	@OneToMany(mappedBy = "bankAccount")
+	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL)
 	@ToString.Exclude
 	private Collection<TransferApplication> transfersApps;
 	
-	@OneToMany(mappedBy = "bankAccount")
+	@OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL)
 	@ToString.Exclude
 	private Collection<LoanApplication> loanApps;
 	

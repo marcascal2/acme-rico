@@ -31,6 +31,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
+@Disabled
 public class TransferApplicationsMYSQLTest {
 
 	@Autowired
@@ -49,44 +50,44 @@ public class TransferApplicationsMYSQLTest {
 	User user = new User();
 	TransferApplication transferApp = new TransferApplication();
 
-	@BeforeEach
-	private void populateData() {
-		user.setUsername("userPrueba");
-		user.setPassword("userPrueba");
-		user.setEnabled(true);
-		
-		client.setFirstName("Germán");
-		client.setLastName("Márquez Trujillo");
-		client.setAddress("C/ Marques de Aracena, 37");
-		client.setBirthDate(LocalDate.parse("1998-04-15"));
-		client.setCity("Sevilla");
-		client.setMaritalStatus("Single");
-		client.setSalaryPerYear(2000.0);
-		client.setAge(21);
-		client.setJob("DP2 Developement Student");
-		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
-		client.setUser(user);
-		client.setBankAccounts(new ArrayList<BankAccount>());
-		client.getBankAccounts().add(bankAccount);
-		
-		this.clientService.saveClient(client);
-		
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccount.setAmount(100000.0);
-		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
-		bankAccount.setAlias("Viajes");
-		bankAccount.setClient(client);
-		
-		this.bankAccountService.saveBankAccount(bankAccount);
-		
-		transferApp.setStatus("PENDING");
-		transferApp.setAmount(200.00);
-		transferApp.setAccount_number_destination("ES24 2323 2323 2323 2323");
-		transferApp.setBankAccount(bankAccount);
-		transferApp.setClient(client);
-		
-		this.transferAppService.save(transferApp);
-	}
+//	@BeforeEach
+//	private void populateData() {
+//		user.setUsername("userPrueba");
+//		user.setPassword("userPrueba");
+//		user.setEnabled(true);
+//		
+//		client.setFirstName("Germán");
+//		client.setLastName("Márquez Trujillo");
+//		client.setAddress("C/ Marques de Aracena, 37");
+//		client.setBirthDate(LocalDate.parse("1998-04-15"));
+//		client.setCity("Sevilla");
+//		client.setMaritalStatus("Single");
+//		client.setSalaryPerYear(2000.0);
+//		client.setAge(21);
+//		client.setJob("DP2 Developement Student");
+//		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
+//		client.setUser(user);
+//		client.setBankAccounts(new ArrayList<BankAccount>());
+//		client.getBankAccounts().add(bankAccount);
+//		
+//		this.clientService.saveClient(client);
+//		
+//		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
+//		bankAccount.setAmount(100000.0);
+//		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
+//		bankAccount.setAlias("Viajes");
+//		bankAccount.setClient(client);
+//		
+//		this.bankAccountService.saveBankAccount(bankAccount);
+//		
+//		transferApp.setStatus("PENDING");
+//		transferApp.setAmount(200.00);
+//		transferApp.setAccount_number_destination("ES24 2323 2323 2323 2323");
+//		transferApp.setBankAccount(bankAccount);
+//		transferApp.setClient(client);
+//		
+//		this.transferAppService.save(transferApp);
+//	}
 
 	@Test
 	public void testCountTransferApplicationsAfterCreating() {
