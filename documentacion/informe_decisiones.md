@@ -1,4 +1,4 @@
-DECISIONES MÁS SIGNIFICATIVAS: v1.1
+DECISIONES MÁS SIGNIFICATIVAS: v2.0
 
 	1. APIS:
 		
@@ -28,13 +28,13 @@ DECISIONES MÁS SIGNIFICATIVAS: v1.1
                 de algunos recursos que nos proporciona GitHub, como los milestones y los labels, clasificando así nuestras tareas en tres categorías, prioridad alta, prioridad media y prioridad baja.
                 Con esto incrementamos el rendimiento del equipo, aumentando así la eficiencia del avance y desarrollo del proyecto.
 		
-	3. IMPLEMENTACIÓN Y CLASES
+	3. IMPLEMENTACIÓN Y CLASES:
 		
 		- A lo largo del desarrollo del proyecto, nos dimos cuenta de que nuestro planteamiento acerca de las clases Transfer y TransferApp era prácticamente el mismo para ambas,
 		es decir, tenían las mismas propiedades y relaciones, por lo que concluimos en dejar únicamente la clase TransferApp, ya que era la única de la que hacíamos un list y un update,
 		las transferencias en sí quedaban constatadas a la hora de la suma y resta del dinero en las cuentas, pero en ningún sitio más.
                 
-        4. TESTS DE SERVICIO MYSQL/HSQLDB
+        4. TESTS DE SERVICIO MYSQL/HSQLDB:
         
                 - Los tests de servicio funcionaban perfectamente sobre hsqldb, pero al correrlos contra una bbdd MySQL nos daba problemas con los @BeforeEach. 
                 Con el fin de no tener que rehacer nuestros tests intentamos probar con anotaciones como @Transactional (No servía) y con @DirtiesContext (Tardaba mucho en ejecutar). 
