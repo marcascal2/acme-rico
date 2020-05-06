@@ -27,7 +27,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class ClientsTestHSQL {
+public class ClientsHSQLTest {
 
 	@Autowired
 	private ClientService service;

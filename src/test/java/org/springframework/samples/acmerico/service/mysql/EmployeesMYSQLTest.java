@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class EmployeesTestMYSQL {
+public class EmployeesMYSQLTest {
 
 	@Autowired
 	private EmployeeService service;

@@ -386,22 +386,40 @@
         </profile>
 		
 		<profile>
-			<id>mysql-travis</id>
+			<id>production</id>
 			<build>
 				<plugins>
-					<plugin>
+				    <plugin>
 		                <groupId>org.apache.maven.plugins</groupId>
 		                <artifactId>maven-surefire-plugin</artifactId>
 		                <configuration>
 		                    <excludes>
-		                        <exclude>**/*HSQL.java</exclude>
+		                        <exclude>**/*HSQL*.java</exclude>
+		                        <exclude>**/*UITest.java</exclude>
 		                    </excludes>
 		                </configuration>
 		            </plugin>
-				</plugins>
-			</build>
+		        </plugins>
+	        </build>
 		</profile>
 		
+		<profile>
+			<id>development</id>
+			<build>
+				<plugins>
+				    <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-surefire-plugin</artifactId>
+		                <configuration>
+		                    <excludes>
+		                        <exclude>**/*MYSQL*.java</exclude>
+		                        <exclude>**/*UITest.java</exclude>
+		                    </excludes>
+		                </configuration>
+		            </plugin>
+		        </plugins>
+	        </build>
+		</profile>
     </profiles>
 
 </project>

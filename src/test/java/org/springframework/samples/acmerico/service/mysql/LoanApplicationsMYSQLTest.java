@@ -28,7 +28,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class LoanApplicationsTestMYSQL {
+public class LoanApplicationsMYSQLTest {
 
 	@Autowired
 	private LoanAppService loanApplicationService;

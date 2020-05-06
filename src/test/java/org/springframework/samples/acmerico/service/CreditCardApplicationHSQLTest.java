@@ -1,4 +1,4 @@
-package org.springframework.samples.acmerico.service.mysql;
+package org.springframework.samples.acmerico.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,15 +24,13 @@ import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.model.User;
-import org.springframework.samples.acmerico.service.BankAccountService;
-import org.springframework.samples.acmerico.service.ClientService;
-import org.springframework.samples.acmerico.service.CreditCardAppService;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
 
+@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class CreditCardApplicationTestMYSQL {
+public class CreditCardApplicationHSQLTest {
 
 	@Autowired
 	private CreditCardAppService creditCardAppService;
@@ -54,6 +52,7 @@ public class CreditCardApplicationTestMYSQL {
 	EntityManager entityManager;
 
 	@BeforeEach
+	@DirtiesContext
 	private void setUpData() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");

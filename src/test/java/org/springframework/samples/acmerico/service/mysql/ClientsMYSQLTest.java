@@ -29,7 +29,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class ClientsTestMYSQL {
+public class ClientsMYSQLTest {
 
 	@Autowired
 	private ClientService service;

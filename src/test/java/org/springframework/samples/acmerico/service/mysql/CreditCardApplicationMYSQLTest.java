@@ -1,12 +1,16 @@
-package org.springframework.samples.acmerico.service;
+package org.springframework.samples.acmerico.service.mysql;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -18,19 +22,18 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
-import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.service.BankAccountService;
+import org.springframework.samples.acmerico.service.ClientService;
+import org.springframework.samples.acmerico.service.CreditCardAppService;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
 
-@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class CreditCardsTestHSQL {
+public class CreditCardApplicationMYSQLTest {
 
-	@Autowired
-	private CreditCardService creditCardService;
 	@Autowired
 	private CreditCardAppService creditCardAppService;
 
@@ -44,12 +47,14 @@ public class CreditCardsTestHSQL {
 	Client client = new Client();
 	User user = new User();
 	CreditCardApplication application = new CreditCardApplication();
+	CreditCardApplication application1 = new CreditCardApplication();
+	CreditCardApplication application2 = new CreditCardApplication();
+	CreditCardApplication application3 = new CreditCardApplication();
 
-	CreditCard creditCard = new CreditCard();
+	EntityManager entityManager;
 
 	@BeforeEach
-	@DirtiesContext
-	void populateData() {
+	private void setUpData() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
@@ -83,27 +88,60 @@ public class CreditCardsTestHSQL {
 		application.setBankAccount(bankAccount);
 
 		this.creditCardAppService.save(application);
-		
-		creditCard.setBankAccount(bankAccount);
-		creditCard.setClient(client);
-		creditCard.setCreditCardApplication(application);
-		creditCard.setCvv("000");
-		creditCard.setDeadline("04/2020");
-		creditCard.setNumber("4295742384950740");
-		this.creditCardService.saveCreditCard(creditCard);
 	}
 
 	@Test
-	public void testCountCreditCardAfterCreating() {
-		List<CreditCard> cards = (List<CreditCard>) this.creditCardService.findCreditCards();
-		assertThat(cards.size()).isEqualTo(5);
+	public void testCountCreditCardAppsAfterCreating() {
+		List<CreditCardApplication> apps = (List<CreditCardApplication>) this.creditCardAppService.findCreditCardApps();
+		assertThat(apps.size()).isEqualTo(10);
 	}
 
 	@Test
-	public void testDeleteCreditCard() {
-		this.creditCardService.deleteCreditCardById(creditCard.getId());
-		Collection<CreditCard> cards = this.creditCardService.findCreditCards();
-		assertThat(cards.size()).isEqualTo(4);
+	public void testFindCreditCardApplicationsByClient() {
+		Collection<CreditCardApplication> apps = this.creditCardAppService.findCreditCardAppByClientId(client.getId());
+		assertThat(apps.size()).isEqualTo(1);
 	}
 
+	@Test
+	public void testAcceptCreditCardApplication() {
+		this.creditCardAppService.acceptApp(application);
+		assertThat(application.getStatus()).isEqualTo("ACCEPTED");
+	}
+
+	@Test
+	public void testRefuseCreditCardApplication() {
+		this.creditCardAppService.refuseApp(application);
+		assertThat(application.getStatus()).isEqualTo("REJECTED");
+	}
+
+	@Test
+	public void createInvalidCreditCardApp() {
+		application.setStatus("");
+		assertThrows(ConstraintViolationException.class, () -> {
+			this.creditCardAppService.save(application);
+			this.entityManager.flush();
+		});
+	}
+
+	@Test
+	public void testCreditCardAppNumberRestriction() {
+		application1.setStatus("PENDING");
+		application1.setClient(client);
+		application1.setBankAccount(bankAccount);
+		this.creditCardAppService.save(application1);
+
+		application2.setStatus("PENDING");
+		application2.setClient(client);
+		application2.setBankAccount(bankAccount);
+		this.creditCardAppService.save(application2);
+
+		application3.setStatus("PENDING");
+		application3.setClient(client);
+		application3.setBankAccount(bankAccount);
+		this.creditCardAppService.save(application3);
+
+		Collection<CreditCardApplication> apps = this.creditCardAppService.findCreditCardAppByClientId(client.getId());
+				
+		assertThat(apps.size()).isEqualTo(3);
+	}
 }

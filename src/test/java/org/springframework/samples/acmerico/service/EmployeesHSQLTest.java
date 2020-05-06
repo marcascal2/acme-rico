@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class EmployeesTestHSQL {
+public class EmployeesHSQLTest {
 
 	@Autowired
 	private EmployeeService service;

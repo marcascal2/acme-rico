@@ -7,10 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -22,7 +20,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
-import org.springframework.samples.acmerico.model.CreditCardApplication;
+import org.springframework.samples.acmerico.model.TransferApplication;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
@@ -30,34 +28,31 @@ import org.springframework.test.annotation.DirtiesContext;
 @Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class CreditCardApplicationTestHSQL {
+public class TransferApplicationsHSQLTest {
 
 	@Autowired
-	private CreditCardAppService creditCardAppService;
-
+	private TransferAppService transferAppService;
+	
+	@Autowired
+	private BankAccountService bankAccountService;
+	
 	@Autowired
 	private ClientService clientService;
 
-	@Autowired
-	private BankAccountService bankAccountService;
-
+	EntityManager entityManager;
+	
 	BankAccount bankAccount = new BankAccount();
 	Client client = new Client();
 	User user = new User();
-	CreditCardApplication application = new CreditCardApplication();
-	CreditCardApplication application1 = new CreditCardApplication();
-	CreditCardApplication application2 = new CreditCardApplication();
-	CreditCardApplication application3 = new CreditCardApplication();
-
-	EntityManager entityManager;
+	TransferApplication transferApp = new TransferApplication();
 
 	@BeforeEach
 	@DirtiesContext
-	private void setUpData() {
+	private void populateData() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
 		user.setEnabled(true);
-
+		
 		client.setFirstName("Germán");
 		client.setLastName("Márquez Trujillo");
 		client.setAddress("C/ Marques de Aracena, 37");
@@ -71,76 +66,65 @@ public class CreditCardApplicationTestHSQL {
 		client.setUser(user);
 		client.setBankAccounts(new ArrayList<BankAccount>());
 		client.getBankAccounts().add(bankAccount);
-
+		
 		this.clientService.saveClient(client);
-
+		
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(100000.0);
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
-
+		
 		this.bankAccountService.saveBankAccount(bankAccount);
-
-		application.setStatus("PENDING");
-		application.setClient(client);
-		application.setBankAccount(bankAccount);
-
-		this.creditCardAppService.save(application);
+		
+		transferApp.setStatus("PENDING");
+		transferApp.setAmount(200.00);
+		transferApp.setAccount_number_destination("ES24 2323 2323 2323 2323");
+		transferApp.setBankAccount(bankAccount);
+		transferApp.setClient(client);
+		
+		this.transferAppService.save(transferApp);
 	}
 
 	@Test
-	public void testCountCreditCardAppsAfterCreating() {
-		List<CreditCardApplication> apps = (List<CreditCardApplication>) this.creditCardAppService.findCreditCardApps();
-		assertThat(apps.size()).isEqualTo(10);
+	public void testCountTransferApplicationsAfterCreating() {
+		Collection<TransferApplication> transferApps = this.transferAppService.findAllTransfersApplications();
+		assertThat(transferApps.size()).isEqualTo(20);
+	}
+	
+	@Test
+	public void testFindTransferApplicationsByClient() {
+		Collection<TransferApplication> transferApps = this.transferAppService.findAllTransfersApplicationsByClient(client);
+		assertThat(transferApps.size()).isEqualTo(1);
+	}
+	
+	@Test
+	public void testSetMoney() {
+		this.transferAppService.setMoney(transferApp);
+		assertThat(bankAccount.getAmount()).isEqualTo(99800.);
+	}
+	
+	@Test
+	public void testAcceptApp() {
+		this.transferAppService.acceptApp(transferApp);
+		assertThat(transferApp.getStatus()).isEqualTo("ACCEPTED");
+	}
+	
+	@Test
+	public void testRefuseApp() {
+		this.transferAppService.refuseApp(transferApp);
+		assertThat(transferApp.getStatus()).isEqualTo("REJECTED");
 	}
 
 	@Test
-	public void testFindCreditCardApplicationsByClient() {
-		Collection<CreditCardApplication> apps = this.creditCardAppService.findCreditCardAppByClientId(client.getId());
-		assertThat(apps.size()).isEqualTo(1);
+	public void testTransferWithoutMoneyInAccount() {
+		transferApp.setAmount(102000.00);
+		assertThrows(IllegalArgumentException.class, ()-> this.transferAppService.setMoney(transferApp));
 	}
 
 	@Test
-	public void testAcceptCreditCardApplication() {
-		this.creditCardAppService.acceptApp(application);
-		assertThat(application.getStatus()).isEqualTo("ACCEPTED");
-	}
-
-	@Test
-	public void testRefuseCreditCardApplication() {
-		this.creditCardAppService.refuseApp(application);
-		assertThat(application.getStatus()).isEqualTo("REJECTED");
-	}
-
-	@Test
-	public void createInvalidCreditCardApp() {
-		application.setStatus("");
-		assertThrows(ConstraintViolationException.class, () -> {
-			this.creditCardAppService.save(application);
-			this.entityManager.flush();
-		});
-	}
-
-	@Test
-	public void testCreditCardAppNumberRestriction() {
-		application1.setStatus("PENDING");
-		application1.setClient(client);
-		application1.setBankAccount(bankAccount);
-		this.creditCardAppService.save(application1);
-
-		application2.setStatus("PENDING");
-		application2.setClient(client);
-		application2.setBankAccount(bankAccount);
-		this.creditCardAppService.save(application2);
-
-		application3.setStatus("PENDING");
-		application3.setClient(client);
-		application3.setBankAccount(bankAccount);
-		this.creditCardAppService.save(application3);
-
-		Collection<CreditCardApplication> apps = this.creditCardAppService.findCreditCardAppByClientId(client.getId());
-				
-		assertThat(apps.size()).isEqualTo(3);
+	public void saveInvalidTransferApp() {
+		transferApp.setAccount_number_destination("");
+		assertThrows(NullPointerException.class, ()-> { this.transferAppService.save(transferApp); this.entityManager.flush(); });
 	}
 }

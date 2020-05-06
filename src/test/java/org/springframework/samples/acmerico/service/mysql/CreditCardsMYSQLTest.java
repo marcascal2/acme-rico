@@ -30,7 +30,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class CreditCardsTestMYSQL {
+public class CreditCardsMYSQLTest {
 
 	@Autowired
 	private CreditCardService creditCardService;
