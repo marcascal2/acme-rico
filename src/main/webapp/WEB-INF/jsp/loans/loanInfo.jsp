@@ -51,6 +51,7 @@
 					<thead>
 						<tr>
 							<th>Id</th>
+							<th>User</th>
 							<th>Amount</th>
 							<th>Purpose</th>
 							<th>Status</th>
@@ -67,6 +68,7 @@
 										<spring:param name="loanappsId" value="${loanApplication.id}" />
 									</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"><c:out
 											value="${loanApplication.id}" /></a></td>
+								<td><c:out value="${loanApplication.client.user.username}" /></td>
 								<td><c:out value="${loanApplication.amount}" /></td>
 								<td><c:out value="${loanApplication.purpose}" /></td>
 								<td><c:out value="${loanApplication.status}" /></td>

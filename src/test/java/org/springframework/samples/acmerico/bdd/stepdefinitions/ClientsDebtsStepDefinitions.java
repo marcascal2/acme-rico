@@ -36,8 +36,8 @@ public class ClientsDebtsStepDefinitions extends AbstractStep {
 	
 	@Then("The debts can be seen in the table")
 	public void IsLoggedInAsWorker() throws Exception {
-		assertEquals("User", getDriver().findElement(By.xpath("//table[@id='debtsTable']/thead/tr/th")).getText());
-	    assertEquals("Refresh date", getDriver().findElement(By.xpath("//table[@id='debtsTable']/thead/tr/th[2]")).getText());
+		assertEquals("Name", getDriver().findElement(By.xpath("//table[@id='debtsTable']/thead/tr/th")).getText());
+	    assertEquals("User", getDriver().findElement(By.xpath("//table[@id='debtsTable']/thead/tr/th[2]")).getText());
 	    stopDriver();
 	}
 	

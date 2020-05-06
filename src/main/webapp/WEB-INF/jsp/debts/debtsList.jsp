@@ -11,10 +11,11 @@
     <table id="debtsTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 25%;">User</th>
-            <th style="width: 25%;">Refresh date</th>
-            <th style="width: 25%;">Loan application</th>
-            <th style="width: 25%">Amount</th>
+        	<th style="width: 150px;">Name</th>
+            <th style="width: 150px;">User</th>
+            <th style="width: 150px;">Refresh date</th>
+            <th style="width: 150px;">Loan application</th>
+            <th style="width: 150px">Amount</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@
                         <spring:param name="clientId" value="${debt.client.id}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(clientUrl)}"><c:out value="${debt.client.firstName} ${debt.client.lastName}"/></a>
+                </td>
+                <td>
+                    <c:out value="${debt.client.user.username}"/>
                 </td>
                 <td>
                     <c:out value="${debt.refreshDate}"/>
