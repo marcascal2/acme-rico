@@ -66,10 +66,9 @@
 								url="/myloanapps" title="my loanApps">
 								<span id="loan-apps">My loan applications</span>
 							</petclinic:menuSubitem>
-						</div>
-						<petclinic:menuItem active="${name eq 'dashboards'}"
+						</div> <petclinic:menuItem active="${name eq 'dashboards'}"
 							url="/dashboard" title="find dashboard">
-							<span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
 							<span id="dashboards">Dashboard</span>
 						</petclinic:menuItem>
 				</sec:authorize>
@@ -81,13 +80,12 @@
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						<span>Clients</span>
 					</petclinic:menuItem>
-					<li class="nav-item dropdown" id="clients-requests">
-						<a
-							class="nav-link dropdown-toggle" id="dropdown-workers"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <span class="glyphicon glyphicon-send"
-								aria-hidden="true"></span> Clients requests
-						</a>
+					<li class="nav-item dropdown" id="clients-requests"><a
+						class="nav-link dropdown-toggle" id="dropdown-workers"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <span class="glyphicon glyphicon-send"
+							aria-hidden="true"></span> Clients requests
+					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<petclinic:menuSubitem active="${name eq 'creditcardapps'}"
 								url="/creditcardapps" title="creditCardAppsList">
@@ -103,11 +101,11 @@
 								url="/loanapps" title="loan applications">
 								<span id="loan-applications">Loan applications</span>
 							</petclinic:menuSubitem>
-						</div>
-					</li>
+						</div></li>
 					<petclinic:menuItem active="${name eq 'debts'}"
 						url="/debts/pending" title="find debts">
-						<span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
+						<span class="glyphicon glyphicon glyphicon-book"
+							aria-hidden="true"></span>
 						<span id="debts">Debts</span>
 					</petclinic:menuItem>
 				</sec:authorize>
@@ -165,10 +163,11 @@
 								<span id="see-loans">Loans list</span>
 							</petclinic:menuSubitem>
 						</div></li>
-						
+
 					<petclinic:menuItem active="${name eq 'debts'}"
 						url="/debts/pending" title="find debts">
-						<span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
+						<span class="glyphicon glyphicon glyphicon-book"
+							aria-hidden="true"></span>
 						<span id="debts">Debts</span>
 					</petclinic:menuItem>
 				</sec:authorize>

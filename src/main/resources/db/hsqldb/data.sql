@@ -113,8 +113,8 @@ INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadli
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (5, 'Préstamo de negocio', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
 
 --LOANAPPS
-INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 0, 1, 1, 1);
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'Universidad', 'PENDING', 0.0, 3, 1, 1, 1);
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (2, 700.0, 'Comida', 'PENDING', 0.0, 0, 3, 1, 3);
-INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (3, 1000.0, 'Hipoteca', 'ACCEPTED', 150.0, 1, 1, 2, 1);
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (3, 1000.0, 'Hipoteca', 'ACCEPTED', 150.0, 0, 1, 2, 1);
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (4, 2500.0, 'Negocio', 'REJECTED', 0.0, 0, 2, 4, 2);
-INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (5, 10000.0, 'Comercio', 'ACCEPTED', 90.0, 1, 1, 4, 1);
+INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (5, 10000.0, 'Comercio', 'ACCEPTED', 90.0, 2, 1, 4, 1);

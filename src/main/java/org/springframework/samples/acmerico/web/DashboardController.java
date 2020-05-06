@@ -1,28 +1,38 @@
 package org.springframework.samples.acmerico.web;
 
 import java.security.Principal;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.acmerico.service.DashboardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DashboardController {
-	
-//	private ClientService clientService;
-//	
-//	@Autowired
-//	public DashboardController(ClientService clientService) {
-//		this.clientService = clientService;
-//	}
+
+	private DashboardService dashboardService;
+
+	@Autowired
+	public DashboardController(DashboardService dashboardService) {
+		this.dashboardService = dashboardService;
+	}
 
 	@GetMapping(value = "/dashboard")
 	public String showClientCards(Principal principal, Model model) {
-//		String username = principal.getName();
-//		Client client = (Client) this.clientService.findClientByUserName(username);
+		String username = principal.getName();
 		
-		model.addAttribute("moneyPerDays",  Arrays.asList("7","6","5","4","3","2","9"));
-		model.addAttribute("labels", Arrays.asList("7","6","5","4","3","2","1"));
+		Map<String, List<Object>> applicationsStatus = this.dashboardService.applicationsStatus(username);
+		
+		model.addAttribute("loanAppsStatus", applicationsStatus.get("loanAppsStatus"));
+		model.addAttribute("creditCardAppsStatus", applicationsStatus.get("creditCardAppsStatus"));
+		model.addAttribute("transferAppsStatus", applicationsStatus.get("transferAppsStatus"));
+		
+		Map<String, List<Object>> amountsToPay = this.dashboardService.amountsToPay(username);
+
+		model.addAttribute("months", amountsToPay.get("months"));
+		model.addAttribute("amountsToPay", amountsToPay.get("amountsToPay"));
 		
 		return "dashboard/clientMoneyInfo";
 	}
