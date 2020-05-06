@@ -8,64 +8,20 @@
 
 <petclinic:layout pageName="dashboard">
 
-	<div>
-		<canvas id="canvas1" width="750" height="400"></canvas>
+	<div class="charts-container">
+		<div class="chart-container"> 
+			<canvas id="canvas1"></canvas>
+		</div>
+		<div class="chart-container">
+			<canvas id="canvas2" ></canvas>
+		</div>
 	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var data = {
-				labels : [<jstl:forEach var = "month" items = "${months}">
-						 	  <jstl:out value="'${month}'" escapeXml="false"/>,
-						  </jstl:forEach>],
-				datasets : [ {
-					label : 'Amounts to pay in next five motnhs',
-					data : [<jstl:forEach var = "amountToPay" items = "${amountsToPay}">
-								<jstl:out value="${amountToPay}" escapeXml="false"/>,
-							</jstl:forEach> ],
-					borderColor : [ '#EE0606']
-				} ]
-			};
-
-			var options = {
-				scales : {
-					yAxes : [ {
-						ticks : {
-							suggestedMin : 0.0,
-							suggestedMax : 10.0
-						}
-					} ]
-				},
-				legend : {
-					display : true
-				}
-			};
-
-			var canvas, context;
-
-			canvas = document.getElementById('canvas1');
-			context = canvas.getContext('2d');
-			new Chart(context, {
-				type : 'line',
-				data : data,
-				options : options
-			});
-		});
-	</script>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	
-	<div>
-		<canvas id="canvas2" width="750" height="400"></canvas>
-	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var data = {
+			var container = document.querySelector('.charts-container');
+			
+			var data = [{
 				labels : ['Accepted', 'Rejected', 'Pending'],
 				datasets : [ {
 					label : 'My Loan Applications Status',
@@ -87,7 +43,18 @@
 					backgroundColor : ['#EE6F06', '#EE6F06', '#EE6F06']
 				}
 				]
-			};
+			},{
+				labels : [<jstl:forEach var = "month" items = "${months}">
+			 	  <jstl:out value="'${month}'" escapeXml="false"/>,
+						  </jstl:forEach>],
+				datasets : [ {
+					label : 'Amounts to pay in next five motnhs',
+					data : [<jstl:forEach var = "amountToPay" items = "${amountsToPay}">
+								<jstl:out value="${amountToPay}" escapeXml="false"/>,
+							</jstl:forEach> ],
+					borderColor : [ '#EE0606']
+				} ]
+			}];
 
 			var options = {
 				scales : {
@@ -102,15 +69,31 @@
 					display : true
 				}
 			};
-
-			var canvas, context;
-
-			canvas = document.getElementById('canvas2');
-			context = canvas.getContext('2d');
-			new Chart(context, {
-				type : 'bar',
-				data : data,
-				options : options
+			
+			var i = 0;
+			
+			data.forEach(function(data) {
+				if (i == 1){
+					typeChart = 'line';
+				} else {
+					typeChart = 'bar';
+				}
+				
+				i++;
+					
+				var div = document.createElement('div');
+				div.classList.add('chart-container');
+	
+				var canvas = document.createElement('canvas');
+				div.appendChild(canvas);
+				container.appendChild(div);
+	
+				var ctx = canvas.getContext('2d');
+				new Chart(ctx, {
+					type : typeChart,
+					data : data,
+					options : options
+				});
 			});
 		});
 	</script>
