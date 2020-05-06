@@ -10,7 +10,7 @@
 
 [PROBLEMAS RELACIONADOS CON EL FRAMEWORK](https://github.com/marcascal2/acme-rico/blob/master/documentacion/report_framework.md)
 
-![MODELO UML](https://github.com/marcascal2/acme-rico/blob/master/UML%20DP2%20B.jpg)
+![MODELO UML](https://github.com/marcascal2/acme-rico/blob/master/UML%20DP2.jpg)
 
 This is a fork of https://github.com/spring-projects/spring-petclinic to be used for the DP2 course. The main changes that have been performed were:
 - Trimming several parts of the application to keep the example low
