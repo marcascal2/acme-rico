@@ -44,7 +44,7 @@
 		</table>
 
 		<sec:authorize access="hasAuthority('director')">
-			<c:if test="${loan.loanApplications.size() > 0}">
+			<c:if test="${acceptedLoanApps.size() > 0}">
 				<h2>Accepted loan applications</h2>
 
 				<table id="loanApplicationsTable" class="table table-striped">
@@ -60,32 +60,32 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${loan.loanApplications}" var="loanApplication">
-							<c:if test="${loanApplication.status == 'ACCEPTED'}">
-								<tr>
-									<td><spring:url value="/loanapps/{loanappsId}"
-											var="loanAppUrl">
-											<spring:param name="loanappsId" value="${loanApplication.id}" />
-										</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"><c:out
-												value="${loanApplication.id}" /></a></td>
-									<td><c:out value="${loanApplication.amount}" /></td>
-									<td><c:out value="${loanApplication.purpose}" /></td>
-									<td><c:out value="${loanApplication.status}" /></td>
-									<td><c:out value="${loanApplication.loan.number_of_deadlines}" /></td>
-									<td><c:out value="${loanApplication.amount_paid}" /></td>
-									<td><c:out value="${loan.number_of_deadlines - loanApplication.payedDeadlines}" /></td>
-								</tr>
-							</c:if>
+						<c:forEach items="${acceptedLoanApps}" var="loanApplication">
+							<tr>
+								<td><spring:url value="/loanapps/{loanappsId}"
+										var="loanAppUrl">
+										<spring:param name="loanappsId" value="${loanApplication.id}" />
+									</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"><c:out
+											value="${loanApplication.id}" /></a></td>
+								<td><c:out value="${loanApplication.amount}" /></td>
+								<td><c:out value="${loanApplication.purpose}" /></td>
+								<td><c:out value="${loanApplication.status}" /></td>
+								<td><c:out
+										value="${loanApplication.loan.number_of_deadlines}" /></td>
+								<td><c:out value="${loanApplication.amount_paid}" /></td>
+								<td><c:out
+										value="${loan.number_of_deadlines - loanApplication.payedDeadlines}" /></td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+
+				<div class="buttons-group">
+					<form method="get" action="/loanapps/collect">
+						<button class="btn btn-default">Collect accepted loans</button>
+					</form>
+				</div>
 			</c:if>
-			
-			<div class="buttons-group">
-				<form method="get" action="/loanapps/collect">
-					<button class="btn btn-default">Collect accepted loans</button>
-				</form>
-			</div>
 		</sec:authorize>
 
 		<sec:authorize access="hasAuthority('client')">
@@ -108,7 +108,7 @@
 			</c:choose>
 		</sec:authorize>
 	</c:if>
-	
+
 	<c:if test="${loan['new']}">
 		<form:form modelAttribute="loan" class="form-horizontal"
 			id="add-loan-form">
@@ -131,5 +131,5 @@
 			</div>
 		</form:form>
 	</c:if>
-	
+
 </petclinic:layout>

@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
+import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.LoanService;
 import org.springframework.stereotype.Controller;
@@ -76,7 +78,9 @@ public class LoanController {
 	public String showDirectorLoan(@PathVariable("loanId") int loanId, ModelMap modelMap) {
 		try {
 			Loan loan = this.loanService.findLoanById(loanId);
+			List<LoanApplication> acceptedLoanApps = this.loanService.acceptedLoanApps(loan);
 			modelMap.put("loan", loan);
+			modelMap.put("acceptedLoanApps", acceptedLoanApps);
 			return "loans/loanInfo";
 		} catch (Exception e) {
 			return "redirect:/";

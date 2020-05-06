@@ -1,6 +1,8 @@
 package org.springframework.samples.acmerico.service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Loan;
+import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.repository.LoanRepository;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +52,10 @@ public class LoanService {
 		}else{
 			return false;
 		}		
+	}
+
+	public List<LoanApplication> acceptedLoanApps(Loan loan) {
+		return loan.getLoanApplications().stream().filter(la->la.getStatus().equals("ACCEPTED")).collect(Collectors.toList());
 	}
 
 }

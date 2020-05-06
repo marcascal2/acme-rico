@@ -28,25 +28,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest(controllers = LoanController.class, 
-				excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, 
-				classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
+@WebMvcTest(controllers = LoanController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class LoanControllerTest {
-	
+
 	private static User user = new User();
 	private static Client client = new Client();
 	private static BankAccount bankAccount = new BankAccount();
 	private static Loan loan = new Loan();
-	
+
 	@MockBean
 	private LoanService loanService;
 
 	@MockBean
 	private BankAccountService bankAccountService;
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@BeforeAll
 	static void setUp() {
 		user.setUsername("userPrueba");
@@ -66,7 +64,7 @@ public class LoanControllerTest {
 		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
 		client.setUser(user);
 		client.setBankAccounts(Arrays.asList(bankAccount));
-		
+
 		bankAccount.setId(1);
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
 		bankAccount.setAmount(10000.0);
@@ -83,104 +81,77 @@ public class LoanControllerTest {
 		loan.setMonthly_fee(0.02);
 		loan.setSingle_loan(false);
 	}
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	void testListLoan() throws Exception {
 		when(this.loanService.findAllLoans()).thenReturn(Arrays.asList(loan));
 
-		mockMvc.perform(get("/grantedLoans"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("loans"))
-			.andExpect(view().name("loans/loanList"))
-			.andExpect(status().is2xxSuccessful());
+		mockMvc.perform(get("/grantedLoans")).andExpect(status().isOk()).andExpect(model().attributeExists("loans"))
+				.andExpect(view().name("loans/loanList")).andExpect(status().is2xxSuccessful());
 	}
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	void testListLoanForBankAccount() throws Exception {
 		when(this.loanService.findAllLoans()).thenReturn(Arrays.asList(loan));
 		when(this.bankAccountService.findBankAccountById(bankAccount.getId())).thenReturn(bankAccount);
 
-		mockMvc.perform(get("/loans/{bankAccountId}", bankAccount.getId()))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("loans"))
-			.andExpect(model().attributeExists("bankAccountId"))
-			.andExpect(view().name("loans/personalicedLoanList"))
-			.andExpect(status().is2xxSuccessful());
+		mockMvc.perform(get("/loans/{bankAccountId}", bankAccount.getId())).andExpect(status().isOk())
+				.andExpect(model().attributeExists("loans")).andExpect(model().attributeExists("bankAccountId"))
+				.andExpect(view().name("loans/personalicedLoanList")).andExpect(status().is2xxSuccessful());
 	}
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/grantedLoans/new"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("loan"))
-			.andExpect(view().name("loans/loanInfo"))
-			.andExpect(status().is2xxSuccessful());
+		mockMvc.perform(get("/grantedLoans/new")).andExpect(status().isOk()).andExpect(model().attributeExists("loan"))
+				.andExpect(view().name("loans/loanInfo")).andExpect(status().is2xxSuccessful());
 	}
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessCreationFormSuccessful() throws Exception {
-		mockMvc.perform(post("/grantedLoans/new")
-				.with(csrf())
-				.param("description", "This is a description")
-				.param("minimum_amount", "1000.0")
-				.param("minimum_income", "600.0")
-				.param("number_of_deadlines", "2")
-				.param("opening_price", "1.0")
-				.param("monthly_fee", "0.02")
-				.param("single_loan", "true"))
-			.andExpect(status().isFound())
-			.andExpect(view().name("redirect:/grantedLoans"))
-			.andExpect(status().is3xxRedirection());
+		mockMvc.perform(post("/grantedLoans/new").with(csrf()).param("description", "This is a description")
+				.param("minimum_amount", "1000.0").param("minimum_income", "600.0").param("number_of_deadlines", "2")
+				.param("opening_price", "1.0").param("monthly_fee", "0.02").param("single_loan", "true"))
+				.andExpect(status().isFound()).andExpect(view().name("redirect:/grantedLoans"))
+				.andExpect(status().is3xxRedirection());
 	}
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/grantedLoans/new")
-				.with(csrf())
-				.param("description", "This is a description")
-				.param("minimum_amount", "1000.0")
-				.param("minimum_income", "200.0")
-				.param("number_of_deadlines", "2")
-				.param("opening_price", "1.0")
-				.param("monthly_fee", "0.02")
-				.param("single_loan", "true"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeHasErrors("loan"))
-			.andExpect(model().attributeHasFieldErrors("loan", "minimum_income"))
-			.andExpect(view().name("loans/loanInfo"))
-			.andExpect(status().is2xxSuccessful());
+		mockMvc.perform(post("/grantedLoans/new").with(csrf()).param("description", "This is a description")
+				.param("minimum_amount", "1000.0").param("minimum_income", "200.0").param("number_of_deadlines", "2")
+				.param("opening_price", "1.0").param("monthly_fee", "0.02").param("single_loan", "true"))
+				.andExpect(status().isOk()).andExpect(model().attributeHasErrors("loan"))
+				.andExpect(model().attributeHasFieldErrors("loan", "minimum_income"))
+				.andExpect(view().name("loans/loanInfo")).andExpect(status().is2xxSuccessful());
 	}
 
 	@WithMockUser(value = "spring")
 	@Test
 	void testShowDirectorLoan() throws Exception {
 		when(this.loanService.findLoanById(loan.getId())).thenReturn(loan);
+		when(this.loanService.acceptedLoanApps(loan)).thenReturn(Arrays.asList());
 		
-		mockMvc.perform(get("/grantedLoans/{loanId}", loan.getId()))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("loan"))
-			.andExpect(view().name("loans/loanInfo"))
-			.andExpect(status().is2xxSuccessful());
+		mockMvc.perform(get("/grantedLoans/{loanId}", loan.getId())).andExpect(status().isOk())
+				.andExpect(model().attributeExists("acceptedLoanApps")).andExpect(model().attributeExists("loan"))
+				.andExpect(view().name("loans/loanInfo")).andExpect(status().is2xxSuccessful());
 	}
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	void testShowClientLoan() throws Exception {
 		when(this.loanService.findLoanById(loan.getId())).thenReturn(loan);
 		when(this.loanService.checkSingleLoan(bankAccount.getId())).thenReturn(true);
-		
+
 		mockMvc.perform(get("/loans/{loanId}/{bankAccountId}", loan.getId(), bankAccount.getId()))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("loan"))
-			.andExpect(model().attributeExists("bankAccountId"))
-			.andExpect(model().attributeExists("clienSingleLoan"))
-			.andExpect(view().name("loans/loanInfo"))
-			.andExpect(status().is2xxSuccessful());
+				.andExpect(status().isOk()).andExpect(model().attributeExists("loan"))
+				.andExpect(model().attributeExists("bankAccountId"))
+				.andExpect(model().attributeExists("clienSingleLoan")).andExpect(view().name("loans/loanInfo"))
+				.andExpect(status().is2xxSuccessful());
 	}
-	
+
 }
