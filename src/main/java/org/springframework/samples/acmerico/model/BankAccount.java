@@ -31,7 +31,6 @@ public class BankAccount extends BaseEntity {
 	@NotNull
 	private Double amount;
 	
-	
 	@NotNull
 	@Past
 	private LocalDateTime createdAt;
