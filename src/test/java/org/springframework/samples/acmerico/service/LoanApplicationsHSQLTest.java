@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,10 +22,12 @@ import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 
+@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-public class LoanApplicationsTest {
+public class LoanApplicationsHSQLTest {
 
 	@Autowired
 	private LoanAppService loanApplicationService;
@@ -36,6 +39,7 @@ public class LoanApplicationsTest {
 	private static LoanApplication loanApplication = new LoanApplication();
 
 	@BeforeAll
+	@DirtiesContext
 	private static void setUp() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
