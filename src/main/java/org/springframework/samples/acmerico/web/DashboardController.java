@@ -23,7 +23,7 @@ public class DashboardController {
 	public String showClientCards(Principal principal, Model model) {
 		String username = principal.getName();
 		
-		Map<String, List<Object>> applicationsStatus = this.dashboardService.applicationsStatus(username);
+		Map<String, List<Integer>> applicationsStatus = this.dashboardService.applicationsStatus(username);
 		
 		model.addAttribute("loanAppsStatus", applicationsStatus.get("loanAppsStatus"));
 		model.addAttribute("creditCardAppsStatus", applicationsStatus.get("creditCardAppsStatus"));
@@ -33,6 +33,11 @@ public class DashboardController {
 
 		model.addAttribute("months", amountsToPay.get("months"));
 		model.addAttribute("amountsToPay", amountsToPay.get("amountsToPay"));
+		
+		Map<String, Integer> moneyPie = this.dashboardService.moneyPie(username);
+		
+		model.addAttribute("moneyToDebt", moneyPie.get("moneyToDebt"));
+		model.addAttribute("moneyInBankAccounts", moneyPie.get("moneyInBankAccounts"));
 		
 		return "dashboard/clientMoneyInfo";
 	}

@@ -53,8 +53,8 @@ public class DashboardService {
 		return result;
 	}
 	
-	public Map<String, List<Object>> applicationsStatus(String username){
-		Map<String, List<Object>> result = new HashMap<>();
+	public Map<String, List<Integer>> applicationsStatus(String username){
+		Map<String, List<Integer>> result = new HashMap<>();
 		
 		Client client = (Client) this.clientService.findClientByUserName(username);
 		
@@ -73,6 +73,20 @@ public class DashboardService {
 		result.put("loanAppsStatus", Arrays.asList(loanAppsAccepted, loanAppsRejected, loanAppsPending));
 		result.put("creditCardAppsStatus", Arrays.asList(creditCardAppsAccepted, creditCardAppsRejected, creditCardAppsPending));
 		result.put("transferAppsStatus", Arrays.asList(transferAppsAccepted, transferAppsRejected, transferAppsPending));
+		
+		return result;
+	}
+	
+	public Map<String, Integer> moneyPie(String username){
+		Map<String, Integer> result = new HashMap<>();
+		
+		Client client = (Client) this.clientService.findClientByUserName(username);
+		
+		Integer moneyToDebt = this.dashboardRepository.countMoneyToDebt(client);
+		Integer moneyInBankAccounts = this.dashboardRepository.countMoneyInBankAccounts(client);
+		
+		result.put("moneyToDebt", moneyToDebt);
+		result.put("moneyInBankAccounts", moneyInBankAccounts);
 		
 		return result;
 	}

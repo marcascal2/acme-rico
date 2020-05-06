@@ -28,7 +28,7 @@
 					data : [<jstl:forEach var = "status" items = "${loanAppsStatus}">
 								<jstl:out value="${status}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					backgroundColor : ['#8506EE', '#8506EE', '#8506EE']
+					backgroundColor : ['#EBBE00', '#EBBE00', '#EBBE00']
 				},{
 					label : 'My CreditCard Applications Status',
 					data : [<jstl:forEach var = "status" items = "${creditCardAppsStatus}">
@@ -52,7 +52,14 @@
 					data : [<jstl:forEach var = "amountToPay" items = "${amountsToPay}">
 								<jstl:out value="${amountToPay}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					borderColor : [ '#EE0606']
+					borderColor : ['#EE0606']
+				} ]
+			},{
+				labels : ['Money To Debt', 'My Money'],
+				datasets : [ {
+					label : 'Amounts to pay in next five motnhs',
+					data : [${moneyToDebt}, ${moneyInBankAccounts}],
+					backgroundColor : ['#E05315', '#68E015']
 				} ]
 			}];
 
@@ -73,7 +80,9 @@
 			var i = 0;
 			
 			data.forEach(function(data) {
-				if (i == 1){
+				if(i == 2){
+					typeChart = 'pie';
+				} else if (i == 1){
 					typeChart = 'line';
 				} else {
 					typeChart = 'bar';

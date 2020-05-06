@@ -118,3 +118,6 @@ INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlin
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (3, 1000.0, 'Hipoteca', 'ACCEPTED', 150.0, 0, 1, 2, 1);
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (4, 2500.0, 'Negocio', 'REJECTED', 0.0, 0, 2, 4, 2);
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,payed_deadlines,bank_account_id,loan_id,client_id) VALUES (5, 10000.0, 'Comercio', 'ACCEPTED', 90.0, 2, 1, 4, 1);
+
+--DEBTS
+INSERT INTO debts(id,amount,refresh_date,loan_application_id,client_id) VALUES (1, 2567.0, '03/2020', 1, 1);
