@@ -29,4 +29,8 @@ DECISIONES MÁS SIGNIFICATIVAS: v1.1
 		- A lo largo del desarrollo del proyecto, nos dimos cuenta de que nuestro planteamiento acerca de las clases Transfer y TransferApp era prácticamente el mismo para ambas,
 		es decir, tenían las mismas propiedades y relaciones, por lo que concluimos en dejar únicamente la clase TransferApp, ya que era la única de la que hacíamos un list y un update,
 		las transferencias en sí quedaban constatadas a la hora de la suma y resta del dinero en las cuentas, pero en ningún sitio más.
+                
+        4. TESTS DE SERVICIO MYSQL/HSQLDB
+        
+                - Los tests de servicio funcionaban perfectamente sobre hsqldb, pero al correrlos contra una bbdd MySQL nos daba problemas con los @BeforeEach. Con el fin de no tener que rehacer nuestros tests intentamos probar con anotaciones como @Transactional (No servía) y con @DirtiesContext (Tardaba mucho en ejecutar). Finalmente nos decantamos por tratar de implementar la gestión de perfiles que proporciona maven haciendo uso de anotaciones como @Profile y @ActiveProfile, y a pesar de que al ejecutar los tests con un perfil los logs de los mismos indicaban que el perfil estaba activo, las anotaciones no surtían efecto. Por esta razón, tras consensuarlo con Don Carlos Müller, decidimos marcar como @Disabled los tests que corren sobre hsqldb y solo ejecutar los que prueban sobre MySQL a la hora de seguir desarrollando.
 		
