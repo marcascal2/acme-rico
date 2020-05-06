@@ -23,6 +23,8 @@ DECISIONES MÁS SIGNIFICATIVAS: v1.1
 		ningún merge se realizaría si no cumplía con dos condiciones esenciales. Primera, la rama nueva debería pasar los tests en Travis, algún fallo en tests requeriría 
 		la modificación y corrección de la misma, y segunda, solo el administrador tendría permiso para realizar dicha acción que se completaría con una aprobación manual de ésta.
 		Gracias a esta decisión, nos aseguraríamos del buen avance tanto de tests como de código en la rama master.
+                
+                -Debido a la cantidad de implementación tanto de funcionalidad como de tests del sprint 3 (segundo entregable), decidimos hacer uso de algunos recursos que nos proporciona GitHub, como los milestones y los labels, clasificando así nuestras tareas en tres categorías, prioridad alta, prioridad media y prioridad baja. Con esto incrementamos el rendimiento del equipo, aumentando así la eficiencia del avance y desarrollo del proyecto.
 		
 	3. IMPLEMENTACIÓN Y CLASES
 		
