@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
@@ -22,10 +21,11 @@ import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.CreditCardAppService;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@Transactional
+@DirtiesContext
 public class CreditCardApplicationMYSQLTest {
 
 	@Autowired

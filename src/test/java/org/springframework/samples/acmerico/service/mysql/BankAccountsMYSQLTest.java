@@ -21,9 +21,11 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
+@DirtiesContext
 public class BankAccountsMYSQLTest {
 
 	@Autowired

@@ -17,10 +17,12 @@ import org.springframework.samples.acmerico.model.Employee;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.samples.acmerico.service.EmployeeService;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
+@DirtiesContext
 public class EmployeesMYSQLTest {
 
 	@Autowired
