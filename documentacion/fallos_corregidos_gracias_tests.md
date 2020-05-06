@@ -12,4 +12,4 @@ FALLOS CORREGIDOS GRACIAS A LOS TESTS: v1.1
         
      -Corrección del registro de un empleado. Al añadir un nuevo empleado con un username ya registrado redirigía a la página oups en vez de mostrar el error en el formulario.
      
-     -Corrección de algunos tests de controlador gracias a los tests de integración correspondientes a estos. En particular dos de ClientControllerTest que, aunque le faltaban algunos atributos, no daban error al ejecutarlos y en integración hemos identificado dichos errores.
+     -Corrección de algunos tests de controlador gracias a los tests de integración correspondientes a estos. Algunos de estos casos son dos de ClientControllerTest que, aunque le faltaban algunos atributos, no daban error al ejecutarlos y en integración hemos identificado dichos errores. Pero hay correcciones en bastantes tests de controladores indicados en los comentarios de los commits.
