@@ -23,7 +23,7 @@
 					data : [<jstl:forEach var = "amountToPay" items = "${amountsToPay}">
 								<jstl:out value="${amountToPay}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					borderColor : [ '#FF8C00']
+					borderColor : [ '#EE0606']
 				} ]
 			};
 
@@ -72,7 +72,7 @@
 					data : [<jstl:forEach var = "status" items = "${loanAppsStatus}">
 								<jstl:out value="${status}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					backgroundColor : ['#12A401', '#12A401', '#12A401']
+					backgroundColor : ['#8506EE', '#8506EE', '#8506EE']
 				},{
 					label : 'My CreditCard Applications Status',
 					data : [<jstl:forEach var = "status" items = "${creditCardAppsStatus}">
