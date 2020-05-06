@@ -82,7 +82,7 @@ class ClientControllerIntegrationTests {
 	@WithMockUser(username = "director1", authorities = { "director" })
 	@Test
 	void initUpdateFormClient() throws Exception {
-		final LocalDate bithday = LocalDate.of(1998, 04, 04);
+		final LocalDate bithday = LocalDate.of(1999, 04, 04);
 		final LocalDate lEmpDate = LocalDate.of(2018, 06, 06);
 
 		mockMvc.perform(get("/clients/{clientId}/edit", TEST_CLIENT_ID)).andExpect(model().attributeExists("client"))
@@ -91,10 +91,10 @@ class ClientControllerIntegrationTests {
 				.andExpect(model().attribute("client", hasProperty("address", is("110 W. Liberty St."))))
 				.andExpect(model().attribute("client", hasProperty("birthDate", is(bithday))))
 				.andExpect(model().attribute("client", hasProperty("city", is("Madison"))))
-				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("MARRIED"))))
-				.andExpect(model().attribute("client", hasProperty("salaryPerYear", is(10000.0))))
-				.andExpect(model().attribute("client", hasProperty("age", is(23))))
-				.andExpect(model().attribute("client", hasProperty("job", is("WORKER"))))
+				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("SINGLE"))))
+				.andExpect(model().attribute("client", hasProperty("salaryPerYear", is(0.0))))
+				.andExpect(model().attribute("client", hasProperty("age", is(21))))
+				.andExpect(model().attribute("client", hasProperty("job", is("Student"))))
 				.andExpect(model().attribute("client", hasProperty("lastEmployDate", is(lEmpDate))))
 				.andExpect(view().name("clients/createOrUpdateClientForm"));
 
@@ -141,7 +141,7 @@ class ClientControllerIntegrationTests {
 	@WithMockUser(username = "client1", authorities = { "client" })
 	@Test
 	void initUpdateFormPersonalDataClient() throws Exception {
-		final LocalDate bithday = LocalDate.of(1998, 04, 04);
+		final LocalDate bithday = LocalDate.of(1999, 04, 04);
 		final LocalDate lEmpDate = LocalDate.of(2018, 06, 06);
 		User user = new User();
 
@@ -156,10 +156,10 @@ class ClientControllerIntegrationTests {
 				.andExpect(model().attribute("client", hasProperty("address", is("110 W. Liberty St."))))
 				.andExpect(model().attribute("client", hasProperty("birthDate", is(bithday))))
 				.andExpect(model().attribute("client", hasProperty("city", is("Madison"))))
-				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("MARRIED"))))
-				.andExpect(model().attribute("client", hasProperty("salaryPerYear", is(10000.0))))
-				.andExpect(model().attribute("client", hasProperty("age", is(23))))
-				.andExpect(model().attribute("client", hasProperty("job", is("WORKER"))))
+				.andExpect(model().attribute("client", hasProperty("maritalStatus", is("SINGLE"))))
+				.andExpect(model().attribute("client", hasProperty("salaryPerYear", is(0.0))))
+				.andExpect(model().attribute("client", hasProperty("age", is(21))))
+				.andExpect(model().attribute("client", hasProperty("job", is("Student"))))
 				.andExpect(model().attribute("client", hasProperty("lastEmployDate", is(lEmpDate))))
 				.andExpect(model().attribute("client", hasProperty("user", is(user))))
 				.andExpect(view().name("clients/createOrUpdateClientForm"));

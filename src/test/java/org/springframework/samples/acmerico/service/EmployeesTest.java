@@ -41,7 +41,7 @@ public class EmployeesTest {
 	@Test
 	public void testCountEmployeesAfterCreating() {
 		Collection<Employee> employees = this.service.findEmployeeByLastName("");
-		assertThat(employees.size()).isEqualTo(4);
+		assertThat(employees.size()).isEqualTo(7);
 	}
 
 	@Test
