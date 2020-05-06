@@ -12,6 +12,7 @@
 		<thead>
 			<tr>
 				<th style="width: 150px;">Id</th>
+				<th style="width: 150px;">User</th>
 				<th style="width: 150px;">Status</th>
 				<th style="width: 150px;">Amount</th>
 				<th style="width: 200px;">Account Number</th>
@@ -20,12 +21,12 @@
 		<tbody>
 			<c:forEach items="${transfers_app}" var="transfer_app">
 				<tr>
-					<td>
-						<spring:url value="/transferapps/{transferappsId}" var="transferAppUrl">
+					<td><spring:url value="/transferapps/{transferappsId}"
+							var="transferAppUrl">
 							<spring:param name="transferappsId" value="${transfer_app.id}" />
-						</spring:url> 
-						<a href="${fn:escapeXml(transferAppUrl)}"><c:out value="${transfer_app.id}"/></a>
-					</td>
+						</spring:url> <a href="${fn:escapeXml(transferAppUrl)}"><c:out
+								value="${transfer_app.id}" /></a></td>
+					<td><c:out value="${transfer_app.client.user.username}" /></td>
 					<td><c:out value="${transfer_app.status}" /></td>
 					<td><c:out value="${transfer_app.amount}" /></td>
 					<td><c:out value="${transfer_app.account_number_destination}" /></td>

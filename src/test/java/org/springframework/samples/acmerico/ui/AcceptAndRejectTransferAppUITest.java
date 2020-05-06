@@ -41,7 +41,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("dropdown-workers")).click();
 		driver.findElement(By.id("transfer-apps")).click();
 		assertEquals("PENDING",
-				driver.findElement(By.xpath("//table[@id='transfersAppTable']/tbody/tr[4]/td[2]")).getText());
+				driver.findElement(By.xpath("//table[@id='transfersAppTable']/tbody/tr[4]/td[3]")).getText());
 		driver.findElement(By.linkText("4")).click();
 		assertEquals("Accept Transfer", driver.findElement(By.xpath("//form/button")).getText());
 		assertEquals("Refuse Transfer", driver.findElement(By.xpath("//form[2]/button")).getText());
