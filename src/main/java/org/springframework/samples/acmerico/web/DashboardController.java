@@ -21,7 +21,7 @@ public class DashboardController {
 //		String username = principal.getName();
 //		Client client = (Client) this.clientService.findClientByUserName(username);
 		
-		model.addAttribute("moneyPerDays",  Arrays.asList("7","6","5","4","3","2","1"));
+		model.addAttribute("moneyPerDays",  Arrays.asList("7","6","5","4","3","2","9"));
 		model.addAttribute("labels", Arrays.asList("7","6","5","4","3","2","1"));
 		
 		return "dashboard/clientMoneyInfo";
