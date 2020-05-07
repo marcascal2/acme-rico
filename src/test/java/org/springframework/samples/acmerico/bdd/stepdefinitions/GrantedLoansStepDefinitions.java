@@ -27,7 +27,6 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 		 getDriver().findElement(By.id("password")).clear();
 		 getDriver().findElement(By.id("password")).sendKeys("director1");
 		 getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		 getDriver().findElement(By.linkText("Loans")).click();
 		 getDriver().findElement(By.id("loans-dropdown")).click();
 		 getDriver().findElement(By.id("see-loans")).click();
 	 }
