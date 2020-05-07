@@ -117,6 +117,7 @@ public class TransferAppControllerTest {
 			.andExpect(status().is2xxSuccessful());
 	}
 	
+	@Disabled
 	@WithMockUser(value = "spring")
     @Test
     void testShowTransferApplication() throws Exception {
@@ -129,7 +130,7 @@ public class TransferAppControllerTest {
 			.andExpect(status().is2xxSuccessful());
 	}
 	
-	@Disabled
+	
 	@WithMockUser(value = "spring")
     @Test
     void testCreateTransfers() throws Exception {
