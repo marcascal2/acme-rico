@@ -33,7 +33,7 @@
 
 				<!-- MENU CLIENTES -->
 				<sec:authorize access="hasAuthority('client')">
-					<li class="nav-item dropdown" id="dropdown-clients"><a
+					<li class="nav-item dropdown" id="dropdown-clients-bank-accounts"><a
 						class="nav-link dropdown-toggle" role="button"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
@@ -91,7 +91,7 @@
 						<span>Clients</span>
 					</petclinic:menuItem>
 					<li class="nav-item dropdown" id="clients-requests"><a
-						class="nav-link dropdown-toggle" id="dropdown-workers"
+						class="nav-link dropdown-toggle" id="dropdown-workers-clients-request"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <span class="glyphicon glyphicon-send"
 							aria-hidden="true"></span> Clients requests
@@ -140,7 +140,7 @@
 							</petclinic:menuSubitem>
 						</div></li>
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="dropdown-director"
+						class="nav-link dropdown-toggle" id="dropdown-director-clients-request"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <span class="glyphicon glyphicon-send"
 							aria-hidden="true"></span> Clients requests
