@@ -1,11 +1,10 @@
 package org.springframework.samples.acmerico.api.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.api.model.foreignExchange.Container;
-import org.springframework.samples.acmerico.api.model.foreignExchange.Exchange;
+import org.springframework.samples.acmerico.api.service.ExchangeService;
 import org.springframework.samples.acmerico.validator.ExchangeRateValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,21 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class ExchangeController {
 
-	private Exchange exchange;
-	private String uri = "https://api.exchangeratesapi.io/latest?base=";
-	private List<String> rates;
+	private ExchangeService exchangeService;
+
+	private static final String VIEWS_EXCHANGE = "exchanges/exchangeView";
 
 	@Autowired
-	private RestTemplate restTemplate;
-
-	@Autowired
-	public ExchangeController(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
+	public ExchangeController(ExchangeService exchangeService) {
+		this.exchangeService = exchangeService;
 	}
 
 	@InitBinder("container")
@@ -40,17 +35,12 @@ public class ExchangeController {
 	@GetMapping(value = "/exchanges")
 	public String getRates(Model model) {
 		Container container = new Container();
-
-		String url = uri + "EUR";
-
-		exchange = restTemplate.getForObject(url, Exchange.class);
-		rates = exchange.getRates().getAdditionalProperties().keySet().stream().collect(Collectors.toList());
-		rates.add("EUR");
-
+		List<String> rates = this.exchangeService.cargaLista();
+		
 		model.addAttribute("container", container);
 		model.addAttribute("rates", rates);
 
-		return "exchanges/exchangeView";
+		return VIEWS_EXCHANGE;
 	}
 
 	@PostMapping(value = "/exchanges")
@@ -60,45 +50,15 @@ public class ExchangeController {
 		String postRate = container.getPostRate();
 		Double amount = container.getAmount();
 
-		String url;
-		if (initRate == null || initRate == "") {
-			url = uri + "EUR";
-		} else {
-			url = uri + initRate;
-		}
-
-		exchange = restTemplate.getForObject(url, Exchange.class);
-		rates = exchange.getRates().getAdditionalProperties().keySet().stream().collect(Collectors.toList());
-		rates.add("EUR");
-
-		Double iRate = 0.;
-		Double pRate = 0.;
-		Double resultAmount = 0.;
-
-		if(initRate != null && postRate != null) {
-			if (initRate.equals("EUR")) {
-				iRate = 1.;
-				if (postRate.equals("EUR")) {
-					pRate = 1.;
-					resultAmount = amount;
-				} else {
-					pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
-					resultAmount = amount * pRate;
-				}
-			} else if (initRate != null && postRate != null && amount != null){
-				iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
-				pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
-				resultAmount = (amount * pRate) / iRate;
-			}
-		}
-		
-		resultAmount = Math.round(resultAmount * 100.0) / 100.0;
+		Double resultAmount = this.exchangeService.calcularResultAmount(initRate, postRate, amount);
 		container.setResultAmount(resultAmount);
+
+		List<String> rates = this.exchangeService.cargaLista();
 
 		model.addAttribute("rates", rates);
 		model.addAttribute("isPost", initRate != null && postRate != null && amount != null);
 
-		return "exchanges/exchangeView";
+		return VIEWS_EXCHANGE;
 	}
 
 }
