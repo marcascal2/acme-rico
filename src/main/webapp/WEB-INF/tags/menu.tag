@@ -66,6 +66,11 @@
 								url="/myloanapps" title="my loanApps">
 								<span id="loan-apps">My loan applications</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'clients'}"
+								url="/transferapps_mine" title="my transferApps">
+								<span id="transfer-apps">My transfer applications</span>
+							</petclinic:menuSubitem>
 						</div> <petclinic:menuItem active="${name eq 'dashboards'}"
 							url="/dashboard" title="find dashboard">
 							<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
