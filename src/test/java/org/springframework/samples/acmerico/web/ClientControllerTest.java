@@ -139,7 +139,8 @@ public class ClientControllerTest {
 		mockMvc.perform(post("/clients/new").param("firstName", "Javier").param("lastName", "Ruiz")
 				.param("address", "Gordal").param("birthDate", "1998/11/27").param("city", "Sevilla")
 				.param("maritalStatus", "single but whole").param("salaryPerYear", "300000.").param("age", "21")
-				.param("job", "student").param("lastEmployDate", "2010/01/22").with(csrf()))
+				.param("job", "student").param("lastEmployDate", "2010/01/22")
+				.param("user.username", "Username23").param("user.password", "values").with(csrf()))
 				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/clients/null"));
 
 	}
@@ -150,6 +151,7 @@ public class ClientControllerTest {
 		mockMvc.perform(post("/clients/new").with(csrf()).param("firstName", "Javier").param("lastName", "Ruiz")
 				.param("address", "Gordal")
 				// .param("birthDate", "1998/11/27")
+				.param("user.username", "client1")
 				.param("city", "Sevilla").param("maritalStatus", "single but whole").param("salaryPerYear", "300000.")
 				.param("lastEmployDate", "2010-01-22")).andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("client"))

@@ -28,10 +28,13 @@ public class ClientController {
 
 	private final ClientService clientService;
 
+	private final UserService userService;
+
 	@Autowired
 	public ClientController(ClientService clientService, UserService userService,
 			AuthoritiesService authoritiesService) {
 		this.clientService = clientService;
+		this.userService = userService;
 	}
 
 	@InitBinder
@@ -48,6 +51,11 @@ public class ClientController {
 
 	@PostMapping(value = "/clients/new")
 	public String processCreationForm(@Valid Client client, BindingResult result) {
+		Boolean isRegistered = this.userService.usernameRepeated(client.getUser().getUsername());
+		if (isRegistered) {
+			result.rejectValue("user.username", "This username is already registered",
+					"This username is already registered");
+		}
 		if (result.hasErrors()) {
 			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
 		} else {
@@ -107,8 +115,7 @@ public class ClientController {
 			return "redirect:/clients/{clientId}";
 		}
 	}
-	
-	
+
 	/**
 	 * Custom handler for displaying an owner.
 	 * 
@@ -148,7 +155,5 @@ public class ClientController {
 			return "redirect:/";
 		}
 	}
-
-	
 
 }

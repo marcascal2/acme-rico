@@ -11,6 +11,7 @@ public class ClientValidator implements Validator {
 
 	@Override
 	public void validate(Object obj, Errors errors) {
+		
 		Client client = (Client) obj;
 		String fn = client.getFirstName();
 		String ln = client.getLastName();

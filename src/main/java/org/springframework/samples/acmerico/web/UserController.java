@@ -23,18 +23,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.api.service.DropboxService;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.ClientService;
+import org.springframework.samples.acmerico.service.UserService;
 import org.springframework.samples.acmerico.validator.ClientValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- * @author Michael Isvy
- */
 @Controller
 public class UserController {
 
@@ -42,12 +37,15 @@ public class UserController {
 
 	private final ClientService clientService;
 	
+	private final UserService userService;
+	
 	private final DropboxService dropboxService;
 
 	@Autowired
-	public UserController(ClientService clinicService, DropboxService dropboxService) {
+	public UserController(ClientService clinicService, DropboxService dropboxService, UserService userService) {
 		this.clientService = clinicService;
 		this.dropboxService = dropboxService;
+		this.userService = userService;
 	}
 
 	@InitBinder
@@ -70,6 +68,11 @@ public class UserController {
 	@PostMapping(value = "/users/new")
 	public String processCreationForm(@Valid Client client, BindingResult result) {
 		try {
+			Boolean isRegistered = this.userService.usernameRepeated(client.getUser().getUsername());
+			if (isRegistered) {
+				result.rejectValue("user.username", "This username is already registered",
+						"This username is already registered");
+			}
 			if (result.hasErrors()) {
 				return VIEWS_CLIENT_CREATE_FORM;
 			}
