@@ -149,7 +149,7 @@ public class LoanApplicationController {
 		Collection<LoanApplication> acceptedLoanAplications = this.loanAppService.findLoanAppsAccepted();
 		this.loanAppService.collectAcceptedLoans(acceptedLoanAplications);
 		
-		return "redirect:/grantedLoans";
+		return "redirect:/loanapps";
 	}
 
 }

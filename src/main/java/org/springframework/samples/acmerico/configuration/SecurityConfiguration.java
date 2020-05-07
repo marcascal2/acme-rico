@@ -35,26 +35,53 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/resources/**","/webjars/**","/h2-console/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/","/oups").permitAll()
+				//users
 				.antMatchers("/users/new").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("director")
-				.antMatchers("/clients/**").hasAnyAuthority("worker","director")	
-				.antMatchers("/creditcardapps/**").permitAll()
+				//clients
+				.antMatchers("/clients").hasAnyAuthority("worker","director")
+				.antMatchers("/clients/{clientId}/**").hasAnyAuthority("worker","director")
+				.antMatchers("/clients/find").hasAnyAuthority("worker","director")	
+				.antMatchers("/clients/new").hasAnyAuthority("director")
+				//credit card app
+				.antMatchers("/creditcardapps").hasAnyAuthority("director","worker")
+				.antMatchers("/creditcardapps/{creditcardappsId}/**").hasAnyAuthority("director","worker","client")
+				.antMatchers("/creditcardapps/created").hasAnyAuthority("client")
+				.antMatchers("/creditcardapps/limit-reached").hasAnyAuthority("client")
+				.antMatchers("/mycreditcardapps/**").hasAnyAuthority("client")
+				//employees
 				.antMatchers("/employees/**").hasAnyAuthority("director")
-				.antMatchers("/accounts/**").hasAnyAuthority("client","director")
+				//accounts
+				.antMatchers("/accounts/**").hasAnyAuthority("client")
+				//credit card
 				.antMatchers("/cards/**").hasAnyAuthority("client")
+				//personal data
 				.antMatchers("/personalData/**").hasAnyAuthority("client")
 				.antMatchers("/personalDataEmployee/**").hasAnyAuthority("worker", "director")
-				.antMatchers("/transferapps/**").hasAnyAuthority("client","worker","director")
-				.antMatchers("/transferapps_mine/**").hasAnyAuthority("client", "worker", "director")
-				.antMatchers("/mycreditcardapps/**").hasAnyAuthority("client")
-				.antMatchers("/myloanapps/**").hasAnyAuthority("client")
-				.antMatchers("/exchanges/**").hasAnyAuthority("client","worker","director")
+				//transfer app
+				.antMatchers("/transferapps").hasAnyAuthority("worker","director")
+				.antMatchers("/transferapps/{transferappsId}/accept/{bankAccountId}").hasAnyAuthority("worker","director")
+				.antMatchers("/transferapps/{transferappsId}/refuse/{bankAccountId}").hasAnyAuthority("worker","director")
+				.antMatchers("/transferapps/{bankAccountId}/new").hasAnyAuthority("client")
+				.antMatchers("/transferapps_mine/**").hasAnyAuthority("client")
+				.antMatchers("/transferapps/{transferappsId}").permitAll()
+				//loan app
+				.antMatchers("/loanapps/collect").hasAnyAuthority("director")
+				.antMatchers("/loanapps").hasAnyAuthority("director", "worker")
+				.antMatchers("/loanapps/{loanappsId}/accept").hasAnyAuthority("director", "worker")
+				.antMatchers("/loanapps/{loanappsId}/refuse").hasAnyAuthority("director", "worker")
+				.antMatchers("/loanapps/{loanId}/new/{bankAccountId}").hasAnyAuthority("client")
+				.antMatchers("/myloanapps").hasAnyAuthority("client")
+				.antMatchers("/loanapps/{loanappsId}").permitAll()
+				//exchanges
+				.antMatchers("/exchanges/**").permitAll()
+				//loans
 				.antMatchers("/loans/**").hasAnyAuthority("client")
-				.antMatchers("/loanapps/**").hasAnyAuthority("director", "worker", "client")
 				.antMatchers("/grantedLoans/**").hasAnyAuthority("director")
-				.antMatchers("/director/loans/**").hasAnyAuthority("director")
+				//debts
 				.antMatchers("/debts/***").hasAnyAuthority("director","worker")
+				//dashboard
 				.antMatchers("/dashboard").hasAnyAuthority("client")
+      
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()

@@ -38,5 +38,11 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+	<sec:authorize access="hasAuthority('director')">
+		<div class="buttons-group">
+			<form method="get" action="/loanapps/collect">
+				<button class="btn btn-default">Collect</button>
+			</form>
+		</div>
+	</sec:authorize>
 </petclinic:layout>

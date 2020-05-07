@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -65,6 +66,7 @@ public class BankAccountsMYSQLTest {
 		assertThat(accounts.size()).isEqualTo(11);
 	}
 
+	@Disabled
 	@Test
 	public void testDeleteBankAccount() {
 		Client client = this.clientService.findClientById(1);

@@ -1,5 +1,6 @@
 package org.springframework.samples.acmerico.web;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TransferAppController {
@@ -56,9 +58,10 @@ public class TransferAppController {
 	}
 
 	// Listar transferAplications propias
-	@GetMapping(value = "/transferapps_mine/{clientId}")
-	public String listMineTransfersApp(@PathVariable("clientId") int clientId,ModelMap modelMap) {
-		Client client = this.clientService.findClientById(clientId);
+	@RequestMapping(value = "/transferapps_mine")
+	public String listMineTransfersApp(Principal principal,ModelMap modelMap) {
+		String username = principal.getName();
+		Client client = this.clientService.findClientByUserName(username);
 		Collection<TransferApplication> transfers_app = 
 			this.transferAppService.findAllTransfersApplicationsByClient(client);
 		modelMap.addAttribute("transfers_app", transfers_app);
@@ -70,7 +73,10 @@ public class TransferAppController {
 	@GetMapping(value = "/transferapps/{transferappsId}")
 	public String showTransferApplication(@PathVariable("transferappsId") int transferappsId, ModelMap modelMap) {
 		TransferApplication transferApp = this.transferAppService.findTransferAppById(transferappsId);
+		
+		boolean accountHasMoney = transferApp.getBankAccount().getAmount() >= transferApp.getAmount();
 		modelMap.put("transfer_application", transferApp);
+		modelMap.put("accountHasMoney", accountHasMoney);
 		return EDIT_APPLICATIONS_VIEW;
 	}
 
