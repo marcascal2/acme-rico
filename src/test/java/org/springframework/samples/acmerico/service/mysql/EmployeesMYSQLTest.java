@@ -47,13 +47,13 @@ public class EmployeesMYSQLTest {
 	@Test
 	public void testCountEmployeesByLastName() {
 		Collection<Employee> employees = this.service.findEmployeeByLastName("Surname");
-		assertThat(employees.size()).isEqualTo(0);
+		assertThat(employees.size()).isEqualTo(1);
 	}
 
 	@Test
 	public void testCountEmployeesByUserName() {
 		Employee employees = (Employee) this.service.findEmployeeByUserName("worker2");
-		assertThat(employees.getFirstName()).isEqualTo("Rafael");
+		assertThat(employees.getFirstName()).isEqualTo("Andres");
 	}
 
 	@Test
