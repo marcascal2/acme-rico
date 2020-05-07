@@ -49,6 +49,11 @@
 								title="my cards">
 								<span id="my-credit-card">My credit cards</span>
 							</petclinic:menuSubitem>
+							<div class="dropdown-divider"></div>
+							<petclinic:menuSubitem active="${name eq 'clients'}" url="/exchanges"
+								title="exchanges">
+								<span id="exchanges">Exchange rates</span>
+							</petclinic:menuSubitem>
 						</div>
 					<li class="nav-item dropdown" id="dropdown-clients-apps"><a
 						class="nav-link dropdown-toggle" role="button"

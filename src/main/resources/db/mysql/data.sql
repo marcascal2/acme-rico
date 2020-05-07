@@ -44,7 +44,7 @@ INSERT INTO clients VALUES (10, 'Peter', 'Parker', '2487 S. Fair Way', '23', '19
 -- EMPLOYEES
 INSERT INTO employees VALUES (1, 'Javier', 'Dorado Sanchez', '3000.0', 'director1');
 INSERT INTO employees VALUES (2, 'Eduardo', 'Garcia Prado', '1500.0','worker1');
-INSERT INTO employees VALUES (3, 'Andrés', 'Aranda Ruiz', '20000.0', 'worker2');
+INSERT INTO employees VALUES (3, 'Andres', 'Aranda Ruiz', '20000.0', 'worker2');
 
 -- BANK ACCOUNTS
 INSERT INTO bank_accounts(id,account_number,amount,created_at,alias,client_id) VALUES (1, 'ES23 0025 0148 1259 1424', 2567.34, '2019-01-03', 'Viajes',1);

@@ -53,7 +53,7 @@ public class EmployeesMYSQLTest {
 	@Test
 	public void testCountEmployeesByUserName() {
 		Employee employees = (Employee) this.service.findEmployeeByUserName("worker2");
-		assertThat(employees.getFirstName()).isEqualTo("Andrés");
+		assertThat(employees.getFirstName()).isEqualTo("Andres");
 	}
 
 	@Test

@@ -1,14 +1,15 @@
 # Acme-Rico Application 
+[DESCRIPCIÓN DEL PROYECTO Y ENTIDADES](https://drive.google.com/open?id=1lkh7IztryWHLQZQYFtra8XUvTUpYQUS7)
 
 [REPARTO DE TAREAS](https://github.com/marcascal2/acme-rico/blob/master/documentacion/tasks.md)
 
 [HISTORIAS DE USUARIO](https://drive.google.com/open?id=19vpqeJiKiy582NfK6wPUkoJ1HYdG40fG5e8ec9KoUYQ)
 
-[INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://github.com/marcascal2/acme-rico/blob/master/documentacion/informe_decisiones.md)
+[INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://drive.google.com/open?id=1u7kAForwdp_8PixLg67KsyZadFJbmz_p)
 
-[FALLOS ARREGLADOS GRACIAS A LOS TESTS](https://github.com/marcascal2/acme-rico/blob/master/documentacion/fallos_corregidos_gracias_tests.md)
+[FALLOS ARREGLADOS GRACIAS A LOS TESTS](https://drive.google.com/open?id=1D0gKl_0ESPkToHWZR-hD91viE0ZVF2ic)
 
-[PROBLEMAS RELACIONADOS CON EL FRAMEWORK](https://github.com/marcascal2/acme-rico/blob/master/documentacion/report_framework.md)
+[PROBLEMAS RELACIONADOS CON EL FRAMEWORK](https://drive.google.com/open?id=1rox0aj-g8z5wWK69rEDAixpRaRMNQpz6)
 
 ![MODELO UML](https://github.com/marcascal2/acme-rico/blob/master/UML%20DP2.jpg)
 

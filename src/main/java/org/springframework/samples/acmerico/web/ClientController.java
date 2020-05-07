@@ -2,7 +2,9 @@ package org.springframework.samples.acmerico.web;
 
 import java.util.Collection;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.service.AuthoritiesService;
@@ -105,7 +107,7 @@ public class ClientController {
 			return "redirect:/clients/{clientId}";
 		}
 	}
-
+	
 	
 	/**
 	 * Custom handler for displaying an owner.

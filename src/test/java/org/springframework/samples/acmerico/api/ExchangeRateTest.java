@@ -6,9 +6,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.acmerico.api.controller.ExchangeController;
+import org.springframework.samples.acmerico.api.service.ExchangeService;
 import org.springframework.samples.acmerico.configuration.SecurityConfiguration;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -24,6 +26,9 @@ public class ExchangeRateTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@MockBean
+    private ExchangeService exchangeService;
 	
 	@WithMockUser(value = "spring")
 	@Test
