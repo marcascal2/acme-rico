@@ -35,7 +35,7 @@ public class CreditCardAppControllerIntegrationTests {
 				.andExpect(model().attributeExists("credit_cards_app"))
 				.andExpect(view().name("creditCardApps/creditCardAppList"));
 	}
-	
+
 	@WithMockUser(username = "worker1", authorities = { "worker" })
 	@Test
 	void testShowCreditCardApp() throws Exception {
@@ -43,7 +43,7 @@ public class CreditCardAppControllerIntegrationTests {
 				.andExpect(model().attributeExists("credit_card_app"))
 				.andExpect(view().name("creditCardApps/creditCardAppDetails")).andExpect(status().is2xxSuccessful());
 	}
-	
+
 	@WithMockUser(username = "worker1", authorities = { "worker" })
 	@Test
 	void testAcceptCreditCardAppplication() throws Exception {
@@ -51,7 +51,7 @@ public class CreditCardAppControllerIntegrationTests {
 				.andExpect(status().isFound()).andExpect(view().name("redirect:/creditcardapps"))
 				.andExpect(status().is3xxRedirection());
 	}
-	
+
 	@WithMockUser(username = "worker1", authorities = { "worker" })
 	@Test
 	void testRefuseCreditCardApplication() throws Exception {
@@ -59,7 +59,7 @@ public class CreditCardAppControllerIntegrationTests {
 				.andExpect(status().isFound()).andExpect(view().name("redirect:/creditcardapps"))
 				.andExpect(status().is3xxRedirection());
 	}
-	
+
 	@WithMockUser(username = "client1", authorities = { "client" })
 	@Test
 	void testShowClientCreditCardApp() throws Exception {
@@ -72,7 +72,8 @@ public class CreditCardAppControllerIntegrationTests {
 	@Test
 	void testRequestNewCreditCardHasErrors() throws Exception {
 		mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", 0))
-				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/oups"));
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/oups"));
 
 	}
 
@@ -80,7 +81,8 @@ public class CreditCardAppControllerIntegrationTests {
 	@Test
 	void testRequestNewCreditCardSuccess() throws Exception {
 		mockMvc.perform(get("/creditcardapps/{bankAccountId}/new", TEST_BANK_ACCOUNT_ID))
-				.andExpect(view().name("redirect:/creditcardapps/created")).andExpect(status().is3xxRedirection());
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/creditcardapps/created"));
 	}
 
 	@WithMockUser(username = "client1", authorities = { "client" })

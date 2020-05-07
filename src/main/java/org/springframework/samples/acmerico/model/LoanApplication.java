@@ -10,7 +10,9 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
 import org.hibernate.annotations.ColumnDefault;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,7 +38,7 @@ public class LoanApplication extends BaseEntity {
 	private Double amount_paid;
 	
 	@NotNull
-	@ColumnDefault("0")
+	@ColumnDefault(value = "0")
 	private Integer payedDeadlines;
 	
 	@Valid
@@ -60,6 +62,6 @@ public class LoanApplication extends BaseEntity {
 	}
 	
 	public boolean isPaid() {
-		return getAmountToPay()*getLoan().getNumber_of_deadlines()==getAmount_paid();
+		return this.getPayedDeadlines() == this.loan.getNumber_of_deadlines();
 	}
 }

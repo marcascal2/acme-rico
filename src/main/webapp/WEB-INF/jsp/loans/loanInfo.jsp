@@ -81,26 +81,15 @@
 						</c:forEach>
 					</tbody>
 				</table>
-
-				<div class="buttons-group">
-					<form method="get" action="/loanapps/collect">
-						<button class="btn btn-default">Collect accepted loans</button>
-					</form>
-				</div>
 			</c:if>
 		</sec:authorize>
 
 		<sec:authorize access="hasAuthority('client')">
 			<c:choose>
-				<c:when test="${clienSingleLoan}">
-
-					<button class="btn btn-default"
-						onclick="document.getElementById('demo').innerHTML = 'No puedes aplicar a este loan'">
-						Apply for this loan</button>
-
-					<p id="demo"></p>
+				<c:when test="${clientSingleLoan}">
+					<p>You can't apply for a loan because you have a pending single loan</p>
 				</c:when>
-				<c:when test="${!clienSingleLoan}">
+				<c:when test="${!clientSingleLoan}">
 
 					<form action="/loanapps/${loan.id}/new/${bankAccountId}">
 						<button class="btn btn-default" type="submit">Apply for

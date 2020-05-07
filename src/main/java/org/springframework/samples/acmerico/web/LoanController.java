@@ -91,11 +91,11 @@ public class LoanController {
 	public String showClientLoan(@PathVariable("bankAccountId") int bankAccountId,
 			@PathVariable("loanId") int loanId, ModelMap modelMap) {
 		Loan loan = this.loanService.findLoanById(loanId);
-		Boolean clienSingleLoan = this.loanService.checkSingleLoan(bankAccountId);
+		Boolean clientSingleLoan = this.loanService.checkSingleLoan(bankAccountId);
 
 		modelMap.put("loan", loan);
 		modelMap.put("bankAccountId", bankAccountId);
-		modelMap.put("clienSingleLoan", clienSingleLoan);
+		modelMap.put("clientSingleLoan", clientSingleLoan);
 		return "loans/loanInfo";
 	}
 

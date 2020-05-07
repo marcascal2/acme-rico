@@ -18,7 +18,8 @@
 				<th style="width: 150px;">Purpose</th>
 				<th style="width: 150px;">Status</th>
 				<th style="width: 150px;">Amount Paid</th>
-
+				<th style="width: 150px;">Number of deadlines</th>
+				<th style="width: 150px;">Payed deadlines</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,7 +34,8 @@
 					<td><c:out value="${loanApp.purpose}" /></td>
 					<td><c:out value="${loanApp.status}" /></td>
 					<td><c:out value="${loanApp.amount_paid}" /></td>
-
+					<td><c:out value="${loanApp.loan.number_of_deadlines}" /></td>
+					<td><c:out value="${loanApp.payedDeadlines}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
