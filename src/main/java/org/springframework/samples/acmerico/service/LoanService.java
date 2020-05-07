@@ -45,7 +45,7 @@ public class LoanService {
 
 	public Boolean checkSingleLoan(int bankAccountId) {
 		BankAccount account = this.accountService.findBankAccountById(bankAccountId);
-		Boolean hasSingleLoan = account.getClient().getLoanApps().stream().anyMatch(x->x.getLoan().getSingle_loan().equals(true));
+		Boolean hasSingleLoan = account.getClient().getLoanApps().stream().anyMatch(x->x.getLoan().getSingle_loan().equals(true) && (x.getStatus().equals("PENDING") || (x.getStatus().equals("ACCEPTED") && !x.isPaid())));
 
 		if(hasSingleLoan){
 			return true;

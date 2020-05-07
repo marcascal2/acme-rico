@@ -27,6 +27,8 @@ public class LoanApplicationControllerIntegrationTests {
 
 	private static final Integer TEST_BANK_ACCOUNT_ID = 1;
 
+	private static final Integer TEST_LOAN_ID = 1;
+	
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -48,7 +50,7 @@ public class LoanApplicationControllerIntegrationTests {
 	@WithMockUser(username = "client1", authorities = { "client" })
 	@Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/loanapps/{loanId}/new/{bankAccountId}", TEST_LOAN_APPLICATION_ID, TEST_BANK_ACCOUNT_ID))
+		mockMvc.perform(get("/loanapps/{loanId}/new/{bankAccountId}", TEST_LOAN_ID, TEST_BANK_ACCOUNT_ID))
 				.andExpect(status().isOk()).andExpect(model().attributeExists("loan_app"))
 				.andExpect(view().name("loanApp/createOrUpdateLoanApp")).andExpect(status().is2xxSuccessful());
 	}
@@ -59,7 +61,8 @@ public class LoanApplicationControllerIntegrationTests {
 		mockMvc.perform(post("/loanapps/{loanId}/new/{bankAccountId}", TEST_LOAN_APPLICATION_ID, TEST_BANK_ACCOUNT_ID)
 				.with(csrf()).param("amount", "2000.0").param("amount_paid", "0.0")
 				.param("purpose", "This is a purpose").param("status", "PENDING"))
-				.andExpect(status().is2xxSuccessful());
+				.andExpect(view().name("redirect:/myloanapps"))
+				.andExpect(status().is3xxRedirection());
 	}
 
 	@WithMockUser(username = "worker1", authorities = { "worker" })

@@ -76,7 +76,7 @@ public class LoanAppControllerTest {
 		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
 		client.setUser(user);
 		client.setBankAccounts(Arrays.asList(bankAccount));
-		client.setLoanApps(Arrays.asList(loanApp));
+		client.setLoanApps(Arrays.asList());
 
 		bankAccount.setId(1);
 		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
@@ -84,7 +84,7 @@ public class LoanAppControllerTest {
 		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
 		bankAccount.setAlias("Viajes");
 		bankAccount.setClient(client);
-		bankAccount.setLoanApps(Arrays.asList(loanApp));
+		bankAccount.setLoanApps(Arrays.asList());
 
 		loan.setId(1);
 		loan.setDescription("This is a Description");
@@ -94,13 +94,14 @@ public class LoanAppControllerTest {
 		loan.setOpening_price(100.0);
 		loan.setMonthly_fee(0.02);
 		loan.setSingle_loan(false);
-		loan.setLoanApplications(Arrays.asList(loanApp));
+		loan.setLoanApplications(Arrays.asList());
 
 		loanApp.setId(1);
 		loanApp.setAmount(900.0);
 		loanApp.setPurpose("This is a purpose");
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(0.0);
+		loanApp.setPayedDeadlines(0);
 	}
 
 	@WithMockUser(username = "userPrueba", roles = { "client" })
@@ -126,22 +127,24 @@ public class LoanAppControllerTest {
 	@WithMockUser(value = "spring")
 	@Test
 	void testInitCreationForm() throws Exception {
-		when(this.loanAppService.findLoanAppById(loanApp.getId())).thenReturn(loanApp);
+		when(this.loanService.findLoanById(loan.getId())).thenReturn(loan);
 
-		mockMvc.perform(get("/loanapps/{loanId}/new/{bankAccountId}", loanApp.getId(), bankAccount.getId()))
+		mockMvc.perform(get("/loanapps/{loanId}/new/{bankAccountId}", loan.getId(), bankAccount.getId()))
 				.andExpect(status().isOk()).andExpect(model().attributeExists("loan_app"))
 				.andExpect(view().name("loanApp/createOrUpdateLoanApp")).andExpect(status().is2xxSuccessful());
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(username = "userPrueba", roles = { "client" })
 	@Test
 	void testProcessCreationForm() throws Exception {
-		when(this.loanAppService.findLoanAppById(loanApp.getId())).thenReturn(loanApp);
-
-		mockMvc.perform(post("/loanapps/{loanId}/new/{bankAccountId}", loanApp.getId(), bankAccount.getId())
-				.with(csrf()).param("amount", "2000.0").param("amount_paid", "0.0")
+		when(this.loanService.findLoanById(loan.getId())).thenReturn(loan);
+		when(this.accountService.findBankAccountById(bankAccount.getId())).thenReturn(bankAccount);
+		
+		mockMvc.perform(post("/loanapps/{loanId}/new/{bankAccountId}", loan.getId(), bankAccount.getId())
+				.with(csrf()).param("amount", "100.0").param("amount_paid", "0.0").param("id", "1")
 				.param("purpose", "This is a purpose").param("status", "PENDING"))
-				.andExpect(status().is2xxSuccessful());
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/myloanapps"));
 	}
 
 	@WithMockUser(value = "spring")

@@ -152,8 +152,7 @@ public class TransferAppControllerTest {
 				.param("account_number_destination", "ES44 4523 9853 3674 4366")
 				.param("status", "PENDING"))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/accounts"))
-			.andExpect(status().is3xxRedirection());
+			.andExpect(view().name("redirect:/accounts"));
 	}
 	
 	@WithMockUser(value = "spring")

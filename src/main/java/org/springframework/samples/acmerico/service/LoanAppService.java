@@ -50,6 +50,7 @@ public class LoanAppService {
 		Loan loan = this.loanService.findLoanById(loanId);
 		Client client = account.getClient();
 
+		loanApp.setPayedDeadlines(0);
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(0.0);
 		loanApp.setClient(client);
@@ -61,6 +62,7 @@ public class LoanAppService {
 		loanApp.setClient(client);
 		loanApp.setBankAccount(account);
 		loanApp.setLoan(loan);
+		loanApp.setPayedDeadlines(0);
 		loan.getLoanApplications().add(loanApp);
 		this.loanService.save(loan);
 		this.save(loanApp);
