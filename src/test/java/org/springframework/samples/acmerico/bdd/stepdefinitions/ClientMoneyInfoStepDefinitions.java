@@ -30,14 +30,14 @@ public class ClientMoneyInfoStepDefinitions extends AbstractStep {
 	  	    getDriver().findElement(By.id("password")).clear();
 	   	    getDriver().findElement(By.id("password")).sendKeys("client1");
 	  	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-	  	    getDriver().findElement(By.linkText("Dashboard")).click();
+	  	    getDriver().findElement(By.id("dashboards")).click();
 	    }
 
 	    @Then("The statistics is shown as the current client")
 	    public void IsLoggedIn() throws Exception {
+	    	assertEquals(true, isElementPresent(By.xpath("//canvas")));
 	    	assertEquals(true, isElementPresent(By.xpath("//div[3]/canvas")));
-	    	assertEquals(true, isElementPresent(By.xpath("//div[4]/canvas")));
-	    	assertEquals(true, isElementPresent(By.xpath("//div[5]/canvas")));
+	    	assertEquals(true, isElementPresent(By.xpath("//div[2]/canvas")));
 	        stopDriver();
 	    }
 	    
@@ -59,7 +59,7 @@ public class ClientMoneyInfoStepDefinitions extends AbstractStep {
 	    
 	    @Then("The button for the statistics no exist")
 	    public void NoHasButton() throws Exception {
-	    	assertEquals(false, isElementPresent(By.linkText("Dashboard")));
+	    	assertEquals(false, isElementPresent(By.id("dashboards")));
 	        stopDriver();
 	    }
 	    

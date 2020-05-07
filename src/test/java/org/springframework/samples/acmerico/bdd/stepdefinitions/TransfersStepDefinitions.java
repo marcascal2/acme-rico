@@ -27,7 +27,6 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("client1");
   	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		getDriver().findElement(By.linkText("Bank Accounts")).click();
 		getDriver().findElement(By.id("dropdown-clients")).click();
 		getDriver().findElement(By.id("my-accounts")).click();
 		getDriver().findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
@@ -46,7 +45,6 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("worker1");
   	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		getDriver().findElement(By.id("clients-requests")).click();
 		getDriver().findElement(By.id("dropdown-workers")).click();
 		getDriver().findElement(By.id("transfer-apps")).click();
 		getDriver().findElement(By.linkText("20")).click();
@@ -60,7 +58,6 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("client1");
   	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		getDriver().findElement(By.linkText("Bank Accounts")).click();
 		getDriver().findElement(By.id("dropdown-clients")).click();
 		getDriver().findElement(By.id("my-accounts")).click();
 	}
