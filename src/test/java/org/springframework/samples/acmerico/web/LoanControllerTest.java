@@ -150,7 +150,7 @@ public class LoanControllerTest {
 		mockMvc.perform(get("/loans/{loanId}/{bankAccountId}", loan.getId(), bankAccount.getId()))
 				.andExpect(status().isOk()).andExpect(model().attributeExists("loan"))
 				.andExpect(model().attributeExists("bankAccountId"))
-				.andExpect(model().attributeExists("clientSingleLoan")).andExpect(view().name("loans/loanInfo"))
+				.andExpect(view().name("loans/loanInfo"))
 				.andExpect(status().is2xxSuccessful());
 	}
 
