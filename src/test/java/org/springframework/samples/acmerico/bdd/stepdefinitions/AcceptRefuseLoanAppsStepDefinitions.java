@@ -28,8 +28,7 @@ public class AcceptRefuseLoanAppsStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("director1");
 		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		getDriver().findElement(By.linkText("Clients requests")).click();
-		getDriver().findElement(By.id("dropdown-director")).click();
+		getDriver().findElement(By.id("dropdown-director-clients-request")).click();
 		getDriver().findElement(By.id("loan-applications")).click();
 		getDriver().findElement(By.xpath("//a[contains(text(),'Préstamo de estudios')]")).click();
 		assertEquals("Accept Loan Application", getDriver().findElement(By.xpath("//form/button")).getText());
@@ -55,8 +54,7 @@ public class AcceptRefuseLoanAppsStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("worker1");
 		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		getDriver().findElement(By.linkText("Clients requests")).click();
-		getDriver().findElement(By.id("dropdown-workers")).click();
+		getDriver().findElement(By.id("dropdown-workers-clients-request")).click();
 		getDriver().findElement(By.id("loan-applications")).click();
 		getDriver().findElement(By.xpath("(//a[contains(text(),'Préstamo de estudios')])[2]")).click();
 		assertEquals("Refuse Loan Application", getDriver().findElement(By.xpath("//form[2]/button")).getText());

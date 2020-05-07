@@ -26,8 +26,7 @@ public class BankAccountInfoStepDefinitions extends AbstractStep {
   	    getDriver().findElement(By.id("password")).clear();
    	    getDriver().findElement(By.id("password")).sendKeys("client1");
   	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-  	    getDriver().findElement(By.linkText("Bank Accounts")).click();
-  	    getDriver().findElement(By.id("dropdown-clients")).click();
+  	    getDriver().findElement(By.id("dropdown-clients-bank-accounts")).click();
   	    getDriver().findElement(By.id("my-accounts")).click();
   	    getDriver().findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
     }

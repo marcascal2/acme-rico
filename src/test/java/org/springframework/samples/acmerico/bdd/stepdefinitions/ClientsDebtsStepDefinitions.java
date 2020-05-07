@@ -30,7 +30,6 @@ public class ClientsDebtsStepDefinitions extends AbstractStep {
 	     getDriver().findElement(By.id("password")).clear();
 	     getDriver().findElement(By.id("password")).sendKeys("worker1");
 		 getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		 getDriver().findElement(By.linkText("Debts")).click();
 		 getDriver().findElement(By.id("debts")).click();
 	}
 	
