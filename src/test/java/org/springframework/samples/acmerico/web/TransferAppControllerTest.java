@@ -110,7 +110,7 @@ public class TransferAppControllerTest {
 		when(this.clientService.findClientById(client.getId())).thenReturn(client);
 		when(this.transferAppService.findAllTransfersApplicationsByClient(client)).thenReturn(Arrays.asList(transferApplication));
 		
-		mockMvc.perform(get("/transferapps_mine/{clientId}", client.getId()))
+		mockMvc.perform(get("/transferapps_mine"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("transfers_app"))
 			.andExpect(view().name("transfersApp/transferAppList"))

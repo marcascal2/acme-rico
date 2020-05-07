@@ -43,7 +43,7 @@ public class TransferAppControllerIntegrationTests {
 	@WithMockUser(username="client1",authorities= {"client"})
     @Test
     void testListMineTransfersApp() throws Exception {
-		mockMvc.perform(get("/transferapps_mine/{clientId}", 1))
+		mockMvc.perform(get("/transferapps_mine"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("transfers_app"))
 			.andExpect(view().name("transfersApp/transferAppList"))
