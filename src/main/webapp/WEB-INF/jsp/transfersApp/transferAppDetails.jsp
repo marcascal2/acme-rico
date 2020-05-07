@@ -21,24 +21,47 @@
 		</tr>
 		<tr>
 			<th>Account Number</th>
-			<td><c:out value="${transfer_application.account_number_destination}" /></td>
+			<td><c:out
+					value="${transfer_application.account_number_destination}" /></td>
 		</tr>
 
 	</table>
 
-	<sec:authorize access="hasAuthority('director') || hasAuthority('worker')">
+	<sec:authorize
+		access="hasAuthority('director') || hasAuthority('worker')">
 		<c:choose>
-			<c:when test="${transfer_application.status == 'PENDING'}">
-				<div class="buttons-group">
-					<form method="get" action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
-						<button class="btn btn-default" id="accept-transfer-button">Accept Transfer</button>
-				   </form>
-				   
-				   <form method="get" action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
-						<button class="btn btn-default" id="reject-transfer-button">Refuse Transfer</button>
-				   </form>
-				</div>
-			</c:when>
+				<c:when test="${accountHasMoney && transfer_application.status == 'PENDING'}">
+
+					<div class="buttons-group">
+						<form method="get"
+							action="/transferapps/${transfer_application.id}/accept/${transfer_application.bankAccount.id}">
+							<button class="btn btn-default" id="accept-transfer-button">Accept
+								Transfer</button>
+						</form>
+
+						<form method="get"
+							action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
+							<button class="btn btn-default" id="reject-transfer-button">Refuse
+								Transfer</button>
+						</form>
+					</div>
+				</c:when>
+
+				<c:when test="${!accountHasMoney  && transfer_application.status == 'PENDING'}">
+					<div class="buttons-group">
+					<button class="btn btn-default"
+						onclick="document.getElementById('demo').innerHTML = 'You cannot accept this transfer, since the client does not have money'">
+						Accept Transfer</button>
+					<p id="demo"></p>
+					<form method="get"
+							action="/transferapps/${transfer_application.id}/refuse/${transfer_application.bankAccount.id}">
+							<button class="btn btn-default" id="reject-transfer-button">Refuse
+								Transfer</button>
+						</form>
+					
+					</div>
+				</c:when>
+
 		</c:choose>
 	</sec:authorize>
 
