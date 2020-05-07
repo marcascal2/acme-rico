@@ -163,7 +163,7 @@ public class LoanAppControllerTest {
 	@Test
 	void testCollectAcceptedLoans() throws Exception {
 		mockMvc.perform(get("/loanapps/collect")).andExpect(status().isFound())
-				.andExpect(view().name("redirect:/grantedLoans")).andExpect(status().is3xxRedirection());
+				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
 	}
 
 }

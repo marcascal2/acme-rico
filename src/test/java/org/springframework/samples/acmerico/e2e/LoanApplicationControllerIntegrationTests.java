@@ -38,7 +38,7 @@ public class LoanApplicationControllerIntegrationTests {
 				.andExpect(status().is2xxSuccessful());
 	}
 
-	@WithMockUser(username = "client1", authorities = { "client" })
+	@WithMockUser(username = "worker1", authorities = { "worker" })
 	@Test
 	void testListEmployeeLoanApp() throws Exception {
 		mockMvc.perform(get("/loanapps")).andExpect(status().isOk()).andExpect(model().attributeExists("loanApps"))
@@ -81,6 +81,6 @@ public class LoanApplicationControllerIntegrationTests {
 	@Test
 	void testCollectAcceptedLoans() throws Exception {
 		mockMvc.perform(get("/loanapps/collect")).andExpect(status().isFound())
-				.andExpect(view().name("redirect:/grantedLoans")).andExpect(status().is3xxRedirection());
+				.andExpect(view().name("redirect:/loanapps")).andExpect(status().is3xxRedirection());
 	}
 }

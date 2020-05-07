@@ -44,8 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/clients/new").hasAnyAuthority("director")
 				//credit card app
 				.antMatchers("/creditcardapps").hasAnyAuthority("director","worker")
-				.antMatchers("/creditcardapps/{creditcardappsId}/**").hasAnyAuthority("director","worker")
-				.antMatchers("/creditcardapps/{bankAccountId}/**").hasAnyAuthority("client")
+				.antMatchers("/creditcardapps/{creditcardappsId}/**").hasAnyAuthority("director","worker","client")
 				.antMatchers("/creditcardapps/created").hasAnyAuthority("client")
 				.antMatchers("/creditcardapps/limit-reached").hasAnyAuthority("client")
 				.antMatchers("/mycreditcardapps/**").hasAnyAuthority("client")
