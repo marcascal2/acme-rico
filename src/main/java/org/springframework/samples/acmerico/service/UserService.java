@@ -44,4 +44,10 @@ public class UserService {
 		user.setEnabled(true);
 		userRepository.save(user);
 	}
+	
+	@Transactional
+	public Boolean usernameRepeated(String username) throws DataAccessException {
+		User user = this.userRepository.findById(username).orElse(new User());
+		return user.getUsername() != null;
+	}
 }
