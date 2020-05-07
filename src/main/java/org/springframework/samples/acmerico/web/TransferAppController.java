@@ -72,9 +72,8 @@ public class TransferAppController {
 		TransferApplication transferApp = this.transferAppService.findTransferAppById(transferappsId);
 		
 		boolean accountHasMoney = transferApp.getBankAccount().getAmount() >= transferApp.getAmount();
-		System.out.println(accountHasMoney);
-		modelMap.put("accountHasMoney", accountHasMoney);
 		modelMap.put("transfer_application", transferApp);
+		modelMap.put("accountHasMoney", accountHasMoney);
 		return EDIT_APPLICATIONS_VIEW;
 	}
 
