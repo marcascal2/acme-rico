@@ -34,10 +34,15 @@ public class DashboardController {
 		model.addAttribute("months", amountsToPay.get("months"));
 		model.addAttribute("amountsToPay", amountsToPay.get("amountsToPay"));
 		
-		Map<String, Integer> moneyPie = this.dashboardService.moneyPie(username);
+		Map<String, Double> moneyDebtPie = this.dashboardService.moneyDebtPie(username);
 		
-		model.addAttribute("moneyToDebt", moneyPie.get("moneyToDebt"));
-		model.addAttribute("moneyInBankAccounts", moneyPie.get("moneyInBankAccounts"));
+		model.addAttribute("moneyToDebt", moneyDebtPie.get("moneyToDebt"));
+		model.addAttribute("moneyInBankAccounts", moneyDebtPie.get("moneyInBankAccounts"));
+		
+		Map<String, List<Object>> myMoneyPie = this.dashboardService.myMoneyPie(username);
+		
+		model.addAttribute("bankAccountAmounts", myMoneyPie.get("bankAccountAmounts"));
+		model.addAttribute("alias", myMoneyPie.get("alias"));
 		
 		return "dashboard/clientMoneyInfo";
 	}

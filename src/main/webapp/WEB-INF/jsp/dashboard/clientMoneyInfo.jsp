@@ -1,25 +1,24 @@
-<%@ page session="false" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <petclinic:layout pageName="dashboard">
 
-	<div class="charts-container">
-		<div class="chart-container"> 
-			<canvas id="canvas1"></canvas>
-		</div>
-		<div class="chart-container">
-			<canvas id="canvas2" ></canvas>
-		</div>
-	</div>
+	<div class="charts-container"></div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			function getRandomColor() {
+				var letters = '0123456789ABCDEF';
+				var color = '#';
+				for (var i = 0; i < 6; i++) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+			
 			var container = document.querySelector('.charts-container');
+			var presets = window.chartColors;
+			var utils = Samples.utils;
 			
 			var data = [{
 				labels : ['Accepted', 'Rejected', 'Pending'],
@@ -28,19 +27,19 @@
 					data : [<jstl:forEach var = "status" items = "${loanAppsStatus}">
 								<jstl:out value="${status}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					backgroundColor : ['#EBBE00', '#EBBE00', '#EBBE00']
+					backgroundColor : [presets.yellow, presets.yellow, presets.yellow]
 				},{
 					label : 'My CreditCard Applications Status',
 					data : [<jstl:forEach var = "status" items = "${creditCardAppsStatus}">
 								<jstl:out value="${status}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					backgroundColor : ['#014EA4', '#014EA4', '#014EA4']
+					backgroundColor : [presets.green, presets.green, presets.green]
 				},{
 					label : 'My Transfer Applications Status',
 					data : [<jstl:forEach var = "status" items = "${transferAppsStatus}">
 								<jstl:out value="${status}" escapeXml="false"/>,
 							</jstl:forEach> ],
-					backgroundColor : ['#EE6F06', '#EE6F06', '#EE6F06']
+					backgroundColor : [presets.orange, presets.orange, presets.orange]
 				}
 				]
 			},{
@@ -52,18 +51,37 @@
 					data : [<jstl:forEach var = "amountToPay" items = "${amountsToPay}">
 								<jstl:out value="${amountToPay}" escapeXml="false"/>,
 							</jstl:forEach> ],
+					backgroundColor : utils.transparentize(presets.red),
 					borderColor : ['#EE0606']
 				} ]
 			},{
 				labels : ['Money To Debt', 'My Money'],
 				datasets : [ {
-					label : 'Amounts to pay in next five motnhs',
+					label : 'Money To debt',
 					data : [${moneyToDebt}, ${moneyInBankAccounts}],
-					backgroundColor : ['#E05315', '#68E015']
+					backgroundColor : [presets.red, presets.blue]
+				} ]
+			},{
+				labels : [<jstl:forEach var = "alia" items = "${alias}">
+				 	  		  <jstl:out value="'${alia}'" escapeXml="false"/>,
+					  	  </jstl:forEach>],
+				datasets : [ {
+					label : 'My money in my bank accounts',
+					data : [<jstl:forEach var = "bankAccountAmount" items = "${bankAccountAmounts}">
+								<jstl:out value="${bankAccountAmount}" escapeXml="false"/>,
+							</jstl:forEach>],
+					backgroundColor : [<jstl:forEach var = "bankAccountAmount" items = "${bankAccountAmounts}">
+										  <jstl:out value="getRandomColor()" escapeXml="false"/>,
+									  </jstl:forEach>]
 				} ]
 			}];
 
 			var options = {
+				elements : {
+					line : {
+						tension : 0.000001
+					}
+				},
 				scales : {
 					yAxes : [ {
 						ticks : {
@@ -80,7 +98,9 @@
 			var i = 0;
 			
 			data.forEach(function(data) {
-				if(i == 2){
+				if(i == 3){
+					typeChart = 'pie';
+				}else if(i == 2){
 					typeChart = 'pie';
 				} else if (i == 1){
 					typeChart = 'line';
@@ -106,5 +126,5 @@
 			});
 		});
 	</script>
-	
+
 </petclinic:layout>

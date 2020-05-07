@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.repository.DashboardRepository;
@@ -77,16 +78,35 @@ public class DashboardService {
 		return result;
 	}
 	
-	public Map<String, Integer> moneyPie(String username){
-		Map<String, Integer> result = new HashMap<>();
+	public Map<String, Double> moneyDebtPie(String username){
+		Map<String, Double> result = new HashMap<>();
 		
 		Client client = (Client) this.clientService.findClientByUserName(username);
 		
 		Integer moneyToDebt = this.dashboardRepository.countMoneyToDebt(client);
 		Integer moneyInBankAccounts = this.dashboardRepository.countMoneyInBankAccounts(client);
 		
-		result.put("moneyToDebt", moneyToDebt);
-		result.put("moneyInBankAccounts", moneyInBankAccounts);
+		result.put("moneyToDebt", (double) Math.round(moneyToDebt*100)/100);
+		result.put("moneyInBankAccounts", (double) Math.round(moneyInBankAccounts*100)/100);
+		
+		return result;
+	}
+	
+	public Map<String, List<Object>> myMoneyPie(String username){
+		Map<String, List<Object>> result = new HashMap<>();
+		List<Object> bankAccountAmounts = new ArrayList<>();
+		List<Object> alias = new ArrayList<>();
+		
+		Client client = (Client) this.clientService.findClientByUserName(username);
+		List<BankAccount> bankAccounts = (List<BankAccount>) client.getBankAccounts();
+		
+		for(BankAccount ba:bankAccounts) {
+			bankAccountAmounts.add(Math.round(ba.getAmount()*100)/100);
+			alias.add(ba.getAlias());
+		}
+		
+		result.put("bankAccountAmounts", bankAccountAmounts);
+		result.put("alias", alias);
 		
 		return result;
 	}
