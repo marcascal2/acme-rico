@@ -30,14 +30,14 @@ public class LoanApplicationsMYSQLTest {
 	@Test
 	public void testCountLoanAppsAfterCreating() {
 		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findAllLoanApps();
-		assertThat(loanAplocations.size()).isEqualTo(2);
+		assertThat(loanAplocations.size()).isEqualTo(5);
 	}
 
 	@Test
 	public void testCountLoanAppsByClient() {
 		Client client = this.clientService.findClientById(1);
 		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findLoanAppsByClient(client.getId());
-		assertThat(loanAplocations.size()).isEqualTo(1);
+		assertThat(loanAplocations.size()).isEqualTo(3);
 	}
 
 	@Test
