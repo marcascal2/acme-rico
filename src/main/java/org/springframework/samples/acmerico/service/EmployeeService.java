@@ -17,9 +17,7 @@ public class EmployeeService {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private AuthoritiesService authoritiesService;
+
 	
 	@Autowired
 	public EmployeeService(EmployeeRepository employeeRepository) {
@@ -47,8 +45,6 @@ public class EmployeeService {
 		employeeRepository.save(employee);		
 		//creating user
 		userService.saveUser(employee.getUser());
-		//creating authorities
-		authoritiesService.saveAuthorities(employee.getUser().getUsername(), "employee");
 	}
 
 	@Transactional

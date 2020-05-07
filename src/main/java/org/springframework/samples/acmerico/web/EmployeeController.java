@@ -1,7 +1,9 @@
 package org.springframework.samples.acmerico.web;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -25,14 +27,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class EmployeeController {
 
 	private static final String VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM = "employees/createOrUpdateEmployeeForm";
-	
+
 	private final EmployeeService employeeService;
-	
+
 	@Autowired
-	public EmployeeController(EmployeeService employeeService, UserService userService, AuthoritiesService authoritiesService) {
+	public EmployeeController(EmployeeService employeeService, UserService userService,
+			AuthoritiesService authoritiesService) {
 		this.employeeService = employeeService;
 	}
-	
+
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -47,17 +50,16 @@ public class EmployeeController {
 
 	@PostMapping(value = "/employees/new")
 	public String processCreationForm(@Valid Employee employee, BindingResult result) {
-		
-		if(this.employeeService.findEmployeeByUserName(employee.getUser().getUsername())!=null) {
+
+		if (this.employeeService.findEmployeeByUserName(employee.getUser().getUsername()) != null) {
 			result.rejectValue("user.username", "username already taken", "username already taken");
 		}
-		
+
 		if (result.hasErrors()) {
 			return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			this.employeeService.saveEmployee(employee);
-			
+
 			return "redirect:/employees/" + employee.getId();
 		}
 	}
@@ -69,17 +71,19 @@ public class EmployeeController {
 	}
 
 	@GetMapping(value = "/employees")
-	public String processFindForm(Employee employee, BindingResult result, Map<String, Object> model) {
+	public String processFindForm(Principal principal, Employee employee, BindingResult result,
+			Map<String, Object> model) {
 		if (employee.getLastName() == null) {
 			employee.setLastName("");
 		}
 
 		Collection<Employee> results = this.employeeService.findEmployeeByLastName(employee.getLastName());
+		results = results.stream().filter(x -> !x.getUser().getUsername().equals(principal.getName()))
+				.collect(Collectors.toList());
 		if (results.isEmpty()) {
 			result.rejectValue("lastName", "notFound", "not found");
 			return "employees/findEmployees";
-		}
-		else {
+		} else {
 			model.put("selections", results);
 			return "employees/employeesList";
 		}
@@ -97,8 +101,7 @@ public class EmployeeController {
 			@PathVariable("employeeId") int employeeId) {
 		if (result.hasErrors()) {
 			return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			employee.setId(employeeId);
 			this.employeeService.saveEmployee(employee);
 			return "redirect:/employees/{employeeId}";
@@ -107,6 +110,7 @@ public class EmployeeController {
 
 	/**
 	 * Custom handler for displaying an owner.
+	 * 
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
@@ -116,34 +120,35 @@ public class EmployeeController {
 		mav.addObject(this.employeeService.findEmployeeById(employeeId));
 		return mav;
 	}
-	
+
 	@GetMapping(value = "/personalDataEmployee/{name}")
 	public ModelAndView processInitPersonalDataForm(@PathVariable("name") String name) {
 		ModelAndView mav = new ModelAndView("employees/employeesDetails");
 		mav.addObject(this.employeeService.findEmployeeByUserName(name));
+		mav.addObject("personalData", true);
 		return mav;
 	}
-	
+
 	@GetMapping(value = "/personalDataEmployee/{employeeId}/edit")
 	public String initUpdatepersonalDataForm(@PathVariable("employeeId") int employeeId, Model model) {
-		Employee employee= this.employeeService.findEmployeeById(employeeId);
+		Employee employee = this.employeeService.findEmployeeById(employeeId);
 		model.addAttribute(employee);
 		return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
 	}
-	
+
 	@PostMapping(value = "/personalDataEmployee/{employeeId}/edit")
-	public String processUpdatePersonalDataForm(@Valid Employee employee, BindingResult result, @PathVariable("employeeId") int employeeId) {
+	public String processUpdatePersonalDataForm(@Valid Employee employee, BindingResult result,
+			@PathVariable("employeeId") int employeeId) {
 		if (result.hasErrors()) {
 			return VIEWS_EMPLOYEE_CREATE_OR_UPDATE_FORM;
-		}
-		else {
+		} else {
 			employee.setId(employeeId);
 			this.employeeService.saveEmployee(employee);
 			SecurityContextHolder.clearContext();
 			return "redirect:/";
 		}
 	}
-	
+
 	@GetMapping(value = "/employees/{employeeId}/delete")
 	public String deleteEmployee(@PathVariable("employeeId") int employeeId, Model model) {
 		this.employeeService.deleteEmployeeById(employeeId);
