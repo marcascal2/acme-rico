@@ -70,7 +70,10 @@ public class TransferAppController {
 	@GetMapping(value = "/transferapps/{transferappsId}")
 	public String showTransferApplication(@PathVariable("transferappsId") int transferappsId, ModelMap modelMap) {
 		TransferApplication transferApp = this.transferAppService.findTransferAppById(transferappsId);
+		
+		boolean accountHasMoney = transferApp.getBankAccount().getAmount() >= transferApp.getAmount();
 		modelMap.put("transfer_application", transferApp);
+		modelMap.put("accountHasMoney", accountHasMoney);
 		return EDIT_APPLICATIONS_VIEW;
 	}
 
