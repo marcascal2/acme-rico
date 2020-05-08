@@ -110,7 +110,7 @@ INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadli
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (2, 'Mortgage loan', 15000.0 , 1200.0, 4, 150.0, 0.02, TRUE);
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (3, 'Personal loan', 10000.0 , 800.0, 4, 120.0, 0.03, TRUE);
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (4, 'Unique loan', 9000.0 , 700.0, 2, 90.0, 0.01, TRUE);
-INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (5, 'business loan', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
+INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (5, 'Business loan', 30000.0 , 1000.0, 4, 200.0, 0.10, TRUE);
 
 --LOANAPPS
 INSERT INTO loan_applications(id,amount,purpose,status,amount_paid,bank_account_id,loan_id,client_id) VALUES (1, 900.0, 'University', 'PENDING', 0.0, 1, 1, 1);
