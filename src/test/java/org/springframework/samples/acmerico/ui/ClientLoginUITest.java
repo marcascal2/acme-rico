@@ -17,37 +17,37 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientLoginUITest {
 
-  private WebDriver driver;
-  private StringBuffer verificationErrors = new StringBuffer();
+	private WebDriver driver;
+	private StringBuffer verificationErrors = new StringBuffer();
 
-  @LocalServerPort
-  private int port;
-  
-  @BeforeEach
-  public void setUp() throws Exception {
-    // System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
-    driver = new FirefoxDriver();
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  }
+	@LocalServerPort
+	private int port;
 
-  @Test
-  public void clientLoginUITest() throws Exception {
-    driver.get("http://localhost:" + port + "/login");
-    driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("client1");
-    driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys("client1");
-    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-    assertEquals("client1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
-  }
+	@BeforeEach
+	public void setUp() throws Exception {
+//      System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+		driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
 
-  @AfterEach
-  public void tearDown() throws Exception {
-    driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
-  }
+	@Test
+	public void clientLoginUITest() throws Exception {
+		driver.get("http://localhost:" + port + "/login");
+		driver.findElement(By.id("username")).clear();
+		driver.findElement(By.id("username")).sendKeys("client1");
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).clear();
+		driver.findElement(By.id("password")).sendKeys("client1");
+		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+		assertEquals("CLIENT1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+	}
+
+	@AfterEach
+	public void tearDown() throws Exception {
+		driver.quit();
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
+	}
 }

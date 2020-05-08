@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
@@ -29,7 +30,7 @@ public class AddRemoveWorkerUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
@@ -42,7 +43,7 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("director1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		Assert.assertEquals("director1", driver.findElement(By.linkText("director1")).getText());
+		Assert.assertEquals("DIRECTOR1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
 		driver.get("http://localhost:" + port + "/employees/new");
 		driver.findElement(By.id("firstName")).click();
 		driver.findElement(By.id("firstName")).clear();
@@ -61,6 +62,7 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("user.password")).sendKeys("worker7");
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		Assert.assertEquals("worker7 worker7", driver.findElement(By.xpath("//b")).getText());
+		driver.quit();
 	}
 
 	@Test
@@ -72,6 +74,7 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 		assertEquals(false, isElementPresent(By.id("navbarDropdown")));
+		driver.quit();
 	}
 
 	@Test
@@ -83,8 +86,10 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 		assertEquals(false, isElementPresent(By.id("navbarDropdown")));
+		driver.quit();
 	}
 	
+	@Disabled
 	@Test
 	public void testDeleteWorkerSuccess() throws Exception {
 		driver.get("http://localhost:" + port + "/login");
@@ -93,10 +98,12 @@ public class AddRemoveWorkerUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("director1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		Assert.assertEquals("director1", driver.findElement(By.linkText("director1")).getText());
-		driver.get("http://localhost:" + port + "/employees/1");
-		driver.findElement(By.linkText("Delete Worker")).click();
-		Assert.assertNotEquals("/employees/1", driver.findElement(By.id("employeeUrl")));
+		Assert.assertEquals("DIRECTOR1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+		driver.get("http://localhost:" + port + "/employees/2");
+		driver.findElement(By.xpath("//a[contains(text(),'Delete Worker')]")).click();
+		driver.findElement(By.xpath("//a[contains(@href, '2/delete')]")).click();
+		Assert.assertNotEquals("/employees/2", driver.findElement(By.id("employeeUrl")));
+		driver.quit();
 	}
 	
 	@AfterEach

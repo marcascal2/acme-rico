@@ -17,58 +17,57 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LoanCreateUITest {
 
-  private WebDriver driver;
-  private StringBuffer verificationErrors = new StringBuffer();
+	private WebDriver driver;
+	private StringBuffer verificationErrors = new StringBuffer();
 
-  @LocalServerPort
-  private int port;
-  
-  @BeforeEach
-  public void setUp() throws Exception {
-	// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
-    driver = new FirefoxDriver();
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  }
+	@LocalServerPort
+	private int port;
 
-  @Test
-  public void loanCreateUITest() throws Exception {
-    driver.get("http://localhost:" + port + "/");
-    driver.findElement(By.id("login-button")).click();
-    driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("director1");
-    driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys("director1");
-    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-    driver.findElement(By.linkText("Loans")).click();
-    driver.findElement(By.id("loans-dropdown")).click();
-    driver.findElement(By.id("see-loans")).click();
-    driver.findElement(By.xpath("//button[@type='submit']")).click();
-    driver.findElement(By.id("description")).click();
-    driver.findElement(By.id("description")).clear();
-    driver.findElement(By.id("description")).sendKeys("Prueba");
-    driver.findElement(By.id("minimum_amount")).clear();
-    driver.findElement(By.id("minimum_amount")).sendKeys("1000");
-    driver.findElement(By.id("minimum_income")).clear();
-    driver.findElement(By.id("minimum_income")).sendKeys("900");
-    driver.findElement(By.id("number_of_deadlines")).clear();
-    driver.findElement(By.id("number_of_deadlines")).sendKeys("10");
-    driver.findElement(By.id("opening_price")).clear();
-    driver.findElement(By.id("opening_price")).sendKeys("300");
-    driver.findElement(By.id("monthly_fee")).clear();
-    driver.findElement(By.id("monthly_fee")).sendKeys("0.04");
-    driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("Prueba", driver.findElement(By.xpath("//table/tbody/tr[6]/td[1]")).getText());
-    assertEquals("Prueba", driver.findElement(By.linkText("Prueba")).getText());
-    driver.quit();
-  }
+	@BeforeEach
+	public void setUp() throws Exception {
+//		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+		driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
 
-  @AfterEach
-  public void tearDown() throws Exception {
-    driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
-  }
+	@Test
+	public void loanCreateUITest() throws Exception {
+		driver.get("http://localhost:" + port + "/");
+		driver.findElement(By.id("login-button")).click();
+		driver.findElement(By.id("username")).clear();
+		driver.findElement(By.id("username")).sendKeys("director1");
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).clear();
+		driver.findElement(By.id("password")).sendKeys("director1");
+		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+		driver.findElement(By.id("loans-dropdown")).click();
+		driver.findElement(By.id("see-loans")).click();
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		driver.findElement(By.id("description")).click();
+		driver.findElement(By.id("description")).clear();
+		driver.findElement(By.id("description")).sendKeys("Prueba");
+		driver.findElement(By.id("minimum_amount")).clear();
+		driver.findElement(By.id("minimum_amount")).sendKeys("1000");
+		driver.findElement(By.id("minimum_income")).clear();
+		driver.findElement(By.id("minimum_income")).sendKeys("900");
+		driver.findElement(By.id("number_of_deadlines")).clear();
+		driver.findElement(By.id("number_of_deadlines")).sendKeys("10");
+		driver.findElement(By.id("opening_price")).clear();
+		driver.findElement(By.id("opening_price")).sendKeys("300");
+		driver.findElement(By.id("monthly_fee")).clear();
+		driver.findElement(By.id("monthly_fee")).sendKeys("0.04");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		assertEquals("Prueba", driver.findElement(By.xpath("//table/tbody/tr[6]/td[1]")).getText());
+		assertEquals("Prueba", driver.findElement(By.linkText("Prueba")).getText());
+		driver.quit();
+	}
+
+	@AfterEach
+	public void tearDown() throws Exception {
+		driver.quit();
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
+	}
 }

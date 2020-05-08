@@ -24,7 +24,7 @@ public class CreditCardInformationUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+//		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
@@ -40,8 +40,7 @@ public class CreditCardInformationUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Bank Accounts")).click();
-		driver.findElement(By.id("dropdown-clients")).click();
+		driver.findElement(By.id("dropdown-clients-bank-accounts")).click();
 		driver.findElement(By.id("my-credit-card")).click();
 		driver.findElement(By.linkText("4095742744779740")).click();
 		assertEquals("4095742744779740", driver.findElement(By.id("number")).getAttribute("value"));
