@@ -32,7 +32,7 @@
 			<spring:url value="{employeeId}/delete" var="deleteUrl">
 				<spring:param name="employeeId" value="${employee.id}" />
 			</spring:url>
-			<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
+			<a id="delete-worker" href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
 				Worker</a>
 		</c:if>
 	</div>
