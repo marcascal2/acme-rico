@@ -24,7 +24,7 @@ public class PersonalInformationClientUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+//		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
@@ -38,7 +38,7 @@ public class PersonalInformationClientUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		assertEquals("worker1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+		assertEquals("WORKER1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[2]/a/span[2]")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		driver.findElement(By.linkText("George Franklin")).click();
@@ -61,7 +61,7 @@ public class PersonalInformationClientUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		assertEquals("worker1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+		assertEquals("WORKER1", driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[2]/a/span[2]")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		driver.findElement(By.linkText("George Franklin")).click();

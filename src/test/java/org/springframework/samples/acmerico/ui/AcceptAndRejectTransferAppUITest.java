@@ -23,7 +23,7 @@ public class AcceptAndRejectTransferAppUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		// System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+//		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
@@ -38,7 +38,6 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 		driver.findElement(By.id("clients-requests")).click();
-		driver.findElement(By.id("dropdown-workers")).click();
 		driver.findElement(By.id("transfer-apps")).click();
 		assertEquals("PENDING",
 				driver.findElement(By.xpath("//table[@id='transfersAppTable']/tbody/tr[4]/td[3]")).getText());
@@ -57,8 +56,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Bank Accounts")).click();
-		driver.findElement(By.id("dropdown-clients")).click();
+		driver.findElement(By.id("dropdown-clients-bank-accounts")).click();
 		driver.findElement(By.id("my-accounts")).click();
 		driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
@@ -76,8 +74,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Clients requests")).click();
-		driver.findElement(By.id("dropdown-workers")).click();
+		driver.findElement(By.id("dropdown-workers-clients-request")).click();
 		driver.findElement(By.id("transfer-apps")).click();
 		driver.findElement(By.linkText("20")).click();
 		assertEquals("ES28 1236 2352 0258 0214", driver.findElement(By.xpath("//tr[4]/td")).getText());
@@ -93,8 +90,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Bank Accounts")).click();
-		driver.findElement(By.id("dropdown-clients")).click();
+		driver.findElement(By.id("dropdown-clients-bank-accounts")).click();
 		driver.findElement(By.id("my-accounts")).click();
 		driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
@@ -112,8 +108,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("worker1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.id("clients-requests")).click();
-		driver.findElement(By.id("dropdown-workers")).click();
+		driver.findElement(By.id("dropdown-workers-clients-request")).click();
 		driver.findElement(By.id("transfer-apps")).click();
 		driver.findElement(By.linkText("20")).click();
 		driver.findElement(By.xpath("//form[2]/button")).click();
@@ -130,8 +125,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("client1");
 		driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-		driver.findElement(By.linkText("Bank Accounts")).click();
-		driver.findElement(By.id("dropdown-clients")).click();
+		driver.findElement(By.id("dropdown-clients-bank-accounts")).click();
 		driver.findElement(By.id("my-accounts")).click();
 		driver.findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
