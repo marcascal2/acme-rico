@@ -152,6 +152,7 @@ public class ClientControllerTest {
 				.param("address", "Gordal")
 				// .param("birthDate", "1998/11/27")
 				.param("user.username", "client1")
+				.param("user.password", "client1")
 				.param("city", "Sevilla").param("maritalStatus", "single but whole").param("salaryPerYear", "300000.")
 				.param("lastEmployDate", "2010-01-22")).andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("client"))

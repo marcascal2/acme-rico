@@ -35,7 +35,7 @@ public class BankAccountInfoStepDefinitions extends AbstractStep {
     public void IsLoggedIn() throws Exception {
         assertEquals("ES23 0025 0148 1259 1424", getDriver().findElement(By.id("accountNumber")).getAttribute("value"));
   	    assertEquals("3317.34", getDriver().findElement(By.id("amount")).getAttribute("value"));
-   	    assertEquals("Viajes", getDriver().findElement(By.id("alias")).getAttribute("value"));
+   	    assertEquals("Travels", getDriver().findElement(By.id("alias")).getAttribute("value"));
         stopDriver();
     }
     
