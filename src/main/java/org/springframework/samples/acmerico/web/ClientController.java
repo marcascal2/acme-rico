@@ -56,6 +56,15 @@ public class ClientController {
 			result.rejectValue("user.username", "This username is already registered",
 					"This username is already registered");
 		}
+		
+		if(client.getUser().getUsername().equals(null) || client.getUser().getUsername().equals("")) {
+			result.rejectValue("user.username", "Username must not be empty", "Username must not be empty" );
+		}
+		
+		if(client.getUser().getPassword().equals(null) || client.getUser().getPassword().equals("")) {
+			result.rejectValue("user.password", "Password must not be empty", "Password must not be empty" );
+		}
+		
 		if (result.hasErrors()) {
 			return VIEWS_CLIENT_CREATE_OR_UPDATE_FORM;
 		} else {
