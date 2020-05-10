@@ -55,9 +55,10 @@
 	<a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Edit
 		Client</a>
 		
+	<sec:authorize access="hasAuthority('director')">
 	<spring:url value="/dashboard/{clientId}/statics" var="dashBoardUrl">
 		<spring:param name="clientId" value="${client.id}" />
 	</spring:url>
 	<a href="${fn:escapeXml(dashBoardUrl)}" class="btn btn-default">Client statics</a>
-	
+	</sec:authorize>
 </petclinic:layout>
