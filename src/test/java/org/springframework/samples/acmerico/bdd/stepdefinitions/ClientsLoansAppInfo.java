@@ -29,7 +29,7 @@ public class ClientsLoansAppInfo extends AbstractStep {
         getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
         getDriver().findElement(By.id("dropdown-clients-apps")).click();
         getDriver().findElement(By.id("loan-apps")).click();
-        getDriver().findElement(By.linkText("Préstamo de estudios")).click();
+        getDriver().findElement(By.linkText("Student loan")).click();
 
     }
 

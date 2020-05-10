@@ -33,8 +33,8 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 	 
 	 @Then("The list of granted loans is shown")
 	 public void IsLoggedIn() throws Exception {
-		 assertEquals("Préstamo de estudios", getDriver().findElement(By.linkText("Préstamo de estudios")).getText());
-		 assertEquals("Préstamo hipotecario", getDriver().findElement(By.linkText("Préstamo hipotecario")).getText());
+		 assertEquals("Student loan", getDriver().findElement(By.linkText("Student loan")).getText());
+		 assertEquals("Mortgage loan", getDriver().findElement(By.linkText("Mortgage loan")).getText());
 		 stopDriver();
 	 }
 

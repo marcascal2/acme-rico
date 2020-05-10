@@ -52,16 +52,18 @@ public class ClientController {
 	@PostMapping(value = "/clients/new")
 	public String processCreationForm(@Valid Client client, BindingResult result) {
 		Boolean isRegistered = this.userService.usernameRepeated(client.getUser().getUsername());
+		Boolean nullUsername = client.getUser().getUsername().equals(null) || client.getUser().getUsername().equals("");
+		Boolean nullPassword = client.getUser().getPassword().equals(null) || client.getUser().getPassword().equals("");
 		if (isRegistered) {
 			result.rejectValue("user.username", "This username is already registered",
 					"This username is already registered");
 		}
 		
-		if(client.getUser().getUsername().equals(null) || client.getUser().getUsername().equals("")) {
+		if(nullUsername) {
 			result.rejectValue("user.username", "Username must not be empty", "Username must not be empty" );
 		}
 		
-		if(client.getUser().getPassword().equals(null) || client.getUser().getPassword().equals("")) {
+		if(nullPassword) {
 			result.rejectValue("user.password", "Password must not be empty", "Password must not be empty" );
 		}
 		
