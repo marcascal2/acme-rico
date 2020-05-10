@@ -88,7 +88,7 @@
 					<petclinic:menuItem active="${name eq 'clients'}"
 						url="/clients/find" title="find clients">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						<span>Clients</span>
+						<span id="clients-worker">Clients</span>
 					</petclinic:menuItem>
 					<li class="nav-item dropdown" id="clients-requests"><a
 						class="nav-link dropdown-toggle" id="dropdown-workers-clients-request"
@@ -123,7 +123,7 @@
 				<!-- MENU DIRECTOR -->
 				<sec:authorize access="hasAuthority('director')">
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						class="nav-link dropdown-toggle" id="dropdown-director-users" role="button"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
 							Manage users
