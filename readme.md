@@ -7,7 +7,7 @@
 
 [HISTORIAS DE USUARIO](https://drive.google.com/open?id=1MNyGPxISJvWHkfkmD2q1bipYtaZXYx74)
 
-[INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://drive.google.com/open?id=1OFzQgPIc7TzWoEqP5LEgRf6p6gk_rwoY)
+[INFORME DE DECISIONES A LO LARGO DEL DESARROLLO DEL PROYECTO](https://drive.google.com/open?id=13XBEkZwXgQ1p4702ma68cm1Qj01rXT3J)
 
 [FALLOS ARREGLADOS GRACIAS A LOS TESTS](https://drive.google.com/open?id=1D0gKl_0ESPkToHWZR-hD91viE0ZVF2ic)
 
