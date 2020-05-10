@@ -47,8 +47,6 @@ public class DashboardControllerTest {
 
 	private static final String TEST_CLIENT_LASTNAME = "Ruiz";
 
-	private static final Integer TEST_BANK_ACCOUNT_ID = 1;
-
 	private static final String TEST_BANK_ACCOUNT_NUMBER = "ES23 0025 0148 1259 1424";
 
 	@MockBean

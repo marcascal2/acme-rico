@@ -12,7 +12,7 @@ import io.cucumber.java.en.When;
 
 public class TransfersStepDefinitions extends AbstractStep {
 
-	@LocalServerPort  //HU 15
+	@LocalServerPort // HU 15
 	private int port;
 
 	@Given("I am a user logged in as a client")
@@ -26,7 +26,7 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("username")).sendKeys("client1");
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("client1");
-  	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
 		getDriver().findElement(By.id("dropdown-clients-bank-accounts")).click();
 		getDriver().findElement(By.id("my-accounts")).click();
 		getDriver().findElement(By.linkText("ES23 0025 0148 1259 1424")).click();
@@ -44,7 +44,7 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("username")).sendKeys("worker1");
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("worker1");
-  	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
 		getDriver().findElement(By.id("dropdown-workers-clients-request")).click();
 		getDriver().findElement(By.id("transfer-apps")).click();
 		getDriver().findElement(By.linkText("20")).click();
@@ -57,7 +57,7 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("username")).sendKeys("client1");
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("client1");
-  	    getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
 		getDriver().findElement(By.id("dropdown-clients-bank-accounts")).click();
 		getDriver().findElement(By.id("my-accounts")).click();
 	}
@@ -66,7 +66,38 @@ public class TransfersStepDefinitions extends AbstractStep {
 	public void IsSent() throws Exception {
 		assertEquals("10200.0",
 				getDriver().findElement(By.xpath("//table[@id='accountsTable']/tbody/tr[2]/td[2]")).getText());
-        stopDriver();
+		stopDriver();
 	}
 
+	@Given("I am a user logged in as a client")
+	public void IamNotLoggedClient() throws Exception {
+		getDriver().get("http://localhost:" + port + "/login");
+	}
+
+	@When("Money is not enough in the account")
+	public void ItryToSendTransferUnsuccess() {
+		getDriver().findElement(By.id("username")).clear();
+		getDriver().findElement(By.id("username")).sendKeys("client1");
+		getDriver().findElement(By.id("password")).clear();
+		getDriver().findElement(By.id("password")).sendKeys("client1");
+		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+		getDriver().findElement(By.linkText("Bank Accounts")).click();
+		getDriver().findElement(By.id("my-accounts")).click();
+		getDriver().findElement(By.linkText("ES29 1258 1010 1064 2579")).click();
+		assertEquals("2000.0", getDriver().findElement(By.id("amount")).getAttribute("value"));
+		getDriver().findElement(By.id("create-transfer")).click();
+		getDriver().findElement(By.id("amount")).click();
+		getDriver().findElement(By.id("amount")).sendKeys("2010");
+		getDriver().findElement(By.id("account_number_destination")).click();
+		getDriver().findElement(By.id("account_number_destination")).clear();
+		getDriver().findElement(By.id("account_number_destination")).sendKeys("ES28 1236 2352 0258 0214");
+		getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+	}
+
+	@Then("the system does not allow to create the request")
+	public void IsNotSent() throws Exception {
+		assertEquals("This amount can´t be higher than bank account amount",
+				getDriver().findElement(By.xpath("//form[@id='transfer_app']/div/div/div/span[2]")).getText());
+		stopDriver();
+	}
 }
