@@ -12,7 +12,7 @@ import io.cucumber.java.en.When;
 
 public class TransfersStepDefinitions extends AbstractStep {
 
-	@LocalServerPort
+	@LocalServerPort  //HU 15
 	private int port;
 
 	@Given("I am a user logged in as a client")

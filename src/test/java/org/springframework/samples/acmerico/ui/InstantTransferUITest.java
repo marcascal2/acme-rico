@@ -26,7 +26,7 @@ public class InstantTransferUITest {
 	private WebDriver driver;
 	private StringBuffer verificationErrors = new StringBuffer();
 
-	@BeforeEach
+	@BeforeEach  //HU 16
 	public void setUp() throws Exception {
 //		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();

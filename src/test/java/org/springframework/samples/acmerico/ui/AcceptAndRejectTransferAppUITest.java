@@ -28,7 +28,7 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@Test
+	@Test  //HU 10
 	public void testAcceptAndRejectUI() throws Exception {
 		driver.get("http://localhost:" + port + "/");
 		driver.findElement(By.id("login-button")).click();

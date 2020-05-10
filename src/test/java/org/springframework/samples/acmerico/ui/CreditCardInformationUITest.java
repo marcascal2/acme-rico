@@ -22,7 +22,7 @@ public class CreditCardInformationUITest {
 	@LocalServerPort
 	private int port;
 
-	@BeforeEach
+	@BeforeEach  //HU 17
 	public void setUp() throws Exception {
 //		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();

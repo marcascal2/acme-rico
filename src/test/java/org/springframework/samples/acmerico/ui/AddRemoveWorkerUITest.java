@@ -34,7 +34,7 @@ public class AddRemoveWorkerUITest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@Test
+	@Test // HU 5
 	public void testAddWorkerSuccess() throws Exception {
 		driver.get("http://localhost:" + port + "/login");
 		driver.findElement(By.id("username")).clear();

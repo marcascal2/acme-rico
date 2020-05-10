@@ -10,7 +10,7 @@ import io.cucumber.java.en.When;
 
 public class ClientsLoansAppInfo extends AbstractStep {
 
-    @LocalServerPort
+    @LocalServerPort  //HU 20
     private int port;
 
     @Given("I am not logged in the system as a client")

@@ -12,7 +12,7 @@ import io.cucumber.java.en.When;
 
 public class AcceptRefuseLoanAppsStepDefinitions extends AbstractStep {
 
-	@LocalServerPort
+	@LocalServerPort  //HU 11
 	private int port;
 
 	@Given("I am not logged in the system as director1")

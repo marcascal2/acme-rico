@@ -29,7 +29,7 @@ public class ClientRegisterUITest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@Test
+	@Test //HU 1
 	public void testClientRegisterUI() throws Exception {
 		driver.get("http://localhost:" + port + "/users/new");
 		driver.findElement(By.id("firstName")).click();

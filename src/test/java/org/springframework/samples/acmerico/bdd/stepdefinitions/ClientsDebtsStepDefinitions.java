@@ -14,7 +14,7 @@ import io.cucumber.java.en.When;
 public class ClientsDebtsStepDefinitions extends AbstractStep {
 
 	@LocalServerPort
-    private int port;
+    private int port; //HU 12
 	
 	@Given("I am not logged in the system as worker1")
 	public void IamNotLoggedAsWorker() throws Exception {

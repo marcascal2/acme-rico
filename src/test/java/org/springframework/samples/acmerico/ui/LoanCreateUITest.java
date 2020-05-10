@@ -30,7 +30,7 @@ public class LoanCreateUITest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@Test
+	@Test // HU 6
 	public void loanCreateUITest() throws Exception {
 		driver.get("http://localhost:" + port + "/");
 		driver.findElement(By.id("login-button")).click();

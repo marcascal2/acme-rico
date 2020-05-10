@@ -27,7 +27,7 @@ public class ClientListUITest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@Test
+	@Test //HU 3
 	public void testClientListUISuccess() throws Exception {
 		driver.get("http://localhost:"+ port +"/");
 		driver.findElement(By.id("login-button")).click();

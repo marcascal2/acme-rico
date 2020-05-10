@@ -29,7 +29,7 @@ public class PersonalInformationClientUITest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	@Test
+	@Test //HU 9
 	public void testPersonalInformationClientUITest() throws Exception {
 		driver.get("http://localhost:" + port + "/");
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/li[1]/a")).click();

@@ -11,7 +11,7 @@ import io.cucumber.java.en.When;
 public class GrantedLoansStepDefinitions extends AbstractStep {
 	
 	@LocalServerPort
-    private int port;
+    private int port;  //HU 7
 	
 	 @Given("I am not logged in the system as director")
 	 public void IamNotLogged() throws Exception {

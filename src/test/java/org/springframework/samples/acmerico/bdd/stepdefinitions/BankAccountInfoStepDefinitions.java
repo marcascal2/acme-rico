@@ -9,7 +9,7 @@ import io.cucumber.java.en.When;
 
 public class BankAccountInfoStepDefinitions extends AbstractStep {
 
-    @LocalServerPort
+    @LocalServerPort //HU 13
     private int port;
 
     @Given("I am not logged in the system how client")
