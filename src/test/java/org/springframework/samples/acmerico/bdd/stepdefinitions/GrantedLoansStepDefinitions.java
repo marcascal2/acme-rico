@@ -38,4 +38,26 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 		 stopDriver();
 	 }
 
+	 @Given("An user is not logged as a client")
+	 public void IamNotLoggedClient() throws Exception {
+		 getDriver().get("http://localhost:" + port + "/login");
+	 }
+	 
+	 @When("They want to obtain information about the loans granted in the bank")
+	 public void ItryToLoginAndAccessGrantedLoans() throws Exception {
+		 getDriver().findElement(By.id("username")).click();
+		 getDriver().findElement(By.id("username")).clear();
+		 getDriver().findElement(By.id("username")).sendKeys("client1");
+		 getDriver().findElement(By.id("password")).click();
+		 getDriver().findElement(By.id("password")).clear();
+		 getDriver().findElement(By.id("password")).sendKeys("client1");
+		 getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
+		 getDriver().get("http://localhost:" + port + "/grantedLoans/2");
+	 }
+	 
+	 @Then("The system will deny the access")
+	 public void IsForbidden() throws Exception {
+		 assertEquals("There was an unexpected error (type=Forbidden, status=403).", getDriver().findElement(By.xpath("//div[2]")).getText());
+		 stopDriver();
+	 }
 }

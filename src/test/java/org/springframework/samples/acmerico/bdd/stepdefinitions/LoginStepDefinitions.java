@@ -37,7 +37,7 @@ public class LoginStepDefinitions extends AbstractStep {
     public void IsLoggedIn() throws Exception {
         WebDriverWait wait = new WebDriverWait(getDriver(), 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//strong[@id='username']")));
-        assertEquals("CLIENT1", getDriver().findElement(By.xpath("//strong[@id='username']")).getText());
+        assertEquals("client1", getDriver().findElement(By.xpath("//strong[@id='username']")).getText().toLowerCase());
         stopDriver();
     }
 
