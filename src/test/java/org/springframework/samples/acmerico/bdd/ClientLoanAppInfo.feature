@@ -9,9 +9,9 @@ Feature: Client Loan Applications Information
          Then The information about loans is shown as the current user
        
     Scenario: Unsuccessful login as client and correct information about outstanding loans and their information (Negative)
-    	 Given a user logged in as a client
-    	 When he does not meet the necessary conditions to contract a loan
-    	 Then he will not be able to obtain information about him 
+    	 Given A user logged in as a client
+    	 When He does not meet the necessary conditions to contract a loan
+    	 Then He will not be able to obtain information about him 
      
     
 

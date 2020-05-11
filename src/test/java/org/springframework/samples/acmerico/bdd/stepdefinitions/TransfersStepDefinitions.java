@@ -62,26 +62,26 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("my-accounts")).click();
 	}
 
-	@Then("the system sends it to its destination online once the employee has accepted it")
+	@Then("The system sends it to its destination online once the employee has accepted it")
 	public void IsSent() throws Exception {
 		assertEquals("10200.0",
 				getDriver().findElement(By.xpath("//table[@id='accountsTable']/tbody/tr[2]/td[2]")).getText());
 		stopDriver();
 	}
 
-	@Given("I am a user logged in as a client")
+	@Given("A client trying to make a transfer")
 	public void IamNotLoggedClient() throws Exception {
 		getDriver().get("http://localhost:" + port + "/login");
-	}
-
-	@When("Money is not enough in the account")
-	public void ItryToSendTransferUnsuccess() {
 		getDriver().findElement(By.id("username")).clear();
 		getDriver().findElement(By.id("username")).sendKeys("client1");
 		getDriver().findElement(By.id("password")).clear();
 		getDriver().findElement(By.id("password")).sendKeys("client1");
 		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
-		getDriver().findElement(By.linkText("Bank Accounts")).click();
+	}
+
+	@When("Money is not enough in the account")
+	public void ItryToSendTransferUnsuccess() {
+		getDriver().findElement(By.id("dropdown-clients-bank-accounts")).click();
 		getDriver().findElement(By.id("my-accounts")).click();
 		getDriver().findElement(By.linkText("ES29 1258 1010 1064 2579")).click();
 		assertEquals("2000.0", getDriver().findElement(By.id("amount")).getAttribute("value"));
@@ -94,7 +94,7 @@ public class TransfersStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.xpath("//button[@type='submit']")).click();
 	}
 
-	@Then("the system does not allow to create the request")
+	@Then("The system does not allow to create the request")
 	public void IsNotSent() throws Exception {
 		assertEquals("This amount can´t be higher than bank account amount",
 				getDriver().findElement(By.xpath("//form[@id='transfer_app']/div/div/div/span[2]")).getText());

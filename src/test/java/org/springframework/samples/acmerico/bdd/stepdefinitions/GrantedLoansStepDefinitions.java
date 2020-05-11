@@ -55,7 +55,7 @@ public class GrantedLoansStepDefinitions extends AbstractStep {
 		 getDriver().get("http://localhost:" + port + "/grantedLoans/2");
 	 }
 	 
-	 @Then("The list of granted loans is shown")
+	 @Then("The system will deny the access")
 	 public void IsForbidden() throws Exception {
 		 assertEquals("There was an unexpected error (type=Forbidden, status=403).", getDriver().findElement(By.xpath("//div[2]")).getText());
 		 stopDriver();
