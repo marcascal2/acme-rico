@@ -1,0 +1,58 @@
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="firstName"
+
+Antonio
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="lastName"
+
+Pascual
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="address"
+
+Calle Sevilla
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="birthDate"
+
+2000/05/08
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="city"
+
+Sevilla
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="maritalStatus"
+
+soltero
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="salaryPerYear"
+
+1000
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="age"
+
+18
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="job"
+
+ingeniero
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="lastEmployDate"
+
+2020/05/12
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="user.username"
+
+client123
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="user.password"
+
+client123
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="dniFile"; filename=""
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundaryAB8vq1PJHz61ewcE
+Content-Disposition: form-data; name="_csrf"
+
+ef440918-4fdc-4f45-a6c1-97628929d381
+------WebKitFormBoundaryAB8vq1PJHz61ewcE--
