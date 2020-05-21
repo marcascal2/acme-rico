@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
   webEnvironment=SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Transactional
-//@TestPropertySource(
-//  locations = "classpath:application-mysql.properties")
+//@TestPropertySource(locations = "classpath:application-mysql.properties")
 public class CreditCardControllerIntegrationTests {
 
 	private static final Integer TEST_CREDIT_CARD_ID = 1;
@@ -42,16 +40,14 @@ public class CreditCardControllerIntegrationTests {
 			.andExpect(status().is2xxSuccessful());
 	}
 	
-	@WithMockUser(username="client1",authorities= {"client"})
+	@WithMockUser(username="client2",authorities= {"client"})
 	@Test
-	@Disabled //TODO REVISAR CON MYSQL
 	void testAccountInfo() throws Exception {
-		mockMvc.perform(get("/cards/{cardId}/show", 1))
+		mockMvc.perform(get("/cards/{cardId}/show", 2))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("creditCard"))
-			.andExpect(model().attribute("creditCard", hasProperty("number", is("4095742744779740"))))
-			.andExpect(model().attribute("creditCard", hasProperty("deadline", is("01/2021"))))
-			.andExpect(model().attribute("creditCard", hasProperty("cvv", is("123"))))			
+			.andExpect(model().attribute("creditCard", hasProperty("number", is("4441073223421195"))))
+			.andExpect(model().attribute("creditCard", hasProperty("deadline", is("02/2022"))))
+			.andExpect(model().attribute("creditCard", hasProperty("cvv", is("223"))))			
 			.andExpect(view().name("cards/showCardInfo"))
 			.andExpect(status().is2xxSuccessful());
 	}

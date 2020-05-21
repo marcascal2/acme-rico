@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @Transactional
 //@TestPropertySource(locations = "classpath:application-mysql.properties")
-public class LoanControllerTests {
+public class LoanControllerIntegrationTests {
 	
 	private static final Integer TEST_BANK_ACCOUNT_ID = 1;
 	private static final Integer TEST_LOAN_ID = 1;
