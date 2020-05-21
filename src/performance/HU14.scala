@@ -91,7 +91,7 @@ class HU14 extends Simulation {
 		ShowAccount.showAccount,
 		DepositMoney.depositMoney)
 		
-	setUp(scn.inject(rampUsers(10000) during (100 seconds))
+	setUp(scn.inject(rampUsers(10000) during (100 seconds)) //Máximo de usuarios concurrentes que el sistema soporta con buen rendimiento
 	).protocols(httpProtocol)
 	.assertions(
         global.responseTime.max.lt(5000),    

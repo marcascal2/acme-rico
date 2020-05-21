@@ -82,7 +82,7 @@ class HU17 extends Simulation {
 		ShowCard.showCard,
 		DeleteCard.deleteCard)
 		
-	setUp(scn.inject(rampUsers(7400) during (100 seconds))
+	setUp(scn.inject(rampUsers(7500) during (100 seconds)) //Máximo de usuarios concurrentes que el sistema soporta con buen rendimiento
 	).protocols(httpProtocol)
 	.assertions(
         global.responseTime.max.lt(5000),    

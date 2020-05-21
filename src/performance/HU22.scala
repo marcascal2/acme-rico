@@ -91,7 +91,7 @@ class HU22 extends Simulation {
 		ShowClientStatistics.showClientStatistics)
 
 	setUp(
-		scn.inject(rampUsers(8900) during (100 seconds))
+		scn.inject(rampUsers(9000) during (100 seconds)) //Máximo de usuarios concurrentes que el sistema soporta con buen rendimiento
 	).protocols(httpProtocol)
      .assertions(
         global.responseTime.max.lt(5000),    

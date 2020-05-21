@@ -76,7 +76,7 @@ class HU4 extends Simulation {
 			ShowEmployees.showEmployees)	
 	
 	setUp(
-		scn.inject(rampUsers(9700) during (100 seconds)) //Minimo de usuarios que provoca saturacion
+		scn.inject(rampUsers(10000) during (100 seconds)) //Máximo de usuarios concurrentes que el sistema soporta con buen rendimiento
 	).protocols(httpProtocol)
      .assertions(
         global.responseTime.max.lt(5000),    

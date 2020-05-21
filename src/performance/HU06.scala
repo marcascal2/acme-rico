@@ -88,7 +88,7 @@ class HU6 extends Simulation {
 		ListLoans.listLoans,
 		CreateLoan.createLoan)
 		
-	setUp(scn.inject(rampUsers(6800) during (100 seconds)) //Minimo de usuarios concurrentes que provoca saturacion en el sistema
+	setUp(scn.inject(rampUsers(7000) during (100 seconds)) //Máximo de usuarios concurrentes que el sistema soporta con buen rendimiento
 	).protocols(httpProtocol)
 	.assertions(
         global.responseTime.max.lt(5000),    
