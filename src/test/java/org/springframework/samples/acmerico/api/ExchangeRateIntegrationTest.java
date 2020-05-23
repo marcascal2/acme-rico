@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class ExchangeRateIntegrationTest {
 
 	@Test
-	public void testEsxchangeRate() {
+	public void testExchangeRate() {
 		when().get("https://api.exchangeratesapi.io/latest?base=EUR")
 		.then().statusCode(200)
 		.and().assertThat()
