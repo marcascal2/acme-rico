@@ -118,7 +118,7 @@ public class LoanAppControllerTest {
 	@WithMockUser(username = "userPrueba", roles = { "director", "worker" })
 	@Test
 	void testListEmployeeLoanApp() throws Exception {
-		when(this.loanAppService.findAllLoanApps()).thenReturn(Arrays.asList(loanApp));
+		when(this.loanAppService.findPendingsLoanApps()).thenReturn(Arrays.asList(loanApp));
 
 		mockMvc.perform(get("/loanapps")).andExpect(status().isOk()).andExpect(model().attributeExists("loanApps"))
 				.andExpect(view().name("loanApp/loanAppList")).andExpect(status().is2xxSuccessful());
