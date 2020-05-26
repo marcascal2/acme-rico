@@ -3,8 +3,7 @@ package org.springframework.samples.acmerico.service;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
