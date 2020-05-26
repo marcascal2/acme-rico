@@ -44,7 +44,7 @@ public class LoanApplicationController {
 
 	@GetMapping(value = "/loanapps")
 	public String listLoanApp(ModelMap modelMap) {
-		Collection<LoanApplication> loanApps = this.loanAppService.findAllLoanApps();
+		Collection<LoanApplication> loanApps = this.loanAppService.findPendingsLoanApps();
 		modelMap.addAttribute("loanApps", loanApps);
 		return "loanApp/loanAppList";
 	}

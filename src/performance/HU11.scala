@@ -96,10 +96,12 @@ class HU11 extends Simulation {
 	)
 
 	setUp(
-		acceptLoanScn.inject(rampUsers(2000) during (100 seconds)),
-		refuseLoanScn.inject(rampUsers(2000) during (100 seconds))
+//		acceptLoanScn.inject(rampUsers(2000) during (100 seconds)),
+//		refuseLoanScn.inject(rampUsers(2000) during (100 seconds))
 //		acceptLoanScn.inject(rampUsers(5000) during (100 seconds)),
 //		refuseLoanScn.inject(rampUsers(5000) during (100 seconds))
+		acceptLoanScn.inject(rampUsers(30) during (60 seconds)),
+		refuseLoanScn.inject(rampUsers(30) during (60 seconds))
 	).protocols(httpProtocol)
      .assertions(
         global.responseTime.max.lt(5000),    

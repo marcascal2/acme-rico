@@ -2,10 +2,9 @@ package org.springframework.samples.acmerico.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
@@ -40,9 +39,9 @@ public class LoanAppService {
 		this.loanAppRepository.save(loanApp);
 	}
 
-	@Transactional
-	public Collection<LoanApplication> findAllLoanApps() {
-		return (Collection<LoanApplication>) this.loanAppRepository.findAll();
+	@Transactional(readOnly = true)
+	public Collection<LoanApplication> findPendingsLoanApps() {
+		return (Collection<LoanApplication>) this.loanAppRepository.findPendings();
 	}
 
 	public void setAttributes(int bankAccountId, int loanId, LoanApplication loanApp) {
