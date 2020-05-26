@@ -82,13 +82,13 @@ public class DashboardService {
 		Map<String, Double> result = new HashMap<>();
 		
 		Client client = (Client) this.clientService.findClientByUserName(username);
-		
+
 		Integer moneyToDebt = this.dashboardRepository.countMoneyToDebt(client);
 		Integer moneyInBankAccounts = this.dashboardRepository.countMoneyInBankAccounts(client);
 		
 		result.put("moneyToDebt", (double) Math.round(moneyToDebt*100)/100);
 		result.put("moneyInBankAccounts", (double) Math.round(moneyInBankAccounts*100)/100);
-		
+
 		return result;
 	}
 	
