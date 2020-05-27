@@ -28,14 +28,14 @@ public class CreditCardsMYSQLTest {
 	@Test
 	public void testCountCreditCardAfterCreating() {
 		List<CreditCard> cards = (List<CreditCard>) this.creditCardService.findCreditCards();
-		assertThat(cards.size()).isEqualTo(4);
+		assertThat(cards.size()).isEqualTo(5);
 	}
 
 	@Test
 	public void testDeleteCreditCard() {
 		this.creditCardService.deleteCreditCardById(1);
 		Collection<CreditCard> cards = this.creditCardService.findCreditCards();
-		assertThat(cards.size()).isEqualTo(3);
+		assertThat(cards.size()).isEqualTo(4);
 	}
 
 }
