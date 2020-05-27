@@ -3,6 +3,7 @@ package org.springframework.samples.acmerico.service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
@@ -57,6 +58,8 @@ public class ClientService {
 		return client.getBankAccounts();
 	}
 
+	@Cacheable("myCreditCards")
+	@Transactional(readOnly = true)
 	public Collection<CreditCard> findCreditCardsByUsername(String username) {
 		Client client = findClientByUserName(username);
 		return client.getCreditCards();

@@ -98,12 +98,14 @@ INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (6,'REJE
 INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (7,'ACCEPTED',10,5);
 INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (8,'PENDING',7,1);
 INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (9,'PENDING',9,9);
+INSERT INTO cc_applications(id,status,bank_account_id,client_id) VALUES (10,'ACCEPTED',10,5);
 
 -- CREDIT CARDS
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit_card_application_id) VALUES (1,'123','01/2021','4095742744779740',1,1,1);
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit_card_application_id) VALUES (2,'223','02/2022','4441073223421195',2,2,2);
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit_card_application_id) VALUES (3,'376','03/2021','4490428524957448',3,3,3);
 INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit_card_application_id) VALUES (4,'124','01/2023','4845983225854171',10,5,7);
+INSERT INTO credit_cards(id,cvv,deadline,number,bank_account_id,client_id,credit_card_application_id) VALUES (5,'156','05/2024','4845987223854171',10,5,10);
 
 --LOAN
 INSERT INTO loans (id,description,minimum_amount,minimum_income,number_of_deadlines,opening_price,monthly_fee,single_loan) VALUES (1, 'Student loan', 20000.0 , 700.0, 4, 150.0, 0.01, TRUE);

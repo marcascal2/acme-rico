@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
@@ -59,6 +60,7 @@ public class CreditCardAppService {
 		this.creditCardRepository.save(creditCard);
 	}
   	
+  	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
   	@Transactional
   	public void acceptApp(CreditCardApplication creditCardApp) {
   		LocalDate now = LocalDate.now();
