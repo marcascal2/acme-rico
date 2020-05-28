@@ -103,6 +103,7 @@ public class CreditCardAppService {
 	}
 
   	@Transactional
+  	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
 	public void refuseApp(CreditCardApplication creditCardApp) {
 		creditCardApp.setStatus("REJECTED");
 		this.save(creditCardApp);
