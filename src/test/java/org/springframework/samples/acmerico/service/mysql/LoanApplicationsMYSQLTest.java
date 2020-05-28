@@ -29,7 +29,7 @@ public class LoanApplicationsMYSQLTest {
 
 	@Test
 	public void testCountLoanAppsAfterCreating() {
-		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findAllLoanApps();
+		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findPendingsLoanApps();
 		assertThat(loanAplocations.size()).isEqualTo(2);
 	}
 
