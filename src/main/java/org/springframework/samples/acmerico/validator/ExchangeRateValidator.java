@@ -1,6 +1,6 @@
 package org.springframework.samples.acmerico.validator;
 
-import org.springframework.samples.acmerico.api.model.foreignExchange.Container;
+import org.springframework.samples.acmerico.api.model.exchange.Container;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
