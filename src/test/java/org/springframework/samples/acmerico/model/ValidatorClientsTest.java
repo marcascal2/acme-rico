@@ -61,7 +61,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -116,7 +116,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test

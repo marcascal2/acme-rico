@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -84,7 +85,7 @@ public class ValidatorDebtTest {
 		Set<ConstraintViolation<Debt>> constraintViolations = validator.validate(debt);
 
 		ConstraintViolation<Debt> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@ParameterizedTest
@@ -121,7 +122,7 @@ public class ValidatorDebtTest {
 		Set<ConstraintViolation<Debt>> constraintViolations = validator.validate(debt);
 
 		ConstraintViolation<Debt> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0");
+		assertThat(violation).throwsDebtAmountMessage();
 	}
 	
 	
@@ -134,7 +135,7 @@ public class ValidatorDebtTest {
 		Set<ConstraintViolation<Debt>> constraintViolations = validator.validate(debt);
 
 		ConstraintViolation<Debt> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation).throwsNotBlankMessage();
 	}
 
 	@Test
@@ -145,7 +146,7 @@ public class ValidatorDebtTest {
 		Set<ConstraintViolation<Debt>> constraintViolations = validator.validate(debt);
 
 		ConstraintViolation<Debt> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Incorrect refresh date");
+		assertThat(violation).throwsRefreshDateDebtMessage();
 	}
 
 	@Test
@@ -156,7 +157,7 @@ public class ValidatorDebtTest {
 		Set<ConstraintViolation<Debt>> constraintViolations = validator.validate(debt);
 
 		ConstraintViolation<Debt> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -167,6 +168,6 @@ public class ValidatorDebtTest {
 		Set<ConstraintViolation<Debt>> constraintViolations = validator.validate(debt);
 
 		ConstraintViolation<Debt> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 }

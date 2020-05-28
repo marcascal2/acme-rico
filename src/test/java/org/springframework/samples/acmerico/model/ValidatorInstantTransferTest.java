@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -102,9 +103,9 @@ public class ValidatorInstantTransferTest {
 
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
 		if(amount < 0.01) {
-			assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0.01");
+			assertThat(violation).throwsInstantTransferLoanMinimumAmountMessage();
 		}else {
-			assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 99.99");
+			assertThat(violation).throwsInstantTransferMaximumAmountMessage();
 		}
 		
 	}
@@ -119,7 +120,7 @@ public class ValidatorInstantTransferTest {
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -132,7 +133,7 @@ public class ValidatorInstantTransferTest {
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Invalid account number");
+		assertThat(violation).throwsInvalidAccountNumberMessage();
 	}
 
 	@Test
@@ -145,7 +146,7 @@ public class ValidatorInstantTransferTest {
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -158,7 +159,7 @@ public class ValidatorInstantTransferTest {
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 
 	}
 
@@ -172,7 +173,7 @@ public class ValidatorInstantTransferTest {
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
 		ConstraintViolation<InstantTransfer> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 
 	}
 }

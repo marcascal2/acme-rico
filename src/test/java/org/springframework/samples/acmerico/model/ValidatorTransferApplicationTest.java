@@ -1,6 +1,8 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -87,7 +89,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 		
 	}
 	
@@ -102,7 +104,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Transfer application status only can be ACCEPTED, REJECTED or PENDING");
+		assertThat(violation).throwsPatternStatusTAppMessage();
 		
 	}
 	
@@ -143,7 +145,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("The amount must be greater than € 100, please if you need a smaller amount make an instant transfer");
+		assertThat(violation).throwsMinimumTransferAmountMessage();
 	}
 	
 	@Test
@@ -155,7 +157,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 		
 	}
 	
@@ -169,7 +171,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 		
 	}
 	
@@ -183,7 +185,7 @@ public class ValidatorTransferApplicationTest {
 		Set<ConstraintViolation<TransferApplication>> constraintViolations = validator.validate(transferApp);
 		
 		ConstraintViolation<TransferApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Invalid account number");
+		assertThat(violation).throwsInvalidAccountNumberMessage();
 		
 	}
 }

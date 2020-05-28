@@ -91,7 +91,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Invalid account number");
+		assertThat(violation).throwsInvalidAccountNumberMessage();
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("length must be between 0 and 30");
+		assertThat(violation).throwsLengthAccountAliasMessage();
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must be a past date");
+		assertThat(violation).throwsPastDateMessage();
 	}
 
 	@Test
