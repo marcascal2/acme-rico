@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -60,7 +61,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -71,7 +72,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -82,7 +83,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -93,7 +94,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -104,7 +105,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -115,7 +116,7 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -126,6 +127,6 @@ public class ValidatorClientsTest {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(client);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 }

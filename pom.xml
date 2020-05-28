@@ -48,6 +48,12 @@
     </properties>
 
     <dependencies>
+    
+	    <dependency>
+			  <groupId>org.assertj</groupId>
+			  <artifactId>assertj-core</artifactId>
+			  <version>3.16.1</version>
+		</dependency>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

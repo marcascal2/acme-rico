@@ -1,6 +1,8 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -84,7 +86,7 @@ public class ValidatorLoanTests {
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation).throwsNotBlankMessage();
 	}
 
 	@ParameterizedTest
@@ -230,7 +232,7 @@ public class ValidatorLoanTests {
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 0.01");
+		assertThat(violation).throwsInstantTransferLoanMinimumAmountMessage();
 	}
 
 	@Test
@@ -242,7 +244,7 @@ public class ValidatorLoanTests {
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 }
