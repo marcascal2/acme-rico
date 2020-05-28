@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,7 +69,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -79,7 +80,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -101,7 +102,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -134,7 +135,7 @@ public class ValidatorBankAccountTest {
 		Set<ConstraintViolation<BankAccount>> constraintViolations = validator.validate(bankAccount);
 
 		ConstraintViolation<BankAccount> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 }
