@@ -39,6 +39,12 @@
         <!-- Rest-assured -->
         <rest-assured.version>4.3.0</rest-assured.version>
 
+		<!-- SonarCloud -->
+		<sonar.projectKey>marcascal2_acme-rico</sonar.projectKey>
+  		<sonar.organization>acme-rico</sonar.organization>
+ 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  		<sonar.login>ca2644c0f51bf387e2a732cd6f05474735cae094</sonar.login>
+  		
     </properties>
 
     <dependencies>
