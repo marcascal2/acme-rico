@@ -7,11 +7,11 @@ import org.springframework.samples.acmerico.model.Client;
 
 public interface ClientRepository {
 	
-	Collection<Client> findByLastName(String lastName) throws DataAccessException;
+	Collection<Client> findByLastName(String lastName);
 
-	Client findById(int id) throws DataAccessException;
+	Client findById(int id);
 
-	void save(Client client) throws DataAccessException;
+	void save(Client client);
 	
 	Client findByUserName(String name) throws DataAccessException;
 

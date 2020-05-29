@@ -2,6 +2,8 @@ package org.springframework.samples.acmerico.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,7 +76,12 @@ public class LoanAppService {
 
 	@Transactional
 	public LoanApplication findLoanAppById(int loanAppId) {
-		return this.loanAppRepository.findById(loanAppId).get();
+		Optional<LoanApplication> result = this.loanAppRepository.findById(loanAppId);
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
 	}
 
 	@Transactional
@@ -105,21 +112,21 @@ public class LoanAppService {
 			if (!loanApp.isPaid()) {
 				BankAccount account = loanApp.getBankAccount();
 				if (account.getAmount() >= loanApp.getAmountToPay()) {
-					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
+					if (loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
 						Double amount = account.getAmount() - loanApp.getAmountToPay();
-						amount = (double) Math.round(amount*100)/100;
+						amount = (double) Math.round(amount * 100) / 100;
 						account.setAmount(amount);
 						this.accountService.saveBankAccount(account);
 						Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
-						amountPaid = (double) Math.round(amountPaid*100)/100;
+						amountPaid = (double) Math.round(amountPaid * 100) / 100;
 						loanApp.setAmount_paid(amountPaid);
 						loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
 						this.save(loanApp);
 					}
 				} else {
-					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
+					if (loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
 						Debt debt = this.debtService.getClientDebt(loanApp.getClient());
-						if(debt != null) {
+						if (debt != null) {
 							debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
 							debt.setRefreshDate(this.refreshDate());
 							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);

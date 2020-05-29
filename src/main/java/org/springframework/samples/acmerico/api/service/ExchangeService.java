@@ -28,7 +28,8 @@ public class ExchangeService {
 
 	public Double calcularResultAmount(String initRate, String postRate, Double amount) {
 		String url;
-		if (initRate == null || initRate == "") {
+		String empty = "";
+		if (initRate == null || initRate.equals(empty)) {
 			url = uri + "EUR";
 		} else {
 			url = uri + initRate;

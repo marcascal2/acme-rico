@@ -15,7 +15,7 @@ public interface CreditCardRepository extends CrudRepository<CreditCard, Integer
 
 	CreditCard findById(int id) throws DataAccessException;
 	
-	CreditCard findByNumber(String number) throws DataAccessException;
+	CreditCard findByNumber(String number);
 
 	Collection<CreditCard> findAll();
 	
