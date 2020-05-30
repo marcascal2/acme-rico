@@ -86,8 +86,8 @@ public class DashboardService {
 		Integer moneyToDebt = this.dashboardRepository.countMoneyToDebt(client);
 		Integer moneyInBankAccounts = this.dashboardRepository.countMoneyInBankAccounts(client);
 		
-		result.put("moneyToDebt", (double) Math.round(moneyToDebt*100)/100);
-		result.put("moneyInBankAccounts", (double) Math.round(moneyInBankAccounts*100)/100);
+		result.put("moneyToDebt", (double) Math.round(moneyToDebt*100f)/100f);
+		result.put("moneyInBankAccounts", (double) Math.round(moneyInBankAccounts*100f)/100f);
 
 		return result;
 	}
