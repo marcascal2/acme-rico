@@ -1,14 +1,11 @@
 package org.springframework.samples.acmerico.web;
 
 import static org.junit.Assert.assertFalse;
-
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
@@ -21,8 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class BankAccountController {
@@ -30,6 +25,8 @@ public class BankAccountController {
 	private static final String VIEWS_ACCOUNT_CREATE = "accounts/createAccountForm";
 	private static final String VIEWS_ACCOUNT_DETAILS = "accounts/showAccountInfo";
 	private static final String VIEWS_ACCOUNT_DEPOSIT_MONEY = "accounts/depositMoney";
+	private static final String VIEWS_REDIRECT_ACCOUNTS = "redirect:/accounts/";
+	private static final String BANK_ACCOUNT = "bankAccount";
 
 	private final ClientService clientService;
 
@@ -41,7 +38,7 @@ public class BankAccountController {
 		this.bankAccountService = bankAccountService;
 	}
 
-	@RequestMapping(value = "/accounts", method = RequestMethod.GET)
+	@GetMapping(value = "/accounts")
 	public String showClientAccounts(Principal principal, Model model) {
 		String username = principal.getName();
 		Client client = this.clientService.findClientByUserName(username);
@@ -55,12 +52,12 @@ public class BankAccountController {
 	public String initCreationForm(@PathVariable("clientId") int clientId, Map<String, Object> model) {
 		BankAccountNumberGenerator generator = new BankAccountNumberGenerator();
 		String newAccountNumber = generator.generateRandomNumber();
-		while(this.bankAccountService.accountNumberAlreadyUsed(newAccountNumber)) {
+		while(Boolean.TRUE.equals(this.bankAccountService.accountNumberAlreadyUsed(newAccountNumber))) {
 			newAccountNumber = generator.generateRandomNumber();
 		}
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setAccountNumber(newAccountNumber);
-		model.put("bankAccount", bankAccount);
+		model.put(BANK_ACCOUNT, bankAccount);
 		return VIEWS_ACCOUNT_CREATE;
 	}
 
@@ -72,9 +69,8 @@ public class BankAccountController {
 		bankAccount.setCreatedAt(LocalDateTime.now().minusSeconds(2));
 		try {
 			this.bankAccountService.saveBankAccount(bankAccount);
-			return "redirect:/accounts/";
+			return VIEWS_REDIRECT_ACCOUNTS;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			return VIEWS_ACCOUNT_CREATE;
 		}
 	}
@@ -83,9 +79,9 @@ public class BankAccountController {
 	public String showAccountInfo(@PathVariable("accountId") int accountId, Map<String, Object> model) {
 		BankAccount bankAccount = bankAccountService.findBankAccountById(accountId);
 		Double money = bankAccount.getAmount();
-		Boolean noMoney = money == 0. ? true : false;
+		Boolean noMoney = money == 0.;
 		model.put("noMoney", noMoney);
-		model.put("bankAccount", bankAccount);
+		model.put(BANK_ACCOUNT, bankAccount);
 		return VIEWS_ACCOUNT_DETAILS;
 	}
 
@@ -94,9 +90,8 @@ public class BankAccountController {
 		BankAccount bankAccount = bankAccountService.findBankAccountById(accountId);
 		try {
 			this.bankAccountService.deleteAccount(bankAccount);
-			return "redirect:/accounts/";
+			return VIEWS_REDIRECT_ACCOUNTS;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			return VIEWS_ACCOUNT_DETAILS;
 		}
 	}
@@ -104,7 +99,7 @@ public class BankAccountController {
 	@GetMapping(value = "/accounts/{accountId}/depositMoney")
 	public String depositMoney(@PathVariable("accountId") int accountId, Map<String, Object> model) {
 		BankAccount bankAccount = this.bankAccountService.findBankAccountById(accountId);
-		model.put("bankAccount", bankAccount);
+		model.put(BANK_ACCOUNT, bankAccount);
 		return VIEWS_ACCOUNT_DEPOSIT_MONEY;
 	}
 
@@ -119,9 +114,8 @@ public class BankAccountController {
 		account.setAmount(oldAmount + d);
 		try {
 			this.bankAccountService.saveBankAccount(account);
-			return "redirect:/accounts/";
+			return VIEWS_REDIRECT_ACCOUNTS;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			return VIEWS_ACCOUNT_DEPOSIT_MONEY;
 		}
 	}

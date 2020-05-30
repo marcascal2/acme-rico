@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.service.ClientService;
@@ -67,9 +68,9 @@ public class DashboardController {
 		
 		Collection<LoanApplication> clientLoans = client.getLoanApps();
 		Integer borrowedAmount = (int) clientLoans.stream().filter(x->x.getStatus().equals("ACCEPTED"))
-				.mapToDouble(x->x.getAmount()).sum();
+				.mapToDouble(LoanApplication::getAmount).sum();
 		
-		Integer totalAmount = (int) client.getBankAccounts().stream().mapToDouble(x->x.getAmount()).sum();
+		Integer totalAmount = (int) client.getBankAccounts().stream().mapToDouble(BankAccount::getAmount).sum();
 			
 		modelMap.addAttribute("countAccounts", countAccounts);
 		modelMap.addAttribute("clientLoans",clientLoans);

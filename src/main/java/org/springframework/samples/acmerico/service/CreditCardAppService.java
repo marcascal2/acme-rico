@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.repository.CreditCardAppRepository;
@@ -39,9 +38,8 @@ public class CreditCardAppService {
 	}
 	
 	@Transactional()
-	public Collection<CreditCardApplication> findCreditCardAppByClientId(int id) throws DataAccessException {
-		Collection<CreditCardApplication> cc_app = this.creditCardAppRepository.findAppByClientId(id);
-		return cc_app;
+	public Collection<CreditCardApplication> findCreditCardAppByClientId(int id){
+		return this.creditCardAppRepository.findAppByClientId(id);
 	}	
   
   	@Transactional
@@ -55,7 +53,7 @@ public class CreditCardAppService {
 	}
   	
   	@Transactional
-	public void saveCreditCard(@Valid CreditCard creditCard) throws DataAccessException {
+	public void saveCreditCard(@Valid CreditCard creditCard){
 		this.creditCardRepository.save(creditCard);
 	}
   	
@@ -91,7 +89,7 @@ public class CreditCardAppService {
   		CreditCard creditCard = new CreditCard();
   		creditCard.setNumber(number);
   		creditCard.setDeadline(deadLine);
-  		creditCard.setCvv(cvv.toString());
+  		creditCard.setCvv(cvv);
   		creditCard.setBankAccount(creditCardApp.getBankAccount());
 		creditCard.setClient(creditCardApp.getClient());
 		creditCard.setCreditCardApplication(creditCardApp);
