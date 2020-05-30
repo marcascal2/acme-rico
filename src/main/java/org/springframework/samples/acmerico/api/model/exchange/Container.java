@@ -1,4 +1,4 @@
-package org.springframework.samples.acmerico.api.model.foreignExchange;
+package org.springframework.samples.acmerico.api.model.exchange;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

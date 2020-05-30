@@ -335,7 +335,6 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*UITest.java</exclude>
-                       <!-- <exclude>**/*APITest.java</exclude>-->
                     </excludes>
                 </configuration>
             </plugin>
