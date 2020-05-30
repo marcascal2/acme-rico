@@ -2,6 +2,7 @@ package org.springframework.samples.acmerico.service;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.repository.CreditCardRepository;
@@ -35,6 +36,7 @@ public class CreditCardService {
 	}
 
 	@Transactional
+  	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
 	public void deleteCreditCardById(int id) throws DataAccessException {
 		this.creditCardRepository.deleteCreditCard(id);
 	}

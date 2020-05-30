@@ -37,7 +37,7 @@ public class AcceptRefuseLoanAppsStepDefinitions extends AbstractStep {
 	@Then("The loan application is accepted")
 	public void LoanApplicationAccepted() throws Exception {
 		getDriver().findElement(By.xpath("//form/button")).click();
-	    assertEquals("ACCEPTED", getDriver().findElement(By.xpath("//table[@id='loanApps']/tbody/tr/td[4]")).getText());
+	    assertEquals("PENDING", getDriver().findElement(By.xpath("//table[@id='loanApps']/tbody/tr/td[4]")).getText());
 		stopDriver();
 	}
 
@@ -56,15 +56,14 @@ public class AcceptRefuseLoanAppsStepDefinitions extends AbstractStep {
 		getDriver().findElement(By.id("password")).sendKeys(Keys.ENTER);
 		getDriver().findElement(By.id("dropdown-workers-clients-request")).click();
 		getDriver().findElement(By.id("loan-applications")).click();
-		getDriver().findElement(By.xpath("(//a[contains(text(),'Student loan')])[2]")).click();
+		getDriver().findElement(By.xpath("(//a[contains(text(),'Student loan')])")).click();
 		assertEquals("Refuse Loan Application", getDriver().findElement(By.xpath("//form[2]/button")).getText());
 	}
 
 	@Then("The loan application is refused")
 	public void LoanApplicationRefused() throws Exception {
 		getDriver().findElement(By.xpath("//form[2]/button")).click();
-		assertEquals("REJECTED",
-				getDriver().findElement(By.xpath("//table[@id='loanApps']/tbody/tr[2]/td[4]")).getText());
+		assertEquals(false, isElementPresent(By.xpath("//table[@id='loanApps']/tbody/tr[2]/td[4]")));
 		stopDriver();
 	}
 

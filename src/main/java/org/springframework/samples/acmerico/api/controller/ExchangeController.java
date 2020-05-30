@@ -3,7 +3,7 @@ package org.springframework.samples.acmerico.api.controller;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.acmerico.api.model.foreignExchange.Container;
+import org.springframework.samples.acmerico.api.model.exchange.Container;
 import org.springframework.samples.acmerico.api.service.ExchangeService;
 import org.springframework.samples.acmerico.validator.ExchangeRateValidator;
 import org.springframework.stereotype.Controller;

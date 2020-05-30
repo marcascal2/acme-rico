@@ -29,7 +29,7 @@ public class DashboardService {
 	public Map<String, List<Object>> amountsToPay(String username){
 		Map<String, List<Object>> result = new HashMap<>();
 		
-		Client client = (Client) this.clientService.findClientByUserName(username);
+		Client client = this.clientService.findClientByUserName(username);
 		List<LoanApplication> loanApps = (List<LoanApplication>) client.getLoanApps();
 		
 		Double amountToPay;
@@ -57,7 +57,7 @@ public class DashboardService {
 	public Map<String, List<Integer>> applicationsStatus(String username){
 		Map<String, List<Integer>> result = new HashMap<>();
 		
-		Client client = (Client) this.clientService.findClientByUserName(username);
+		Client client = this.clientService.findClientByUserName(username);
 		
 		Integer loanAppsPending = this.dashboardRepository.countLoanAppsPending(client);
 		Integer loanAppsAccepted = this.dashboardRepository.countLoanAppsAccepted(client);
@@ -81,7 +81,7 @@ public class DashboardService {
 	public Map<String, Double> moneyDebtPie(String username){
 		Map<String, Double> result = new HashMap<>();
 		
-		Client client = (Client) this.clientService.findClientByUserName(username);
+		Client client = this.clientService.findClientByUserName(username);
 
 		Integer moneyToDebt = this.dashboardRepository.countMoneyToDebt(client);
 		Integer moneyInBankAccounts = this.dashboardRepository.countMoneyInBankAccounts(client);
@@ -97,7 +97,7 @@ public class DashboardService {
 		List<Object> bankAccountAmounts = new ArrayList<>();
 		List<Object> alias = new ArrayList<>();
 		
-		Client client = (Client) this.clientService.findClientByUserName(username);
+		Client client = this.clientService.findClientByUserName(username);
 		List<BankAccount> bankAccounts = (List<BankAccount>) client.getBankAccounts();
 		
 		for(BankAccount ba:bankAccounts) {

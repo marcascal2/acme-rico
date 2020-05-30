@@ -16,4 +16,6 @@ public interface LoanApplicationRepository extends CrudRepository<LoanApplicatio
 	@Query("SELECT loan_application FROM LoanApplication loan_application WHERE loan_application.status = 'PENDING'")
 	Collection<LoanApplication> findPendings() throws DataAccessException;
 
+	
+
 }

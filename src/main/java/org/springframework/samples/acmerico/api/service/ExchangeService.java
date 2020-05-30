@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.acmerico.api.model.foreignExchange.Exchange;
+import org.springframework.samples.acmerico.api.model.exchange.Exchange;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

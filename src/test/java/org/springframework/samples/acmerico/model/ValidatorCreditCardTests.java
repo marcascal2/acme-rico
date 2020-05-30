@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -77,7 +78,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("invalid credit card number");
+		assertThat(violation).throwsInvalidCCNumberMessage();
 	}
 
 	@Test
@@ -88,7 +89,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation).throwsNotBlankMessage();
 	}
 
 	@Test
@@ -99,7 +100,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Incorrect deadline");
+		assertThat(violation).throwsDeadlineCCMessage();
 	}
 
 	@Test
@@ -110,7 +111,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation).throwsNotBlankMessage();
 	}
 
 	@Test
@@ -121,7 +122,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Incorrect CVV");
+		assertThat(violation).throwsCVVMessage();
 	}
 
 	@Test
@@ -132,7 +133,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation).throwsNotBlankMessage();
 	}
 
 	@Test
@@ -143,7 +144,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -154,7 +155,7 @@ public class ValidatorCreditCardTests {
 		Set<ConstraintViolation<CreditCard>> constraintViolations = validator.validate(cc);
 
 		ConstraintViolation<CreditCard> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 }

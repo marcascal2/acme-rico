@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.util.Locale;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class ValidatorEmployeeTest {
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
 
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -60,7 +61,7 @@ public class ValidatorEmployeeTest {
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
 
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 	@Test
@@ -71,7 +72,7 @@ public class ValidatorEmployeeTest {
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
 
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -82,7 +83,7 @@ public class ValidatorEmployeeTest {
 		Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
 
 		ConstraintViolation<Employee> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 }

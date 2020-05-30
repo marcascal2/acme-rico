@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.util.Locale;
 import java.util.Set;
@@ -36,7 +37,7 @@ class ValidatorTests {
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
 
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation).throwsNotEmptyMessage();
 	}
 
 }

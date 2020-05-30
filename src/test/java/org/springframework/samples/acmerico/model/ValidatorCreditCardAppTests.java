@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,7 +66,7 @@ public class ValidatorCreditCardAppTests {
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
 
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be blank");
+		assertThat(violation).throwsNotBlankMessage();
 	}
 	
 	@Test
@@ -81,7 +82,7 @@ public class ValidatorCreditCardAppTests {
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
 
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("Card application status only can be ACCEPTED, REJECTED or PENDING");
+		assertThat(violation).throwsPatternStatusCCAppMessage();
 	}
 
 	@Test
@@ -97,7 +98,7 @@ public class ValidatorCreditCardAppTests {
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
 
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 	@Test
@@ -113,7 +114,7 @@ public class ValidatorCreditCardAppTests {
 		Set<ConstraintViolation<CreditCardApplication>> constraintViolations = validator.validate(ccApp);
 
 		ConstraintViolation<CreditCardApplication> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("must not be null");
+		assertThat(violation).throwsNotNullMessage();
 	}
 
 }
