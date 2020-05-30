@@ -43,6 +43,12 @@ public class LoanAppService {
 	public Collection<LoanApplication> findPendingsLoanApps() {
 		return (Collection<LoanApplication>) this.loanAppRepository.findPendings();
 	}
+	
+	@Transactional(readOnly = true)
+	public Collection<LoanApplication> findAcceptedLoanApps() {
+		return (Collection<LoanApplication>) this.loanAppRepository.findLoanAppAccepted();
+	}
+
 
 	public void setAttributes(int bankAccountId, int loanId, LoanApplication loanApp) {
 		BankAccount account = this.accountService.findBankAccountById(bankAccountId);
