@@ -37,13 +37,12 @@ public class ExchangeService {
 
 		exchange = restTemplate.getForObject(url, Exchange.class);
 
-		Double iRate = 0.;
-		Double pRate = 0.;
+		Double iRate = 1.;
+		Double pRate;
 		Double resultAmount = 0.;
 
 		if (initRate != null && postRate != null) {
 			if (initRate.equals("EUR")) {
-				iRate = 1.;
 				if (postRate.equals("EUR")) {
 					pRate = 1.;
 					resultAmount = amount;
@@ -51,7 +50,7 @@ public class ExchangeService {
 					pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 					resultAmount = amount * pRate;
 				}
-			} else if (initRate != null && postRate != null && amount != null) {
+			} else if (initRate != "" && postRate != "" && amount != null) {
 				iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
 				pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 				resultAmount = (amount * pRate) / iRate;

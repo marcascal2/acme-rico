@@ -2,14 +2,13 @@ package org.springframework.samples.acmerico.repository;
 
 import java.util.Collection;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.Debt;
 
 public interface DebtRepository {
 
-	Debt findByClientId(int clientId) throws DataAccessException;
+	Debt findByClientId(int clientId);
 	
-	void save(Debt debt) throws DataAccessException;
+	void save(Debt debt);
 	
-	Collection<Debt> findAll() throws DataAccessException;
+	Collection<Debt> findAll();
 }
