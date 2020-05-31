@@ -13,7 +13,7 @@ public interface BankAccountRepository extends CrudRepository<BankAccount, Integ
 	
 	BankAccount findById(int id);
 	
-	Collection<BankAccount> findByClient(Client client)  throws DataAccessException;
+	Collection<BankAccount> findByClient(Client client);
 
 	Collection<BankAccount> findByAccountNumber(String accountNumber);
 

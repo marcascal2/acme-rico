@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.repository.CreditCardAppRepository;
@@ -46,12 +45,11 @@ public class CreditCardAppService {
 	}
 
 	@Transactional()
-	public Collection<CreditCardApplication> findCreditCardAppByClientId(int id) throws DataAccessException {
-		Collection<CreditCardApplication> cc_app = this.creditCardAppRepository.findAppByClientId(id);
-		return cc_app;
-	}
-
-	@Transactional
+	public Collection<CreditCardApplication> findCreditCardAppByClientId(int id){
+		return this.creditCardAppRepository.findAppByClientId(id);
+	}	
+  
+  @Transactional
 	public void save(@Valid CreditCardApplication creditCardApp) {
 		Collection<CreditCardApplication> applications = creditCardAppRepository
 				.findAppByClientId(creditCardApp.getClient().getId()).stream()
@@ -60,59 +58,58 @@ public class CreditCardAppService {
 			return;
 		}
 		this.creditCardAppRepository.save(creditCardApp);
-	}
-
-	@Transactional
-	public void saveCreditCard(@Valid CreditCard creditCard) throws DataAccessException {
+	}  	
+  	@Transactional
+	public void saveCreditCard(@Valid CreditCard creditCard){
 		this.creditCardRepository.save(creditCard);
 	}
+  	
+  	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
+  	@Transactional
+  	public void acceptApp(CreditCardApplication creditCardApp) {
+  		LocalDate now = LocalDate.now();
+  		int month = now.getMonthValue();
+  		String deadLine;
+  		
+  		if(month<10){
+  			deadLine = "0" + now.getMonthValue() + "/" + now.getYear();
+  		} else {
+  			deadLine = now.getMonthValue() + "/" + now.getYear();
+  		}
+  		
+  		Integer intCvv = (int) (Math.random() * (999 - 0)) + 0;
+  		String cvv = intCvv.toString();
+  		
+  		if(cvv.length() == 1) {
+  			cvv = "00" + cvv;
+  		} else if (cvv.length() == 2) {
+  			cvv = "0" + cvv;
+  		}
+  		
+  		CreditCardNumberGenerator generator = new CreditCardNumberGenerator();
+  		String number = generator.generate("4", 16);
+  		
+  		while(this.creditCardRepository.findByNumber(number) != null) {
+  			number = generator.generate("4", 16);
+  		}
+  		
+  		CreditCard creditCard = new CreditCard();
+  		creditCard.setNumber(number);
+  		creditCard.setDeadline(deadLine);
+  		creditCard.setCvv(cvv);
+  		creditCard.setBankAccount(creditCardApp.getBankAccount());
+		  creditCard.setClient(creditCardApp.getClient());
+		  creditCard.setCreditCardApplication(creditCardApp);
 
-	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
-	@Transactional
-	public void acceptApp(CreditCardApplication creditCardApp) {
-		LocalDate now = LocalDate.now();
-		int month = now.getMonthValue();
-		String deadLine;
+		  this.saveCreditCard(creditCard);
 
-		if (month < 10) {
-			deadLine = "0" + now.getMonthValue() + "/" + now.getYear();
-		} else {
-			deadLine = now.getMonthValue() + "/" + now.getYear();
-		}
-
-		Integer intCvv = (int) (Math.random() * (999 - 0)) + 0;
-		String cvv = intCvv.toString();
-
-		if (cvv.length() == 1) {
-			cvv = "00" + cvv;
-		} else if (cvv.length() == 2) {
-			cvv = "0" + cvv;
-		}
-
-		CreditCardNumberGenerator generator = new CreditCardNumberGenerator();
-		String number = generator.generate("4", 16);
-
-		while (this.creditCardRepository.findByNumber(number) != null) {
-			number = generator.generate("4", 16);
-		}
-
-		CreditCard creditCard = new CreditCard();
-		creditCard.setNumber(number);
-		creditCard.setDeadline(deadLine);
-		creditCard.setCvv(cvv.toString());
-		creditCard.setBankAccount(creditCardApp.getBankAccount());
-		creditCard.setClient(creditCardApp.getClient());
-		creditCard.setCreditCardApplication(creditCardApp);
-
-		this.saveCreditCard(creditCard);
-
-		creditCardApp.setStatus("ACCEPTED");
-		this.save(creditCardApp);
+		  creditCardApp.setStatus("ACCEPTED");
+		  this.save(creditCardApp);
 	}
 
   	@Transactional
   	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
-	public void refuseApp(CreditCardApplication creditCardApp) {
+	  public void refuseApp(CreditCardApplication creditCardApp) {
 		creditCardApp.setStatus("REJECTED");
 		this.save(creditCardApp);
 	}

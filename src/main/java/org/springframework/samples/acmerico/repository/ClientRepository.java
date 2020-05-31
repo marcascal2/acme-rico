@@ -13,6 +13,6 @@ public interface ClientRepository {
 
 	void save(Client client);
 	
-	Client findByUserName(String name) throws DataAccessException;
+	Client findByUserName(String name);
 
 }

@@ -1,6 +1,7 @@
 package org.springframework.samples.acmerico.service;
 
 import java.util.Collection;
+import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,13 @@ public class TransferAppService {
 	
 	@Transactional
 	public TransferApplication findTransferAppById(int transferAppId) {
-		return this.transferAppRepository.findById(transferAppId).get();
+		Optional<TransferApplication> value = this.transferAppRepository.findById(transferAppId);
+		
+		if(value.isPresent()) {
+			return value.get();
+		}
+		
+		return new TransferApplication();
 	}
 	@Transactional
 	public void save(@Valid TransferApplication transferApp) throws DataAccessException {
@@ -66,6 +73,7 @@ public class TransferAppService {
 		}
 	}
 
+	@Transactional
 	public void checkInstant(@Valid TransferApplication transfer_app) {
 		Double amount = transfer_app.getAmount();
 		String account_number_destination = transfer_app.getAccount_number_destination();
@@ -86,7 +94,7 @@ public class TransferAppService {
 		}
 	}
 	
-
+	@Transactional
 	public void acceptApp(TransferApplication transferApplication) {
 		transferApplication.setStatus("ACCEPTED");
 		this.save(transferApplication);
@@ -94,6 +102,7 @@ public class TransferAppService {
 		this.setMoney(transferApplication);
 	}
 
+	@Transactional
 	public void refuseApp(TransferApplication transferApplication) {
 		transferApplication.setStatus("REJECTED");
 		this.save(transferApplication);

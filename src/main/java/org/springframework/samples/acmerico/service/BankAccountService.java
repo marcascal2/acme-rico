@@ -2,7 +2,6 @@ package org.springframework.samples.acmerico.service;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.repository.BankAccountRepository;
@@ -20,23 +19,22 @@ public class BankAccountService {
 	}	
 	
 	@Transactional(readOnly = true)
-	public BankAccount findBankAccountById(int id) throws DataAccessException {
+	public BankAccount findBankAccountById(int id) {
 		return bankAccountRepository.findById(id);
 	}
 
 	@Transactional(readOnly = true)
-	public Collection<BankAccount> findBankAccountByClient(Client client) throws DataAccessException {
+	public Collection<BankAccount> findBankAccountByClient(Client client) {
 		return bankAccountRepository.findByClient(client);
 	}
 	
 	@Transactional
-	public void saveBankAccount(BankAccount BankAccount) throws DataAccessException {
-		//creating BankAccount
-		bankAccountRepository.save(BankAccount);		
+	public void saveBankAccount(BankAccount bankAccount) {
+		bankAccountRepository.save(bankAccount);		
 	}
 
 	@Transactional
-	public Collection<BankAccount> findBankAccountByAccountNumber(String accountNumber) throws DataAccessException {
+	public Collection<BankAccount> findBankAccountByAccountNumber(String accountNumber) {
 		return bankAccountRepository.findByAccountNumber(accountNumber);
 	}
 
@@ -56,8 +54,8 @@ public class BankAccountService {
 	}
 
 	@Transactional
-	public BankAccount findBankAccountByNumber(String account_number_destination) {
-		return bankAccountRepository.findByAccounNumber(account_number_destination);
+	public BankAccount findBankAccountByNumber(String accountNumberDestination) {
+		return bankAccountRepository.findByAccounNumber(accountNumberDestination);
 	}
 
 	public void sumAmount(Double transferAmount, BankAccount destinationAccount) {
