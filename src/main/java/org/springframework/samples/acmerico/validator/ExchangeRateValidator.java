@@ -6,7 +6,7 @@ import org.springframework.validation.Validator;
 
 public class ExchangeRateValidator implements Validator{
 
-	private static final String notBlank = "Can not be blank";
+	private String notBlank = "Can not be blank";
 	
 	@Override
 	public void validate(Object obj, Errors errors) {

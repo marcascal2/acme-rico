@@ -34,25 +34,25 @@ public class DashboardHSQLTest {
 	@Test
 	public void testAmountToPay() throws Exception {
 		Map<String, List<Object>> map = dashboardService.amountsToPay(TEST_CLIENT_USERNAME);
-		assertEquals(map.keySet().size(), 2);
+		assertEquals(2, map.keySet().size());
 	}
 
 	@Test
 	public void testApplicationsStatus() throws Exception {
 		Map<String, List<Integer>> result = dashboardService.applicationsStatus(TEST_CLIENT_USERNAME);
-		assertEquals(result.keySet().size(), 3);
+		assertEquals(3, result.keySet().size());
 	}
 
 	@Test
 	public void testMoneyPie() throws Exception {
 		Map<String, Double> result = dashboardService.moneyDebtPie(TEST_CLIENT_USERNAME);
-		assertEquals(result.keySet().size(), 2);
+		assertEquals(2, result.keySet().size());
 	}
 	
 	@Test
 	public void testMyMoneyPie() throws Exception {
 		Map<String, List<Object>> result  = dashboardService.myMoneyPie(TEST_CLIENT_USERNAME);
-		assertEquals(result.keySet().size(), 2);
+		assertEquals(2, result.keySet().size());
 
 	}
 

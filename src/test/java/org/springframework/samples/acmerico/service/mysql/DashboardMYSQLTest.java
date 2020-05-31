@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,25 +29,24 @@ public class DashboardMYSQLTest {
 	@Test
 	public void testAmountToPay() throws Exception {
 		Map<String, List<Object>> map = dashboardService.amountsToPay(TEST_CLIENT_USERNAME);
-		assertEquals(map.keySet().size(), 2);
+		assertEquals(2, map.keySet().size());
 	}
 
 	@Test
 	public void testApplicationsStatus() throws Exception {
 		Map<String, List<Integer>> result = dashboardService.applicationsStatus(TEST_CLIENT_USERNAME);
-		assertEquals(result.keySet().size(), 3);
+		assertEquals(3, result.keySet().size());
 	}
 
-	@Disabled
 	@Test
 	public void testMoneyDebtPie() throws Exception {
 		Map<String, Double> result = dashboardService.moneyDebtPie(TEST_CLIENT_USERNAME);
-		assertEquals(result.keySet().size(), 2);
+		assertEquals(2, result.keySet().size());
 	}
 	@Test
 	public void testMyMoneyPie() throws Exception {
 		Map<String, List<Object>> result  = dashboardService.myMoneyPie(TEST_CLIENT_USERNAME);
-		assertEquals(result.keySet().size(), 2);
+		assertEquals(2, result.keySet().size());
 
 	}
 

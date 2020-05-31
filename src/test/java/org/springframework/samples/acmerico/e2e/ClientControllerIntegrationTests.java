@@ -46,7 +46,7 @@ class ClientControllerIntegrationTests {
 	void testInitCreationForm() throws Exception {
 		ModelMap model = new ModelMap();
 		String view = clientController.initCreationForm(model);
-		assertEquals(view, "clients/createOrUpdateClientForm");
+		assertEquals("clients/createOrUpdateClientForm", view);
 		assertNotNull(model.get("client"));
 	}
 

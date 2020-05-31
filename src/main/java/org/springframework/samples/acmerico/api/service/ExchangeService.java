@@ -38,13 +38,12 @@ public class ExchangeService {
 		exchange = restTemplate.getForObject(url, Exchange.class);
 
 		Double iRate = 1.;
-		Double pRate;
+		Double pRate = 1.;
 		Double resultAmount = 0.;
 
 		if (initRate != null && postRate != null) {
 			if (initRate.equals("EUR")) {
 				if (postRate.equals("EUR")) {
-					pRate = 1.;
 					resultAmount = amount;
 				} else {
 					pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
