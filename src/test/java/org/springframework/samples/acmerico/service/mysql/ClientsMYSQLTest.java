@@ -49,22 +49,6 @@ public class ClientsMYSQLTest {
 	}
 
 	@Test
-	@Disabled
-	// TODO: El test falla en travis
-	public void testCountClientsByUserName() {
-		Client client = (Client) this.service.findClientByUserName("client1");
-		assertThat(client.getFirstName()).isEqualTo("George");
-	}
-
-	@Test
-	@Disabled
-	// TODO: El test falla en travis 
-	public void testCountBankAccountsFromClient() {
-		List<BankAccount> ba = (List<BankAccount>) this.service.findBankAccountsByUsername("client1");
-		assertThat(ba.size()).isEqualTo(3);
-	}
-
-	@Test
 	public void testCountCreditCardsFromClient() {
 		List<CreditCard> cc = (List<CreditCard>) this.service.findCreditCardsByUsername("client3");
 		assertThat(cc.size()).isEqualTo(1);
