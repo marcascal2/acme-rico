@@ -3,7 +3,6 @@ package org.springframework.samples.acmerico.web;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -89,6 +88,7 @@ public class TransferAppControllerTest {
 		transferApplication.setId(1);
 		transferApplication.setStatus("PENDING");
 		transferApplication.setAmount(1000.);
+		transferApplication.setBankAccount(bankAccountSource);
 		transferApplication.setAccount_number_destination("ES44 4523 9853 3674 4366");
 	}
 	
@@ -117,7 +117,7 @@ public class TransferAppControllerTest {
 			.andExpect(status().is2xxSuccessful());
 	}
 	
-	@Disabled
+
 	@WithMockUser(value = "spring")
     @Test
     void testShowTransferApplication() throws Exception {
