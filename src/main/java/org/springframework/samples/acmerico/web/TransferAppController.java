@@ -34,16 +34,17 @@ public class TransferAppController {
 	private TransferAppService transferAppService;
 
 	private BankAccountService accountService;
-	
+
 	private ClientService clientService;
-	
+
 	@Autowired
-	public TransferAppController(TransferAppService transferAppService, BankAccountService accountService, ClientService clientService) {
+	public TransferAppController(TransferAppService transferAppService, BankAccountService accountService,
+			ClientService clientService) {
 		this.transferAppService = transferAppService;
 		this.accountService = accountService;
 		this.clientService = clientService;
 	}
-	
+
 	@InitBinder("transfer_app")
 	public void initTransferAppBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new TransferAppValidator());
@@ -59,21 +60,20 @@ public class TransferAppController {
 
 	// Listar transferAplications propias
 	@RequestMapping(value = "/transferapps_mine")
-	public String listMineTransfersApp(Principal principal,ModelMap modelMap) {
+	public String listMineTransfersApp(Principal principal, ModelMap modelMap) {
 		String username = principal.getName();
 		Client client = this.clientService.findClientByUserName(username);
-		Collection<TransferApplication> transfers_app = 
-			this.transferAppService.findAllTransfersApplicationsByClient(client);
+		Collection<TransferApplication> transfers_app = this.transferAppService
+				.findAllTransfersApplicationsByClient(client);
 		modelMap.addAttribute("transfers_app", transfers_app);
 		return LIST_APPLICATIONS_VIEW;
 	}
-
 
 	// Show
 	@GetMapping(value = "/transferapps/{transferappsId}")
 	public String showTransferApplication(@PathVariable("transferappsId") int transferappsId, ModelMap modelMap) {
 		TransferApplication transferApp = this.transferAppService.findTransferAppById(transferappsId);
-		
+
 		boolean accountHasMoney = transferApp.getBankAccount().getAmount() >= transferApp.getAmount();
 		modelMap.put("transfer_application", transferApp);
 		modelMap.put("accountHasMoney", accountHasMoney);
@@ -92,19 +92,21 @@ public class TransferAppController {
 	}
 
 	@PostMapping(value = "/transferapps/{bank_account_id}/new")
-	public String saveTransferApplication(@PathVariable("bank_account_id") Integer accountId, @ModelAttribute("transfer_app") @Valid TransferApplication transfer_app, BindingResult result, Map<String, Object> model) {
+	public String saveTransferApplication(@PathVariable("bank_account_id") Integer accountId,
+			@ModelAttribute("transfer_app") @Valid TransferApplication transfer_app, BindingResult result,
+			Map<String, Object> model) {
 		BankAccount account = this.accountService.findBankAccountById(accountId);
-		
-		if(transfer_app.getAmount()!=null){
-			if (transfer_app.getAmount() > account.getAmount()) {
-				result.rejectValue("amount", "This amount can´t be higher than bank account amount", "This amount can´t be higher than bank account amount");
-			}
+
+		if (transfer_app.getAmount() != null && transfer_app.getAmount() > account.getAmount()) {
+			result.rejectValue("amount", "This amount can´t be higher than bank account amount",
+					"This amount can´t be higher than bank account amount");
 		}
 
 		if (account.getAccountNumber().equals(transfer_app.getAccount_number_destination())) {
-			result.rejectValue("account_number_destination", "Account number can not be the same that destination number account", "Account number can not be the same that destination number account");
+			result.rejectValue("account_number_destination",
+					"Account number can not be the same that destination number account",
+					"Account number can not be the same that destination number account");
 		}
-		
 
 		if (result.hasErrors()) {
 			model.put("transfer_app", transfer_app);
@@ -133,7 +135,7 @@ public class TransferAppController {
 			@PathVariable("bankAccountId") int bankAccountId, ModelMap modelMap) {
 		TransferApplication transferApplication = this.transferAppService.findTransferAppById(transferappsId);
 		this.transferAppService.refuseApp(transferApplication);
-		
+
 		return "redirect:/transferapps";
 	}
 }

@@ -8,7 +8,7 @@ import org.assertj.core.api.AbstractAssert;
 
 public class ViolationAssertions extends AbstractAssert<ViolationAssertions, ConstraintViolation<?>> {
 
-	public static final String mess = "Expected character's name to be <%s> but was <%s>";
+	private String message = "Expected character's name to be <%s> but was <%s>";
 	
 	public ViolationAssertions(ConstraintViolation<?> actual) {
 	    super(actual, ViolationAssertions.class);
@@ -22,7 +22,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must not be null")) {
-	      failWithMessage(mess, "must not be null", actual.getMessage());
+	      failWithMessage(message, "must not be null", actual.getMessage());
 	    }
 
 	    return this;
@@ -32,7 +32,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must not be blank")) {
-	      failWithMessage(mess, "must not be blank", actual.getMessage());
+	      failWithMessage(message, "must not be blank", actual.getMessage());
 	    }
 
 	    return this;
@@ -42,7 +42,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must not be empty")) {
-	      failWithMessage(mess, "must not be empty", actual.getMessage());
+	      failWithMessage(message, "must not be empty", actual.getMessage());
 	    }
 
 	    return this;
@@ -52,7 +52,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must be a past date")) {
-	      failWithMessage(mess, "must be a past date", actual.getMessage());
+	      failWithMessage(message, "must be a past date", actual.getMessage());
 	    }
 
 	    return this;
@@ -62,7 +62,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "length must be between 0 and 30")) {
-	      failWithMessage(mess, "length must be between 0 and 30", actual.getMessage());
+	      failWithMessage(message, "length must be between 0 and 30", actual.getMessage());
 	    }
 
 	    return this;
@@ -72,7 +72,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Invalid account number")) {
-	      failWithMessage(mess, "Invalid account number", actual.getMessage());
+	      failWithMessage(message, "Invalid account number", actual.getMessage());
 	    }
 
 	    return this;
@@ -82,7 +82,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Card application status only can be ACCEPTED, REJECTED or PENDING")) {
-	      failWithMessage(mess, "Card application status only can be ACCEPTED, REJECTED or PENDING", actual.getMessage());
+	      failWithMessage(message, "Card application status only can be ACCEPTED, REJECTED or PENDING", actual.getMessage());
 	    }
 
 	    return this;
@@ -92,7 +92,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Transfer application status only can be ACCEPTED, REJECTED or PENDING")) {
-	      failWithMessage(mess, "Transfer application status only can be ACCEPTED, REJECTED or PENDING", actual.getMessage());
+	      failWithMessage(message, "Transfer application status only can be ACCEPTED, REJECTED or PENDING", actual.getMessage());
 	    }
 
 	    return this;
@@ -102,7 +102,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Loan application status only can be ACCEPTED, REJECTED or PENDING")) {
-	      failWithMessage(mess, "Loan application status only can be ACCEPTED, REJECTED or PENDING", actual.getMessage());
+	      failWithMessage(message, "Loan application status only can be ACCEPTED, REJECTED or PENDING", actual.getMessage());
 	    }
 
 	    return this;
@@ -112,7 +112,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "The amount must be greater than € 100, please if you need a smaller amount make an instant transfer")) {
-	      failWithMessage(mess, "The amount must be greater than € 100, please if you need a smaller amount make an instant transfer", actual.getMessage());
+	      failWithMessage(message, "The amount must be greater than € 100, please if you need a smaller amount make an instant transfer", actual.getMessage());
 	    }
 
 	    return this;
@@ -122,7 +122,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "invalid credit card number")) {
-	      failWithMessage(mess, "invalid credit card number", actual.getMessage());
+	      failWithMessage(message, "invalid credit card number", actual.getMessage());
 	    }
 
 	    return this;
@@ -132,7 +132,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Incorrect deadline")) {
-	      failWithMessage(mess, "Incorrect deadline", actual.getMessage());
+	      failWithMessage(message, "Incorrect deadline", actual.getMessage());
 	    }
 
 	    return this;
@@ -142,7 +142,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Incorrect CVV")) {
-	      failWithMessage(mess, "Incorrect CVV", actual.getMessage());
+	      failWithMessage(message, "Incorrect CVV", actual.getMessage());
 	    }
 
 	    return this;
@@ -152,7 +152,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must be greater than or equal to 0")) {
-	      failWithMessage(mess, "must be greater than or equal to 0", actual.getMessage());
+	      failWithMessage(message, "must be greater than or equal to 0", actual.getMessage());
 	    }
 
 	    return this;
@@ -162,7 +162,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "Incorrect refresh date")) {
-	      failWithMessage(mess, "Incorrect refresh date", actual.getMessage());
+	      failWithMessage(message, "Incorrect refresh date", actual.getMessage());
 	    }
 
 	    return this;
@@ -172,7 +172,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must be greater than or equal to 0.01")) {
-	      failWithMessage(mess, "must be greater than or equal to 0.01", actual.getMessage());
+	      failWithMessage(message, "must be greater than or equal to 0.01", actual.getMessage());
 	    }
 
 	    return this;
@@ -182,7 +182,7 @@ public class ViolationAssertions extends AbstractAssert<ViolationAssertions, Con
 	    isNotNull();
 
 	    if (!Objects.equals(actual.getMessage(), "must be less than or equal to 99.99")) {
-	      failWithMessage(mess, "must be less than or equal to 99.99", actual.getMessage());
+	      failWithMessage(message, "must be less than or equal to 99.99", actual.getMessage());
 	    }
 
 	    return this;
