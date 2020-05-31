@@ -46,14 +46,14 @@ public class ClientsMYSQLTest {
 
 	@Test
 	public void testCountClientsByUserName() {
-		Client client = this.service.findClientByUserName("client1");
-		assertThat(client.getFirstName()).isEqualTo("George");
+		Client client = this.service.findClientByUserName("client3");
+		assertThat(client.getFirstName()).isEqualTo("Eduardo");
 	}
 
 	@Test
 	public void testCountBankAccountsFromClient() {
-		Collection<BankAccount> ba = this.service.findBankAccountsByUsername("client1");
-		assertThat(ba.size()).isEqualTo(3);
+		Collection<BankAccount> ba = this.service.findBankAccountsByUsername("client3");
+		assertThat(ba.size()).isEqualTo(1);
 	}
 
 	@Test
