@@ -26,15 +26,15 @@ public class ClientValidator implements Validator {
 		String pass = client.getUser().getPassword();
 		MultipartFile dni = client.getDniFile();
 
-		if (fn.equals(null) || fn.equals("")) {
+		if (fn == null || fn.equals("")) {
 			errors.rejectValue("firstName", "First name must not be empty", "First name must not be empty");
 		}
 
-		if (ln.equals(null) || ln.equals("")) {
+		if (ln == null || ln.equals("")) {
 			errors.rejectValue("lastName", "Last name must not be empty", "Last name must not be empty");
 		}
 
-		if (add.equals(null) || add.equals("")) {
+		if (add == null || add.equals("")) {
 			errors.rejectValue("address", "Address must not be empty", "Address must not be empty");
 		}
 
@@ -42,11 +42,11 @@ public class ClientValidator implements Validator {
 			errors.rejectValue("birthDate", "Birth date must not be null", "Birth date must not be null");
 		}
 
-		if (city.equals(null) || city.equals("")) {
+		if (city == null || city.equals("")) {
 			errors.rejectValue("city", "City must not be empty", "City must not be empty");
 		}
 
-		if (ms.equals(null) || ms.equals("")) {
+		if (ms == null || ms.equals("")) {
 			errors.rejectValue("maritalStatus", "Marital status must not be empty", "Marital status must not be empty");
 		}
 
@@ -58,15 +58,15 @@ public class ClientValidator implements Validator {
 			errors.rejectValue("age", "Age must not be null", "Age must not be null");
 		}
 
-		if (job.equals(null) || job.equals("")) {
+		if (job == null || job.equals("")) {
 			errors.rejectValue("job", "Job must not be empty", "Job must not be empty");
 		}
 
-		if (un.equals(null) || un.equals("")) {
+		if (un == null || un.equals("")) {
 			errors.rejectValue("user.username", "Username must not be empty", "Username must not be empty");
 		}
 
-		if (pass.equals(null) || pass.equals("")) {
+		if (pass == null || pass.equals("")) {
 			errors.rejectValue("user.password", "Password must not be empty", "Password must not be empty");
 		}
 

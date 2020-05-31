@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.acmerico.api.model.foreignExchange.Exchange;
+import org.springframework.samples.acmerico.api.model.exchange.Exchange;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,7 +28,8 @@ public class ExchangeService {
 
 	public Double calcularResultAmount(String initRate, String postRate, Double amount) {
 		String url;
-		if (initRate == null || initRate == "") {
+		String empty = "";
+		if (initRate == null || initRate.equals(empty)) {
 			url = uri + "EUR";
 		} else {
 			url = uri + initRate;
@@ -36,13 +37,12 @@ public class ExchangeService {
 
 		exchange = restTemplate.getForObject(url, Exchange.class);
 
-		Double iRate = 0.;
-		Double pRate = 0.;
+		Double iRate = 1.;
+		Double pRate;
 		Double resultAmount = 0.;
 
 		if (initRate != null && postRate != null) {
 			if (initRate.equals("EUR")) {
-				iRate = 1.;
 				if (postRate.equals("EUR")) {
 					pRate = 1.;
 					resultAmount = amount;
@@ -50,7 +50,7 @@ public class ExchangeService {
 					pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 					resultAmount = amount * pRate;
 				}
-			} else if (initRate != null && postRate != null && amount != null) {
+			} else if (initRate != "" && postRate != "" && amount != null) {
 				iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
 				pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 				resultAmount = (amount * pRate) / iRate;

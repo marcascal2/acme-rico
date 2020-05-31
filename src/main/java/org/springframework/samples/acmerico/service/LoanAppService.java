@@ -2,10 +2,11 @@ package org.springframework.samples.acmerico.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Debt;
@@ -35,13 +36,18 @@ public class LoanAppService {
 	}
 
 	@Transactional
-	public void save(@Valid LoanApplication loanApp) throws DataAccessException {
+	public void save(@Valid LoanApplication loanApp) {
 		this.loanAppRepository.save(loanApp);
 	}
 
 	@Transactional(readOnly = true)
 	public Collection<LoanApplication> findPendingsLoanApps() {
-		return (Collection<LoanApplication>) this.loanAppRepository.findPendings();
+		return this.loanAppRepository.findPendings();
+	}
+
+	@Transactional(readOnly = true)
+	public Collection<LoanApplication> findAcceptedLoanApps() {
+		return this.loanAppRepository.findLoanAppAccepted();
 	}
 
 	public void setAttributes(int bankAccountId, int loanId, LoanApplication loanApp) {
@@ -67,14 +73,18 @@ public class LoanAppService {
 		this.save(loanApp);
 	}
 
-	public Collection<LoanApplication> findLoanAppsByClient(int id) throws DataAccessException {
-		Collection<LoanApplication> l_app = this.loanAppRepository.findAppByClientId(id);
-		return l_app;
+	public Collection<LoanApplication> findLoanAppsByClient(int id) {
+		return this.loanAppRepository.findAppByClientId(id);
 	}
 
 	@Transactional
 	public LoanApplication findLoanAppById(int loanAppId) {
-		return this.loanAppRepository.findById(loanAppId).get();
+		Optional<LoanApplication> result = this.loanAppRepository.findById(loanAppId);
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
 	}
 
 	@Transactional
@@ -94,9 +104,57 @@ public class LoanAppService {
 		this.save(loanApp);
 	}
 
-	public Collection<LoanApplication> findLoanAppsAccepted() throws DataAccessException {
+	public Collection<LoanApplication> findLoanAppsAccepted() {
 		Collection<LoanApplication> l_app = this.loanAppRepository.findLoanAppAccepted();
 		return l_app;
+	}
+	
+	private Boolean accountHasEnoughtMoney(BankAccount account, LoanApplication loanApp) {
+		return account.getAmount() >= loanApp.getAmountToPay();
+	}
+	
+	private Boolean areRemainingDeadlines(LoanApplication loanApp) {
+		return loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines();
+	}
+	
+	private void collectLoanApp(BankAccount account, LoanApplication loanApp) {
+		Double amount = account.getAmount() - loanApp.getAmountToPay();
+		amount = (double) Math.round(amount * 100) / 100;
+		account.setAmount(amount);
+		this.accountService.saveBankAccount(account);
+		Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
+		amountPaid = (double) Math.round(amountPaid * 100) / 100;
+		loanApp.setAmount_paid(amountPaid);
+		loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+		this.save(loanApp);
+	}
+	
+	private void updateDebtAmount(Debt debt, LoanApplication loanApp) {
+		debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
+		debt.setRefreshDate(this.refreshDate());
+		loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+		this.save(loanApp);
+		this.debtService.save(debt);
+	}
+	
+	private void registerNewDebt(LoanApplication loanApp) {
+		Debt newDebt = new Debt();
+		newDebt.setAmount(loanApp.getAmountToPay());
+		newDebt.setClient(loanApp.getClient());
+		newDebt.setLoanApplication(loanApp);
+		newDebt.setRefreshDate(this.refreshDate());
+		loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
+		this.save(loanApp);
+		this.debtService.save(newDebt);
+	}
+	
+	private void manageDebt(LoanApplication loanApp) {
+		Debt debt = this.debtService.getClientDebt(loanApp.getClient());
+		if (debt != null) {
+			updateDebtAmount(debt, loanApp);
+		} else {
+			registerNewDebt(loanApp);
+		}
 	}
 
 	@Transactional
@@ -104,37 +162,13 @@ public class LoanAppService {
 		for (LoanApplication loanApp : loanApps) {
 			if (!loanApp.isPaid()) {
 				BankAccount account = loanApp.getBankAccount();
-				if (account.getAmount() >= loanApp.getAmountToPay()) {
-					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
-						Double amount = account.getAmount() - loanApp.getAmountToPay();
-						amount = (double) Math.round(amount*100)/100;
-						account.setAmount(amount);
-						this.accountService.saveBankAccount(account);
-						Double amountPaid = loanApp.getAmount_paid() + loanApp.getAmountToPay();
-						amountPaid = (double) Math.round(amountPaid*100)/100;
-						loanApp.setAmount_paid(amountPaid);
-						loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
-						this.save(loanApp);
+				if (accountHasEnoughtMoney(account, loanApp)) {
+					if (areRemainingDeadlines(loanApp)) {
+						collectLoanApp(account, loanApp);
 					}
 				} else {
-					if(loanApp.getPayedDeadlines() < loanApp.getLoan().getNumber_of_deadlines()) {
-						Debt debt = this.debtService.getClientDebt(loanApp.getClient());
-						if(debt != null) {
-							debt.setAmount(loanApp.getAmountToPay() + debt.getAmount());
-							debt.setRefreshDate(this.refreshDate());
-							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
-							this.save(loanApp);
-							this.debtService.save(debt);
-						} else {
-							Debt newDebt = new Debt();
-							newDebt.setAmount(loanApp.getAmountToPay());
-							newDebt.setClient(loanApp.getClient());
-							newDebt.setLoanApplication(loanApp);
-							newDebt.setRefreshDate(this.refreshDate());
-							loanApp.setPayedDeadlines(loanApp.getPayedDeadlines() + 1);
-							this.save(loanApp);
-							this.debtService.save(newDebt);
-						}
+					if (areRemainingDeadlines(loanApp)) {
+						manageDebt(loanApp);
 					}
 				}
 			}

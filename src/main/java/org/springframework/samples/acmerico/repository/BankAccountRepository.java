@@ -11,14 +11,13 @@ import org.springframework.samples.acmerico.model.Client;
 
 public interface BankAccountRepository extends CrudRepository<BankAccount, Integer> {
 	
-	BankAccount findById(int id) throws DataAccessException;
+	BankAccount findById(int id);
 	
 	Collection<BankAccount> findByClient(Client client);
 
-	Collection<BankAccount> findByAccountNumber(String accountNumber) throws DataAccessException;
+	Collection<BankAccount> findByAccountNumber(String accountNumber);
 
 	@Query("SELECT account FROM BankAccount account WHERE account.accountNumber =:account_number_destination")
-	BankAccount findByAccounNumber(@Param("account_number_destination") String account_number_destination)
-	throws DataAccessException;
+	BankAccount findByAccounNumber(@Param("account_number_destination") String accountNumberDestination);
 
 }

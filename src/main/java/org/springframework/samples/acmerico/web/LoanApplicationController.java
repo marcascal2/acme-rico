@@ -45,7 +45,9 @@ public class LoanApplicationController {
 	@GetMapping(value = "/loanapps")
 	public String listLoanApp(ModelMap modelMap) {
 		Collection<LoanApplication> loanApps = this.loanAppService.findPendingsLoanApps();
+		Collection<LoanApplication> loanAppsAccepted = this.loanAppService.findAcceptedLoanApps();
 		modelMap.addAttribute("loanApps", loanApps);
+		modelMap.addAttribute("loanAppsAccepted", loanAppsAccepted);
 		return "loanApp/loanAppList";
 	}
 
@@ -77,7 +79,7 @@ public class LoanApplicationController {
 		Loan loan = this.loanService.findLoanById(loanId);
 		Client client = account.getClient();
 
-		if (loanApp.getPurpose() == "" || loanApp.getPurpose().equals(null)) {
+		if (loanApp.getPurpose().isEmpty() || loanApp.getPurpose()==null) {
 			result.rejectValue("purpose", "This purpuse can´t be empty", "This purpose can´t be empty");
 
 		}

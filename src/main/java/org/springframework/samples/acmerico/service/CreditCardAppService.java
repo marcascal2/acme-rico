@@ -2,6 +2,7 @@ package org.springframework.samples.acmerico.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
@@ -16,13 +17,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreditCardAppService {
-	
+
 	private CreditCardAppRepository creditCardAppRepository;
-	
+
 	private CreditCardRepository creditCardRepository;
 
 	@Autowired
-	public CreditCardAppService(CreditCardAppRepository creditCardAppRepository, CreditCardRepository creditCardRepository) {
+	public CreditCardAppService(CreditCardAppRepository creditCardAppRepository,
+			CreditCardRepository creditCardRepository) {
 		this.creditCardAppRepository = creditCardAppRepository;
 		this.creditCardRepository = creditCardRepository;
 	}
@@ -31,27 +33,32 @@ public class CreditCardAppService {
 	public Collection<CreditCardApplication> findCreditCardApps() {
 		return (Collection<CreditCardApplication>) this.creditCardAppRepository.findAll();
 	}
-	
+
 	@Transactional
 	public CreditCardApplication findCreditCardAppById(int creditCardAppId) {
-		return this.creditCardAppRepository.findById(creditCardAppId).get();
+		Optional<CreditCardApplication> result = this.creditCardAppRepository.findById(creditCardAppId);
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
 	}
-	
+
 	@Transactional()
 	public Collection<CreditCardApplication> findCreditCardAppByClientId(int id){
 		return this.creditCardAppRepository.findAppByClientId(id);
 	}	
   
-  	@Transactional
+  @Transactional
 	public void save(@Valid CreditCardApplication creditCardApp) {
-		Collection<CreditCardApplication> applications = creditCardAppRepository.findAppByClientId(creditCardApp.getClient().getId())
-		.stream().filter(x -> x.getStatus().equals("PENDING")).collect(Collectors.toSet());
-		if(applications.size() >= 3) {
+		Collection<CreditCardApplication> applications = creditCardAppRepository
+				.findAppByClientId(creditCardApp.getClient().getId()).stream()
+				.filter(x -> x.getStatus().equals("PENDING")).collect(Collectors.toSet());
+		if (applications.size() >= 3) {
 			return;
 		}
 		this.creditCardAppRepository.save(creditCardApp);
-	}
-  	
+	}  	
   	@Transactional
 	public void saveCreditCard(@Valid CreditCard creditCard){
 		this.creditCardRepository.save(creditCard);
@@ -91,18 +98,18 @@ public class CreditCardAppService {
   		creditCard.setDeadline(deadLine);
   		creditCard.setCvv(cvv);
   		creditCard.setBankAccount(creditCardApp.getBankAccount());
-		creditCard.setClient(creditCardApp.getClient());
-		creditCard.setCreditCardApplication(creditCardApp);
-		
-  		this.saveCreditCard(creditCard);
+		  creditCard.setClient(creditCardApp.getClient());
+		  creditCard.setCreditCardApplication(creditCardApp);
 
-  		creditCardApp.setStatus("ACCEPTED");
-		this.save(creditCardApp);
+		  this.saveCreditCard(creditCard);
+
+		  creditCardApp.setStatus("ACCEPTED");
+		  this.save(creditCardApp);
 	}
 
   	@Transactional
   	@CacheEvict(cacheNames = "myCreditCards", allEntries = true)
-	public void refuseApp(CreditCardApplication creditCardApp) {
+	  public void refuseApp(CreditCardApplication creditCardApp) {
 		creditCardApp.setStatus("REJECTED");
 		this.save(creditCardApp);
 	}

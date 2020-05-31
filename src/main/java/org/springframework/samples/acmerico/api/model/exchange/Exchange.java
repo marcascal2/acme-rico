@@ -1,4 +1,4 @@
-package org.springframework.samples.acmerico.api.model.foreignExchange;
+package org.springframework.samples.acmerico.api.model.exchange;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ public class Exchange {
     @JsonProperty("date")
     private String date;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     @JsonProperty("rates")
     public Rates getRates() {

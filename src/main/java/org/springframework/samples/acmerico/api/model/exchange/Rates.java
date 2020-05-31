@@ -1,5 +1,5 @@
 
-package org.springframework.samples.acmerico.api.model.foreignExchange;
+package org.springframework.samples.acmerico.api.model.exchange;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Rates {
 
 	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	private Map<String, Object> additionalProperties = new HashMap<>();
 
 	@JsonAnyGetter
 	public Map<String, Object> getAdditionalProperties() {
