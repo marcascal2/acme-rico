@@ -6,6 +6,8 @@ import org.springframework.validation.Validator;
 
 public class ExchangeRateValidator implements Validator{
 
+	private static final String notBlank = "Can not be blank";
+	
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Container c = (Container) obj;
@@ -14,12 +16,12 @@ public class ExchangeRateValidator implements Validator{
 		String pRate = c.getPostRate();
 		Double amount = c.getAmount();
 		
-		if(iRate == null || iRate == "") {
-			errors.rejectValue("initRate", "Can not be blank", "Can not be blank");
+		if(iRate == null || iRate.equals("")) {
+			errors.rejectValue("initRate", notBlank, notBlank);
 		}
 		
-		if(pRate == null || pRate == "") {
-			errors.rejectValue("postRate", "Can not be blank", "Can not be blank");
+		if(pRate == null || pRate.equals("")) {
+			errors.rejectValue("postRate", notBlank, notBlank);
 		}
 
 		if(amount == null || amount < 0.){

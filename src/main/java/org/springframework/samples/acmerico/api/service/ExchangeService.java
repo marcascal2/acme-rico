@@ -50,7 +50,7 @@ public class ExchangeService {
 					pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 					resultAmount = amount * pRate;
 				}
-			} else if (initRate != "" && postRate != "" && amount != null) {
+			} else if (!initRate.equals("") && !postRate.equals("") && amount != null) {
 				iRate = (Double) exchange.getRates().getAdditionalProperties().get(initRate);
 				pRate = (Double) exchange.getRates().getAdditionalProperties().get(postRate);
 				resultAmount = (amount * pRate) / iRate;

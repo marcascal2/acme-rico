@@ -53,13 +53,6 @@ public class BankAccountControllerIntegrationTest {
 
 	@WithMockUser(username = "client1", authorities = { "client" })
 	@Test
-	void testDeleteSuccess() throws Exception {
-		mockMvc.perform(get("/accounts/{accountId}/delete", TEST_BANK_ACCOUNT_ID))
-				.andExpect(view().name("redirect:/accounts/")).andExpect(status().is3xxRedirection());
-	}
-
-	@WithMockUser(username = "client1", authorities = { "client" })
-	@Test
 	void testShowClientById() throws Exception {
 		mockMvc.perform(get("/accounts/{accountId}", TEST_BANK_ACCOUNT_ID))
 				.andExpect(model().attributeExists("bankAccount"))

@@ -23,7 +23,7 @@ public class AcceptAndRejectTransferAppUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-//		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
+		System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
@@ -112,7 +112,8 @@ public class AcceptAndRejectTransferAppUITest {
 		driver.findElement(By.id("transfer-apps")).click();
 		driver.findElement(By.linkText("20")).click();
 		driver.findElement(By.xpath("//form[2]/button")).click();
-		driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).click();
+		assertEquals("REJECTED",
+				driver.findElement(By.xpath("//table[@id='transfersAppTable']/tbody/tr[20]/td[3]")).getText());
 		driver.quit();
 	}
 	

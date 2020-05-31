@@ -35,7 +35,6 @@ public class LoanAppService {
 		this.loanAppRepository = loanAppRepository;
 	}
 
-	@Transactional
 	public void save(@Valid LoanApplication loanApp) {
 		this.loanAppRepository.save(loanApp);
 	}

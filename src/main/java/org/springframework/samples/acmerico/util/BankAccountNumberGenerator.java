@@ -3,10 +3,11 @@ package org.springframework.samples.acmerico.util;
 import java.util.Random;
 
 public class BankAccountNumberGenerator {
+	
+	private final Random value = new Random();
 
     public String generateRandomNumber() {
         String accountNumber = "ES";
-        Random value = new Random();
 
         int r1 = value.nextInt(10);
         int r2 = value.nextInt(10);

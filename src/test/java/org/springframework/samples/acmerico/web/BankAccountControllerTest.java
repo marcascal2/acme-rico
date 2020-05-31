@@ -152,7 +152,6 @@ public class BankAccountControllerTest {
     // Show test
     @WithMockUser(value = "spring")
     @Test
-
     void testShowClientById() throws Exception {
 
         final LocalDateTime creationDate = LocalDateTime.of(2019, 11, 23, 12, 12, 12);
@@ -169,23 +168,9 @@ public class BankAccountControllerTest {
 
     }
 
-    // Test delete
-    @WithMockUser(value = "spring")
-    @Test
-    void testDeleteSuccess() throws Exception {
-
-        mockMvc.perform(get("/accounts/{accountId}/delete", TEST_BANK_ACCOUNT_ID))
-                .andExpect(view().name("redirect:/accounts/")).andExpect(status().is3xxRedirection());
-
-        verify(bankAccountService).findBankAccountById(TEST_BANK_ACCOUNT_ID);
-        verify(bankAccountService).deleteAccount(account);
-
-    }
-
     // Test deposito money
     @WithMockUser(value = "spring")
     @Test
-
     void testInitDeposit() throws Exception {
 
         mockMvc.perform(get("/accounts/{accountId}/depositMoney", TEST_BANK_ACCOUNT_ID))
@@ -200,7 +185,6 @@ public class BankAccountControllerTest {
 
     @WithMockUser(value = "spring")
     @Test
-
     void testMakeDepositSuccess() throws Exception {
         mockMvc.perform(post("/accounts/{accountId}/depositMoney", TEST_BANK_ACCOUNT_ID)
         .with(csrf())
