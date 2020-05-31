@@ -32,6 +32,7 @@ public class ClientService {
 		return clientRepository.findById(id);
 	}
 	
+	@Transactional(readOnly = true)
 	public Client findClientByUserName(String name) throws DataAccessException {
 		return clientRepository.findByUserName(name);
 	}
@@ -51,6 +52,7 @@ public class ClientService {
 		authoritiesService.saveAuthorities(client.getUser().getUsername(), "client");
 	}
 
+	@Transactional(readOnly = true)
 	public Collection<BankAccount> findBankAccountsByUsername(String username) {
 		Client client = findClientByUserName(username);
 		return client.getBankAccounts();
