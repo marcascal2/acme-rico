@@ -81,13 +81,6 @@ public class BankAccountsHSQLTest {
 	}
 
 	@Test
-	public void testDeleteBankAccount() {
-		this.accountService.deleteAccount(bankAccount);
-		Collection<BankAccount> accounts = this.accountService.findBankAccounts();
-		assertThat(accounts.size()).isEqualTo(10);
-	}
-
-	@Test
 	public void testFindBankAccountByNumber() {
 		BankAccount b = this.accountService.findBankAccountByNumber(bankAccount.getAccountNumber());
 		assertThat(b).isEqualTo(bankAccount);

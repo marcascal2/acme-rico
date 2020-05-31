@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -62,21 +61,6 @@ public class BankAccountsMYSQLTest {
 		bankAccount.setCreatedAt(LocalDateTime.of(2020, 2, 1, 17, 30));
 		bankAccount.setClient(client);
 		this.accountService.saveBankAccount(bankAccount);
-		Collection<BankAccount> accounts = this.accountService.findBankAccounts();
-		assertThat(accounts.size()).isEqualTo(11);
-	}
-
-	@Disabled
-	@Test
-	public void testDeleteBankAccount() {
-		Client client = this.clientService.findClientById(1);
-		BankAccount newBankAccount = new BankAccount();
-		newBankAccount.setAccountNumber("ES23 2323 2323 2323 1111");
-		newBankAccount.setAmount(0.);
-		newBankAccount.setClient(client);
-		newBankAccount.setCreatedAt(LocalDateTime.now());
-		this.accountService.saveBankAccount(newBankAccount);
-		this.accountService.deleteAccount(newBankAccount);
 		Collection<BankAccount> accounts = this.accountService.findBankAccounts();
 		assertThat(accounts.size()).isEqualTo(11);
 	}

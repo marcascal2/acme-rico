@@ -47,11 +47,6 @@ public class BankAccountService {
 	public void deleteAccount(BankAccount bankAccount) {
 		bankAccountRepository.delete(bankAccount);
 	}
-	
-	@Transactional
-	public void deleteAccountById(int id) {
-		bankAccountRepository.deleteById(id);
-	}
 
 	@Transactional
 	public BankAccount findBankAccountByNumber(String accountNumberDestination) {

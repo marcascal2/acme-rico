@@ -35,12 +35,5 @@
 		</spring:url>
 		<a id="deposit-money" href="${fn:escapeXml(depositUrl)}" class="btn btn-default"
 			type="submit">Deposit money</a>
-		<c:if test="${noMoney}">
-			<spring:url value="{accountId}/delete" var="deleteUrl">
-				<spring:param name="accountId" value="${bankAccount.id}" />
-			</spring:url>
-			<a id="delete-account" href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete
-				Account</a>
-		</c:if>
 	</div>
 </petclinic:layout>
