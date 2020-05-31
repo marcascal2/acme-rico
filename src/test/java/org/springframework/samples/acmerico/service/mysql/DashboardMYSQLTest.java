@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -39,7 +38,6 @@ public class DashboardMYSQLTest {
 		assertEquals(result.keySet().size(), 3);
 	}
 
-	@Disabled
 	@Test
 	public void testMoneyDebtPie() throws Exception {
 		Map<String, Double> result = dashboardService.moneyDebtPie(TEST_CLIENT_USERNAME);
