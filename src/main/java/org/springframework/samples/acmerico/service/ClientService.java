@@ -32,7 +32,6 @@ public class ClientService {
 		return clientRepository.findById(id);
 	}
 	
-	@Transactional(readOnly = true)
 	public Client findClientByUserName(String name) throws DataAccessException {
 		return clientRepository.findByUserName(name);
 	}

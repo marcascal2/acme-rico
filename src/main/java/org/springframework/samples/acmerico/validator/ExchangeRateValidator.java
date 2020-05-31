@@ -14,11 +14,11 @@ public class ExchangeRateValidator implements Validator{
 		String pRate = c.getPostRate();
 		Double amount = c.getAmount();
 		
-		if(iRate == null || iRate == "") {
+		if(iRate == null || iRate.equals("")) {
 			errors.rejectValue("initRate", "Can not be blank", "Can not be blank");
 		}
 		
-		if(pRate == null || pRate == "") {
+		if(pRate == null || pRate.equals("")) {
 			errors.rejectValue("postRate", "Can not be blank", "Can not be blank");
 		}
 
