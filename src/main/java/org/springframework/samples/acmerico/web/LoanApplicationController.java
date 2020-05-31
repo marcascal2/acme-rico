@@ -32,6 +32,8 @@ public class LoanApplicationController {
 	private BankAccountService accountService;
 
 	private LoanService loanService;
+	
+	private String loanapps = "redirect:/loanapps";
 
 	@Autowired
 	public LoanApplicationController(LoanAppService loanAppService, BankAccountService accountService,
@@ -83,25 +85,27 @@ public class LoanApplicationController {
 			result.rejectValue("purpose", "This purpuse can´t be empty", "This purpose can´t be empty");
 
 		}
+		
+		String amount = "amount";
 
 		if (loanApp.getAmount() == null) {
-			result.rejectValue("amount", "Amount can´t be empty", "Amount can´t be empty");
+			result.rejectValue(amount, "Amount can´t be empty", "Amount can´t be empty");
 		}
 
 		if (loanApp.getAmount() != null) {
 			if ((loan.getMinimum_amount() < loanApp.getAmount())) {
-				result.rejectValue("amount", "This amount can´t be higher than loan amount",
+				result.rejectValue(amount, "This amount can´t be higher than loan amount",
 						"This amount can´t be higher than loan amount");
 			}
 
 			if (loanApp.getAmount() < 100.0) {
-				result.rejectValue("amount", "This amount can´t be lower than minimum amount",
+				result.rejectValue(amount, "This amount can´t be lower than minimum amount",
 						"This amount can´t be lower than minimum amount");
 
 			}
 
 			if (loanApp.getAmount() > 1000000.00) {
-				result.rejectValue("amount", "This amount can´t be bigger than minimum amount",
+				result.rejectValue(amount, "This amount can´t be bigger than minimum amount",
 						"This amount can´t be bigger than minimum amount");
 
 			}
@@ -135,7 +139,7 @@ public class LoanApplicationController {
 		LoanApplication loanApplication = this.loanAppService.findLoanAppById(loanappsId);
 		this.loanAppService.acceptLoanApp(loanApplication);
 
-		return "redirect:/loanapps";
+		return loanapps;
 	}
 
 	@GetMapping(value = "/loanapps/{loanappsId}/refuse")
@@ -143,7 +147,7 @@ public class LoanApplicationController {
 		LoanApplication loanApplication = this.loanAppService.findLoanAppById(loanappsId);
 		this.loanAppService.refuseLoanApp(loanApplication);
 
-		return "redirect:/loanapps";
+		return loanapps;
 	}
 	
 	@GetMapping(value = "/loanapps/collect")
@@ -151,7 +155,7 @@ public class LoanApplicationController {
 		Collection<LoanApplication> acceptedLoanAplications = this.loanAppService.findLoanAppsAccepted();
 		this.loanAppService.collectAcceptedLoans(acceptedLoanAplications);
 		
-		return "redirect:/loanapps";
+		return loanapps;
 	}
 
 }

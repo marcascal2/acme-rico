@@ -1,6 +1,5 @@
 package org.springframework.samples.acmerico.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
@@ -12,6 +11,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,7 +101,7 @@ public class ValidatorLoanAppTests {
 
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.isEmpty());
+		Assertions.assertThat(constraintViolations.isEmpty());
 	}
 
 	@ParameterizedTest
@@ -115,9 +115,9 @@ public class ValidatorLoanAppTests {
 
 		ConstraintViolation<LoanApplication> violation = constraintViolations.iterator().next();
 		if (amount < 100.00) {
-			assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 100.00");
+			Assertions.assertThat(violation.getMessage()).isEqualTo("must be greater than or equal to 100.00");
 		} else {
-			assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 1000000.00");
+			Assertions.assertThat(violation.getMessage()).isEqualTo("must be less than or equal to 1000000.00");
 		}
 	}
 
@@ -128,7 +128,7 @@ public class ValidatorLoanAppTests {
 
 		Set<ConstraintViolation<LoanApplication>> constraintViolations = validator.validate(loanApp);
 
-		assertThat(constraintViolations.isEmpty());
+		Assertions.assertThat(constraintViolations.isEmpty());
 	}
 
 	@Test

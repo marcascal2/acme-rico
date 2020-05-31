@@ -1,6 +1,5 @@
 package org.springframework.samples.acmerico.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
 
 import java.time.LocalDate;
@@ -12,6 +11,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,7 +75,7 @@ public class ValidatorInstantTransferTest {
 
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
-		assertThat(constraintViolations.size() == 0);
+		Assertions.assertThat(constraintViolations.size() == 0);
 	}
 
 	@ParameterizedTest
@@ -88,7 +88,7 @@ public class ValidatorInstantTransferTest {
 
 		Set<ConstraintViolation<InstantTransfer>> constraintViolations = validator.validate(instantTransfer);
 
-		assertThat(constraintViolations.size() == 0);
+		Assertions.assertThat(constraintViolations.size() == 0);
 	}
 
 	@ParameterizedTest

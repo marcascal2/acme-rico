@@ -27,6 +27,8 @@ public class LoanController {
 
 	private final BankAccountService accountService;
 
+	private String loanInfo= "loans/loanInfo";
+	
 	@Autowired
 	public LoanController(LoanService loanService, BankAccountService accountService) {
 		this.loanService = loanService;
@@ -61,13 +63,13 @@ public class LoanController {
 	public String initCreationForm(Map<String, Object> model) {
 		Loan loan = new Loan();
 		model.put("loan", loan);
-		return "loans/loanInfo";
+		return loanInfo;
 	}
 
 	@PostMapping(value = "/grantedLoans/new")
 	public String processCreationForm(@Valid Loan loan, BindingResult result) {
 		if (result.hasErrors()) {
-			return "loans/loanInfo";
+			return loanInfo;
 		} else {
 			this.loanService.save(loan);
 			return "redirect:/grantedLoans";
@@ -81,7 +83,7 @@ public class LoanController {
 			List<LoanApplication> acceptedLoanApps = this.loanService.acceptedLoanApps(loan);
 			modelMap.put("loan", loan);
 			modelMap.put("acceptedLoanApps", acceptedLoanApps);
-			return "loans/loanInfo";
+			return loanInfo;
 		} catch (Exception e) {
 			return "redirect:/";
 		}
@@ -96,7 +98,7 @@ public class LoanController {
 		modelMap.put("loan", loan);
 		modelMap.put("bankAccountId", bankAccountId);
 		modelMap.put("clientSingleLoan", clientSingleLoan);
-		return "loans/loanInfo";
+		return loanInfo;
 	}
 
 }

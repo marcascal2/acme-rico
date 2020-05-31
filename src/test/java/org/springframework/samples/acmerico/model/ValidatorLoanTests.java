@@ -1,7 +1,7 @@
 package org.springframework.samples.acmerico.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.samples.acmerico.util.ViolationAssertions.assertThat;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.samples.acmerico.util.ViolationAssertions;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 public class ValidatorLoanTests {
@@ -86,7 +87,7 @@ public class ValidatorLoanTests {
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation).throwsNotBlankMessage();
+		ViolationAssertions.assertThat(violation).throwsNotBlankMessage();
 	}
 
 	@ParameterizedTest
@@ -232,7 +233,7 @@ public class ValidatorLoanTests {
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation).throwsInstantTransferLoanMinimumAmountMessage();
+		ViolationAssertions.assertThat(violation).throwsInstantTransferLoanMinimumAmountMessage();
 	}
 
 	@Test
@@ -244,7 +245,7 @@ public class ValidatorLoanTests {
 		Set<ConstraintViolation<Loan>> constraintViolations = validator.validate(loan);
 
 		ConstraintViolation<Loan> violation = constraintViolations.iterator().next();
-		assertThat(violation).throwsNotNullMessage();
+		ViolationAssertions.assertThat(violation).throwsNotNullMessage();
 	}
 
 }
