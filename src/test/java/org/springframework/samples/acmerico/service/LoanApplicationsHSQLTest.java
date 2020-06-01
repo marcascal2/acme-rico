@@ -21,6 +21,7 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -95,7 +96,7 @@ public class LoanApplicationsHSQLTest {
 
 	@Test
 	public void testCountLoanAppsAfterCreating() {
-		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findPendingsLoanApps();
+		Collection<ClientLoanApp> loanAplocations = this.loanApplicationService.findPendingsLoanApps();
 		assertThat(loanAplocations.size()).isEqualTo(5);
 	}
 

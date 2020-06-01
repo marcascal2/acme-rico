@@ -16,6 +16,7 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.model.User;
+import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.LoanAppService;
@@ -102,6 +103,7 @@ public class LoanAppControllerTest {
 		loanApp.setStatus("PENDING");
 		loanApp.setAmount_paid(0.0);
 		loanApp.setPayedDeadlines(0);
+		
 	}
 
 	@WithMockUser(username = "userPrueba", roles = { "client" })
@@ -118,7 +120,7 @@ public class LoanAppControllerTest {
 	@WithMockUser(username = "userPrueba", roles = { "director", "worker" })
 	@Test
 	void testListEmployeeLoanApp() throws Exception {
-		when(this.loanAppService.findPendingsLoanApps()).thenReturn(Arrays.asList(loanApp));
+		when(this.loanAppService.findAcceptedLoanApps()).thenReturn(Arrays.asList());
 
 		mockMvc.perform(get("/loanapps")).andExpect(status().isOk()).andExpect(model().attributeExists("loanApps"))
 				.andExpect(view().name("loanApp/loanAppList")).andExpect(status().is2xxSuccessful());
