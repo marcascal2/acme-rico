@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
@@ -38,7 +37,7 @@ public class LoanService {
 
 	@Transactional
 	@CacheEvict(cacheNames = "listLoans", allEntries = true)
-	public void save(@Valid Loan loan) throws DataAccessException {
+	public void save(@Valid Loan loan) {
 		this.loanRepository.save(loan);
 	}
 
@@ -58,11 +57,11 @@ public class LoanService {
 				.anyMatch(x -> x.getLoan().getSingle_loan().equals(true)
 						&& (x.getStatus().equals("PENDING") || (x.getStatus().equals("ACCEPTED") && !x.isPaid())));
 
-		if (hasSingleLoan) {
-			return true;
-		} else {
-			return false;
+		Boolean sl = false;
+		if(hasSingleLoan) {
+			sl = true;
 		}
+		return sl;
 	}
 
 	public List<LoanApplication> acceptedLoanApps(Loan loan) {
