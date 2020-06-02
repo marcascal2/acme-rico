@@ -12,6 +12,7 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Debt;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
+import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.samples.acmerico.repository.LoanApplicationRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +41,12 @@ public class LoanAppService {
 	}
 
 	@Transactional(readOnly = true)
-	public Collection<LoanApplication> findPendingsLoanApps() {
+	public Collection<ClientLoanApp> findPendingsLoanApps() {
 		return this.loanAppRepository.findPendings();
 	}
 
 	@Transactional(readOnly = true)
-	public Collection<LoanApplication> findAcceptedLoanApps() {
+	public Collection<ClientLoanApp> findAcceptedLoanApps() {
 		return this.loanAppRepository.findLoanAppAccepted();
 	}
 
@@ -104,8 +105,7 @@ public class LoanAppService {
 	}
 
 	public Collection<LoanApplication> findLoanAppsAccepted() {
-		Collection<LoanApplication> l_app = this.loanAppRepository.findLoanAppAccepted();
-		return l_app;
+		return this.loanAppRepository.findLoanAppsToCollect();
 	}
 	
 	private Boolean accountHasEnoughtMoney(BankAccount account, LoanApplication loanApp) {

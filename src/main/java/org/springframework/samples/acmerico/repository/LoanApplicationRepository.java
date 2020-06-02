@@ -1,21 +1,24 @@
 package org.springframework.samples.acmerico.repository;
 
 import java.util.Collection;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.samples.acmerico.model.LoanApplication;
+import java.util.Optional;
 
-public interface LoanApplicationRepository extends CrudRepository<LoanApplication, Integer> {
+import org.springframework.dao.DataAccessException;
+import org.springframework.samples.acmerico.model.LoanApplication;
+import org.springframework.samples.acmerico.projections.ClientLoanApp;
+
+public interface LoanApplicationRepository {
+	
+	void save(LoanApplication loanApp);
+	
+	Optional<LoanApplication> findById(int id);
 
 	Collection<LoanApplication> findAppByClientId(int id) throws DataAccessException;
 
-	@Query("SELECT loan_application FROM LoanApplication loan_application WHERE loan_application.status = 'ACCEPTED'")
-	Collection<LoanApplication> findLoanAppAccepted() throws DataAccessException;
+	Collection<ClientLoanApp> findLoanAppAccepted() throws DataAccessException;
 	
-	@Query("SELECT loan_application FROM LoanApplication loan_application WHERE loan_application.status = 'PENDING'")
-	Collection<LoanApplication> findPendings() throws DataAccessException;
-
+	Collection<ClientLoanApp> findPendings() throws DataAccessException;
 	
+	Collection <LoanApplication> findLoanAppsToCollect();
 
 }

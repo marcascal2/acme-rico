@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.LoanApplication;
+import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.LoanAppService;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class LoanApplicationsMYSQLTest {
 
 	@Test
 	public void testCountLoanAppsAfterCreating() {
-		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findPendingsLoanApps();
+		Collection<ClientLoanApp> loanAplocations = this.loanApplicationService.findPendingsLoanApps();
 		Assertions.assertThat(loanAplocations.size()).isEqualTo(2);
 	}
 

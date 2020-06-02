@@ -28,13 +28,13 @@
 					<td><spring:url value="/loanapps/{loanAppId}" var="loanAppUrl">
 							<spring:param name="loanAppId" value="${loanApp.id}" />
 						</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"> <c:out
-								value="${loanApp.loan.description}" />
+								value="${loanApp.loanDescription}" />
 					</a></td>
 					<td><c:out value="${loanApp.amount}" /></td>
 					<td><c:out value="${loanApp.purpose}" /></td>
 					<td><c:out value="${loanApp.status}" /></td>
 					<td><c:out value="${loanApp.amount_paid}" /></td>
-					<td><c:out value="${loanApp.loan.number_of_deadlines}" /></td>
+					<td><c:out value="${loanApp.deadlines}" /></td>
 					<td><c:out value="${loanApp.payedDeadlines}" /></td>
 				</tr>
 			</c:forEach>
@@ -61,13 +61,13 @@
 					<td><spring:url value="/loanapps/{loanAppId}" var="loanAppUrl">
 							<spring:param name="loanAppId" value="${loanApp.id}" />
 						</spring:url> <a href="${fn:escapeXml(loanAppUrl)}"> <c:out
-								value="${loanApp.loan.description}" />
+								value="${loanApp.loanDescription}" />
 					</a></td>
 					<td><c:out value="${loanApp.amount}" /></td>
 					<td><c:out value="${loanApp.purpose}" /></td>
 					<td><c:out value="${loanApp.status}" /></td>
 					<td><c:out value="${loanApp.amount_paid}" /></td>
-					<td><c:out value="${loanApp.loan.number_of_deadlines}" /></td>
+					<td><c:out value="${loanApp.deadlines}" /></td>
 					<td><c:out value="${loanApp.payedDeadlines}" /></td>
 				</tr>
 			</c:forEach>

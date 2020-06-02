@@ -9,6 +9,7 @@ import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
+import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.LoanAppService;
@@ -46,8 +47,8 @@ public class LoanApplicationController {
 
 	@GetMapping(value = "/loanapps")
 	public String listLoanApp(ModelMap modelMap) {
-		Collection<LoanApplication> loanApps = this.loanAppService.findPendingsLoanApps();
-		Collection<LoanApplication> loanAppsAccepted = this.loanAppService.findAcceptedLoanApps();
+		Collection<ClientLoanApp> loanApps = this.loanAppService.findPendingsLoanApps();
+		Collection<ClientLoanApp> loanAppsAccepted = this.loanAppService.findAcceptedLoanApps();
 		modelMap.addAttribute("loanApps", loanApps);
 		modelMap.addAttribute("loanAppsAccepted", loanAppsAccepted);
 		return "loanApp/loanAppList";
@@ -154,7 +155,6 @@ public class LoanApplicationController {
 	public String collectAcceptedLoans(ModelMap modelMap) {
 		Collection<LoanApplication> acceptedLoanAplications = this.loanAppService.findLoanAppsAccepted();
 		this.loanAppService.collectAcceptedLoans(acceptedLoanAplications);
-		
 		return loanapps;
 	}
 
