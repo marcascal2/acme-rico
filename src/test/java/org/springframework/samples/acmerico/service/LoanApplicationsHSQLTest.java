@@ -37,8 +37,7 @@ public class LoanApplicationsHSQLTest {
 	private static Loan loan = new Loan();
 	private static LoanApplication loanApplication1 = new LoanApplication();
 	private static LoanApplication loanApplication2 = new LoanApplication();
-	private static LoanApplication loanApplication3 = new LoanApplication();
-
+	
 	@BeforeAll
 	private static void setUp() {
 		user.setUsername("userPrueba");
@@ -112,15 +111,6 @@ public class LoanApplicationsHSQLTest {
 		loanApplication2.setLoan(loan);
 		loanApplication2.setClient(client);
 		loanApplication2.setPayedDeadlines(0);
-		
-		loanApplication3.setId(3);
-		loanApplication3.setAmount(2000.0);
-		loanApplication3.setPurpose("This is a purpose");
-		loanApplication3.setStatus("ACCEPTED");
-		loanApplication3.setAmount_paid(100.0);
-		loanApplication3.setBankAccount(bankAccount2);
-		loanApplication3.setLoan(loan);
-		loanApplication3.setPayedDeadlines(0);
 	}
 
 	@Test
@@ -159,12 +149,7 @@ public class LoanApplicationsHSQLTest {
 
 	@Test
 	public void testCollectAcceptedLoanApp() {
-		Client newClient = client;
-		newClient.setDebts(Arrays.asList());
-		newClient.setLoanApps(Arrays.asList(loanApplication3));
-		loanApplication3.setClient(newClient);
-		
-		this.loanApplicationService.collectAcceptedLoans(Arrays.asList(loanApplication1, loanApplication2, loanApplication3));
+		this.loanApplicationService.collectAcceptedLoans(Arrays.asList(loanApplication1, loanApplication2));
 		assertThat(loanApplication1.getAmount_paid().equals(loanApplication1.getAmountToPay()));
 		assertThat(bankAccount1.getAmount().equals(bankAccount1.getAmount()+loanApplication1.getAmountToPay()));
 	}
