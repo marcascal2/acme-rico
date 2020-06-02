@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -84,7 +83,7 @@ public class Client extends Person {
 	@OneToMany(mappedBy = "client")
 	public Collection<TransferApplication> transferApps;
 	
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "client")
 	@ToString.Exclude
 	public Collection<LoanApplication> loanApps;
 	
