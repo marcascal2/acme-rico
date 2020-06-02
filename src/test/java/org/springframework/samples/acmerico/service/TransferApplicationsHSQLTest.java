@@ -11,7 +11,6 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,9 +22,7 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.TransferApplication;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.DirtiesContext;
 
-@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 public class TransferApplicationsHSQLTest {
@@ -47,7 +44,6 @@ public class TransferApplicationsHSQLTest {
 	TransferApplication transferApp = new TransferApplication();
 
 	@BeforeEach
-	@DirtiesContext
 	private void populateData() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");

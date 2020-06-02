@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,9 +21,7 @@ import org.springframework.samples.acmerico.model.CreditCard;
 import org.springframework.samples.acmerico.model.CreditCardApplication;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.DirtiesContext;
 
-@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 public class CreditCardsHSQLTest {
@@ -48,7 +45,6 @@ public class CreditCardsHSQLTest {
 	CreditCard creditCard = new CreditCard();
 
 	@BeforeEach
-	@DirtiesContext
 	void populateData() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");

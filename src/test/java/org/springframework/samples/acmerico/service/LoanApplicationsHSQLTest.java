@@ -9,7 +9,6 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,9 +22,7 @@ import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.model.User;
 import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.DirtiesContext;
 
-@Disabled
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 public class LoanApplicationsHSQLTest {
@@ -40,7 +37,6 @@ public class LoanApplicationsHSQLTest {
 	private static LoanApplication loanApplication = new LoanApplication();
 
 	@BeforeAll
-	@DirtiesContext
 	private static void setUp() {
 		user.setUsername("userPrueba");
 		user.setPassword("userPrueba");
@@ -97,7 +93,7 @@ public class LoanApplicationsHSQLTest {
 	@Test
 	public void testCountLoanAppsAfterCreating() {
 		Collection<ClientLoanApp> loanAplocations = this.loanApplicationService.findPendingsLoanApps();
-		assertThat(loanAplocations.size()).isEqualTo(5);
+		assertThat(loanAplocations.size()).isEqualTo(2);
 	}
 
 	@Test
