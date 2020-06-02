@@ -84,7 +84,7 @@ public class Client extends Person {
 	@OneToMany(mappedBy = "client")
 	public Collection<TransferApplication> transferApps;
 	
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "client")
 	@ToString.Exclude
 	public Collection<LoanApplication> loanApps;
 	
