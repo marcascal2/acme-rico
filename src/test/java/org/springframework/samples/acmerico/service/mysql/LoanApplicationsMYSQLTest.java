@@ -37,7 +37,7 @@ public class LoanApplicationsMYSQLTest {
 	public void testCountLoanAppsByClient() {
 		Client client = this.clientService.findClientById(1);
 		Collection<LoanApplication> loanAplocations = this.loanApplicationService.findLoanAppsByClient(client.getId());
-		Assertions.assertThat(loanAplocations.size()).isEqualTo(1);
+		Assertions.assertThat(loanAplocations.size()).isEqualTo(2);
 	}
 
 	@Test
@@ -57,7 +57,19 @@ public class LoanApplicationsMYSQLTest {
 	@Test
 	public void testCollectAcceptedLoanApp() {
 		LoanApplication loanApp = this.loanApplicationService.findLoanAppById(1);
-		this.loanApplicationService.collectAcceptedLoans(this.loanApplicationService.findLoanAppsAccepted());
+		Client client = this.clientService.findClientById(1);
+		LoanApplication loanAppNoMoney = new LoanApplication();
+		loanAppNoMoney.setAmount(1000000.0);
+		loanAppNoMoney.setAmount_paid(0.);
+		loanAppNoMoney.setPayedDeadlines(0);
+		loanAppNoMoney.setPurpose("This is a purpose");
+		loanAppNoMoney.setStatus("ACCEPTED");
+		loanAppNoMoney.setLoan(loanApp.getLoan());
+		loanAppNoMoney.setClient(client);
+		loanAppNoMoney.setBankAccount(loanApp.getBankAccount());
+		Collection<LoanApplication> loanApps = this.loanApplicationService.findLoanAppsAccepted();
+		loanApps.add(loanAppNoMoney);
+		this.loanApplicationService.collectAcceptedLoans(loanApps);
 		Assertions.assertThat(loanApp.getAmount_paid().equals(loanApp.getAmountToPay()));
 		Assertions.assertThat(loanApp.getBankAccount().getAmount().equals(loanApp.getBankAccount().getAmount()+loanApp.getAmountToPay()));
 	}
