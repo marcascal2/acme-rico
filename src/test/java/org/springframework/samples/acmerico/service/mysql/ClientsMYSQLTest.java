@@ -45,7 +45,7 @@ public class ClientsMYSQLTest {
 	}
 
 	@Test
-	public void testCountClientsByUserName() {
+  public void testCountClientsByUserName() {
 		Client client = this.service.findClientByUserName("client3");
 		assertThat(client.getFirstName()).isEqualTo("Eduardo");
 	}
