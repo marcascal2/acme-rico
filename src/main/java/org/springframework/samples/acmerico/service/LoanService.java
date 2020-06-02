@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.acmerico.model.BankAccount;
 import org.springframework.samples.acmerico.model.Loan;
@@ -29,11 +31,13 @@ public class LoanService {
 	}
 
 	@Transactional
+	@Cacheable("listLoans")
 	public Collection<Loan> findAllLoans() {
 		return (Collection<Loan>) this.loanRepository.findAll();
 	}
 
 	@Transactional
+	@CacheEvict(cacheNames = "listLoans", allEntries = true)
 	public void save(@Valid Loan loan) throws DataAccessException {
 		this.loanRepository.save(loan);
 	}
