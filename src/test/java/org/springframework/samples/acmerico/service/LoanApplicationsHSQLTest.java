@@ -32,10 +32,12 @@ public class LoanApplicationsHSQLTest {
 
 	private static User user = new User();
 	private static Client client = new Client();
-	private static BankAccount bankAccount = new BankAccount();
+	private static BankAccount bankAccount1 = new BankAccount();
+	private static BankAccount bankAccount2 = new BankAccount();
 	private static Loan loan = new Loan();
-	private static LoanApplication loanApplication = new LoanApplication();
-
+	private static LoanApplication loanApplication1 = new LoanApplication();
+	private static LoanApplication loanApplication2 = new LoanApplication();
+	
 	@BeforeAll
 	private static void setUp() {
 		user.setUsername("userPrueba");
@@ -54,16 +56,26 @@ public class LoanApplicationsHSQLTest {
 		client.setJob("DP2 Developement Student");
 		client.setLastEmployDate(LocalDate.parse("2019-04-15"));
 		client.setUser(user);
-		client.setBankAccounts(Arrays.asList(bankAccount));
-		client.setLoanApps(Arrays.asList(loanApplication));
+		client.setBankAccounts(Arrays.asList(bankAccount1));
+		client.setBankAccounts(Arrays.asList(bankAccount2));
+		client.setLoanApps(Arrays.asList(loanApplication1));
+		client.setLoanApps(Arrays.asList(loanApplication2));
 
-		bankAccount.setId(1);
-		bankAccount.setAccountNumber("ES23 2323 2323 2323 2323");
-		bankAccount.setAmount(10000.0);
-		bankAccount.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
-		bankAccount.setAlias("Viajes");
-		bankAccount.setClient(client);
-		bankAccount.setLoanApps(Arrays.asList(loanApplication));
+		bankAccount1.setId(1);
+		bankAccount1.setAccountNumber("ES23 2323 2323 2323 2323");
+		bankAccount1.setAmount(10000.0);
+		bankAccount1.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
+		bankAccount1.setAlias("Viajes");
+		bankAccount1.setClient(client);
+		bankAccount1.setLoanApps(Arrays.asList(loanApplication1));
+		
+		bankAccount2.setId(1);
+		bankAccount2.setAccountNumber("ES45 4545 4545 4545 4545");
+		bankAccount2.setAmount(100.0);
+		bankAccount2.setCreatedAt(LocalDateTime.parse("2017-10-30T12:30:00"));
+		bankAccount2.setAlias("Viajes");
+		bankAccount2.setClient(client);
+		bankAccount2.setLoanApps(Arrays.asList(loanApplication2));
 
 		loan.setId(1);
 		loan.setDescription("This is a Description");
@@ -73,21 +85,32 @@ public class LoanApplicationsHSQLTest {
 		loan.setOpening_price(100.0);
 		loan.setMonthly_fee(0.02);
 		loan.setSingle_loan(true);
-		loan.setLoanApplications(Arrays.asList(loanApplication));
+		loan.setLoanApplications(Arrays.asList(loanApplication1));
+		loan.setLoanApplications(Arrays.asList(loanApplication2));
 	}
 
 	@BeforeEach
 	private void reset() {
-		loanApplication.setId(1);
-		loanApplication.setAmount(2000.0);
-		loanApplication.setPurpose("This is a purpose");
-		loanApplication.setStatus("PENDING");
-		loanApplication.setAmount_paid(100.0);
-		loanApplication.setBankAccount(bankAccount);
-		loanApplication.setLoan(loan);
-		loanApplication.setClient(client);
-		loanApplication.setPayedDeadlines(0);
-		this.loanApplicationService.save(loanApplication);
+		loanApplication1.setId(1);
+		loanApplication1.setAmount(2000.0);
+		loanApplication1.setPurpose("This is a purpose");
+		loanApplication1.setStatus("PENDING");
+		loanApplication1.setAmount_paid(100.0);
+		loanApplication1.setBankAccount(bankAccount1);
+		loanApplication1.setLoan(loan);
+		loanApplication1.setClient(client);
+		loanApplication1.setPayedDeadlines(0);
+		this.loanApplicationService.save(loanApplication1);
+		
+		loanApplication2.setId(2);
+		loanApplication2.setAmount(2000.0);
+		loanApplication2.setPurpose("This is a purpose");
+		loanApplication2.setStatus("ACCEPTED");
+		loanApplication2.setAmount_paid(100.0);
+		loanApplication2.setBankAccount(bankAccount2);
+		loanApplication2.setLoan(loan);
+		loanApplication2.setClient(client);
+		loanApplication2.setPayedDeadlines(0);
 	}
 
 	@Test
@@ -104,31 +127,31 @@ public class LoanApplicationsHSQLTest {
 
 	@Test
 	public void testSetAttributes() {
-		this.loanApplicationService.setAttributes(bankAccount.getId(), loan.getId(), loanApplication);
-		assertThat(loanApplication.getStatus().equals("PENDING"));
-		assertThat(loanApplication.getAmount_paid().equals(0.0));
-		assertThat(loanApplication.getLoan().equals(loan));
-		assertThat(loanApplication.getBankAccount().equals(bankAccount));
-		assertThat(loanApplication.getClient().equals(client));
+		this.loanApplicationService.setAttributes(bankAccount1.getId(), loan.getId(), loanApplication1);
+		assertThat(loanApplication1.getStatus().equals("PENDING"));
+		assertThat(loanApplication1.getAmount_paid().equals(0.0));
+		assertThat(loanApplication1.getLoan().equals(loan));
+		assertThat(loanApplication1.getBankAccount().equals(bankAccount1));
+		assertThat(loanApplication1.getClient().equals(client));
 	}
 
 	@Test
 	public void testAcceptLoanApplication() {
-		this.loanApplicationService.acceptLoanApp(loanApplication);
-		assertThat(loanApplication.getStatus().equals("ACCEPTED"));
+		this.loanApplicationService.acceptLoanApp(loanApplication1);
+		assertThat(loanApplication1.getStatus().equals("ACCEPTED"));
 	}
 
 	@Test
 	public void testRefuseLoanApplication() {
-		this.loanApplicationService.refuseLoanApp(loanApplication);
-		assertThat(loanApplication.getStatus().equals("REJECTED"));
+		this.loanApplicationService.refuseLoanApp(loanApplication1);
+		assertThat(loanApplication1.getStatus().equals("REJECTED"));
 	}
 
 	@Test
 	public void testCollectAcceptedLoanApp() {
-		this.loanApplicationService.collectAcceptedLoans(this.loanApplicationService.findLoanAppsAccepted());
-		assertThat(loanApplication.getAmount_paid().equals(loanApplication.getAmountToPay()));
-		assertThat(bankAccount.getAmount().equals(bankAccount.getAmount()+loanApplication.getAmountToPay()));
+		this.loanApplicationService.collectAcceptedLoans(Arrays.asList(loanApplication1, loanApplication2));
+		assertThat(loanApplication1.getAmount_paid().equals(loanApplication1.getAmountToPay()));
+		assertThat(bankAccount1.getAmount().equals(bankAccount1.getAmount()+loanApplication1.getAmountToPay()));
 	}
 
 }
