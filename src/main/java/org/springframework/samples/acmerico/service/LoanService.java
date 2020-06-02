@@ -57,11 +57,7 @@ public class LoanService {
 				.anyMatch(x -> x.getLoan().getSingle_loan().equals(true)
 						&& (x.getStatus().equals("PENDING") || (x.getStatus().equals("ACCEPTED") && !x.isPaid())));
 
-		Boolean sl = false;
-		if(hasSingleLoan) {
-			sl = true;
-		}
-		return sl;
+		return hasSingleLoan;
 	}
 
 	public List<LoanApplication> acceptedLoanApps(Loan loan) {
