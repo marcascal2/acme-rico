@@ -16,7 +16,6 @@ import org.springframework.samples.acmerico.model.Client;
 import org.springframework.samples.acmerico.model.Loan;
 import org.springframework.samples.acmerico.model.LoanApplication;
 import org.springframework.samples.acmerico.model.User;
-import org.springframework.samples.acmerico.projections.ClientLoanApp;
 import org.springframework.samples.acmerico.service.BankAccountService;
 import org.springframework.samples.acmerico.service.ClientService;
 import org.springframework.samples.acmerico.service.LoanAppService;

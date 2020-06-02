@@ -74,7 +74,6 @@ public class DebtsTest {
 		loanApplication.setBankAccount(bankAccount);
 		loanApplication.setLoan(loan);
 		loanApplication.setClient(client);
-//		loanApplication.setDebt(debt);
 		
 		loan.setId(1);
 		loan.setDescription("This is a Description");
