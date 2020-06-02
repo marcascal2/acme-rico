@@ -51,7 +51,7 @@ public class DirectorEmployeesUITest {
 	  
 	  @Test
 	  public void testClientHasNotAccessToEmployeeList() throws Exception {
-	    driver.get("http://localhost:8080/");
+	    driver.get("http://localhost:" + port + "/");
 	    driver.findElement(By.id("login-button")).click();
 	    driver.findElement(By.id("username")).clear();
 	    driver.findElement(By.id("username")).sendKeys("client1");
