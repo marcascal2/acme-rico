@@ -58,7 +58,7 @@ public class ClientControllerTest {
 	@MockBean
 	private BindingResult bindingResult;
 
-	private Client javier;
+	private Client client1;
 	private Client client2;
 	private User user;
 	private User user2;
@@ -79,7 +79,7 @@ public class ClientControllerTest {
 		user2.setPassword("client2");
 		user2.setEnabled(true);
 
-		javier = new Client();
+		client1 = new Client();
 		client2 = new Client();
 
 		Collection<Client> collection = new ArrayList<Client>();
@@ -88,18 +88,18 @@ public class ClientControllerTest {
 		final LocalDate bithday = LocalDate.of(1998, 11, 27);
 		final LocalDate lEmpDate = LocalDate.of(2010, 01, 22);
 
-		javier.setId(TEST_CLIENT_ID);
-		javier.setFirstName("Javier");
-		javier.setLastName(TEST_CLIENT_LASTNAME);
-		javier.setAddress("Gordal");
-		javier.setBirthDate(bithday);
-		javier.setCity("Sevilla");
-		javier.setMaritalStatus("married");
-		javier.setSalaryPerYear(300000.);
-		javier.setAge(21);
-		javier.setJob("student");
-		javier.setLastEmployDate(lEmpDate);
-		javier.setUser(user);
+		client1.setId(TEST_CLIENT_ID);
+		client1.setFirstName("Javier");
+		client1.setLastName(TEST_CLIENT_LASTNAME);
+		client1.setAddress("Gordal");
+		client1.setBirthDate(bithday);
+		client1.setCity("Sevilla");
+		client1.setMaritalStatus("married");
+		client1.setSalaryPerYear(300000.);
+		client1.setAge(21);
+		client1.setJob("student");
+		client1.setLastEmployDate(lEmpDate);
+		client1.setUser(user);
 
 		client2.setId(TEST_CLIENT_ID);
 		client2.setFirstName("Juan");
@@ -114,18 +114,17 @@ public class ClientControllerTest {
 		client2.setLastEmployDate(lEmpDate);
 		client2.setUser(user2);
 
-		collection.add(javier);
+		collection.add(client1);
 		collection2.add(client2);
-		collection2.add(javier);
+		collection2.add(client1);
 
-		when(this.clientService.findClientById(TEST_CLIENT_ID)).thenReturn(javier);
-		when(this.clientService.findClientByUserName(TEST_CLIENT_USER)).thenReturn(javier);
+		when(this.clientService.findClientById(TEST_CLIENT_ID)).thenReturn(client1);
+		when(this.clientService.findClientByUserName(TEST_CLIENT_USER)).thenReturn(client1);
 		when(this.clientService.findClientByLastName(TEST_CLIENT_LASTNAME)).thenReturn(collection);
 		when(this.clientService.findClientByLastName(TEST_CLIENT_LASTNAME2)).thenReturn(collection2);
 
 	}
 
-	// Create tests
 	@WithMockUser(value = "spring")
 	@Test
 	void testInitCreationForm() throws Exception {
@@ -142,7 +141,6 @@ public class ClientControllerTest {
 				.param("job", "student").param("lastEmployDate", "2010/01/22")
 				.param("user.username", "Username23").param("user.password", "values").with(csrf()))
 				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/clients/null"));
-
 	}
 
 	@WithMockUser(value = "spring")
@@ -169,9 +167,6 @@ public class ClientControllerTest {
 				.andExpect(view().name("clients/findClients"));
 	}
 
-	////////////////////////////////////////////////////////////////////////
-
-	// List test
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessFindFormWithoutClients() throws Exception {
@@ -190,7 +185,6 @@ public class ClientControllerTest {
 				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/clients/" + TEST_CLIENT_ID));
 
 		verify(clientService).findClientByLastName(TEST_CLIENT_LASTNAME);
-
 	}
 
 	@WithMockUser(value = "spring")
@@ -201,12 +195,8 @@ public class ClientControllerTest {
 				.andExpect(view().name("clients/clientsList"));
 
 		verify(clientService).findClientByLastName(TEST_CLIENT_LASTNAME2);
-
 	}
 
-	////////////////////////////////////////////////////////////////////////
-
-	// Show test
 	@WithMockUser(value = "spring")
 	@Test
 	void testShowClientById() throws Exception {
@@ -221,9 +211,6 @@ public class ClientControllerTest {
 
 	}
 
-	////////////////////////////////////////////////////////////////////////
-
-	// Edit tests
 	@WithMockUser(value = "spring")
 	@Test
 	void initUpdateFormClient() throws Exception {
@@ -282,10 +269,6 @@ public class ClientControllerTest {
 				.andExpect(view().name("clients/createOrUpdateClientForm"));
 	}
 
-	/////////////////////////////////////////////////////////
-
-	// Test show datos personales
-	//Show test
 	@WithMockUser(value = "spring")
 	@Test
 	void testShowPersonalDataByName() throws Exception {
@@ -297,10 +280,8 @@ public class ClientControllerTest {
 				.andExpect(view().name("clients/clientsDetails")).andExpect(status().is2xxSuccessful());
 
 		verify(clientService).findClientByUserName(TEST_CLIENT_USER);
-
 	}
 
-	//Personal Data edit
 	@WithMockUser(value = "spring")
 	@Test
 	void initUpdateFormPersonalDataClient() throws Exception {

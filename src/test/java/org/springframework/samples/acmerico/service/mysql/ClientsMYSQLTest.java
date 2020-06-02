@@ -2,14 +2,10 @@ package org.springframework.samples.acmerico.service.mysql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.EntityManager;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -46,6 +42,18 @@ public class ClientsMYSQLTest {
 	public void testCountClientsByLastName() {
 		Collection<Client> clients = this.service.findClientByLastName("Parker");
 		assertThat(clients.size()).isEqualTo(1);
+	}
+
+	@Test
+  public void testCountClientsByUserName() {
+		Client client = this.service.findClientByUserName("client3");
+		assertThat(client.getFirstName()).isEqualTo("Eduardo");
+	}
+
+	@Test
+	public void testCountBankAccountsFromClient() {
+		Collection<BankAccount> ba = this.service.findBankAccountsByUsername("client3");
+		assertThat(ba.size()).isEqualTo(1);
 	}
 
 	@Test
